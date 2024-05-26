@@ -1,23 +1,23 @@
 ﻿using Application.Interface;
 using Application.Request;
 using Application.Response;
+using Domain;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
     public class AuthService: IAuthService
     {
         private IUnitOfWork _unitOfWork;
-        public AuthService(IUnitOfWork unitOfWork)
+        private AppSettings _appSettings;
+        public AuthService(IUnitOfWork unitOfWork, AppSettings appSettings)
         {
             _unitOfWork = unitOfWork;
+            _appSettings = appSettings;
         }
 
         public async Task<ApiResponse> RegisterAsync(UserRegisterRequest user)
@@ -39,12 +39,61 @@ namespace Application.Services
                 Email = user.Email,
                 FirstName = user.FistName,
                 LastName = user.LastName,
+                Role = Role.Intern,
             };
             await _unitOfWork.UserAccounts.AddAsync(_user);
             await _unitOfWork.SaveChangeAsync();
 
             response.SetOk("Resgister Complete");
             return response;
+        }
+
+        public async Task<ApiResponse> LoginAsync(LoginRequest account)
+        {
+            ApiResponse response = new ApiResponse();
+            var _account = await _unitOfWork.UserAccounts.GetAsync(u => u.UserName == account.UserName);
+            if (_account == null || !VerifyPasswordHash(account.Password, _account.PasswordHash, _account.PasswordSalt))
+            {
+                response.SetBadRequest(message: "Username or password is wrong");
+                return response;
+            }
+
+            response.SetOk(CreateToken(_account));
+            return response;
+        }
+
+        private string CreateToken(UserAccount user)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim("Role", user.Role.ToString()),
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
+                new Claim( "name" , user.UserName),
+                new Claim("UserId", user.Id.ToString()),
+            };
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                 _appSettings!.SecretToken.Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds);
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return computedHash.SequenceEqual(passwordHash);
+            }
         }
 
         public bool CheckUserPassword(UserRegisterRequest user)

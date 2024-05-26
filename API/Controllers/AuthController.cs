@@ -21,5 +21,12 @@ namespace API.Controllers
             var result = await _service.RegisterAsync(user);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginRequest user)
+        {
+            var result = await _service.LoginAsync(user);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
     }
 }

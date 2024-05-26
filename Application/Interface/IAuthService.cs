@@ -10,7 +10,7 @@ namespace Application.Interface
 {
     public interface IAuthService
     {
-        //Task<ApiResponse> LoginAsync(LoginRequest account);
+        Task<ApiResponse> LoginAsync(LoginRequest account);
         Task<ApiResponse> RegisterAsync(UserRegisterRequest user);
     }
 }

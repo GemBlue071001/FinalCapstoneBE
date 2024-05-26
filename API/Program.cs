@@ -1,7 +1,8 @@
-using API;
+using API.Mapper;
 using Application;
 using Application.Interface;
 using Application.Services;
+using Domain;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false,
         };
     });
+
+builder.Services.AddAutoMapper(typeof(MapperConfigurationsProfile).Assembly);
+
 
 builder.Services.AddSingleton(configuration);
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
