@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,18 @@ namespace Infrastructure
         }
 
         public DbSet<UserAccount> Users { get; set; }
+        public DbSet<Candidate> Candidates { get; set; }
+        public DbSet<TrainingProgram> TrainingPrograms { get; set; }
+        public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<CampaignTrainingProgram> CampaignTrainingPrograms { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.ApplyConfiguration(new CandidateConfig());
+            modelBuilder.ApplyConfiguration(new CampaignTrainingProgramConfig());
+        }
+
+
     }
 }

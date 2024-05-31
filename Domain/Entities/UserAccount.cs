@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class UserAccount
+    public class UserAccount : Base
     {
         public int Id { get; set; }
         public string UserName { get; set; }
@@ -17,6 +17,10 @@ namespace Domain.Entities
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         public Role Role { get; set; }
+
+        public int? TrainingProgramId { get; set; }
+
+        public TrainingProgram? TrainingProgram { get; set; }
     }
 
     public enum Role
