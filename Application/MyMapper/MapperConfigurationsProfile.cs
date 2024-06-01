@@ -1,4 +1,5 @@
 ﻿using Application.Request.Campaign;
+using Application.Request.Candidate;
 using Application.Request.TrainingProgram;
 using Application.Response.Campaign;
 using Application.Response.TrainingProgram;
@@ -20,6 +21,9 @@ namespace Application.MyMapper
 
             CreateMap<Campaign, CampaignRequest>().ReverseMap();
             CreateMap<Campaign, CampaignResponse>().ReverseMap();
+
+
+            CreateMap<Candidate, CandidateRequest>().ReverseMap();
 
 
         }

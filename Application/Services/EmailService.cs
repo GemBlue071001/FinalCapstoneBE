@@ -2,6 +2,7 @@
 using MailKit.Net.Smtp;
 using Application.Response;
 using Application.Interface;
+using Application.Request.Email;
 
 namespace Application.Services
 {
@@ -12,16 +13,16 @@ namespace Application.Services
 
         }
 
-        public async Task<ApiResponse> SendMail(string recievedUser, string content)
+        public async Task<ApiResponse> SendMail(EmailRequest request)
         {
             try
             {
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("HighTech", "HighTech@gmail.com"));
-                message.To.Add(new MailboxAddress("", recievedUser));
+                message.To.Add(new MailboxAddress("", request.RecievedUser));
                 message.Subject = "Intern Application";
                 var bodyBuilder = new BodyBuilder();
-                bodyBuilder.HtmlBody = content;
+                bodyBuilder.HtmlBody = request.Content;
                 message.Body = bodyBuilder.ToMessageBody();
                 using (var client = new SmtpClient())
                 {

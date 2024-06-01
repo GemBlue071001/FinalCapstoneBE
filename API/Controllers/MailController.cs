@@ -1,4 +1,5 @@
 ﻿using Application.Interface;
+using Application.Request.Email;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -17,9 +18,9 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendMail (string recievedUser, string content)
+        public async Task<IActionResult> SendMail (EmailRequest request)
         {
-            var result = await _service.SendMail(recievedUser, content);
+            var result = await _service.SendMail(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }
