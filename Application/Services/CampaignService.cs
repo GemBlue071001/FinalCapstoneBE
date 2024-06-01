@@ -57,10 +57,6 @@ namespace Application.Services
                 var listProgramResponse = new List<TrainingProgramResponse>();
                 foreach (var program in campaign.CampaignTrainingPrograms)
                 {
-                    //listProgramResponse.Add(new TrainingProgramResponse
-                    //{
-                    //    Id = program.Id,
-                    //});
                     var programResponse = _mapper.Map<TrainingProgramResponse>(program.TrainingProgram);
                     listProgramResponse.Add(programResponse);
                 }
@@ -72,7 +68,9 @@ namespace Application.Services
                     Name = campaign.Name,
                     Requirements = campaign.Requirements,
                     ScopeOfWork = campaign.ScopeOfWork,
-                    TrainingPrograms = listProgramResponse
+                    TrainingPrograms = listProgramResponse,
+                    ImagePath = campaign.ImagePath,
+                    
                 });
             }
 

@@ -1,4 +1,5 @@
-﻿using Application.Response;
+﻿using Application.Request.Email;
+using Application.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Application.Interface
 {
     public interface IEmailService
     {
-        Task<ApiResponse> SendMail(string recievedUser, string content);
+        Task<ApiResponse> SendMail(EmailRequest request);
     }
 }
