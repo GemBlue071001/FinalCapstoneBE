@@ -10,5 +10,6 @@ namespace Application.Repositories
 {
     public interface ICampaignRepository : IGenericRepository<Campaign>
     {
+        Task<List<Campaign>> GetAllCampaign();
     }
 }

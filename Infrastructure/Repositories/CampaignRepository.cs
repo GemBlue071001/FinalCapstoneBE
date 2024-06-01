@@ -1,10 +1,12 @@
 ﻿using Application.Repositories;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Infrastructure.Repositories
 {
@@ -12,6 +14,15 @@ namespace Infrastructure.Repositories
     {
         public CampaignRepository(AppDbContext context) : base(context)
         {
+        }
+
+        public async Task<List<Campaign>> GetAllCampaign()
+        {
+            IQueryable<Campaign> query = _db;
+            return await query
+                   .Include(x => x.CampaignTrainingPrograms)
+                       .ThenInclude(x => x.TrainingProgram)
+                   .ToListAsync();
         }
     }
 }

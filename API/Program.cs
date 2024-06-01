@@ -6,6 +6,7 @@ using Domain;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -19,7 +20,11 @@ var configuration = builder.Configuration.Get<AppSettings>();
 builder.Services.AddControllers();
 //config api 
 builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseNpgsql(configuration!.ConnectionStrings.DefaultConnection));
+{
+    options.UseNpgsql(configuration!.ConnectionStrings.DefaultConnection);
+    options.ConfigureWarnings(warnings =>
+            warnings.Ignore(CoreEventId.NavigationBaseIncludeIgnored));
+});
 
 builder.Services.AddSwaggerGen
     (
@@ -57,6 +62,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITrainingProgramService, TrainingProgramService>();
+builder.Services.AddScoped<ICampaignService, CampaignService>();
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -67,10 +73,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 //}
-app.UseCors(p=>p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+app.UseCors(p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
