@@ -68,7 +68,9 @@ namespace Application.Services
                     Name = campaign.Name,
                     Requirements = campaign.Requirements,
                     ScopeOfWork = campaign.ScopeOfWork,
-                    TrainingPrograms = listProgramResponse
+                    TrainingPrograms = listProgramResponse,
+                    ImagePath = campaign.ImagePath,
+                    
                 });
             }
 
