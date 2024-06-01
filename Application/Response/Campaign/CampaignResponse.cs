@@ -14,6 +14,7 @@ namespace Application.Response.Campaign
         public string ScopeOfWork { get; set; }
         public string Requirements { get; set; }
         public int Duration { get; set; }
+        public string? ImagePath { get; set; }
 
         public List<TrainingProgramResponse> TrainingPrograms { get; set; }
     }

@@ -16,5 +16,6 @@ namespace Application.Response.TrainingProgram
         public DateTime StartDate { get; set; }
         public int Duration { get; set; }
         public int TotalMember { get; set; }
+        public string? ImagePath { get; set; }
     }
 }

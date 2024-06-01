@@ -13,5 +13,6 @@ namespace Application.Request.Campaign
         public string Requirements { get; set; }
         public int Duration { get; set; }
         public List<int> TrainingProgramIds { get; set; }
+        public string? ImagePath { get; set; }
     }
 }
