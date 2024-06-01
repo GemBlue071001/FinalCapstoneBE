@@ -1,6 +1,6 @@
-using API.Mapper;
 using Application;
 using Application.Interface;
+using Application.MyMapper;
 using Application.Services;
 using Domain;
 using Infrastructure;
@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,7 +54,9 @@ builder.Services.AddAutoMapper(typeof(MapperConfigurationsProfile).Assembly);
 
 builder.Services.AddSingleton(configuration);
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITrainingProgramService, TrainingProgramService>();
 
 
 builder.Services.AddEndpointsApiExplorer();
