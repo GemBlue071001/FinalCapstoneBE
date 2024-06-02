@@ -2,6 +2,7 @@
 using Application.Request.Candidate;
 using Application.Request.TrainingProgram;
 using Application.Response.Campaign;
+using Application.Response.Candidate;
 using Application.Response.TrainingProgram;
 using Application.Response.UserResponse;
 using AutoMapper;
@@ -24,6 +25,7 @@ namespace Application.MyMapper
 
 
             CreateMap<Candidate, CandidateRequest>().ReverseMap();
+            CreateMap<Candidate, CandidateResponse>().ReverseMap();
 
 
         }

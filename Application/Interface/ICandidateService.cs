@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Application.Request.Candidate;
+using Application.Response;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,7 @@ namespace Application.Interface
 {
     public interface ICandidateService
     {
+        Task<ApiResponse> AddCadidate(CandidateRequest request);
+        Task<ApiResponse> GetProgramCadidate(int programId);
     }
 }
