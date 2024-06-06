@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
-    public class CandidateConfig : IEntityTypeConfiguration<Candidate>
+    public class CampaignJobConfig : IEntityTypeConfiguration<CampaignJob>
     {
-        public void Configure(EntityTypeBuilder<Candidate> builder)
+        public void Configure(EntityTypeBuilder<CampaignJob> builder)
         {
-
             builder.HasOne(o => o.Job)
-               .WithMany(o => o.Candidates)
+               .WithMany(o => o.CampaignJobs)
+               .HasForeignKey(o => o.JobId);
+
+            builder.HasOne(o => o.Campaign)
+               .WithMany(o => o.CampaignJobs)
                .HasForeignKey(o => o.JobId);
         }
     }

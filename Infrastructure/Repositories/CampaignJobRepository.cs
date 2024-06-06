@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class CampaignTrainingProgramRepository : GenericRepository<CampaignTrainingProgram>, ICampaignTrainingProgramRepository
+    public class CampaignJobRepository : GenericRepository<CampaignJob>, ICampaignJobRepository
     {
-        public CampaignTrainingProgramRepository(AppDbContext context) : base(context)
+        public CampaignJobRepository(AppDbContext context) : base(context)
         {
         }
     }

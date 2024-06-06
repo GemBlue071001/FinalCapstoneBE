@@ -1,9 +1,9 @@
 ﻿using Application.Request.Campaign;
 using Application.Request.Candidate;
-using Application.Request.TrainingProgram;
+using Application.Request.Job;
 using Application.Response.Campaign;
 using Application.Response.Candidate;
-using Application.Response.TrainingProgram;
+using Application.Response.Job;
 using Application.Response.UserResponse;
 using AutoMapper;
 using Domain.Entities;
@@ -16,9 +16,9 @@ namespace Application.MyMapper
         {
             CreateMap<UserAccount, UserResponse>().ReverseMap();
 
-            CreateMap<TrainingProgram, TrainingProgramRequest>().ReverseMap();
-            CreateMap<TrainingProgram, TrainingProgramResponse>().ReverseMap();
-            CreateMap<TrainingProgramResponse, TrainingProgram>().ReverseMap();
+            CreateMap<Job, JobRequest>().ReverseMap();
+            CreateMap<Job, JobResponse>().ReverseMap();
+            CreateMap<JobResponse, Job>().ReverseMap();
 
             CreateMap<Campaign, CampaignRequest>().ReverseMap();
             CreateMap<Campaign, CampaignResponse>().ReverseMap();

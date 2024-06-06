@@ -1,5 +1,4 @@
 ﻿using Application.Interface;
-using Application.Request.Campaign;
 using Application.Request.Job;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,26 +7,25 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CampaignController : ControllerBase
+    public class JobController : ControllerBase
     {
-        private ICampaignService _service;
-        public CampaignController(ICampaignService service)
+        public IJobService _service;
+        public JobController(IJobService service)
         {
             _service = service;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCampaign(CampaignRequest request)
+        public async Task<IActionResult> AddJob(JobRequest request)
         {
-            var result = await _service.AddCampaign(request);
+            var result = await _service.AddJob(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetAllCampaign()
+        public async Task<IActionResult> GetAllJob()
         {
-            var result = await _service.GetAllCampaign();
+            var result = await _service.GetAllJob();
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }

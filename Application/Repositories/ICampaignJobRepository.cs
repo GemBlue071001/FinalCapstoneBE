@@ -1,6 +1,4 @@
-﻿using Application.Repository;
-using Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Repositories
 {
-    public interface ITrainingProgramRepository : IGenericRepository<TrainingProgram>
+    public interface ICampaignJobRepository
     {
     }
 }

@@ -20,8 +20,8 @@ namespace Infrastructure.Repositories
         {
             IQueryable<Campaign> query = _db;
             return await query
-                   .Include(x => x.CampaignTrainingPrograms)
-                       .ThenInclude(x => x.TrainingProgram)
+                   .Include(x => x.CampaignJobs)
+                       .ThenInclude(x => x.Job)
                    .ToListAsync();
         }
     }

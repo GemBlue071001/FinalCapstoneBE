@@ -16,7 +16,7 @@ namespace Domain.Entities
         public string Education { get; set; } = string.Empty;
         public string CVPath {  get; set; } = string.Empty;
 
-        public TrainingProgram TrainingProgram { get; set; }
-        public int TrainingProgramId { get; set; }
+        public Job Job { get; set; }
+        public int JobId { get; set; }
     }
 }

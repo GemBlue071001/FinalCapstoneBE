@@ -15,9 +15,9 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<UserAccount> builder)
         {
-            builder.HasOne(o => o.TrainingProgram)
+            builder.HasOne(o => o.Job)
                 .WithMany(o => o.Interns)
-                .HasForeignKey(o => o.TrainingProgramId);
+                .HasForeignKey(o => o.JobId);
 
             builder
             .HasIndex(q => q.UserName)

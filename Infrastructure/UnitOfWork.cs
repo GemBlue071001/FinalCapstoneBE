@@ -14,18 +14,18 @@ namespace Infrastructure
     {
         private AppDbContext _context;
         public IUserAccountRepository UserAccounts { get; }
-        public ITrainingProgramRepository TrainingPrograms { get; }
+        public IJobRepository Jobs { get; }
         public ICandidateRepository Candidates { get; }
-        public ICampaignTrainingProgramRepository CampaignTrainingPrograms { get; }
+        public ICampaignJobRepository CampaignJobs { get; }
         public ICampaignRepository Campaigns { get; }
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
             UserAccounts = new UserAccountRepository(context);
-            TrainingPrograms = new TrainingProgramRepository(context);
+            Jobs = new JobRepository(context);
             Candidates = new CandidateRepository(context);
-            CampaignTrainingPrograms = new CampaignTrainingProgramRepository(context);
+            CampaignJobs = new CampaignJobRepository(context);
             Campaigns = new CampaignRepository(context);
         }
 

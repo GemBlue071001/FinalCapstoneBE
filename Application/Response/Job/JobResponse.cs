@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Request.TrainingProgram
+namespace Application.Response.Job
 {
-    public class TrainingProgramRequest
+    public class JobResponse
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string ScopeOfWork { get; set; }
         public string Requirements { get; set; }

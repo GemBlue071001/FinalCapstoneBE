@@ -2,7 +2,7 @@
 using Application.Request.Campaign;
 using Application.Response;
 using Application.Response.Campaign;
-using Application.Response.TrainingProgram;
+using Application.Response.Job;
 using AutoMapper;
 using Domain.Entities;
 
@@ -22,22 +22,22 @@ namespace Application.Services
         public async Task<ApiResponse> AddCampaign(CampaignRequest request)
         {
             var response = new ApiResponse();
-            var trainingPrograms = await _unitOfWork.TrainingPrograms.GetAllAsync(u => request.TrainingProgramIds.Contains(u.Id));
+            var trainingPrograms = await _unitOfWork.Jobs.GetAllAsync(u => request.JobIds.Contains(u.Id));
             var campaign = _mapper.Map<Campaign>(request);
 
             if (trainingPrograms != null|| trainingPrograms.Count>=0)
             {
-                var lisOfTrainingProgram = new List<CampaignTrainingProgram>();
+                var lisOfJob = new List<CampaignJob>();
                 foreach (var program in trainingPrograms)
                 {
-                    lisOfTrainingProgram.Add(new CampaignTrainingProgram
+                    lisOfJob.Add(new CampaignJob
                     {
                         Campaign = campaign,
-                        TrainingProgram = program,
-                        TrainingProgramId = program.Id
+                        Job = program,
+                        JobId = program.Id
                     });
                 }
-                campaign.CampaignTrainingPrograms = lisOfTrainingProgram;
+                campaign.CampaignJobs = lisOfJob;
                 await _unitOfWork.Campaigns.AddAsync(campaign);
                 await _unitOfWork.SaveChangeAsync();
                 return response.SetOk("Create Success !!");
@@ -54,10 +54,10 @@ namespace Application.Services
             var resposeList = new List<CampaignResponse>();
             foreach (var campaign in campaigns)
             {
-                var listProgramResponse = new List<TrainingProgramResponse>();
-                foreach (var program in campaign.CampaignTrainingPrograms)
+                var listProgramResponse = new List<JobResponse>();
+                foreach (var program in campaign.CampaignJobs)
                 {
-                    var programResponse = _mapper.Map<TrainingProgramResponse>(program.TrainingProgram);
+                    var programResponse = _mapper.Map<JobResponse>(program.Job);
                     listProgramResponse.Add(programResponse);
                 }
 
@@ -68,7 +68,7 @@ namespace Application.Services
                     Name = campaign.Name,
                     Requirements = campaign.Requirements,
                     ScopeOfWork = campaign.ScopeOfWork,
-                    TrainingPrograms = listProgramResponse,
+                    Jobs = listProgramResponse,
                     ImagePath = campaign.ImagePath,
                     
                 });

@@ -1,16 +1,16 @@
 ﻿using Application.Response.Campaign;
-using Application.Response.TrainingProgram;
+using Application.Response.Job;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Response.CampaignTrainingProgram
+namespace Application.Response.CampaignJob
 {
-    public class CampaignTrainingProgramResponse
+    public class CampaignJobResponse
     {
-        public TrainingProgramResponse TrainingProgram { get; set; }
+        public JobResponse Job { get; set; }
         //public CampaignResponse Campaign { get; set; }
     }
 }

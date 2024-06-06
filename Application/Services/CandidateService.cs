@@ -25,7 +25,7 @@ namespace Application.Services
         public async Task<ApiResponse> AddCadidate(CandidateRequest request)
         {
             var response = new ApiResponse();
-            var trainingProgram = await _unitOfWork.TrainingPrograms.GetAsync(p => p.Id == request.TrainingProgramId);
+            var trainingProgram = await _unitOfWork.Jobs.GetAsync(p => p.Id == request.JobId);
 
             if (trainingProgram == null)
                 return response.SetBadRequest("Training Program Not Found !!");
@@ -39,7 +39,7 @@ namespace Application.Services
         public async Task<ApiResponse> GetProgramCadidate(int programId)
         {
             var response = new ApiResponse();
-            var candidates = await _unitOfWork.Candidates.GetAllAsync(p => p.TrainingProgramId == programId);
+            var candidates = await _unitOfWork.Candidates.GetAllAsync(p => p.JobId == programId);
 
             var responseList = _mapper.Map<List<CandidateResponse>>(candidates);
 

@@ -11,9 +11,9 @@ namespace Application
     public interface IUnitOfWork
     {
         public IUserAccountRepository UserAccounts { get; }
-        public ITrainingProgramRepository TrainingPrograms { get; }
+        public IJobRepository Jobs { get; }
         public ICandidateRepository Candidates { get; }
-        public ICampaignTrainingProgramRepository CampaignTrainingPrograms { get; }
+        public ICampaignJobRepository CampaignJobs { get; }
         public ICampaignRepository Campaigns { get; }
         public Task SaveChangeAsync();
     }

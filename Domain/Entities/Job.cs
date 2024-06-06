@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class TrainingProgram : Base
+    public class Job : Base
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,7 +18,7 @@ namespace Domain.Entities
         public int TotalMember { get; set; }
         public string? ImagePath { get; set; }
 
-        public List<CampaignTrainingProgram> CampaignTrainingPrograms { get; set; }
+        public List<CampaignJob> CampaignJobs { get; set; }
         public List<UserAccount> Interns { get; set; }
         public List<Candidate> Candidates { get; set; }
 
