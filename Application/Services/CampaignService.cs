@@ -22,28 +22,25 @@ namespace Application.Services
         public async Task<ApiResponse> AddCampaign(CampaignRequest request)
         {
             var response = new ApiResponse();
-            var trainingPrograms = await _unitOfWork.Jobs.GetAllAsync(u => request.JobIds.Contains(u.Id));
+            var jobs = await _unitOfWork.Jobs.GetAllAsync(u => request.JobIds.Contains(u.Id));
+
             var campaign = _mapper.Map<Campaign>(request);
+            var lisOfCampaignJob = new List<CampaignJob>();
 
-            if (trainingPrograms != null|| trainingPrograms.Count>=0)
+            foreach (var job in jobs)
             {
-                var lisOfJob = new List<CampaignJob>();
-                foreach (var program in trainingPrograms)
+                lisOfCampaignJob.Add(new CampaignJob
                 {
-                    lisOfJob.Add(new CampaignJob
-                    {
-                        Campaign = campaign,
-                        Job = program,
-                        JobId = program.Id
-                    });
-                }
-                campaign.CampaignJobs = lisOfJob;
-                await _unitOfWork.Campaigns.AddAsync(campaign);
-                await _unitOfWork.SaveChangeAsync();
-                return response.SetOk("Create Success !!");
+                    JobId = job.Id,
+                    Campaign = campaign
+                });
             }
+            campaign.CampaignJobs = lisOfCampaignJob;
 
-            return response.SetBadRequest("missing data");
+
+            await _unitOfWork.Campaigns.AddAsync(campaign);
+            await _unitOfWork.SaveChangeAsync();
+            return response.SetOk("Create Success !!");
         }
 
         public async Task<ApiResponse> GetAllCampaign()
@@ -70,7 +67,7 @@ namespace Application.Services
                     ScopeOfWork = campaign.ScopeOfWork,
                     Jobs = listProgramResponse,
                     ImagePath = campaign.ImagePath,
-                    
+
                 });
             }
 

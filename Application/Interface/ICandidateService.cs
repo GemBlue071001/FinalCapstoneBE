@@ -11,6 +11,6 @@ namespace Application.Interface
     public interface ICandidateService
     {
         Task<ApiResponse> AddCadidate(CandidateRequest request);
-        Task<ApiResponse> GetProgramCadidate(int programId);
+        Task<ApiResponse> GetProgramCadidate(int campaignId, int jobId);
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 
@@ -55,6 +56,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAutoMapper(typeof(MapperConfigurationsProfile).Assembly);
+builder.Services.AddSignalR();
 
 
 builder.Services.AddSingleton(configuration);
@@ -78,11 +80,13 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 //}
-app.UseCors(p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+app.UseCors(p => p.WithOrigins(["http://localhost:3000"]).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<SignalrHub>("/communication");
 
 app.Run();

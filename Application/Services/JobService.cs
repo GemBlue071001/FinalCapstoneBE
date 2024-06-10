@@ -30,9 +30,9 @@ namespace Application.Services
         public async Task<ApiResponse> GetAllJob()
         {
             var response = new ApiResponse();
-            var trainingPrograms = await _unitOfWork.Jobs.GetAllAsync(null);
+            var jobs = await _unitOfWork.Jobs.GetAllAsync(null);
 
-            return response.SetOk(trainingPrograms);
+            return response.SetOk(jobs);
         }
     }
 }

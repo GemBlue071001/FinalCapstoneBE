@@ -19,8 +19,8 @@ namespace Domain.Entities
         public string? ImagePath { get; set; }
 
         public List<CampaignJob> CampaignJobs { get; set; }
-        public List<UserAccount> Interns { get; set; }
-        public List<Candidate> Candidates { get; set; }
+        public List<JobTrainingProgram> JobTrainingPrograms { get; set; }
+
 
     }
 }

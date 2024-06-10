@@ -15,5 +15,8 @@ namespace Domain.Entities
        
         public Job Job { get; set; }
         public Campaign Campaign { get; set; }
+
+        public List<UserAccount> Interns { get; set; }
+        public List<Candidate> Candidates { get; set; }
     }
 }

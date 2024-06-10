@@ -24,9 +24,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProgramCandidate(int programId)
+        public async Task<IActionResult> GetProgramCandidate(int campaignId, int jobId)
         {
-            var result = await _service.GetProgramCadidate(programId);
+            var result = await _service.GetProgramCadidate(campaignId,jobId);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }

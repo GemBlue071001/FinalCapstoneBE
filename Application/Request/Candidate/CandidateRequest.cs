@@ -14,6 +14,7 @@ namespace Application.Request.Candidate
         public string PhoneNumber { get; set; } = string.Empty;
         public string Education { get; set; } = string.Empty;
         public string CVPath { get; set; } = string.Empty;
+        public int CampaignId { get; set; }
         public int JobId { get; set; }
     }
 }

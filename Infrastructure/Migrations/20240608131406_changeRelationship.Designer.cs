@@ -3,6 +3,7 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240608131406_changeRelationship")]
+    partial class changeRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,8 +84,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CampaignId");
 
                     b.HasIndex("JobId");
 
@@ -184,57 +185,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Jobs");
                 });
 
-            modelBuilder.Entity("Domain.Entities.JobTrainingProgram", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("JobId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("TrainingProgramId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobId");
-
-                    b.HasIndex("TrainingProgramId");
-
-                    b.ToTable("JobTrainingProgram");
-                });
-
-            modelBuilder.Entity("Domain.Entities.TrainingProgram", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CourseObject")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("OutputObject")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TrainingProgram");
-                });
-
             modelBuilder.Entity("Domain.Entities.UserAccount", b =>
                 {
                     b.Property<int>("Id")
@@ -304,8 +254,8 @@ namespace Infrastructure.Migrations
                             Email = "HRAccount@gmail.com",
                             IsDeleted = false,
                             LastName = "HRAccount",
-                            PasswordHash = new byte[] { 187, 150, 127, 112, 67, 84, 113, 65, 139, 54, 5, 137, 56, 163, 112, 57, 157, 17, 22, 123, 55, 128, 18, 66, 241, 52, 97, 111, 111, 166, 67, 193, 208, 135, 64, 77, 217, 90, 238, 247, 58, 188, 225, 23, 204, 172, 123, 5, 68, 208, 255, 51, 238, 147, 84, 177, 139, 241, 118, 89, 55, 13, 9, 83 },
-                            PasswordSalt = new byte[] { 71, 228, 63, 100, 225, 156, 108, 96, 61, 230, 160, 62, 214, 184, 94, 58, 242, 9, 82, 69, 223, 215, 101, 38, 43, 113, 244, 96, 77, 43, 141, 4, 225, 143, 201, 170, 148, 198, 111, 162, 54, 13, 82, 56, 118, 39, 116, 190, 201, 33, 26, 217, 138, 26, 133, 153, 249, 208, 177, 215, 184, 81, 99, 16, 175, 193, 38, 144, 107, 34, 154, 33, 43, 7, 57, 58, 200, 238, 43, 151, 99, 226, 208, 49, 70, 39, 196, 78, 154, 89, 110, 87, 20, 252, 52, 149, 31, 189, 36, 223, 26, 54, 161, 33, 239, 54, 254, 217, 10, 25, 84, 161, 28, 59, 58, 186, 149, 213, 184, 237, 154, 205, 177, 223, 207, 167, 86, 100 },
+                            PasswordHash = new byte[] { 222, 156, 74, 71, 143, 95, 91, 219, 206, 105, 30, 66, 216, 91, 185, 60, 253, 121, 191, 217, 95, 76, 149, 27, 245, 8, 252, 85, 136, 17, 145, 31, 55, 150, 99, 106, 78, 44, 150, 209, 226, 48, 78, 48, 73, 77, 237, 0, 217, 149, 138, 250, 142, 86, 243, 141, 64, 87, 43, 229, 151, 163, 254, 203 },
+                            PasswordSalt = new byte[] { 77, 18, 106, 34, 96, 153, 65, 191, 15, 169, 61, 216, 100, 132, 225, 182, 43, 190, 153, 208, 56, 19, 16, 120, 46, 104, 202, 166, 21, 24, 166, 30, 170, 66, 34, 143, 160, 87, 211, 73, 180, 239, 18, 63, 182, 209, 199, 155, 69, 196, 33, 83, 170, 182, 183, 4, 182, 193, 18, 53, 207, 193, 25, 155, 180, 184, 33, 85, 82, 183, 145, 97, 115, 195, 194, 196, 195, 197, 217, 3, 121, 181, 184, 118, 180, 173, 232, 89, 193, 43, 25, 114, 205, 181, 179, 218, 114, 180, 42, 21, 151, 15, 141, 70, 214, 33, 6, 97, 247, 91, 157, 111, 184, 88, 248, 71, 67, 1, 0, 62, 145, 87, 41, 131, 41, 25, 134, 118 },
                             Role = 3,
                             UserName = "HRAccount"
                         },
@@ -315,8 +265,8 @@ namespace Infrastructure.Migrations
                             Email = "ICAccountt@gmail.com",
                             IsDeleted = false,
                             LastName = "ICAccount",
-                            PasswordHash = new byte[] { 251, 12, 80, 254, 8, 118, 188, 120, 254, 210, 196, 9, 36, 68, 249, 155, 236, 219, 221, 51, 81, 28, 58, 97, 169, 30, 65, 77, 250, 159, 94, 160, 133, 187, 217, 102, 45, 22, 93, 46, 115, 59, 196, 236, 95, 104, 163, 85, 210, 243, 131, 31, 206, 129, 250, 137, 15, 86, 216, 33, 54, 62, 123, 202 },
-                            PasswordSalt = new byte[] { 216, 108, 73, 175, 62, 70, 178, 245, 121, 62, 12, 246, 60, 15, 183, 223, 67, 4, 102, 81, 131, 37, 98, 7, 62, 51, 5, 40, 91, 211, 242, 27, 250, 211, 114, 12, 31, 105, 5, 226, 79, 95, 90, 52, 154, 45, 221, 108, 204, 79, 168, 88, 151, 68, 0, 35, 19, 184, 169, 155, 42, 62, 136, 123, 189, 4, 197, 93, 252, 175, 13, 183, 82, 31, 87, 204, 134, 213, 167, 86, 213, 187, 33, 68, 32, 50, 203, 90, 194, 58, 192, 232, 48, 89, 22, 235, 38, 77, 19, 159, 250, 76, 57, 49, 156, 84, 169, 213, 119, 157, 38, 252, 228, 93, 67, 75, 36, 9, 224, 231, 215, 34, 7, 135, 55, 230, 2, 175 },
+                            PasswordHash = new byte[] { 126, 155, 11, 65, 123, 28, 173, 171, 125, 110, 250, 45, 192, 57, 164, 8, 178, 178, 68, 34, 253, 59, 190, 21, 76, 211, 94, 186, 213, 248, 110, 29, 250, 86, 16, 37, 77, 17, 244, 157, 79, 155, 44, 235, 231, 1, 166, 150, 193, 165, 207, 38, 133, 140, 168, 185, 223, 163, 125, 97, 196, 83, 202, 71 },
+                            PasswordSalt = new byte[] { 36, 117, 138, 6, 205, 9, 77, 39, 147, 164, 213, 235, 86, 205, 149, 54, 41, 119, 57, 58, 243, 237, 71, 12, 128, 234, 198, 26, 217, 13, 53, 227, 18, 52, 70, 53, 171, 11, 63, 47, 86, 175, 51, 251, 141, 112, 243, 178, 224, 103, 227, 200, 23, 207, 251, 207, 103, 4, 104, 223, 252, 45, 206, 222, 42, 92, 5, 27, 156, 14, 173, 202, 251, 87, 97, 34, 21, 183, 202, 127, 7, 55, 191, 130, 10, 78, 146, 245, 166, 231, 126, 124, 135, 114, 119, 47, 244, 50, 71, 177, 84, 188, 227, 60, 201, 225, 4, 222, 211, 191, 14, 206, 250, 34, 104, 63, 209, 16, 132, 4, 33, 47, 224, 200, 174, 182, 46, 145 },
                             Role = 2,
                             UserName = "ICAccount"
                         },
@@ -326,8 +276,8 @@ namespace Infrastructure.Migrations
                             Email = "mentorAccount@gmail.com",
                             IsDeleted = false,
                             LastName = "mentorAccount",
-                            PasswordHash = new byte[] { 248, 125, 89, 181, 144, 17, 228, 10, 253, 45, 38, 161, 145, 247, 246, 98, 201, 99, 209, 157, 128, 39, 25, 161, 7, 101, 226, 44, 108, 178, 175, 242, 194, 28, 55, 166, 45, 23, 147, 147, 4, 208, 246, 75, 162, 118, 152, 170, 70, 154, 47, 130, 45, 13, 110, 24, 134, 137, 18, 61, 15, 129, 145, 28 },
-                            PasswordSalt = new byte[] { 166, 247, 162, 49, 144, 218, 202, 12, 242, 202, 159, 15, 237, 251, 202, 133, 181, 79, 34, 103, 240, 23, 85, 134, 16, 162, 222, 188, 219, 94, 254, 15, 22, 193, 77, 15, 141, 52, 87, 61, 78, 84, 136, 253, 47, 172, 160, 173, 130, 224, 231, 102, 32, 139, 195, 203, 3, 58, 80, 102, 15, 94, 253, 209, 13, 177, 168, 213, 5, 56, 112, 105, 122, 119, 186, 140, 65, 75, 70, 208, 169, 37, 160, 72, 72, 200, 124, 246, 183, 122, 241, 9, 181, 14, 146, 76, 81, 213, 120, 49, 48, 213, 220, 251, 147, 228, 88, 164, 202, 155, 183, 220, 172, 107, 0, 237, 35, 105, 224, 200, 94, 153, 211, 213, 180, 238, 29, 137 },
+                            PasswordHash = new byte[] { 77, 161, 174, 30, 244, 54, 40, 60, 31, 25, 255, 31, 71, 34, 102, 97, 210, 140, 182, 131, 92, 143, 123, 16, 122, 103, 221, 53, 32, 53, 103, 106, 22, 192, 103, 194, 117, 239, 90, 110, 175, 127, 129, 97, 127, 63, 196, 25, 151, 151, 101, 109, 34, 245, 102, 163, 193, 18, 214, 63, 199, 246, 183, 81 },
+                            PasswordSalt = new byte[] { 200, 78, 173, 88, 30, 166, 158, 68, 60, 45, 30, 252, 86, 36, 119, 105, 197, 219, 96, 7, 46, 143, 52, 151, 121, 80, 186, 108, 166, 35, 110, 192, 205, 180, 9, 158, 198, 211, 19, 109, 231, 150, 54, 115, 102, 37, 234, 134, 152, 41, 84, 51, 19, 230, 243, 225, 194, 203, 46, 3, 220, 224, 65, 47, 167, 220, 254, 243, 102, 101, 182, 151, 106, 194, 55, 2, 143, 249, 168, 97, 185, 57, 235, 251, 222, 20, 175, 143, 250, 28, 206, 209, 81, 213, 234, 14, 141, 75, 176, 199, 245, 242, 29, 41, 144, 42, 120, 229, 175, 31, 220, 131, 21, 207, 241, 175, 186, 103, 3, 104, 41, 146, 118, 18, 38, 142, 162, 22 },
                             Role = 1,
                             UserName = "mentorAccount"
                         },
@@ -337,8 +287,8 @@ namespace Infrastructure.Migrations
                             Email = "InternAccount@gmail.com",
                             IsDeleted = false,
                             LastName = "InternAccount",
-                            PasswordHash = new byte[] { 88, 214, 3, 64, 230, 220, 253, 50, 60, 42, 30, 116, 1, 98, 132, 132, 148, 109, 0, 86, 222, 42, 188, 40, 139, 128, 10, 241, 243, 134, 201, 85, 184, 46, 140, 100, 17, 188, 223, 129, 226, 222, 178, 210, 207, 24, 249, 120, 123, 39, 112, 128, 244, 79, 7, 45, 198, 187, 129, 144, 164, 206, 71, 7 },
-                            PasswordSalt = new byte[] { 175, 91, 247, 61, 224, 148, 49, 54, 188, 210, 36, 233, 207, 138, 88, 206, 121, 191, 84, 165, 255, 67, 245, 91, 132, 189, 98, 161, 18, 111, 232, 54, 174, 125, 122, 127, 10, 108, 233, 19, 138, 18, 240, 113, 156, 222, 112, 244, 43, 152, 128, 89, 242, 243, 94, 198, 158, 238, 28, 87, 28, 65, 177, 179, 154, 236, 123, 121, 159, 74, 236, 239, 250, 114, 40, 211, 75, 166, 199, 10, 14, 153, 214, 97, 169, 95, 14, 185, 234, 76, 37, 114, 66, 198, 175, 80, 126, 193, 165, 244, 86, 254, 180, 89, 133, 144, 198, 212, 83, 19, 165, 74, 36, 89, 131, 253, 19, 6, 12, 18, 237, 115, 243, 73, 237, 188, 41, 41 },
+                            PasswordHash = new byte[] { 14, 177, 4, 153, 188, 243, 149, 85, 208, 232, 67, 128, 137, 33, 101, 197, 230, 215, 103, 236, 59, 223, 149, 152, 196, 168, 106, 192, 71, 254, 83, 166, 212, 147, 86, 241, 47, 1, 27, 239, 71, 148, 79, 139, 46, 172, 105, 242, 99, 72, 152, 175, 48, 208, 136, 57, 182, 213, 209, 16, 18, 235, 67, 154 },
+                            PasswordSalt = new byte[] { 4, 224, 83, 157, 86, 11, 170, 222, 29, 128, 43, 2, 181, 85, 33, 243, 2, 207, 178, 193, 95, 36, 3, 50, 180, 38, 15, 109, 210, 95, 37, 112, 135, 117, 227, 78, 53, 242, 212, 39, 69, 88, 20, 1, 194, 98, 33, 56, 223, 61, 226, 88, 129, 252, 77, 146, 67, 168, 107, 159, 170, 81, 82, 200, 183, 156, 3, 250, 100, 77, 157, 148, 17, 118, 247, 107, 23, 0, 135, 210, 242, 151, 48, 250, 130, 101, 248, 141, 58, 11, 203, 125, 23, 14, 90, 148, 1, 228, 141, 31, 36, 229, 198, 94, 99, 246, 47, 28, 7, 134, 114, 252, 74, 165, 192, 155, 83, 250, 172, 19, 91, 224, 205, 167, 16, 155, 94, 160 },
                             Role = 0,
                             UserName = "InternAccount"
                         });
@@ -348,7 +298,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.Campaign", "Campaign")
                         .WithMany("CampaignJobs")
-                        .HasForeignKey("CampaignId")
+                        .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -370,21 +320,6 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("CampaignJobId");
 
                     b.Navigation("CampaignJob");
-                });
-
-            modelBuilder.Entity("Domain.Entities.JobTrainingProgram", b =>
-                {
-                    b.HasOne("Domain.Entities.Job", "Job")
-                        .WithMany("JobTrainingPrograms")
-                        .HasForeignKey("JobId");
-
-                    b.HasOne("Domain.Entities.TrainingProgram", "TrainingProgram")
-                        .WithMany("JobTrainingPrograms")
-                        .HasForeignKey("TrainingProgramId");
-
-                    b.Navigation("Job");
-
-                    b.Navigation("TrainingProgram");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserAccount", b =>
@@ -411,13 +346,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Job", b =>
                 {
                     b.Navigation("CampaignJobs");
-
-                    b.Navigation("JobTrainingPrograms");
-                });
-
-            modelBuilder.Entity("Domain.Entities.TrainingProgram", b =>
-                {
-                    b.Navigation("JobTrainingPrograms");
                 });
 #pragma warning restore 612, 618
         }

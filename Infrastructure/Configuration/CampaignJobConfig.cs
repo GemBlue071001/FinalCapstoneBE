@@ -19,7 +19,7 @@ namespace Infrastructure.Configuration
 
             builder.HasOne(o => o.Campaign)
                .WithMany(o => o.CampaignJobs)
-               .HasForeignKey(o => o.JobId);
+               .HasForeignKey(o => o.CampaignId);
         }
     }
 }

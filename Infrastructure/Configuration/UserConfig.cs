@@ -15,9 +15,9 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<UserAccount> builder)
         {
-            builder.HasOne(o => o.Job)
+            builder.HasOne(o => o.CampaignJob)
                 .WithMany(o => o.Interns)
-                .HasForeignKey(o => o.JobId);
+                .HasForeignKey(o => o.CampaignJobId);
 
             builder
             .HasIndex(q => q.UserName)

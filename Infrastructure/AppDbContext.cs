@@ -26,6 +26,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new UserConfig());
             modelBuilder.ApplyConfiguration(new CandidateConfig());
             modelBuilder.ApplyConfiguration(new CampaignJobConfig());
+            modelBuilder.ApplyConfiguration(new JobTrainingProgramConfig());
         }
 
 

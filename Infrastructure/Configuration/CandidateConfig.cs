@@ -14,9 +14,9 @@ namespace Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<Candidate> builder)
         {
 
-            builder.HasOne(o => o.Job)
+            builder.HasOne(o => o.CampaignJob)
                .WithMany(o => o.Candidates)
-               .HasForeignKey(o => o.JobId);
+               .HasForeignKey(o => o.CampaignJobId);
         }
     }
 }
