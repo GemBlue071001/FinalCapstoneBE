@@ -19,6 +19,8 @@ namespace Infrastructure
         public ICampaignJobRepository CampaignJobs { get; }
         public ICampaignRepository Campaigns { get; }
 
+        public ITrainingProgramRepository TrainingPrograms { get; }
+
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -27,6 +29,7 @@ namespace Infrastructure
             Candidates = new CandidateRepository(context);
             CampaignJobs = new CampaignJobRepository(context);
             Campaigns = new CampaignRepository(context);
+            TrainingPrograms = new TrainingProgramRepository(context);
         }
 
         public async Task SaveChangeAsync()

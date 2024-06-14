@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class TrainingProgramRepository : GenericRepository<TrainingProgram>, ITrainingProgramRepository
+    public class TrainingProgramRepository : GenericRepository<TrainingProgram>, ITrainingProgramRepository 
     {
         public TrainingProgramRepository(AppDbContext context) : base(context)
         {

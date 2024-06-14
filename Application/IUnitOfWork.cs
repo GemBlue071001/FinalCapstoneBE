@@ -15,6 +15,7 @@ namespace Application
         public ICandidateRepository Candidates { get; }
         public ICampaignJobRepository CampaignJobs { get; }
         public ICampaignRepository Campaigns { get; }
+        public ITrainingProgramRepository TrainingPrograms { get; }
         public Task SaveChangeAsync();
     }
 }
