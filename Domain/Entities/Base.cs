@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Base
+    public abstract class Base
     {
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }

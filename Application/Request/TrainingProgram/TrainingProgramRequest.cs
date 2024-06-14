@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Application.Request.TrainingProgram
 {
-    public class TrainingProgram : Base
+    public class TrainingProgramRequest
     {
-        public int Id { get; set; }
+        
         public string Name { get; set; }
         public int Duration { get; set; }
         public string CourseObject { get; set; }
         public string OutputObject { get; set; }
-
-        public List<JobTrainingProgram> JobTrainingPrograms { get; set; }
+        public List<int> JobIds { get; set; }
     }
 }

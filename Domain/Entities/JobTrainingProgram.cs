@@ -12,6 +12,7 @@ namespace Domain.Entities
         public int? JobId { get; set; }
         public int? TrainingProgramId { get; set; }
 
+        //Navigation Property
         public Job? Job { get; set; }
         public TrainingProgram? TrainingProgram { get; set; }
     }
