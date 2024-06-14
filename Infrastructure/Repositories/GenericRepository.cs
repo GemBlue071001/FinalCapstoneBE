@@ -1,10 +1,12 @@
 ﻿using Application.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Infrastructure.Repositories
 {
@@ -25,6 +27,24 @@ namespace Infrastructure.Repositories
         }
 
         public async Task<int> CountAsync() => await _db.CountAsync();
+        public async Task<List<T>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>>? filter, 
+                                               Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
+        {
+            IQueryable<T> query = _db;
+
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (include != null)
+            {
+                query = include(query);
+            }
+            return await query.ToListAsync();
+        }
+
         public async Task<List<T>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>>? filter)
         {
             if (filter != null)
@@ -40,6 +60,18 @@ namespace Infrastructure.Repositories
             IQueryable<T> query = _db;
             return await query.FirstOrDefaultAsync(filter);
 #nullable restore
+        }
+
+        public async Task<T> GetAsync(System.Linq.Expressions.Expression<Func<T, bool>> filter, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
+        {
+
+            IQueryable<T> query = _db;
+            if (include != null)
+            {
+                query = include(query);
+            }
+            return await query.FirstOrDefaultAsync(filter);
+
         }
 
         public async Task RemoveByIdAsync(object id)
