@@ -1,9 +1,13 @@
 ﻿using Application.Interface;
 using Application.Request.TrainingProgram;
 using Application.Response;
+using Application.Response.Campaign;
+using Application.Response.Job;
+using Application.Response.TrainingProgram;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +52,35 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
 
             return response.SetOk("Create Success !!");
+        }
+        public async Task<ApiResponse> GetAllTrainingProgram()
+        {
+            var response = new ApiResponse();
+            var trainingPrograms = await _unitOfWork.TrainingPrograms.GetAllTrainingProgram();
+
+            var resposeList = new List<TrainingProgramResponse>();
+            foreach (var trainingProgram in trainingPrograms)
+            {
+                var listJobsResponse = new List<JobResponse>();
+                foreach (var program in trainingProgram.JobTrainingPrograms)
+                {
+                    var programResponse = _mapper.Map<JobResponse>(program.Job);
+                    listJobsResponse.Add(programResponse);
+                }
+
+                resposeList.Add(new TrainingProgramResponse
+                {
+                    Id = trainingProgram.Id,
+                    Name = trainingProgram.Name,
+                    Duration = trainingProgram.Duration,
+                    CourseObject = trainingProgram.CourseObject,
+                    OutputObject = trainingProgram.OutputObject,
+                    Jobs = listJobsResponse,                    
+                });
+            }
+
+            return response.SetOk(resposeList);
+
         }
     }
 }

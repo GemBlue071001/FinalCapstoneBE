@@ -22,5 +22,11 @@ namespace API.Controllers
             var result = await _service.AddTrainingProgram(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllTraningProgram()
+        {
+            var result = await _service.GetAllTrainingProgram();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
     }
 }

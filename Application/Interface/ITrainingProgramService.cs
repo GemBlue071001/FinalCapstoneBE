@@ -11,5 +11,6 @@ namespace Application.Interface
     public interface ITrainingProgramService
     {
         Task<ApiResponse> AddTrainingProgram(TrainingProgramRequest request);
+        Task<ApiResponse> GetAllTrainingProgram();
     }
 }

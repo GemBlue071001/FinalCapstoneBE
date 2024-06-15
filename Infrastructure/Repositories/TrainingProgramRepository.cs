@@ -1,5 +1,6 @@
 ﻿using Application.Repositories;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,14 @@ namespace Infrastructure.Repositories
     {
         public TrainingProgramRepository(AppDbContext context) : base(context)
         {
+        }
+        public async Task<List<TrainingProgram>> GetAllTrainingProgram()
+        {
+            IQueryable<TrainingProgram> query = _db;
+            return await query
+                   .Include(x => x.JobTrainingPrograms)
+                       .ThenInclude(x => x.Job)
+                   .ToListAsync();
         }
     }
 }

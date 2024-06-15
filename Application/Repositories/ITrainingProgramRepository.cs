@@ -10,5 +10,6 @@ namespace Application.Repositories
 {
     public interface ITrainingProgramRepository : IGenericRepository<TrainingProgram>
     {
+        Task<List<TrainingProgram>> GetAllTrainingProgram();
     }
 }
