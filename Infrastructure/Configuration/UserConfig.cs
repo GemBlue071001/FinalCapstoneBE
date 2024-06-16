@@ -19,6 +19,10 @@ namespace Infrastructure.Configuration
                 .WithMany(o => o.Interns)
                 .HasForeignKey(o => o.CampaignJobId);
 
+            builder.HasMany(o => o.Tasks)
+                .WithOne(o => o.Owner)
+                .HasForeignKey(o => o.UserId);
+
             builder
             .HasIndex(q => q.UserName)
             .IsUnique();

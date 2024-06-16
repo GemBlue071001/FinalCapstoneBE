@@ -18,8 +18,10 @@ namespace Domain.Entities
         public string? PhoneNumber { get; set; }
         public Role Role { get; set; }
 
+        //Navigation Property
         public CampaignJob? CampaignJob { get; set; }
         public int? CampaignJobId { get; set; }
+        public List<Task> Tasks { get; set; }
     }
 
     public enum Role
