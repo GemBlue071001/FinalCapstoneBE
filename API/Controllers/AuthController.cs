@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -20,6 +21,13 @@ namespace API.Controllers
         {
             var result = await _service.RegisterAsync(user);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("test")]
+        public async Task<IActionResult> Test(UserRegisterRequest user)
+        {
+            return Ok("result");
+            
         }
 
         [HttpPost("login")]
