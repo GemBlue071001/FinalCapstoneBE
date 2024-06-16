@@ -59,7 +59,9 @@ builder.Services.AddAutoMapper(typeof(MapperConfigurationsProfile).Assembly);
 builder.Services.AddSignalR();
 
 
-builder.Services.AddSingleton(configuration);
+builder.Services.AddSingleton(configuration!);
+builder.Services.AddScoped<IClaimsService, ClaimsService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -68,6 +70,7 @@ builder.Services.AddScoped<ICampaignService, CampaignService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ICandidateService, CandidateService>();
 builder.Services.AddScoped<ITrainingProgramService, TrainingProgramService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 builder.Services.AddEndpointsApiExplorer();
