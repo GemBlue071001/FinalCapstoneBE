@@ -1,4 +1,7 @@
-﻿using Application.Response;
+﻿using Application.Interface;
+using Application.Response;
+using Application.Response.UserResponse;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,26 +10,50 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private IUnitOfWork _unitOfWork;
-        public UserService(IUnitOfWork unitOfWork)
+        private IMapper _mapper;
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public ApiResponse GetUserProfileAsync(int id)
+        public async Task<ApiResponse> GetUserProfileAsync(int id)
         {
             ApiResponse response = new ApiResponse();
 
-            var user = _unitOfWork.UserAccounts.GetAsync(u => u.Id == id);
+            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id);
             if (user == null)
                 return response.SetNotFound("User not found");
-            else
+
+            var userReponse = _mapper.Map<UserResponse>(user);
+
+            return response.SetOk(userReponse);
+        }
+
+        public async Task<ApiResponse> GetUsersByUserName(string userName)
+        {
+            ApiResponse response = new ApiResponse();
+            if (userName != null)
             {
+                var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.UserName.Contains(userName));
+                var userReponse = _mapper.Map<List<UserResponse>>(users);
+
+                return response.SetOk(userReponse);
 
             }
-            return null;
+            else
+            {
+                var users = await _unitOfWork.UserAccounts.GetAllAsync(null);
+                var userReponse = _mapper.Map<List<UserResponse>>(users);
+
+                return response.SetOk(userReponse);
+            }
+
+
         }
+
     }
 }

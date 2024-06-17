@@ -20,6 +20,9 @@ namespace Infrastructure
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Campaign> Campaigns { get; set; }
         public DbSet<CampaignJob> CampaignJobs { get; set; }
+        public DbSet<Assessment> Assessments { get; set; }
+        public DbSet<TrainingProgram> TrainingPrograms { get; set; }
+        public DbSet<JobTrainingProgram> JobTrainingPrograms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
