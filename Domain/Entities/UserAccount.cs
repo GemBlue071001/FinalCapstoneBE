@@ -21,7 +21,7 @@ namespace Domain.Entities
         //Navigation Property
         public CampaignJob? CampaignJob { get; set; }
         public int? CampaignJobId { get; set; }
-        public List<Task> Tasks { get; set; }
+        public List<Assessment> Assessments { get; set; }
     }
 
     public enum Role
