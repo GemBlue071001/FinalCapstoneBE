@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Response.UserResponse
+namespace Application.Response.User
 {
     public class UserResponse
     {
