@@ -8,7 +8,7 @@ using Application.Response.Campaign;
 using Application.Response.Candidate;
 using Application.Response.Job;
 using Application.Response.TrainingProgram;
-using Application.Response.UserResponse;
+using Application.Response.User;
 using AutoMapper;
 using Domain.Entities;
 

@@ -1,6 +1,6 @@
 ﻿using Application.Interface;
 using Application.Response;
-using Application.Response.UserResponse;
+using Application.Response.User;
 using AutoMapper;
 using System;
 using System.Collections.Generic;

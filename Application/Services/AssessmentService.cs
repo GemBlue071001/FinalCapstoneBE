@@ -38,6 +38,10 @@ namespace Application.Services
 
             return response.SetOk("Create Success !!");
         }
-        
+
+        public Task<ApiResponse> GetAllAssessment()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
