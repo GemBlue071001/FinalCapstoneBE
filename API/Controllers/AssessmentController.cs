@@ -21,5 +21,11 @@ namespace API.Controllers
             var result = await _service.AddAssessment(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAssessment()
+        {
+            var result = await _service.GetAllAssessment();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
     }
 }

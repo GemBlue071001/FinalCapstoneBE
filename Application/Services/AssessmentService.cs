@@ -39,9 +39,12 @@ namespace Application.Services
             return response.SetOk("Create Success !!");
         }
 
-        public Task<ApiResponse> GetAllAssessment()
+        public async Task<ApiResponse> GetAllAssessment()
         {
-            throw new NotImplementedException();
+            var response = new ApiResponse();
+            var responseList = new List<Assessment>();
+            var jobs = await _unitOfWork.Assessment.GetAllAsync(null);
+            return response.SetOk(jobs);
         }
     }
 }

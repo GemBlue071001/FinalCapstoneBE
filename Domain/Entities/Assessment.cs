@@ -21,6 +21,5 @@ namespace Domain.Entities
         public int UserId { get; set; }
         public UserAccount Owner { get; set; }
 
-
     }
 }

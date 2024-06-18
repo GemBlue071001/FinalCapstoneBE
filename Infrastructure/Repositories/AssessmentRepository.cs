@@ -1,5 +1,6 @@
 ﻿using Application.Repositories;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -8,5 +9,6 @@ namespace Infrastructure.Repositories
         public AssessmentRepository(AppDbContext context) : base(context)
         {
         }
+        
     }
 }
