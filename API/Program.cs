@@ -2,6 +2,7 @@ using Application;
 using Application.Interface;
 using Application.MyMapper;
 using Application.Services;
+using Application.SignalRHub.Model;
 using Domain;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -56,9 +57,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAutoMapper(typeof(MapperConfigurationsProfile).Assembly);
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(e => {
+    e.MaximumReceiveMessageSize = 102400000;
+});
 
-
+builder.Services.AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>());
 builder.Services.AddSingleton(configuration!);
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -92,6 +95,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<SignalrHub>("/communication");
+app.MapHub<SignalrHub>("/hub1");
 
 app.Run();
