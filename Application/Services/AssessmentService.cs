@@ -6,6 +6,7 @@ using Application.Response.Campaign;
 using Application.Response.Job;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System.Threading.Tasks;
 
@@ -42,9 +43,10 @@ namespace Application.Services
         public async Task<ApiResponse> GetAllAssessment()
         {
             var response = new ApiResponse();
-            var responseList = new List<Assessment>();
-            var jobs = await _unitOfWork.Assessment.GetAllAsync(null);
-            return response.SetOk(jobs);
+            var assessments = await _unitOfWork.Assessment.GetAllAsync(null, x => x.Include(x => x.Owner));
+
+            var responseList = _mapper.Map<List<AssessmentResponse>>(assessments);
+            return response.SetOk(responseList);
         }
     }
 }

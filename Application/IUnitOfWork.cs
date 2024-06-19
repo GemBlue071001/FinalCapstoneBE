@@ -17,6 +17,10 @@ namespace Application
         public ICampaignRepository Campaigns { get; }
         public ITrainingProgramRepository TrainingPrograms { get; }
         public IAssessmentRepository Assessment { get; }
+        public IResourceRepository Resources { get; }
+        public ITrainingProgramResourceRepository TrainingProgramResources { get; }
+        public IUserMeetingRepository UserMeetings { get; }
+        public IMeetingRepository Meetings { get; }
         public Task SaveChangeAsync();
     }
 }

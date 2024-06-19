@@ -2,11 +2,13 @@
 using Application.Request.Campaign;
 using Application.Request.Candidate;
 using Application.Request.Job;
+using Application.Request.Resource;
 using Application.Request.TrainingProgram;
 using Application.Response.Assessment;
 using Application.Response.Campaign;
 using Application.Response.Candidate;
 using Application.Response.Job;
+using Application.Response.Resource;
 using Application.Response.TrainingProgram;
 using Application.Response.User;
 using AutoMapper;
@@ -38,6 +40,10 @@ namespace Application.MyMapper
             CreateMap<Assessment, AssessmentResponse>().ReverseMap();
 
             CreateMap<UserAccount, UserResponse>().ReverseMap();
+
+            CreateMap<Resource, ResourceResponse>().ReverseMap();
+            CreateMap<Resource, ResourceRequest>().ReverseMap();
+            CreateMap<TrainingProgramResource, TrainingProgramResourceResponse>().ReverseMap();
         }
     }
 }
