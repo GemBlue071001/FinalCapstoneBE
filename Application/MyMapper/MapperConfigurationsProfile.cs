@@ -34,7 +34,16 @@ namespace Application.MyMapper
             CreateMap<Candidate, CandidateResponse>().ReverseMap();
 
             CreateMap<TrainingProgram, TrainingProgramRequest>().ReverseMap();
-            CreateMap<TrainingProgram, TrainingProgramResponse>().ReverseMap();
+            CreateMap<TrainingProgram, TrainingProgramResponse>()
+           .ForMember(dest => dest.Resources, opt => opt.MapFrom(src => src.TrainingProgramResources.Select(tpr => tpr.Resource)));
+
+            CreateMap<TrainingProgramResponse, TrainingProgram>();
+
+            CreateMap<TrainingProgramResource, ResourceResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Resource.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Resource.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Resource.Description))
+                .ForMember(dest => dest.FilePath, opt => opt.MapFrom(src => src.Resource.FilePath));
 
             CreateMap<Assessment, AssessmentRequest>().ReverseMap();
             CreateMap<Assessment, AssessmentResponse>().ReverseMap();
