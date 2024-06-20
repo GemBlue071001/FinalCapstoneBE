@@ -25,8 +25,17 @@ namespace Application.MyMapper
             CreateMap<UserAccount, UserResponse>().ReverseMap();
 
             CreateMap<Job, JobRequest>().ReverseMap();
-            CreateMap<Job, JobResponse>().ReverseMap();
-            CreateMap<JobResponse, Job>().ReverseMap();
+            //CreateMap<Job, JobResponse>().ReverseMap();
+            CreateMap<Job, JobResponse>()
+                .ForMember(dest => dest.TrainingPrograms, opt => opt.MapFrom(src => src.JobTrainingPrograms.Select(tpr => tpr.TrainingProgram)));
+            CreateMap<JobResponse, Job>();
+            CreateMap<JobTrainingProgram, TrainingProgramResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.TrainingProgram.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.TrainingProgram.Name))
+                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.TrainingProgram.Duration))
+                .ForMember(dest => dest.CourseObject, opt => opt.MapFrom(src => src.TrainingProgram.CourseObject))
+                .ForMember(dest => dest.OutputObject, opt => opt.MapFrom(src => src.TrainingProgram.OutputObject));
+            CreateMap<JobResponse, Job>();
 
             CreateMap<Campaign, CampaignRequest>().ReverseMap();
             CreateMap<Campaign, CampaignResponse>().ReverseMap();
@@ -35,17 +44,17 @@ namespace Application.MyMapper
             CreateMap<Candidate, CandidateRequest>().ReverseMap();
             CreateMap<Candidate, CandidateResponse>().ReverseMap();
 
+            #region TrainingProgram
             CreateMap<TrainingProgram, TrainingProgramRequest>().ReverseMap();
             CreateMap<TrainingProgram, TrainingProgramResponse>()
-           .ForMember(dest => dest.Resources, opt => opt.MapFrom(src => src.TrainingProgramResources.Select(tpr => tpr.Resource)));
-
+                .ForMember(dest => dest.Resources, opt => opt.MapFrom(src => src.TrainingProgramResources.Select(tpr => tpr.Resource)));
             CreateMap<TrainingProgramResponse, TrainingProgram>();
-
             CreateMap<TrainingProgramResource, ResourceResponse>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Resource.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Resource.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Resource.Description))
                 .ForMember(dest => dest.FilePath, opt => opt.MapFrom(src => src.Resource.FilePath));
+            #endregion
 
             CreateMap<Assessment, AssessmentRequest>().ReverseMap();
             CreateMap<Assessment, AssessmentResponse>().ReverseMap();

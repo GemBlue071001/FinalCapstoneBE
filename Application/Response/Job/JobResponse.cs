@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Response.TrainingProgram;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,6 @@ namespace Application.Response.Job
         public int Duration { get; set; }
         public int TotalMember { get; set; }
         public string? ImagePath { get; set; }
+        public List<TrainingProgramResponse> TrainingPrograms { get; set; }
     }
 }
