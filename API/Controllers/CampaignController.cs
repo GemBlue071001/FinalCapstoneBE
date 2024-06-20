@@ -30,5 +30,12 @@ namespace API.Controllers
             var result = await _service.GetAllCampaign();
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCampaign(int id)
+        {
+            var result = await _service.DeleteCampaign(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
     }
 }

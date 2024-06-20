@@ -12,6 +12,7 @@ namespace Application
     {
         public IUserAccountRepository UserAccounts { get; }
         public IJobRepository Jobs { get; }
+        public IJobTrainingProgramRepository JobTrainingPrograms { get; }
         public ICandidateRepository Candidates { get; }
         public ICampaignJobRepository CampaignJobs { get; }
         public ICampaignRepository Campaigns { get; }

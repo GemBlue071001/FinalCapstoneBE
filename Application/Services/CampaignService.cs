@@ -73,5 +73,18 @@ namespace Application.Services
 
             return response.SetOk(resposeList);
         }
+
+        public async Task<ApiResponse> DeleteCampaign(int id)
+        {
+            var response = new ApiResponse();
+            var campaign = await _unitOfWork.Campaigns.GetAsync(x => x.Id == id);
+            await _unitOfWork.Campaigns.RemoveByIdAsync(id);
+            await _unitOfWork.SaveChangeAsync();
+
+            if (campaign == null)
+                return response.SetBadRequest("Campaigns Not Found!");
+            return response.SetOk(campaign);
+
+        }
     }
 }

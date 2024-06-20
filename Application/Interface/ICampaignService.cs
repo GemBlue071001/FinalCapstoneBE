@@ -12,5 +12,6 @@ namespace Application.Interface
     {
         Task<ApiResponse> AddCampaign(CampaignRequest request);
         Task<ApiResponse> GetAllCampaign();
+        Task<ApiResponse> DeleteCampaign(int id);
     }
 }
