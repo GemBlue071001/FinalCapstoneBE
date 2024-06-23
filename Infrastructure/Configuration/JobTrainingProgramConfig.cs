@@ -15,7 +15,7 @@ namespace Infrastructure.Configuration
         {
             builder.HasOne(o => o.Job)
                    .WithMany(o => o.JobTrainingPrograms)
-                   .HasForeignKey(o => o.JobId);
+                   .HasForeignKey(o => o.JobId).OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(o => o.TrainingProgram)
                .WithMany(o => o.JobTrainingPrograms)

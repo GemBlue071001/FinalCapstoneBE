@@ -22,7 +22,17 @@ namespace Infrastructure
         public ITrainingProgramRepository TrainingPrograms { get; }
         public IAssessmentRepository Assessment { get; }
 
-        public UnitOfWork(AppDbContext context)
+        public IResourceRepository Resources { get; }
+
+        public ITrainingProgramResourceRepository TrainingProgramResources { get; }
+
+        public IUserMeetingRepository UserMeetings { get; }
+
+        public IMeetingRepository Meetings { get; }
+
+        public IJobTrainingProgramRepository JobTrainingPrograms  { get; }
+
+    public UnitOfWork(AppDbContext context)
         {
             _context = context;
             UserAccounts = new UserAccountRepository(context);
@@ -32,6 +42,11 @@ namespace Infrastructure
             Campaigns = new CampaignRepository(context);
             TrainingPrograms = new TrainingProgramRepository(context);
             Assessment = new AssessmentRepository(context);
+            Resources = new ResourceRepository(context);
+            TrainingProgramResources = new TrainingProgramResourceRepository(context);
+            UserMeetings = new UserMeetingRepository(context);
+            Meetings = new MeetingRepository(context);
+            JobTrainingPrograms = new JobTrainingProgramRepository(context);
         }
 
         public async Task SaveChangeAsync()

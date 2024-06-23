@@ -12,5 +12,7 @@ namespace Application.Interface
     {
         Task<ApiResponse> AddJob(JobRequest request);
         Task<ApiResponse> GetAllJob();
+        Task<ApiResponse> DeleteJob(int id);
+        Task<ApiResponse> AddTrainingProgramToJobAsync(JobTrainingRequest request);
     }
 }

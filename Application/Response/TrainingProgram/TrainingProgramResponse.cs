@@ -1,4 +1,5 @@
 ﻿using Application.Response.Job;
+using Application.Response.Resource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Application.Response.TrainingProgram
         public int Duration { get; set; }
         public string CourseObject { get; set; }
         public string OutputObject { get; set; }
-        public List<JobResponse> Jobs { get; set; }
+        public List<ResourceResponse> Resources { get; set; }
+        //public List<JobTrainingProgramResponse> Jobs { get; set; }
+        //public List<TrainingProgramResourceResponse> TrainingProgramResources { get; set; }
     }
 }

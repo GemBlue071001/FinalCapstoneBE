@@ -1,8 +1,10 @@
 ﻿using Application.Interface;
 using Application.Request.Job;
 using Application.Response;
+using Application.Response.Job;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Resources;
 
 namespace Application.Services
@@ -27,12 +29,45 @@ namespace Application.Services
             return response.SetOk("Create Success !!");
         }
 
+        public async Task<ApiResponse> AddTrainingProgramToJobAsync(JobTrainingRequest request)
+        {
+            var response = new ApiResponse();
+            var jobTrainingProgram = await _unitOfWork.JobTrainingPrograms.GetAsync(x => x.JobId == request.JobId &&
+                                                                     x.TrainingProgramId == request.TrainingProgramId);
+            if (jobTrainingProgram != null)
+                return response.SetBadRequest("Training program already exist in this job !!");
+
+            await _unitOfWork.JobTrainingPrograms.AddAsync(new JobTrainingProgram
+            {
+                TrainingProgramId = request.TrainingProgramId,
+                JobId = request.JobId,
+            });
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk("Add Training Program To Job Success !!");
+        }
+
         public async Task<ApiResponse> GetAllJob()
         {
             var response = new ApiResponse();
-            var jobs = await _unitOfWork.Jobs.GetAllAsync(null);
+            var jobs = await _unitOfWork.Jobs.GetAllAsync(null, x => x.Include(x => x.JobTrainingPrograms)
+                                                                        .ThenInclude(x => x.TrainingProgram));
+            var responseList = _mapper.Map<List<JobResponse>>(jobs);
 
+            return response.SetOk(responseList);
+        }
+
+        public async Task<ApiResponse> DeleteJob(int id)
+        {
+            var response = new ApiResponse();
+            var jobs = await _unitOfWork.Jobs.GetAsync(x => x.Id == id);
+            await _unitOfWork.Jobs.RemoveByIdAsync(id);
+            await _unitOfWork.SaveChangeAsync();
+
+            if (jobs == null)
+                return response.SetBadRequest("Job Not Found!");
             return response.SetOk(jobs);
+
         }
     }
 }

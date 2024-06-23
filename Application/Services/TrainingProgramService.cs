@@ -3,6 +3,7 @@ using Application.Request.TrainingProgram;
 using Application.Response;
 using Application.Response.Campaign;
 using Application.Response.Job;
+using Application.Response.Resource;
 using Application.Response.TrainingProgram;
 using AutoMapper;
 using Domain.Entities;
@@ -58,26 +59,9 @@ namespace Application.Services
             var response = new ApiResponse();
             var trainingPrograms = await _unitOfWork.TrainingPrograms.GetAllTrainingProgram();
 
-            var resposeList = new List<TrainingProgramResponse>();
-            foreach (var trainingProgram in trainingPrograms)
-            {
-                var listJobsResponse = new List<JobResponse>();
-                foreach (var program in trainingProgram.JobTrainingPrograms)
-                {
-                    var programResponse = _mapper.Map<JobResponse>(program.Job);
-                    listJobsResponse.Add(programResponse);
-                }
-
-                resposeList.Add(new TrainingProgramResponse
-                {
-                    Id = trainingProgram.Id,
-                    Name = trainingProgram.Name,
-                    Duration = trainingProgram.Duration,
-                    CourseObject = trainingProgram.CourseObject,
-                    OutputObject = trainingProgram.OutputObject,
-                    Jobs = listJobsResponse,                    
-                });
-            }
+            var resposeList = _mapper.Map<List<TrainingProgramResponse>>(trainingPrograms);
+           
+            
 
             return response.SetOk(resposeList);
 

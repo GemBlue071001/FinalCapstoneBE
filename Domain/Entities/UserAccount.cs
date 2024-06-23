@@ -22,6 +22,7 @@ namespace Domain.Entities
         public CampaignJob? CampaignJob { get; set; }
         public int? CampaignJobId { get; set; }
         public List<Assessment> Assessments { get; set; }
+        public List<UserMeeting> UserMeetings;
     }
 
     public enum Role
