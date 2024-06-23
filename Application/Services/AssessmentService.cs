@@ -43,8 +43,8 @@ namespace Application.Services
         {
             var response = new ApiResponse();
             var responseList = new List<Assessment>();
-            var jobs = await _unitOfWork.Assessment.GetAllAsync(null);
-            return response.SetOk(jobs);
+            var assessment = await _unitOfWork.Assessment.GetAllAsync(null);            
+            return response.SetOk(assessment);
         }
     }
 }

@@ -8,7 +8,16 @@ namespace Infrastructure.Repositories
     {
         public AssessmentRepository(AppDbContext context) : base(context)
         {
+
         }
-        
+        public async Task<List<Assessment>> GetAllAssessment()
+        {
+            IQueryable<Assessment> query = _db;
+            return await query
+                   .Include(x => x.Owner)
+                  
+                   .ToListAsync();
+        }
+
     }
 }
