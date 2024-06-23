@@ -71,7 +71,7 @@ namespace Application.Services
             return response.SetOk("Created");
         }
 
-        public async Task<ApiResponse> Updateeeting(MeetingUpdateRequest request)
+        public async Task<ApiResponse> UpdateMeeting(MeetingUpdateRequest request)
         {
             var response = new ApiResponse();
             var meeting = await _unitOfWork.Meetings.GetAsync(x => x.Id == request.Id);
@@ -128,5 +128,7 @@ namespace Application.Services
 
             return response.SetOk("Meeting ID: "+ id +" Deleted");
         }
+
+       
     }
 }
