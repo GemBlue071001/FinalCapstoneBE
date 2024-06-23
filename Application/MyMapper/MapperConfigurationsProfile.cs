@@ -4,6 +4,7 @@ using Application.Request.Candidate;
 using Application.Request.Job;
 using Application.Request.Resource;
 using Application.Request.TrainingProgram;
+using Application.Request.User;
 using Application.Response.Assessment;
 using Application.Response.Campaign;
 using Application.Response.Candidate;
@@ -33,6 +34,7 @@ namespace Application.MyMapper
                 .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.TrainingProgram.Duration))
                 .ForMember(dest => dest.CourseObject, opt => opt.MapFrom(src => src.TrainingProgram.CourseObject))
                 .ForMember(dest => dest.OutputObject, opt => opt.MapFrom(src => src.TrainingProgram.OutputObject));
+
             CreateMap<JobResponse, Job>();
 
             CreateMap<Campaign, CampaignRequest>().ReverseMap();
@@ -58,6 +60,7 @@ namespace Application.MyMapper
             CreateMap<Assessment, AssessmentResponse>().ReverseMap();
 
             CreateMap<UserAccount, UserResponse>().ReverseMap();
+            CreateMap<UserAccount, UpdateUserRequest>().ReverseMap();
 
             CreateMap<Resource, ResourceResponse>().ReverseMap();
             CreateMap<Resource, ResourceRequest>().ReverseMap();

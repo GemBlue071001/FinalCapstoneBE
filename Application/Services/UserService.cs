@@ -1,11 +1,14 @@
 ﻿using Application.Interface;
+using Application.Request.User;
 using Application.Response;
 using Application.Response.User;
 using AutoMapper;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -52,8 +55,30 @@ namespace Application.Services
                 return response.SetOk(userReponse);
             }
 
+        }
+
+        public async Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request)
+        {
+
+            ApiResponse response = new ApiResponse();
+            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == request.Id);
+            if (user == null)
+                return response.SetNotFound("user not found !! ");
+
+            _mapper.Map(request, user);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk(request);
 
         }
+
+        private bool ValidateEmail(string email)
+        {
+            var regex = new Regex(@"(?<=%download%#)\d+");
+            return regex.IsMatch(email);
+        }
+
+        
 
     }
 }
