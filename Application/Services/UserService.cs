@@ -1,11 +1,14 @@
 ﻿using Application.Interface;
+using Application.Request.User;
 using Application.Response;
 using Application.Response.User;
 using AutoMapper;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -19,6 +22,8 @@ namespace Application.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        
 
         public async Task<ApiResponse> GetUserProfileAsync(int id)
         {
@@ -51,7 +56,16 @@ namespace Application.Services
 
                 return response.SetOk(userReponse);
             }
+        }
 
+        public async Task<ApiResponse> UpdateUserByID(int id)
+        {
+            ApiResponse response = new ApiResponse();
+
+        }
+
+        public async Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request)
+        {
 
         }
 
