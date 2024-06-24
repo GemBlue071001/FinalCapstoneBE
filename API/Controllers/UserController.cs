@@ -15,10 +15,12 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsersByUserName(string userName=null)
+        public async Task<IActionResult> GetUsersByUserName(string userName = null)
         {
             var result = await _service.GetUsersByUserName(userName);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+        
+
     }
 }

@@ -20,6 +20,8 @@ namespace Application.Services
             _mapper = mapper;
         }
 
+        
+
         public async Task<ApiResponse> GetUserProfileAsync(int id)
         {
             ApiResponse response = new ApiResponse();
@@ -51,9 +53,17 @@ namespace Application.Services
 
                 return response.SetOk(userReponse);
             }
-
-
         }
 
+        public async Task<ApiResponse> UpdateUserByID(int id)
+        {
+            ApiResponse response = new ApiResponse();
+
+            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id);
+            if (user == null)
+                return response.SetNotFound("User not found");
+
+            user.FirstName =
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace Application.Interface
     {
         Task<ApiResponse> GetUsersByUserName(string userName);
         Task<ApiResponse> GetUserProfileAsync(int id);
+        /*Task<ApiResponse> UpdateUserByID(int id);*/
+                
     }
 }
