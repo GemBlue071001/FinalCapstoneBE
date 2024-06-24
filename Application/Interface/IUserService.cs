@@ -1,4 +1,5 @@
-﻿using Application.Response;
+﻿using Application.Request.User;
+using Application.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,6 @@ namespace Application.Interface
     {
         Task<ApiResponse> GetUsersByUserName(string userName);
         Task<ApiResponse> GetUserProfileAsync(int id);
-        /*Task<ApiResponse> UpdateUserByID(int id);*/
-                
+        Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request);
     }
 }

@@ -1,11 +1,14 @@
 ﻿using Application.Interface;
+using Application.Request.User;
 using Application.Response;
 using Application.Response.User;
 using AutoMapper;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -59,11 +62,12 @@ namespace Application.Services
         {
             ApiResponse response = new ApiResponse();
 
-            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id);
-            if (user == null)
-                return response.SetNotFound("User not found");
-
-            user.FirstName =
         }
+
+        public async Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request)
+        {
+
+        }
+
     }
 }

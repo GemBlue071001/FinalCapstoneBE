@@ -14,6 +14,6 @@ namespace Domain.Entities
 
         //Navigation Property
         public Job? Job { get; set; }
-        public TrainingProgram? TrainingProgram { get; set; }
+        public TrainingProgram? TrainingProgram { get; set; } 
     }
 }
