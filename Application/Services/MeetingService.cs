@@ -107,7 +107,7 @@ namespace Application.Services
             var userMeeting = await _unitOfWork.UserMeetings.GetAsync(x => x.MeetingId == meetingId && x.UserId == userId);
             if (userMeeting == null)
             {
-                return response.SetNotFound();
+                return response.SetNotFound("Meeting ID: " + meetingId + " Is Not Found");
             }
             await _unitOfWork.UserMeetings.RemoveByIdAsync(userMeeting.Id);
             await _unitOfWork.SaveChangeAsync();

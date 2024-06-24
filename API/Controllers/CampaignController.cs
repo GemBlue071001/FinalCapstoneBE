@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.Campaign;
 using Application.Request.Job;
+using Application.Request.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +36,12 @@ namespace API.Controllers
         public async Task<IActionResult> DeleteCampaign(int id)
         {
             var result = await _service.DeleteCampaign(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateCampain(UpdateCampainRequest request)
+        {
+            var result = await _service.UpdateCampainAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }

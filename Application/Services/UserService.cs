@@ -23,7 +23,6 @@ namespace Application.Services
             _mapper = mapper;
         }
 
-        
 
         public async Task<ApiResponse> GetUserProfileAsync(int id)
         {
@@ -58,16 +57,34 @@ namespace Application.Services
             }
         }
 
-        public async Task<ApiResponse> UpdateUserByID(int id)
-        {
-            ApiResponse response = new ApiResponse();
-
-        }
-
         public async Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request)
         {
+            ApiResponse response = new ApiResponse();
+            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == request.Id);
+            if (user == null)
+                return response.SetNotFound("User not found");
+            if (!ValidateEmail(request.Email))
+                return response.SetBadRequest("Invalid email format");
+            if (!ValidatePhoneNum(request.PhoneNumber))
+            {
+                return response.SetBadRequest("Invalid phone format");
 
+            }
+            _mapper.Map(request, user);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk(user);
         }
 
+        private bool ValidateEmail(string email)
+        {
+            var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+            return regex.IsMatch(email);
+        }
+        private bool ValidatePhoneNum(string phoneNum)
+        {
+            var regex = new Regex(@"^-?\d+$");
+            return regex.IsMatch(phoneNum);
+        }
     }
 }

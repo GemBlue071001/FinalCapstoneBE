@@ -30,6 +30,7 @@ namespace Application.MyMapper
             CreateMap<Job, JobResponse>()
                 .ForMember(dest => dest.TrainingPrograms, opt => opt.MapFrom(src => src.JobTrainingPrograms.Select(tpr => tpr.TrainingProgram)));
             CreateMap<JobResponse, Job>();
+            CreateMap<Job, UpdateJobRequest>();
             CreateMap<JobTrainingProgram, TrainingProgramResponse>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.TrainingProgram.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.TrainingProgram.Name))
@@ -41,6 +42,7 @@ namespace Application.MyMapper
 
             CreateMap<Campaign, CampaignRequest>().ReverseMap();
             CreateMap<Campaign, CampaignResponse>().ReverseMap();
+            CreateMap<Campaign, UpdateCampainRequest>().ReverseMap();
 
 
             CreateMap<Candidate, CandidateRequest>().ReverseMap();
@@ -63,6 +65,7 @@ namespace Application.MyMapper
 
             CreateMap<UserAccount, UserResponse>().ReverseMap();
             CreateMap<UserAccount, UpdateUserRequest>().ReverseMap();
+
 
             CreateMap<Resource, ResourceResponse>().ReverseMap();
             CreateMap<Resource, ResourceRequest>().ReverseMap();

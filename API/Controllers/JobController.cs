@@ -1,5 +1,6 @@
 ﻿using Application.Interface;
 using Application.Request.Job;
+using Application.Request.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,12 @@ namespace API.Controllers
         public async Task<IActionResult> DeleteJob(int id)
         {
             var result = await _service.DeleteJob(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateJob(UpdateJobRequest request)
+        {
+            var result = await _service.UpdateJobAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }

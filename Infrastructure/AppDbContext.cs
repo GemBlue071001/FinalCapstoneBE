@@ -24,6 +24,10 @@ namespace Infrastructure
         public DbSet<Assessment> Assessments { get; set; }
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }
         public DbSet<JobTrainingProgram> JobTrainingPrograms { get; set; }
+        public DbSet<Resource> Resource { get; set; }
+        public DbSet<TrainingProgramResource> TrainingProgramResource { get; set; }
+        public DbSet<UserMeeting> UserMeeting { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +36,8 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new CampaignJobConfig());
             modelBuilder.ApplyConfiguration(new JobTrainingProgramConfig());
             modelBuilder.ApplyConfiguration(new UserMeetingConfig());
+            modelBuilder.ApplyConfiguration(new AssessmentConfig());
+            modelBuilder.ApplyConfiguration(new TrainingProgramResourceConfig());
         }
 
 

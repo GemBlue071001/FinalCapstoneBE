@@ -40,28 +40,28 @@ namespace API.Controllers
         public async Task<IActionResult> UpdateMeeting([FromBody] MeetingUpdateRequest meeting)
         {
             var response = await _meetingsService.UpdateMeeting(meeting);
-            return response != null ? Ok(response) : BadRequest(response);
+            return response.IsSuccess? Ok(response) : BadRequest(response);
         }
 
         [HttpDelete()]
         public async Task<IActionResult> RemoveMeeting([FromQuery] int meetingId)
         {
             var response = await _meetingsService.RemoveMeeting(meetingId);
-            return response != null ? NoContent() : BadRequest(response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
         [HttpPost("add-user")]
         public async Task<IActionResult> AddUserToMeeting([FromQuery] int meetingId, [FromQuery] int userId)
         {
             var response = await _meetingsService.AddUserToMeeting(meetingId, userId);
-            return response != null ? Ok(response) : BadRequest(response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
         [HttpDelete("remove-user")]
         public async Task<IActionResult> RemoveUserFromMeeting([FromQuery] int meetingId, [FromQuery] int userId)
         {
-            var response = await _meetingsService.RemoveUserFromMeeting(meetingId, userId);
-            return response != null ? Ok(response) : BadRequest(response);
+            var result = await _meetingsService.RemoveUserFromMeeting(meetingId, userId);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
     }

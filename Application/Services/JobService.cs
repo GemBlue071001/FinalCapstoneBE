@@ -69,5 +69,20 @@ namespace Application.Services
             return response.SetOk(jobs);
 
         }
+
+        public async Task<ApiResponse> UpdateJobAsync(UpdateJobRequest request)
+        {
+            var response = new ApiResponse();
+            var job = await _unitOfWork.Jobs.GetAsync(x => x.Id == request.Id);
+            if(job == null)
+            {
+                return response.SetBadRequest("Job cannot found");
+            }
+
+            _mapper.Map(job, request);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk(job);
+        }
     }
 }

@@ -84,7 +84,20 @@ namespace Application.Services
             if (campaign == null)
                 return response.SetBadRequest("Campaigns Not Found!");
             return response.SetOk(campaign);
+        }
 
+        public async Task<ApiResponse> UpdateCampainAsync(UpdateCampainRequest request)
+        {
+            var response = new ApiResponse();
+            var campaign = await _unitOfWork.Campaigns.GetAsync(x => x.Id == request.Id);
+            if(campaign == null)
+            {
+                response.SetBadRequest("Campain not found");
+            }
+            _mapper.Map(request, campaign);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk(campaign);
         }
     }
 }
