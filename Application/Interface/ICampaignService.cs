@@ -13,6 +13,8 @@ namespace Application.Interface
         Task<ApiResponse> AddCampaign(CampaignRequest request);
         Task<ApiResponse> GetAllCampaign();
         Task<ApiResponse> DeleteCampaign(int id);
-       Task<ApiResponse> UpdateCampainAsync(UpdateCampainRequest request);
+        Task<ApiResponse> UpdateCampainAsync(UpdateCampainRequest request);
+        Task<ApiResponse> AddJobToCampaignAsync(CampaignJobRequest request);
+        Task<ApiResponse> RemoveJobFromCampaignAsync(CampaignJobRequest request);
     }
 }

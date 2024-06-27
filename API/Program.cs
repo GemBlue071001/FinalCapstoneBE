@@ -28,6 +28,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
             warnings.Ignore(CoreEventId.NavigationBaseIncludeIgnored));
 });
 
+//AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 builder.Services.AddSwaggerGen
     (
     opt =>

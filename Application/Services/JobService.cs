@@ -79,7 +79,7 @@ namespace Application.Services
                 return response.SetBadRequest("Job cannot found");
             }
 
-            _mapper.Map(job, request);
+            _mapper.Map(request, job);
             await _unitOfWork.SaveChangeAsync();
 
             return response.SetOk(job);

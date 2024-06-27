@@ -24,6 +24,20 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("Job")]
+        public async Task<IActionResult> AddJobToCampaignAsync(CampaignJobRequest request)
+        {
+            var result = await _service.AddJobToCampaignAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+
+        [HttpDelete("Job")]
+        public async Task<IActionResult> RemoveJobFromCampaignAsync(CampaignJobRequest request)
+        {
+            var result = await _service.RemoveJobFromCampaignAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCampaign()

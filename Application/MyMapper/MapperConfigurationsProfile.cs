@@ -30,7 +30,7 @@ namespace Application.MyMapper
             CreateMap<Job, JobResponse>()
                 .ForMember(dest => dest.TrainingPrograms, opt => opt.MapFrom(src => src.JobTrainingPrograms.Select(tpr => tpr.TrainingProgram)));
             CreateMap<JobResponse, Job>();
-            CreateMap<Job, UpdateJobRequest>();
+            CreateMap<UpdateJobRequest, Job>();
             CreateMap<JobTrainingProgram, TrainingProgramResponse>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.TrainingProgram.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.TrainingProgram.Name))
@@ -40,8 +40,20 @@ namespace Application.MyMapper
 
             CreateMap<JobResponse, Job>();
 
-            CreateMap<Campaign, CampaignRequest>().ReverseMap();
-            CreateMap<Campaign, CampaignResponse>().ReverseMap();
+            //CreateMap<Campaign, CampaignRequest>();
+            CreateMap<CampaignRequest, Campaign>()
+            .ForMember(dest => dest.EstimateEndDate, opt => opt.MapFrom(src => (src.EstimateStartDate).AddMonths(src.Duration)))
+            ;
+            CreateMap<Campaign, CampaignResponse>()
+                .ForMember(dest => dest.Jobs, opt => opt.MapFrom(src => src.CampaignJobs.Select(tpr => tpr.Job)));
+            CreateMap<CampaignJob,JobResponse>()
+                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Job.Id))
+                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Job.Name))
+                 .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Job.Duration))
+                 .ForMember(dest => dest.Benefits, opt => opt.MapFrom(src => src.Job.Benefits))
+                 .ForMember(dest => dest.Requirements, opt => opt.MapFrom(src => src.Job.Requirements))
+                 .ForMember(dest => dest.ScopeOfWork, opt => opt.MapFrom(src => src.Job.ScopeOfWork))
+                 .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => src.Job.ImagePath));
             CreateMap<Campaign, UpdateCampainRequest>().ReverseMap();
 
 
