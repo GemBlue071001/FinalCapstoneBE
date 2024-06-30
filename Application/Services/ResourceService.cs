@@ -4,6 +4,9 @@ using Application.Response;
 using Application.Response.Resource;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +60,42 @@ namespace Application.Services
             var responseList = _mapper.Map<List<ResourceResponse>>(resouces);
 
             return response.SetOk(responseList);
+        }
+
+        public async Task<ApiResponse> UpdateResourceAsync(ResourceUpdateRequest request)
+        {
+            var response = new ApiResponse();
+            var resouce = await _unitOfWork.Resources.GetAsync(x => x.Id == request.Id);
+
+            if (resouce == null)
+            {
+                return response.SetBadRequest($"resouce id {request.Id} is not found !");
+            }
+
+            _mapper.Map(request, resouce);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk(resouce);
+        }
+
+        public async Task<ApiResponse> DeleteResourceAsync(int id)
+        {
+            var response = new ApiResponse();
+            try
+            {
+                await _unitOfWork.Resources.RemoveByIdAsync(id);
+                await _unitOfWork.SaveChangeAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return response.SetBadRequest($"Resource id {id} is still in a training program!");
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest($"Resource id {id} is not found or another error occurred!");
+            }
+
+            return response.SetOk($"Resource id {id} is deleted!");
         }
 
     }

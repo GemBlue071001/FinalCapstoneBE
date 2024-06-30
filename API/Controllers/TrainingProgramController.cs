@@ -17,15 +17,37 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCampaign(TrainingProgramRequest request)
+        public async Task<IActionResult> AddTrainingProgramAsync(TrainingProgramRequest request)
         {
             var result = await _service.AddTrainingProgram(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateTrainingProgramAsync(TrainingUpdateRequest request)
+        {
+            var result = await _service.UpdateTrainingProgramAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
         [HttpGet]
-        public async Task<IActionResult> GetAllTraningProgram()
+        public async Task<IActionResult> GetAllTrainingProgramAsync()
         {
             var result = await _service.GetAllTrainingProgram();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpDelete("Resource")]
+        public async Task<IActionResult> RemoveResourceFromProgramAsync(TrainingResourceRequest request)
+        {
+            var result = await _service.RemoveResourceFromTrainingProgramAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> RemoveProgramAsync(int id)
+        {
+            var result = await _service.DeleteTrainingProgramAsync(id);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }

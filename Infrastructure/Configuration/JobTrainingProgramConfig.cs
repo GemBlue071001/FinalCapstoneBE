@@ -19,7 +19,7 @@ namespace Infrastructure.Configuration
 
             builder.HasOne(o => o.TrainingProgram)
                .WithMany(o => o.JobTrainingPrograms)
-               .HasForeignKey(o => o.TrainingProgramId);
+               .HasForeignKey(o => o.TrainingProgramId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

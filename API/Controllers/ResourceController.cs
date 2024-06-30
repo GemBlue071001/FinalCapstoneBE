@@ -32,5 +32,19 @@ namespace API.Controllers
             var result = await _service.GetAllResouceAsync();
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> GetAllCampaign(ResourceUpdateRequest request)
+        {
+            var result = await _service.UpdateResourceAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> GetAllCampaign(int id)
+        {
+            var result = await _service.DeleteResourceAsync(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
     }
 }

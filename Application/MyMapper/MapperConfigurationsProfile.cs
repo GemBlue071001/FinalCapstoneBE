@@ -62,6 +62,7 @@ namespace Application.MyMapper
 
             #region TrainingProgram
             CreateMap<TrainingProgram, TrainingProgramRequest>().ReverseMap();
+            CreateMap<TrainingUpdateRequest, TrainingProgram>();
             CreateMap<TrainingProgram, TrainingProgramResponse>()
                 .ForMember(dest => dest.Resources, opt => opt.MapFrom(src => src.TrainingProgramResources.Select(tpr => tpr.Resource)));
             CreateMap<TrainingProgramResponse, TrainingProgram>();
@@ -81,6 +82,7 @@ namespace Application.MyMapper
 
             CreateMap<Resource, ResourceResponse>().ReverseMap();
             CreateMap<Resource, ResourceRequest>().ReverseMap();
+            CreateMap<ResourceUpdateRequest, Resource>();
             CreateMap<TrainingProgramResource, TrainingProgramResourceResponse>().ReverseMap();
 
             CreateMap<MeetingRequest, Meeting>();

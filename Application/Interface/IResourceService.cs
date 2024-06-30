@@ -7,5 +7,7 @@ namespace Application.Interface
     {
         Task<ApiResponse> AddResouceAsync(ResourceRequest request);
         Task<ApiResponse> GetAllResouceAsync();
+        Task<ApiResponse> UpdateResourceAsync(ResourceUpdateRequest request);
+        Task<ApiResponse> DeleteResourceAsync(int id);
     }
 }
