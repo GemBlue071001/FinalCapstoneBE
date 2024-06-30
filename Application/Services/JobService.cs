@@ -47,6 +47,20 @@ namespace Application.Services
             return response.SetOk("Add Training Program To Job Success !!");
         }
 
+        public async Task<ApiResponse> RemoveTrainingProgramFromJobAsync(JobTrainingRequest request)
+        {
+            var response = new ApiResponse();
+            var jobTrainingProgram = await _unitOfWork.JobTrainingPrograms.GetAsync(x => x.JobId == request.JobId &&
+                                                                     x.TrainingProgramId == request.TrainingProgramId);
+            if (jobTrainingProgram == null)
+                return response.SetBadRequest("Training program not exist in this job !!");
+
+            await _unitOfWork.JobTrainingPrograms.RemoveByIdAsync(jobTrainingProgram.Id);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk("Remove Training Program From Job Success !!");
+        }
+
         public async Task<ApiResponse> GetAllJob()
         {
             var response = new ApiResponse();

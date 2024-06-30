@@ -1,4 +1,5 @@
 ﻿using Application.Interface;
+using Application.Request.Job;
 using Application.Request.TrainingProgram;
 using Application.Response;
 using Application.Response.Campaign;
@@ -65,6 +66,24 @@ namespace Application.Services
 
             return response.SetOk(resposeList);
 
+        }
+
+        public async Task<ApiResponse> AddResourceToTrainingProgramAsync(TrainingResourceRequest request)
+        {
+            var response = new ApiResponse();
+            var jobTrainingProgram = await _unitOfWork.TrainingProgramResources.GetAsync(x => x.ResourceId == request.ResourceId &&
+                                                                                        x.TrainingProgramId == request.TrainingProgramId);
+            if (jobTrainingProgram != null)
+                return response.SetBadRequest("Resource already exist in this Training program !!");
+
+            await _unitOfWork.TrainingProgramResources.AddAsync(new TrainingProgramResource
+            {
+                TrainingProgramId = request.TrainingProgramId,
+                ResourceId = request.ResourceId,
+            });
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk("Add Resource To Training program Success !!");
         }
 
         public async Task<ApiResponse> RemoveResourceFromTrainingProgramAsync(TrainingResourceRequest request)

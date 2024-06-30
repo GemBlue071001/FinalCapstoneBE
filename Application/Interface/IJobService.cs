@@ -15,5 +15,6 @@ namespace Application.Interface
         Task<ApiResponse> DeleteJob(int id);
         Task<ApiResponse> AddTrainingProgramToJobAsync(JobTrainingRequest request);
         Task<ApiResponse> UpdateJobAsync(UpdateJobRequest request);
+        Task<ApiResponse> RemoveTrainingProgramFromJobAsync(JobTrainingRequest request);
     }
 }

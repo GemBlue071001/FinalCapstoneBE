@@ -13,6 +13,7 @@ namespace Application.Interface
         Task<ApiResponse> AddTrainingProgram(TrainingProgramRequest request);
         Task<ApiResponse> GetAllTrainingProgram();
         Task<ApiResponse> RemoveResourceFromTrainingProgramAsync(TrainingResourceRequest request);
+        Task<ApiResponse> AddResourceToTrainingProgramAsync(TrainingResourceRequest request);
         Task<ApiResponse> UpdateTrainingProgramAsync(TrainingUpdateRequest request);
         Task<ApiResponse> DeleteTrainingProgramAsync(int id);
     }

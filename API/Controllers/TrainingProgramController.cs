@@ -44,6 +44,13 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("Resource")]
+        public async Task<IActionResult> AddResourceToProgramAsync(TrainingResourceRequest request)
+        {
+            var result = await _service.AddResourceToTrainingProgramAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> RemoveProgramAsync(int id)
         {

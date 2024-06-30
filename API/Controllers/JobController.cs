@@ -30,6 +30,13 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
+        [HttpDelete("TrainingProgram")]
+        public async Task<IActionResult> RemoveTrainingProgramFromJobAsync(JobTrainingRequest request)
+        {
+            var result = await _service.RemoveTrainingProgramFromJobAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllJob()
         {
