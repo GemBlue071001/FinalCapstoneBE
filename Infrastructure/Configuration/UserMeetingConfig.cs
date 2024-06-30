@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Configuration
 {
-    public class UserMeetingConfig : IEntityTypeConfiguration<UserMeeting>
+    public  class UserMeetingConfig : IEntityTypeConfiguration<UserMeeting>
     {
         public void Configure(EntityTypeBuilder<UserMeeting> builder)
         {

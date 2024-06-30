@@ -29,12 +29,12 @@ namespace Application.Services
             ApiResponse response = new ApiResponse();
 
             var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id);
-            if (user == null)
-                return response.SetNotFound("User not found");
+            //if (user == null)
+            //    return response.SetNotFound("User not found");
 
-            var userReponse = _mapper.Map<UserResponse>(user);
+            //var userReponse = _mapper.Map<UserResponse>(user);
 
-            return response.SetOk(userReponse);
+            return response.SetOk(user.Role);
         }
 
         public async Task<ApiResponse> GetUsersByUserName(string userName)
