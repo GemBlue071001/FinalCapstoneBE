@@ -12,7 +12,7 @@ namespace Application.Interface
     public interface IKPIService
     {
         Task<ApiResponse> AddKPI(KPIRequest request);
-        Task<ApiResponse> AddKPIToTranningProgram(ProgramKPIRequest request);
+
         Task<ApiResponse> GetAllKPI();
         Task<ApiResponse> DeleteKPI(int id);
         Task<ApiResponse> UpdateKPIAsync(UpdateKPIRequest request);

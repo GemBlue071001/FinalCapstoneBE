@@ -21,12 +21,6 @@ namespace API.Controllers
             var result = await _service.AddKPI(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
-        [HttpPost("TrainingProgram")]
-        public async Task<IActionResult> AddKPIToTrainingProgramAsync(ProgramKPIRequest request)
-        {
-            var result = await _service.AddKPIToTranningProgram(request);
-            return result.IsSuccess ? Ok(result) : BadRequest(result);
-        }
         [HttpGet]
         public async Task<IActionResult> GetAllKPI()
         {

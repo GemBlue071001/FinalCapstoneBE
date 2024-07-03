@@ -1,5 +1,6 @@
 ﻿using Application.Interface;
 using Application.Request.Candidate;
+using Application.Request.KPI;
 using Application.Request.TrainingProgram;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -55,6 +56,18 @@ namespace API.Controllers
         public async Task<IActionResult> RemoveProgramAsync(int id)
         {
             var result = await _service.DeleteTrainingProgramAsync(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [HttpPost("KPI")]
+        public async Task<IActionResult> AddKPIToTrainingProgramAsync(ProgramKPIRequest request)
+        {
+            var result = await _service.AddKPIToTranningProgram(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [HttpDelete("KPI")]
+        public async Task<IActionResult> RemoveKPIFromProgramAsync(ProgramKPIRequest request)
+        {
+            var result = await _service.RemoveKPIFromTrainingProgramAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }

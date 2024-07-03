@@ -32,23 +32,7 @@ namespace Application.Services
 
             return response.SetOk("Create Success !!");
         }
-        public async Task<ApiResponse> AddKPIToTranningProgram(ProgramKPIRequest request)
-        {
-            var response = new ApiResponse();
-            var programKPI = await _unitOfWork.ProgramKPIs.GetAsync(x => x.KPIId == request.KPIId &&
-                                                                     x.TrainingProgramId == request.TrainingProgramId);
-            if (programKPI != null)
-                return response.SetBadRequest("KPI already exist in this Tranning Program !!");
-
-            await _unitOfWork.ProgramKPIs.AddAsync(new ProgramKPI
-            {
-                TrainingProgramId = request.TrainingProgramId,
-                KPIId = request.KPIId,
-            });
-            await _unitOfWork.SaveChangeAsync();
-
-            return response.SetOk("Add KPI To Training Program Success !!");
-        }
+        
         public async Task<ApiResponse> GetAllKPI()
         {
             var response = new ApiResponse();

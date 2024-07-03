@@ -1,5 +1,6 @@
 ﻿using Application.Interface;
 using Application.Request.Job;
+using Application.Request.KPI;
 using Application.Request.TrainingProgram;
 using Application.Response;
 using Application.Response.Campaign;
@@ -137,6 +138,39 @@ namespace Application.Services
             }
 
             return response.SetOk($"Resource id {id} is deleted!");
+        }
+        public async Task<ApiResponse> AddKPIToTranningProgram(ProgramKPIRequest request)
+        {
+            var response = new ApiResponse();
+            var programKPI = await _unitOfWork.ProgramKPIs.GetAsync(x => x.KPIId == request.KPIId &&
+                                                                     x.TrainingProgramId == request.TrainingProgramId);
+            if (programKPI != null)
+                return response.SetBadRequest("KPI already exist in this Tranning Program !!");
+
+            await _unitOfWork.ProgramKPIs.AddAsync(new ProgramKPI
+            {
+                TrainingProgramId = request.TrainingProgramId,
+                KPIId = request.KPIId,
+            });
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk("Add KPI To Training Program Success !!");
+        }
+        public async Task<ApiResponse> RemoveKPIFromTrainingProgramAsync(ProgramKPIRequest request)
+        {
+            var response = new ApiResponse();
+            var trainingKPI = await _unitOfWork.ProgramKPIs.GetAsync(x => x.KPIId == request.KPIId &&
+                                                                                        x.TrainingProgramId == request.TrainingProgramId);
+
+            if (trainingKPI == null)
+            {
+                return response.SetBadRequest($"training resource is not found !");
+            }
+
+            await _unitOfWork.ProgramKPIs.RemoveByIdAsync(trainingKPI.Id);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk($"remove success!");
         }
 
     }
