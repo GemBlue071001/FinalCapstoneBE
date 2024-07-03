@@ -76,6 +76,7 @@ namespace Application.MyMapper
             #endregion
 
             CreateMap<Assessment, AssessmentRequest>().ReverseMap();
+            CreateMap<AssessmentUpdateRequest, Assessment>().ReverseMap();
             CreateMap<Assessment, AssessmentResponse>().ReverseMap();
 
             CreateMap<UserAccount, UserResponse>().ReverseMap();

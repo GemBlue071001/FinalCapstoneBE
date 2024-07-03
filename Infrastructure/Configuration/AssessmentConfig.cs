@@ -11,7 +11,11 @@ namespace Infrastructure.Configuration
         {
             builder.HasOne(o => o.Owner)
                .WithMany(o => o.Assessments)
-               .HasForeignKey(o => o.UserId);           
+               .HasForeignKey(o => o.UserId);
+
+            builder.HasOne(o => o.TrainingProgram)
+               .WithMany(o => o.Assessments)
+               .HasForeignKey(o => o.TrainingProgramId);
         }
     }
 }

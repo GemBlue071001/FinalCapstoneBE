@@ -23,7 +23,7 @@ namespace Application.Services
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse> AddAssessment(AssessmentRequest request)
+        public async Task<ApiResponse> AddAssessmentAsync(AssessmentRequest request)
         {
             var response = new ApiResponse();
 
@@ -40,13 +40,61 @@ namespace Application.Services
             return response.SetOk("Create Success !!");
         }
 
-        public async Task<ApiResponse> GetAllAssessment()
+        public async Task<ApiResponse> GetAllAssessmentAsync()
         {
             var response = new ApiResponse();
             var assessments = await _unitOfWork.Assessment.GetAllAsync(null, x => x.Include(x => x.Owner));
 
             var responseList = _mapper.Map<List<AssessmentResponse>>(assessments);
             return response.SetOk(responseList);
+        }
+
+        public async Task<ApiResponse> DeleteAssessmentAsync(int id)
+        {
+            var response = new ApiResponse();
+            var assessment = await _unitOfWork.Assessment.GetAsync(u => u.Id == id);
+            if (assessment == null)
+            {
+                return response.SetBadRequest("assessment not found");
+            }
+            await _unitOfWork.Assessment.RemoveByIdAsync(id);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk(assessment);
+        }
+
+        public async Task<ApiResponse> UpdateAssessmentAsync(AssessmentUpdateRequest request)
+        {
+            var response = new ApiResponse();
+            var assessment = await _unitOfWork.Assessment.GetAsync(u => u.Id == request.Id);
+            if (assessment == null)
+            {
+                return response.SetBadRequest("assessment not found");
+            }
+            _mapper.Map(request, assessment);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk(assessment);
+        }
+
+        public async Task<ApiResponse> AsignAssessmentToProgramAsync(ProgramAssessmentRequest request)
+        {
+            var response = new ApiResponse();
+            var assessment = await _unitOfWork.Assessment.GetAsync(u => u.Id == request.AssessmentId);
+            if (assessment == null)
+            {
+                return response.SetBadRequest("assessment not found");
+            }
+            var program = await _unitOfWork.TrainingPrograms.GetAsync(u => u.Id == request.TrainingProgramId);
+            if (program == null)
+            {
+                return response.SetBadRequest("program not found");
+            }
+
+            assessment.TrainingProgramId = request.TrainingProgramId;
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk("Success");
         }
     }
 }

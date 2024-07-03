@@ -7,7 +7,10 @@ namespace Application.Interface
 {
     public interface IAssessmentService
     {
-        Task<ApiResponse> AddAssessment(AssessmentRequest request);
-        Task<ApiResponse> GetAllAssessment();
+        Task<ApiResponse> AddAssessmentAsync(AssessmentRequest request);
+        Task<ApiResponse> GetAllAssessmentAsync();
+        Task<ApiResponse> DeleteAssessmentAsync(int id);
+        Task<ApiResponse> UpdateAssessmentAsync(AssessmentUpdateRequest request);
+        Task<ApiResponse> AsignAssessmentToProgramAsync(ProgramAssessmentRequest request);
     }
 }

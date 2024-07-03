@@ -20,6 +20,8 @@ namespace Domain.Entities
         //Navigation Property
         public int UserId { get; set; }
         public UserAccount Owner { get; set; }
+        public int? TrainingProgramId { get; set; }
+        public TrainingProgram? TrainingProgram { get; set; }
 
     }
 }

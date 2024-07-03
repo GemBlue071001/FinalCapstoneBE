@@ -1,10 +1,12 @@
-﻿using Application.Response.User;
-using Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Application.Response.Assessment
-
+namespace Application.Request.Assessment
 {
-    public class AssessmentResponse
+    public class AssessmentUpdateRequest
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,9 +16,5 @@ namespace Application.Response.Assessment
         public int EstimateTime { get; set; }
         public DateTime EndDate { get; set; }
         public int ActualTime { get; set; }
-
-        //Navigation Property
-        public int UserId { get; set; }
-        public UserResponse Owner { get; set; }
     }
 }

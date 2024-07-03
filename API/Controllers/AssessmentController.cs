@@ -18,13 +18,34 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAssessment(AssessmentRequest request)
         {
-            var result = await _service.AddAssessment(request);
+            var result = await _service.AddAssessmentAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
         [HttpGet]
         public async Task<IActionResult> GetAllAssessment()
         {
-            var result = await _service.GetAllAssessment();
+            var result = await _service.GetAllAssessmentAsync();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAssessmentAsync(AssessmentUpdateRequest request)
+        {
+            var result = await _service.UpdateAssessmentAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAssessmentAsync(int id)
+        {
+            var result = await _service.DeleteAssessmentAsync(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPut("Program")]
+        public async Task<IActionResult> AddAssessmentToProgramAsync(ProgramAssessmentRequest request)
+        {
+            var result = await _service.AsignAssessmentToProgramAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }

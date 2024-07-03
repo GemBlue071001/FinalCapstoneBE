@@ -13,5 +13,6 @@ namespace Application.Request.Assessment
 
         //Navigation Property
         public int UserId { get; set; }
+        public int? TrainingProgramId { get; set; }
     }
 }
