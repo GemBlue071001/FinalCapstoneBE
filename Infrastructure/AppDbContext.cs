@@ -27,6 +27,9 @@ namespace Infrastructure
         public DbSet<Resource> Resource { get; set; }
         public DbSet<TrainingProgramResource> TrainingProgramResource { get; set; }
         public DbSet<UserMeeting> UserMeeting { get; set; }
+        public DbSet<KPI> KPI { get; set; }
+        public DbSet<ProgramKPI> ProgramKPI { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,6 +41,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new UserMeetingConfig());
             modelBuilder.ApplyConfiguration(new AssessmentConfig());
             modelBuilder.ApplyConfiguration(new TrainingProgramResourceConfig());
+            modelBuilder.ApplyConfiguration(new ProgramKPIConfig());
         }
 
 

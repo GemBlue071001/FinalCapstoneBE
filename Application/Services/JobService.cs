@@ -75,11 +75,12 @@ namespace Application.Services
         {
             var response = new ApiResponse();
             var jobs = await _unitOfWork.Jobs.GetAsync(x => x.Id == id);
+            if (jobs == null)
+                return response.SetBadRequest("Job Not Found!");
             await _unitOfWork.Jobs.RemoveByIdAsync(id);
             await _unitOfWork.SaveChangeAsync();
 
-            if (jobs == null)
-                return response.SetBadRequest("Job Not Found!");
+            
             return response.SetOk(jobs);
 
         }

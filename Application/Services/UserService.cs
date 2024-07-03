@@ -34,7 +34,7 @@ namespace Application.Services
 
             //var userReponse = _mapper.Map<UserResponse>(user);
 
-            return response.SetOk(user.Role);
+            return response.SetOk(user);
         }
 
         public async Task<ApiResponse> GetUsersByUserName(string userName)

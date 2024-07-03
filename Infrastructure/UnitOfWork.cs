@@ -31,8 +31,11 @@ namespace Infrastructure
         public IMeetingRepository Meetings { get; }
 
         public IJobTrainingProgramRepository JobTrainingPrograms  { get; }
+        public IKPIRepository KPIs { get; }
 
-    public UnitOfWork(AppDbContext context)
+        public IProgramKPIRepository ProgramKPIs { get; }
+
+        public UnitOfWork(AppDbContext context)
         {
             _context = context;
             UserAccounts = new UserAccountRepository(context);
@@ -47,6 +50,8 @@ namespace Infrastructure
             UserMeetings = new UserMeetingRepository(context);
             Meetings = new MeetingRepository(context);
             JobTrainingPrograms = new JobTrainingProgramRepository(context);
+            KPIs = new KPIRepository(context);
+            ProgramKPIs = new ProgramKPIRepository(context);
         }
 
         public async Task SaveChangeAsync()

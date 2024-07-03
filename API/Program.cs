@@ -79,6 +79,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAssessmentService, AssessmentService>();
 builder.Services.AddScoped<IResourceService, ResourceService>();
 builder.Services.AddScoped<IMeetingService, MeetingService>();
+builder.Services.AddScoped<IKPIService, KPIService>();
 
 
 builder.Services.AddEndpointsApiExplorer();

@@ -59,11 +59,12 @@ namespace Application.Services
         {
             var response = new ApiResponse();
             var campaign = await _unitOfWork.Campaigns.GetAsync(x => x.Id == id);
+            if (campaign == null)
+                return response.SetBadRequest("Campaigns Not Found!");
             await _unitOfWork.Campaigns.RemoveByIdAsync(id);
             await _unitOfWork.SaveChangeAsync();
 
-            if (campaign == null)
-                return response.SetBadRequest("Campaigns Not Found!");
+            
             return response.SetOk(campaign);
         }
 
@@ -73,7 +74,7 @@ namespace Application.Services
             var campaign = await _unitOfWork.Campaigns.GetAsync(x => x.Id == request.Id);
             if (campaign == null)
             {
-                response.SetBadRequest("Campain not found");
+                return response.SetBadRequest("Campain not found");
             }
             _mapper.Map(request, campaign);
             await _unitOfWork.SaveChangeAsync();

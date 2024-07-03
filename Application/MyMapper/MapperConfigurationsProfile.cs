@@ -2,6 +2,7 @@
 using Application.Request.Campaign;
 using Application.Request.Candidate;
 using Application.Request.Job;
+using Application.Request.KPI;
 using Application.Request.Meeting;
 using Application.Request.Resource;
 using Application.Request.TrainingProgram;
@@ -10,6 +11,7 @@ using Application.Response.Assessment;
 using Application.Response.Campaign;
 using Application.Response.Candidate;
 using Application.Response.Job;
+using Application.Response.KPI;
 using Application.Response.MeetingResponse;
 using Application.Response.Resource;
 using Application.Response.TrainingProgram;
@@ -97,6 +99,10 @@ namespace Application.MyMapper
                 }).ToList()));
             CreateMap<MeetingUpdateRequest, Meeting>()
                 .ForMember(meeting => meeting.Id, opt => opt.Ignore());
+
+            CreateMap<KPI, KPIRequest>().ReverseMap();
+            CreateMap<KPI, KPIResponse>().ReverseMap();
+            CreateMap<KPI, UpdateKPIRequest>().ReverseMap();
         }
     }
 }

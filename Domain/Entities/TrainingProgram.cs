@@ -17,6 +17,6 @@ namespace Domain.Entities
         //Navigation Property
         public List<TrainingProgramResource> TrainingProgramResources { get; set; }
         public List<JobTrainingProgram> JobTrainingPrograms { get; set; }
-
+        public List<ProgramKPI> ProgramKPI { get; set; }
     }
 }
