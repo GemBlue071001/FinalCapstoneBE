@@ -1,4 +1,5 @@
-﻿using Application.Request.TrainingProgram;
+﻿using Application.Request.KPI;
+using Application.Request.TrainingProgram;
 using Application.Response;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,7 @@ namespace Application.Interface
         Task<ApiResponse> AddResourceToTrainingProgramAsync(TrainingResourceRequest request);
         Task<ApiResponse> UpdateTrainingProgramAsync(TrainingUpdateRequest request);
         Task<ApiResponse> DeleteTrainingProgramAsync(int id);
+        Task<ApiResponse> AddKPIToTranningProgram(ProgramKPIRequest request);
+        Task<ApiResponse> RemoveKPIFromTrainingProgramAsync(ProgramKPIRequest request);
     }
 }
