@@ -22,6 +22,7 @@ namespace Infrastructure.Repositories
                        .ThenInclude(x => x.KPI)
                    .Include(x => x.TrainingProgramResources)
                        .ThenInclude(x => x.Resource)
+                   .Include(x => x.Assessments)
                    .ToListAsync();
         }
     }
