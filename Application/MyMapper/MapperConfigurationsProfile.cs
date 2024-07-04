@@ -66,13 +66,19 @@ namespace Application.MyMapper
             CreateMap<TrainingProgram, TrainingProgramRequest>().ReverseMap();
             CreateMap<TrainingUpdateRequest, TrainingProgram>();
             CreateMap<TrainingProgram, TrainingProgramResponse>()
-                .ForMember(dest => dest.Resources, opt => opt.MapFrom(src => src.TrainingProgramResources.Select(tpr => tpr.Resource)));
+                .ForMember(dest => dest.Resources, opt => opt.MapFrom(src => src.TrainingProgramResources.Select(tpr => tpr.Resource)))
+                .ForMember(dest => dest.KPIs, opt => opt.MapFrom(src => src.ProgramKPI.Select(tpr => tpr.KPI)));
             CreateMap<TrainingProgramResponse, TrainingProgram>();
             CreateMap<TrainingProgramResource, ResourceResponse>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Resource.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Resource.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Resource.Description))
                 .ForMember(dest => dest.FilePath, opt => opt.MapFrom(src => src.Resource.FilePath));
+            CreateMap<ProgramKPI, KPIResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.KPI.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.KPI.Name))
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.KPI.Value))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.KPI.Type));
             #endregion
 
             CreateMap<Assessment, AssessmentRequest>().ReverseMap();

@@ -1,4 +1,5 @@
 ﻿using Application.Response.Job;
+using Application.Response.KPI;
 using Application.Response.Resource;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Application.Response.TrainingProgram
         public string CourseObject { get; set; }
         public string OutputObject { get; set; }
         public List<ResourceResponse> Resources { get; set; }
+        public List<KPIResponse> KPIs { get; set; }
         //public List<JobTrainingProgramResponse> Jobs { get; set; }
         //public List<TrainingProgramResourceResponse> TrainingProgramResources { get; set; }
     }

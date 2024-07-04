@@ -18,8 +18,8 @@ namespace Infrastructure.Repositories
         {
             IQueryable<TrainingProgram> query = _db;
             return await query
-                   .Include(x => x.JobTrainingPrograms)
-                       .ThenInclude(x => x.Job)
+                   .Include(x => x.ProgramKPI)
+                       .ThenInclude(x => x.KPI)
                    .Include(x => x.TrainingProgramResources)
                        .ThenInclude(x => x.Resource)
                    .ToListAsync();
