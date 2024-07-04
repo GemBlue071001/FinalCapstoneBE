@@ -13,6 +13,6 @@
         public string Priority { get; set; }
 
         //Navigation Property 
-        public List<UserMeetingResponse> UserMeetings = [];
+        public List<UserMeetingResponse> UserMeetings { get; set; }
     }
 }
