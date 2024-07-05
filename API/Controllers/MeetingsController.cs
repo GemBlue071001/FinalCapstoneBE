@@ -33,7 +33,7 @@ namespace API.Controllers
         public async Task<IActionResult> AddMeeting([FromBody] MeetingRequest meeting)
         {
             var response = await _meetingsService.AddMeeting(meeting);
-            return response != null ? Created() : BadRequest(response);
+            return response != null ? Ok(response) : NotFound(response);
         }
 
         [HttpPut()]

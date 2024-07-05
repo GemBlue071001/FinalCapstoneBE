@@ -22,10 +22,10 @@ namespace Application.Services
         public async Task<ApiResponse> GetMeeting(int id)
         {
             var response = new ApiResponse();
-            var meeting = await _unitOfWork.Meetings.GetAsync(x => x.Id == id, x => x.Include(x => x.UserMeetings).ThenInclude(u => u.User));   
-            if(meeting == null) return response.SetNotFound();
-            
-            var meetingResponse = _mapper.Map<MeetingResponse>(meeting);   
+            var meeting = await _unitOfWork.Meetings.GetAsync(x => x.Id == id, x => x.Include(x => x.UserMeetings).ThenInclude(u => u.User));
+            if (meeting == null) return response.SetNotFound();
+
+            var meetingResponse = _mapper.Map<MeetingResponse>(meeting);
             return response.SetOk(meetingResponse);
         }
 
@@ -40,7 +40,7 @@ namespace Application.Services
             foreach (var meeting in meetings)
             {
                 var meetingResponse = _mapper.Map<MeetingResponse>(meeting);
-                if(meetingResponse != null)
+                if (meetingResponse != null)
                 {
                     meetingResponses.Add(meetingResponse);
                 }
@@ -75,9 +75,9 @@ namespace Application.Services
         {
             var response = new ApiResponse();
             var meeting = await _unitOfWork.Meetings.GetAsync(x => x.Id == request.Id);
-            if(meeting == null) return response.SetNotFound("Meeting ID: " + request.Id + "Not Found");
+            if (meeting == null) return response.SetNotFound("Meeting ID: " + request.Id + "Not Found");
 
-            meeting = _mapper.Map<Meeting>(request);
+            _mapper.Map(request, meeting);
             await _unitOfWork.SaveChangeAsync();
             return response.SetOk("Updated");
         }
@@ -88,7 +88,7 @@ namespace Application.Services
             var meeting = await _unitOfWork.Meetings.GetAsync(x => x.Id == meetingId, x => x.Include(x => x.UserMeetings));
             if (meeting == null)
             {
-               return response.SetNotFound();
+                return response.SetNotFound();
             }
 
             if (meeting.UserMeetings.Any(x => x.UserId == userId))
@@ -119,16 +119,16 @@ namespace Application.Services
             var response = new ApiResponse();
 
             var meeting = await _unitOfWork.Meetings.GetAsync(x => x.Id == id);
-            if (meeting == null) 
+            if (meeting == null)
             {
                 return response.SetNotFound("Meeting ID: " + id + " Is Not Found");
             }
             meeting.IsDeleted = true;
             await _unitOfWork.SaveChangeAsync();
 
-            return response.SetOk("Meeting ID: "+ id +" Deleted");
+            return response.SetOk("Meeting ID: " + id + " Deleted");
         }
 
-       
+
     }
 }
