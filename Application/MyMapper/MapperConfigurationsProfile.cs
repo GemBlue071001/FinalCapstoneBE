@@ -98,7 +98,7 @@ namespace Application.MyMapper
             CreateMap<Meeting, MeetingResponse>()
                 .ForMember(meeting => meeting.UserMeetings, opt => opt.MapFrom(src => src.UserMeetings.Select(x => new UserMeetingResponse()
                 {
-                    Id = x.Id,
+                    Id = x.UserId,
                     Email = x.User.Email ?? string.Empty,
                     Phone = x.User.PhoneNumber ?? string.Empty,
                     UserName = x.User.UserName ?? string.Empty,
