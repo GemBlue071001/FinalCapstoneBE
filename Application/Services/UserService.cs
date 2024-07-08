@@ -76,6 +76,35 @@ namespace Application.Services
             return response.SetOk(user);
         }
 
+        public async Task<ApiResponse> GetInternInCampaginJobAsync(int campaginId, int jobId)
+        {
+            ApiResponse response = new ApiResponse();
+            var campaignJob = await _unitOfWork.CampaignJobs.GetAsync(x => x.CampaignId == campaginId && x.JobId == jobId);
+            if (campaignJob != null)
+            {
+                var interns = await _unitOfWork.UserAccounts.GetAllAsync(x => x.CampaignJobId == campaignJob.Id);
+                var listInternResponse = _mapper.Map<List<UserResponse>>(interns);
+
+                return response.SetOk(listInternResponse);
+            }
+            return response.SetBadRequest("campaign job is not found! ");
+        }
+
+        public async Task<ApiResponse> AddUserToCampaginJobAsync(UserCampaignJobRequest request)
+        {
+            ApiResponse response = new ApiResponse();
+            var campaignJob = await _unitOfWork.CampaignJobs.GetAsync(x => x.CampaignId == request.CampaginId && x.JobId == request.JobId);
+            if (campaignJob != null)
+            {
+                var intern = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == request.UserId);
+                intern.CampaignJobId = campaignJob.Id;
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Added user to campaign job!");
+            }
+            return response.SetBadRequest("campaign job is not found! ");
+        }
+
         private bool ValidateEmail(string email)
         {
             var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");

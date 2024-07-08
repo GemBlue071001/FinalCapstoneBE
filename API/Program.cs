@@ -6,13 +6,16 @@ using Application.SignalRHub.Model;
 using Domain;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
+using static SignalrHub;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,6 +59,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = false,
             ValidateAudience = false,
         };
+
+        opt.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                if (!string.IsNullOrEmpty(accessToken) &&
+                    context.HttpContext.Request.Path.StartsWithSegments("/chat"))
+                {
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
+        };
     });
 
 builder.Services.AddAutoMapper(typeof(MapperConfigurationsProfile).Assembly);
@@ -64,6 +81,9 @@ builder.Services.AddSignalR(e => {
 });
 
 builder.Services.AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>());
+
+builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
+
 builder.Services.AddSingleton(configuration!);
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -100,6 +120,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<SignalrHub>("/hub1");
+app.MapHub<SignalrHub>("/chat");
 
 app.Run();

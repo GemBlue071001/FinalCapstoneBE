@@ -66,6 +66,8 @@ namespace Application.Services
         {
             List<Claim> claims = new List<Claim>
             {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim("Role", user.Role.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString()),
                 new Claim( "name" , user.UserName),

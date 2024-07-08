@@ -8,7 +8,7 @@ namespace Application.SignalRHub.Model
 {
     public class UserConnection
     {
-        public string User { get; set; } = string.Empty;
-        public string Room { get; set; } = string.Empty;
+        public string UserName { get; set; } 
+        public string ChatRoom { get; set; } 
     }
 }

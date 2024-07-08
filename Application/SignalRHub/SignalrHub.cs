@@ -1,40 +1,20 @@
 ﻿using Application.SignalRHub.Model;
 using Microsoft.AspNetCore.SignalR;
+using System.Collections.Concurrent;
 
 public class SignalrHub : Hub
 {
-    private readonly string _botUser;
-    private readonly IDictionary<string, UserConnection> _connections;
 
-    public SignalrHub(IDictionary<string, UserConnection> connections)
+    public override async Task OnConnectedAsync()
     {
-        _botUser = "MyChat Bot";
-        _connections = connections;
+        var userId = Context.UserIdentifier;
+        Console.WriteLine($"User connected: {userId}");
+        await base.OnConnectedAsync();
     }
 
-
-
-    public async Task JoinRoom(UserConnection userConnection)
+    public async Task SendMessageToUser(string userId, string message)
     {
-        await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.Room);
-
-        _connections[Context.ConnectionId] = userConnection;
-
-        await Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
-
-    }
-
-
-    public async Task SendMessage(string message)
-    {
-        if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
-        {
-            await Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", userConnection.User, message);
-        }
-    }
-
-    public async Task NewMessage(string user, string message)
-    {
-        await Clients.All.SendAsync("messageReceived", user, message);
+        await Clients.User(userId).SendAsync("ReceiveMessage", userId, message);
+        //await Clients.All.SendAsync("ReceiveMessage", userId, message);
     }
 }

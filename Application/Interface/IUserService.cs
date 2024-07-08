@@ -13,5 +13,7 @@ namespace Application.Interface
         Task<ApiResponse> GetUsersByUserName(string userName);
         Task<ApiResponse> GetUserProfileAsync(int id);
         Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request);
+        Task<ApiResponse> GetInternInCampaginJobAsync(int campaginId, int jobId);
+        Task<ApiResponse> AddUserToCampaginJobAsync(UserCampaignJobRequest request);
     }
 }

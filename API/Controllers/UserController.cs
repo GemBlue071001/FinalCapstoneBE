@@ -35,5 +35,19 @@ namespace API.Controllers
             var result = await _service.GetUserProfileAsync(id);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
+        [HttpGet("CampaginJob")]
+        public async Task<IActionResult> GetInternInCampaginJobAsync(int campaignId, int jobId)
+        {
+            var result = await _service.GetInternInCampaginJobAsync(campaignId, jobId);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("CampaginJob")]
+        public async Task<IActionResult> AddUserToCampaginJobAsync(UserCampaignJobRequest request)
+        {
+            var result = await _service.AddUserToCampaginJobAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
     }
 }
