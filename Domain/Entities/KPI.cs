@@ -11,7 +11,7 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string  Name { get; set; }
         public string Value { get; set; }
-        public string Descition { get; set; }
+        public string Weight { get; set; }
         public string Type { get; set; }
 
         //
