@@ -122,4 +122,9 @@ app.MapControllers();
 
 app.MapHub<SignalrHub>("/chat");
 
+using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+{
+    serviceScope.ServiceProvider.GetService<AppDbContext>().Database.Migrate();
+}
+
 app.Run();
