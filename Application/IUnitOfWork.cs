@@ -24,6 +24,7 @@ namespace Application
         public IMeetingRepository Meetings { get; }
         public IKPIRepository KPIs { get; }
         public IProgramKPIRepository ProgramKPIs { get; }
+        public IUserResultRepository UserResults { get; }
         public Task SaveChangeAsync();
     }
 }

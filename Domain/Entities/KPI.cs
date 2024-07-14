@@ -10,9 +10,9 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public string  Name { get; set; }
-        public string Value { get; set; }
-        public string Weight { get; set; }
-        public string Type { get; set; }
+        //public string Value { get; set; }
+        public int Weight { get; set; }
+        public string? Type { get; set; }
 
         //
         public List<ProgramKPI> ProgramKPI { get; set; }

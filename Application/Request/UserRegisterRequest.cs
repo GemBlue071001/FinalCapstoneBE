@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,7 @@ namespace Application.Request
         public string Email { get; set; } = string.Empty;
         public string FistName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
+        public Role Role { get; set; }
+
     }
 }

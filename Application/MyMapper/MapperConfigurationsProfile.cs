@@ -48,7 +48,7 @@ namespace Application.MyMapper
             ;
             CreateMap<Campaign, CampaignResponse>()
                 .ForMember(dest => dest.Jobs, opt => opt.MapFrom(src => src.CampaignJobs.Select(tpr => tpr.Job)));
-            CreateMap<CampaignJob,JobResponse>()
+            CreateMap<CampaignJob, JobResponse>()
                  .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Job.Id))
                  .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Job.Name))
                  .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Job.Duration))
@@ -77,7 +77,7 @@ namespace Application.MyMapper
             CreateMap<ProgramKPI, KPIResponse>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.KPI.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.KPI.Name))
-                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.KPI.Value))
+                //.ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.KPI.Value))
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.KPI.Type));
             #endregion
 
@@ -87,6 +87,8 @@ namespace Application.MyMapper
 
             CreateMap<UserAccount, UserResponse>().ReverseMap();
             CreateMap<UserAccount, UpdateUserRequest>().ReverseMap();
+            CreateMap<UserResultDetail, UserResultDetailResponse>();
+            CreateMap<UserResult, UserResultResponse>();
 
 
             CreateMap<Resource, ResourceResponse>().ReverseMap();

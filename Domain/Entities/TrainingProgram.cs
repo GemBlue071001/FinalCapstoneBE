@@ -19,5 +19,6 @@ namespace Domain.Entities
         public List<JobTrainingProgram> JobTrainingPrograms { get; set; }
         public List<ProgramKPI> ProgramKPI { get; set; }
         public List<Assessment> Assessments { get; set; }
+        public List<UserResult> UserResults { get; set; }
     }
 }

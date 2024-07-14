@@ -39,7 +39,7 @@ namespace Application.Services
                 Email = user.Email,
                 FirstName = user.FistName,
                 LastName = user.LastName,
-                Role = Role.Intern,
+                Role = user.Role,
             };
             await _unitOfWork.UserAccounts.AddAsync(_user);
             await _unitOfWork.SaveChangeAsync();

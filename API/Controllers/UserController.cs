@@ -1,5 +1,6 @@
 ﻿using Application.Interface;
 using Application.Request.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,6 +48,21 @@ namespace API.Controllers
         public async Task<IActionResult> AddUserToCampaginJobAsync(UserCampaignJobRequest request)
         {
             var result = await _service.AddUserToCampaginJobAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+
+        [HttpPost("UserResult")]
+        public async Task<IActionResult> AddUserKPIResult(UserResultRequest request)
+        {
+            var result = await _service.EveluateInternKPI(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("UserResult")]
+        public async Task<IActionResult> GetUserKPIResult(int userId, int programId)
+        {
+            var result = await _service.GetInternResult(programId,userId);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }

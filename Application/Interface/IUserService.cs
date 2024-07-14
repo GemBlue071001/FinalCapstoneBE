@@ -15,5 +15,7 @@ namespace Application.Interface
         Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request);
         Task<ApiResponse> GetInternInCampaginJobAsync(int campaginId, int jobId);
         Task<ApiResponse> AddUserToCampaginJobAsync(UserCampaignJobRequest request);
+        Task<ApiResponse> EveluateInternKPI(UserResultRequest request);
+        Task<ApiResponse> GetInternResult(int programId, int userId);
     }
 }

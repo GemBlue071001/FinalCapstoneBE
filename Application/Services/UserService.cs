@@ -3,7 +3,9 @@ using Application.Request.User;
 using Application.Response;
 using Application.Response.User;
 using AutoMapper;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,6 +105,65 @@ namespace Application.Services
                 return response.SetOk("Added user to campaign job!");
             }
             return response.SetBadRequest("campaign job is not found! ");
+        }
+
+        public async Task<ApiResponse> EveluateInternKPI(UserResultRequest request)
+        {
+            var response = new ApiResponse();
+
+
+            var program = await _unitOfWork.TrainingPrograms.GetAsync(x => x.Id == request.ProgramId,
+                                                                    include: x => x.Include(x => x.ProgramKPI).ThenInclude(x => x.KPI));
+            if (program == null)
+            {
+                return response.SetBadRequest("Training program not found");
+            }
+
+            float total = 0f;
+            List<UserResultDetail> userResultDetails = new List<UserResultDetail>();
+
+            foreach (var detailDto in request.UserResultDetails)
+            {
+                var kpi = program.ProgramKPI.FirstOrDefault(tpk => tpk.KPIId == detailDto.KPIId)?.KPI;
+                if (kpi == null)
+                {
+                    return response.SetBadRequest($"KPI with Id {detailDto.KPIId} not found in the program");
+                }
+                UserResultDetail detail = new UserResultDetail
+                {
+                    Value = detailDto.Value,
+                    Weight = kpi.Weight,
+                    Name = kpi.Name
+                };
+                userResultDetails.Add(detail);
+                total += (detail.Weight / 100.0f) * detail.Value;
+            }
+
+            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == request.UserId);
+
+            UserResult userResult = new UserResult
+            {
+                UserId = request.UserId,
+                ProgramId = request.ProgramId,
+                Total = total,
+                UserResultDetails = userResultDetails,
+                Name = user.UserName,
+            };
+
+            await _unitOfWork.UserResults.AddAsync(userResult);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk("Completed");
+        }
+
+        public async Task<ApiResponse> GetInternResult(int programId, int userId)
+        {
+            var response = new ApiResponse();
+            var internResults = await _unitOfWork.UserResults.GetAsync(x => x.ProgramId == programId && x.UserId == userId, 
+                                                                        include: x => x.Include(x => x.UserResultDetails));
+            var respnseInternResults = _mapper.Map<UserResultResponse>(internResults);
+
+            return response.SetOk(respnseInternResults);
         }
 
         private bool ValidateEmail(string email)
