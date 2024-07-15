@@ -43,7 +43,7 @@ namespace Application.Services
         public async Task<ApiResponse> GetAllAssessmentAsync()
         {
             var response = new ApiResponse();
-            var assessments = await _unitOfWork.Assessment.GetAllAsync(null, x => x.Include(x => x.Owner));
+            var assessments = await _unitOfWork.Assessment.GetAllAsync(null, x => x.Include(x => x.Owner).Include(x=>x.AssessmentSubmitions));
 
             var responseList = _mapper.Map<List<AssessmentResponse>>(assessments);
             return response.SetOk(responseList);

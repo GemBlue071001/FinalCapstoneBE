@@ -1,4 +1,5 @@
 ﻿using Application.Request.Assessment;
+using Application.Request.AssessmentSubmition;
 using Application.Request.Campaign;
 using Application.Request.Candidate;
 using Application.Request.Job;
@@ -8,6 +9,7 @@ using Application.Request.Resource;
 using Application.Request.TrainingProgram;
 using Application.Request.User;
 using Application.Response.Assessment;
+using Application.Response.AssessmentSubmition;
 using Application.Response.Campaign;
 using Application.Response.Candidate;
 using Application.Response.Job;
@@ -84,6 +86,10 @@ namespace Application.MyMapper
             CreateMap<Assessment, AssessmentRequest>().ReverseMap();
             CreateMap<AssessmentUpdateRequest, Assessment>().ReverseMap();
             CreateMap<Assessment, AssessmentResponse>().ReverseMap();
+
+            CreateMap<SubmitionRequest, AssessmentSubmition>();
+            CreateMap<AssessmentSubmition, AssessmentSubmitionResponse>();
+
 
             CreateMap<UserAccount, UserResponse>().ReverseMap();
             CreateMap<UserAccount, UpdateUserRequest>().ReverseMap();

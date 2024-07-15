@@ -25,6 +25,7 @@ namespace Application
         public IKPIRepository KPIs { get; }
         public IProgramKPIRepository ProgramKPIs { get; }
         public IUserResultRepository UserResults { get; }
+        public IAssessmentSubmitionsRepository AssessmentSubmitions { get; }
         public Task SaveChangeAsync();
     }
 }
