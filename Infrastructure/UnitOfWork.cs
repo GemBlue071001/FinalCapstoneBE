@@ -37,6 +37,8 @@ namespace Infrastructure
 
         public IUserResultRepository UserResults { get; }
 
+        public IAssessmentSubmitionsRepository AssessmentSubmitions { get; }
+
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -55,6 +57,7 @@ namespace Infrastructure
             KPIs = new KPIRepository(context);
             ProgramKPIs = new ProgramKPIRepository(context);
             UserResults = new UserResultRepository(context);
+            AssessmentSubmitions = new AssessmentSubmitionsRepository(context);
         }
 
         public async Task SaveChangeAsync()

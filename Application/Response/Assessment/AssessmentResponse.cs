@@ -1,4 +1,5 @@
-﻿using Application.Response.User;
+﻿using Application.Response.AssessmentSubmition;
+using Application.Response.User;
 using Domain.Entities;
 
 namespace Application.Response.Assessment
@@ -18,5 +19,6 @@ namespace Application.Response.Assessment
         //Navigation Property
         public int UserId { get; set; }
         public UserResponse Owner { get; set; }
+        public List<AssessmentSubmitionResponse> AssessmentSubmitions { get; set; }
     }
 }

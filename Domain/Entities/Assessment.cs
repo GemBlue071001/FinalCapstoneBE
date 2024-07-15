@@ -16,12 +16,22 @@ namespace Domain.Entities
         public int EstimateTime { get; set; }
         public DateTime EndDate { get; set; }
         public int ActualTime { get; set; }
+        public AssessmentStatus AssessmentStatus { get; set; } = AssessmentStatus.Pending;
+        public string Comment { get; set; } = string.Empty;
 
         //Navigation Property
         public int UserId { get; set; }
         public UserAccount Owner { get; set; }
         public int? TrainingProgramId { get; set; }
         public TrainingProgram? TrainingProgram { get; set; }
+        public List<AssessmentSubmition> AssessmentSubmitions { get; set; }
 
+    }
+
+    public enum AssessmentStatus
+    {
+        Pending,
+        Success,
+        Fail,
     }
 }
