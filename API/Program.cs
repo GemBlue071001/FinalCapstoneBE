@@ -101,6 +101,7 @@ builder.Services.AddScoped<IResourceService, ResourceService>();
 builder.Services.AddScoped<IMeetingService, MeetingService>();
 builder.Services.AddScoped<IKPIService, KPIService>();
 builder.Services.AddScoped<IAssessmentSubmitionService, AssessmentSubmitionService>();
+builder.Services.AddScoped<IClaimService, ClaimService>();
 builder.Services.AddScoped<IExcelFileHandling, ExcelFileHandling>();
 
 builder.Services.AddEndpointsApiExplorer();

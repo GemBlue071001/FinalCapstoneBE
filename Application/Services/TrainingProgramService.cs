@@ -23,11 +23,13 @@ namespace Application.Services
     {
         private IUnitOfWork _unitOfWork;
         private IMapper _mapper;
+        private IClaimService _claimService;
 
-        public TrainingProgramService(IUnitOfWork unitOfWork, IMapper mapper)
+        public TrainingProgramService(IUnitOfWork unitOfWork, IMapper mapper, IClaimService claimService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _claimService = claimService;
         }
 
         public async Task<ApiResponse> AddTrainingProgram(TrainingProgramRequest request)
@@ -156,6 +158,28 @@ namespace Application.Services
 
             return response.SetOk("Add KPI To Training Program Success !!");
         }
+
+        public async Task<ApiResponse> GetUserTrainingProgram()
+        {
+            var response = new ApiResponse();
+            var userClaim = _claimService.GetUserClaim();
+
+            if (userClaim == null)
+            {
+                return response.SetBadRequest("Something is wrong about user claim !");
+            }
+
+            else if (userClaim.Role == Role.InternshipCoordinators)
+            {
+                return await GetAllTrainingProgram();
+            }
+
+            var trainingPrograms = await _unitOfWork.UserAccounts.GetTrainingProgramsByUserId(userClaim.Id);
+            var trainingProgramResponseList = _mapper.Map<List<TrainingProgramResponse>>(trainingPrograms);
+
+            return response.SetOk(trainingProgramResponseList);
+        }
+
         public async Task<ApiResponse> RemoveKPIFromTrainingProgramAsync(ProgramKPIRequest request)
         {
             var response = new ApiResponse();
