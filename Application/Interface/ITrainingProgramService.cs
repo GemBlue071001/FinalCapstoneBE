@@ -19,5 +19,6 @@ namespace Application.Interface
         Task<ApiResponse> DeleteTrainingProgramAsync(int id);
         Task<ApiResponse> AddKPIToTranningProgram(ProgramKPIRequest request);
         Task<ApiResponse> RemoveKPIFromTrainingProgramAsync(ProgramKPIRequest request);
+        Task<ApiResponse> GetUserTrainingProgram();
     }
 }

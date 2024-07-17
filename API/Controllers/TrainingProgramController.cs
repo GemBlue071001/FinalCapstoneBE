@@ -2,6 +2,7 @@
 using Application.Request.Candidate;
 using Application.Request.KPI;
 using Application.Request.TrainingProgram;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +36,14 @@ namespace API.Controllers
         public async Task<IActionResult> GetAllTrainingProgramAsync()
         {
             var result = await _service.GetAllTrainingProgram();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [Authorize]
+        [HttpGet("UserTrainingProgram")]
+        public async Task<IActionResult> GetUserTrainingProgramAsync()
+        {
+            var result = await _service.GetUserTrainingProgram();
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

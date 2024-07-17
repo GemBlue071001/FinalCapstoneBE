@@ -111,55 +111,102 @@ namespace Application.Services
         {
             var response = new ApiResponse();
 
+            var userResultTemp = await _unitOfWork.UserResults.GetAsync(x => x.UserId == request.UserId && x.ProgramId == request.ProgramId, 
+                                                                         include: x=>x.Include(x=>x.UserResultDetails));
 
-            var program = await _unitOfWork.TrainingPrograms.GetAsync(x => x.Id == request.ProgramId,
+            if (userResultTemp != null)
+            {
+                var program = await _unitOfWork.TrainingPrograms.GetAsync(x => x.Id == request.ProgramId,
                                                                     include: x => x.Include(x => x.ProgramKPI).ThenInclude(x => x.KPI));
-            if (program == null)
-            {
-                return response.SetBadRequest("Training program not found");
-            }
-
-            float total = 0f;
-            List<UserResultDetail> userResultDetails = new List<UserResultDetail>();
-
-            foreach (var detailDto in request.UserResultDetails)
-            {
-                var kpi = program.ProgramKPI.FirstOrDefault(tpk => tpk.KPIId == detailDto.KPIId)?.KPI;
-                if (kpi == null)
+                if (program == null)
                 {
-                    return response.SetBadRequest($"KPI with Id {detailDto.KPIId} not found in the program");
+                    return response.SetBadRequest("Training program not found");
                 }
-                UserResultDetail detail = new UserResultDetail
+
+                float total = 0f;
+                List<UserResultDetail> userResultDetails = new List<UserResultDetail>();
+
+                foreach (var detailDto in request.UserResultDetails)
                 {
-                    Value = detailDto.Value,
-                    Weight = kpi.Weight,
-                    Name = kpi.Name
-                };
-                userResultDetails.Add(detail);
-                total += (detail.Weight / 100.0f) * detail.Value;
+                    var kpi = program.ProgramKPI.FirstOrDefault(tpk => tpk.KPIId == detailDto.KPIId)?.KPI;
+                    if (kpi == null)
+                    {
+                        return response.SetBadRequest($"KPI with Id {detailDto.KPIId} not found in the program");
+                    }
+                    UserResultDetail detail = new UserResultDetail
+                    {
+                        Value = detailDto.Value,
+                        Weight = kpi.Weight,
+                        Name = kpi.Name
+                    };
+                    userResultDetails.Add(detail);
+                    total += (detail.Weight / 100.0f) * detail.Value;
+                }
+
+                //userResultTemp.UserResultDetails = userResultDetails;
+                _mapper.Map(userResultDetails, userResultTemp.UserResultDetails);
+                userResultTemp.Total = total;
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Completed");
+
             }
 
-            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == request.UserId);
+            #region add
 
-            UserResult userResult = new UserResult
+            else
             {
-                UserId = request.UserId,
-                ProgramId = request.ProgramId,
-                Total = total,
-                UserResultDetails = userResultDetails,
-                Name = user.UserName,
-            };
+                var program = await _unitOfWork.TrainingPrograms.GetAsync(x => x.Id == request.ProgramId,
+                                                                    include: x => x.Include(x => x.ProgramKPI).ThenInclude(x => x.KPI));
+                if (program == null)
+                {
+                    return response.SetBadRequest("Training program not found");
+                }
 
-            await _unitOfWork.UserResults.AddAsync(userResult);
-            await _unitOfWork.SaveChangeAsync();
+                float total = 0f;
+                List<UserResultDetail> userResultDetails = new List<UserResultDetail>();
 
-            return response.SetOk("Completed");
+                foreach (var detailDto in request.UserResultDetails)
+                {
+                    var kpi = program.ProgramKPI.FirstOrDefault(tpk => tpk.KPIId == detailDto.KPIId)?.KPI;
+                    if (kpi == null)
+                    {
+                        return response.SetBadRequest($"KPI with Id {detailDto.KPIId} not found in the program");
+                    }
+                    UserResultDetail detail = new UserResultDetail
+                    {
+                        Value = detailDto.Value,
+                        Weight = kpi.Weight,
+                        Name = kpi.Name
+                    };
+                    userResultDetails.Add(detail);
+                    total += (detail.Weight / 100.0f) * detail.Value;
+                }
+
+                var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == request.UserId);
+
+                UserResult userResult = new UserResult
+                {
+                    UserId = request.UserId,
+                    ProgramId = request.ProgramId,
+                    Total = total,
+                    UserResultDetails = userResultDetails,
+                    Name = user.UserName,
+                };
+
+                await _unitOfWork.UserResults.AddAsync(userResult);
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Completed");
+            }
+            #endregion
+
         }
 
         public async Task<ApiResponse> GetInternResult(int programId, int userId)
         {
             var response = new ApiResponse();
-            var internResults = await _unitOfWork.UserResults.GetAsync(x => x.ProgramId == programId && x.UserId == userId, 
+            var internResults = await _unitOfWork.UserResults.GetAsync(x => x.ProgramId == programId && x.UserId == userId,
                                                                         include: x => x.Include(x => x.UserResultDetails));
             var respnseInternResults = _mapper.Map<UserResultResponse>(internResults);
 
