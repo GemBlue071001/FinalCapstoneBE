@@ -3,7 +3,9 @@ using Application.Interface;
 using Application.MyMapper;
 using Application.Services;
 using Application.SignalRHub.Model;
+using Application.Validations.KPI;
 using Domain;
+using FluentValidation.AspNetCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SignalR;
@@ -14,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
 using System.Text;
 using static SignalrHub;
 
@@ -102,6 +105,9 @@ builder.Services.AddScoped<IMeetingService, MeetingService>();
 builder.Services.AddScoped<IKPIService, KPIService>();
 builder.Services.AddScoped<IAssessmentSubmitionService, AssessmentSubmitionService>();
 builder.Services.AddScoped<IExcelFileHandling, ExcelFileHandling>();
+
+builder.Services.AddControllers()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

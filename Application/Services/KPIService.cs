@@ -4,6 +4,7 @@ using Application.Request.KPI;
 using Application.Response;
 using Application.Response.Job;
 using Application.Response.KPI;
+using Application.Validations.KPI;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,16 @@ namespace Application.Services
         public async Task<ApiResponse> AddKPI(KPIRequest request)
         {
             var response = new ApiResponse();
+            var validator = new KPIRequestValidator();
+
+           
+            var result = await validator.ValidateAsync(request);
+
+            if (!result.IsValid)
+            {               
+                var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
+                return response.SetBadRequest(errors);
+            }
             await _unitOfWork.KPIs.AddAsync(_mapper.Map<KPI>(request));
             await _unitOfWork.SaveChangeAsync();
 
