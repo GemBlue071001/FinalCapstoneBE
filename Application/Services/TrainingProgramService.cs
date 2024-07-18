@@ -149,6 +149,18 @@ namespace Application.Services
             if (programKPI != null)
                 return response.SetBadRequest("KPI already exist in this Tranning Program !!");
 
+
+            var allprogramKPI = await _unitOfWork.ProgramKPIs.GetAllAsync(x => x.TrainingProgramId == request.TrainingProgramId, 
+                                                                            query => query.Include(p => p.KPI));
+
+            var existingTotalWeight = allprogramKPI.Sum(x => x.KPI?.Weight ?? 0);
+            var kpi = await _unitOfWork.KPIs.GetAsync(x => x.Id == request.KPIId);
+            if (kpi == null)
+                return response.SetNotFound("KPI not found.");
+
+           
+            if (existingTotalWeight + kpi.Weight > 100)
+                return response.SetBadRequest("Total KPI weight in this training program cannot over 100.");
             await _unitOfWork.ProgramKPIs.AddAsync(new ProgramKPI
             {
                 TrainingProgramId = request.TrainingProgramId,
