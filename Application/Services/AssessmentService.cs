@@ -40,10 +40,17 @@ namespace Application.Services
             return response.SetOk("Create Success !!");
         }
 
-        public async Task<ApiResponse> GetAllAssessmentAsync()
+        public async Task<ApiResponse> GetAllAssessmentAsync(int programId)
         {
             var response = new ApiResponse();
-            var assessments = await _unitOfWork.Assessment.GetAllAsync(null, x => x.Include(x => x.Owner).Include(x=>x.AssessmentSubmitions));
+            List<Assessment> assessments;
+            if (programId != 0)
+            {
+                assessments = await _unitOfWork.Assessment.GetAllAsync(x => x.TrainingProgramId == programId,
+                                                                       x => x.Include(x => x.Owner).Include(x => x.AssessmentSubmitions));
+            }
+            assessments = await _unitOfWork.Assessment.GetAllAsync(null,
+                                                                       x => x.Include(x => x.Owner).Include(x => x.AssessmentSubmitions));
 
             var responseList = _mapper.Map<List<AssessmentResponse>>(assessments);
             return response.SetOk(responseList);

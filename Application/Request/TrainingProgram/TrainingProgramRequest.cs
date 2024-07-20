@@ -13,6 +13,8 @@ namespace Application.Request.TrainingProgram
         public int Duration { get; set; }
         public string CourseObject { get; set; }
         public string OutputObject { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public List<int> JobIds { get; set; }
     }
 }

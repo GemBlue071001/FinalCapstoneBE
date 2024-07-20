@@ -15,16 +15,18 @@ namespace API.Controllers
         {
             _service = service;
         }
+
         [HttpPost]
         public async Task<IActionResult> AddAssessment(AssessmentRequest request)
         {
             var result = await _service.AddAssessmentAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
         [HttpGet]
-        public async Task<IActionResult> GetAllAssessment()
+        public async Task<IActionResult> GetAllAssessment(int programId = 0)
         {
-            var result = await _service.GetAllAssessmentAsync();
+            var result = await _service.GetAllAssessmentAsync(programId);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

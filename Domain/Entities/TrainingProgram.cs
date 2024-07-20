@@ -13,6 +13,8 @@ namespace Domain.Entities
         public int Duration { get; set; }
         public string CourseObject { get; set; }
         public string OutputObject { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         //Navigation Property
         public List<TrainingProgramResource> TrainingProgramResources { get; set; }

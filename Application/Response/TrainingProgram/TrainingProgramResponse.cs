@@ -17,6 +17,8 @@ namespace Application.Response.TrainingProgram
         public int Duration { get; set; }
         public string CourseObject { get; set; }
         public string OutputObject { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public List<ResourceResponse> Resources { get; set; }
         public List<KPIResponse> KPIs { get; set; }
         public List<AssessmentResponse> Assessments { get; set; }
