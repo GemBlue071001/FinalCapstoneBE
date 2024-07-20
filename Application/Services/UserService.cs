@@ -19,10 +19,13 @@ namespace Application.Services
     {
         private IUnitOfWork _unitOfWork;
         private IMapper _mapper;
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        private IClaimService _claimService;
+
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IClaimService claimService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _claimService = claimService;
         }
 
 
@@ -39,24 +42,36 @@ namespace Application.Services
             return response.SetOk(user);
         }
 
-        public async Task<ApiResponse> GetUsersByUserName(string userName)
+        public async Task<ApiResponse> GetUsers(string userName)
         {
             ApiResponse response = new ApiResponse();
-            if (userName != null)
+            var userClaim = _claimService.GetUserClaim();
+            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == userClaim.Id);
+
+            List<UserAccount> users;
+            if (userClaim.Role == Role.InternshipCoordinators)
             {
-                var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.UserName.Contains(userName));
-                var userReponse = _mapper.Map<List<UserResponse>>(users);
-
-                return response.SetOk(userReponse);
-
+                users = userName != null
+                    ? await _unitOfWork.UserAccounts.GetAllAsync(u => u.UserName.Contains(userName))
+                    : await _unitOfWork.UserAccounts.GetAllAsync(null);
             }
             else
             {
-                var users = await _unitOfWork.UserAccounts.GetAllAsync(null);
-                var userReponse = _mapper.Map<List<UserResponse>>(users);
-
-                return response.SetOk(userReponse);
+                if (user.CampaignJobId != null)
+                {
+                    users = userName != null
+                       ? await _unitOfWork.UserAccounts.GetAllAsync(u => u.UserName.Contains(userName) && u.CampaignJobId == user.CampaignJobId)
+                       : await _unitOfWork.UserAccounts.GetAllAsync(u => u.CampaignJobId == user.CampaignJobId);
+                }
+                else
+                {
+                    users = new List<UserAccount>();
+                }
             }
+
+
+            var userResponse = _mapper.Map<List<UserResponse>>(users);
+            return response.SetOk(userResponse);
         }
 
         public async Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request)
@@ -111,8 +126,8 @@ namespace Application.Services
         {
             var response = new ApiResponse();
 
-            var userResultTemp = await _unitOfWork.UserResults.GetAsync(x => x.UserId == request.UserId && x.ProgramId == request.ProgramId, 
-                                                                         include: x=>x.Include(x=>x.UserResultDetails));
+            var userResultTemp = await _unitOfWork.UserResults.GetAsync(x => x.UserId == request.UserId && x.ProgramId == request.ProgramId,
+                                                                         include: x => x.Include(x => x.UserResultDetails));
 
             if (userResultTemp != null)
             {

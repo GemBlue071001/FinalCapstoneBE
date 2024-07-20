@@ -10,7 +10,7 @@ namespace Application.Interface
 {
     public interface IUserService
     {
-        Task<ApiResponse> GetUsersByUserName(string userName);
+        Task<ApiResponse> GetUsers(string userName);
         Task<ApiResponse> GetUserProfileAsync(int id);
         Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request);
         Task<ApiResponse> GetInternInCampaginJobAsync(int campaginId, int jobId);

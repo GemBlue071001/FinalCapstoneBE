@@ -16,10 +16,11 @@ namespace API.Controllers
             _service = service;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetUsersByUserName(string userName = null)
         {
-            var result = await _service.GetUsersByUserName(userName);
+            var result = await _service.GetUsers(userName);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
