@@ -26,6 +26,13 @@ namespace Infrastructure.Repositories
                             .ThenInclude(jt => jt.TrainingProgram)
                                 .ThenInclude(x => x.TrainingProgramResources)
                                     .ThenInclude(x => x.Resource)
+                                    
+                 .Include(u => u.CampaignJob)
+                    .ThenInclude(cj => cj.Job)
+                        .ThenInclude(j => j.JobTrainingPrograms)
+                            .ThenInclude(jt => jt.TrainingProgram)
+                                .ThenInclude(x => x.Assessments)
+
 
 
                 .FirstOrDefaultAsync();
