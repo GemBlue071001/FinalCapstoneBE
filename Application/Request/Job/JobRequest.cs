@@ -16,5 +16,7 @@ namespace Application.Request.Job
         public int Duration { get; set; }
         public int TotalMember { get; set; }
         public string? ImagePath { get; set; }
+        public string? Location { get; set; }
+
     }
 }

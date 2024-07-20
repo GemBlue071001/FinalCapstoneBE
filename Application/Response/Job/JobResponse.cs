@@ -17,6 +17,9 @@ namespace Application.Response.Job
         public DateTime StartDate { get; set; }
         public int Duration { get; set; }
         public string? ImagePath { get; set; }
+        public int TotalMember { get; set; }
+        public string? Location { get; set; }
+
         public List<TrainingProgramResponse> TrainingPrograms { get; set; } 
     }
 }

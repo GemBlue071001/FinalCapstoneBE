@@ -17,6 +17,7 @@ namespace Domain.Entities
         public int Duration { get; set; }
         public int TotalMember { get; set; }
         public string? ImagePath { get; set; }
+        public string? Location { get; set; }
 
         public List<CampaignJob> CampaignJobs { get; set; }
         public List<JobTrainingProgram> JobTrainingPrograms { get; set; } 
