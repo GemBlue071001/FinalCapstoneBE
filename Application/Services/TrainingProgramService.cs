@@ -171,7 +171,7 @@ namespace Application.Services
             return response.SetOk("Add KPI To Training Program Success !!");
         }
 
-        public async Task<ApiResponse> GetUserTrainingProgram()
+        public async Task<ApiResponse> GetUserTrainingProgram(int userId)
         {
             var response = new ApiResponse();
             var userClaim = _claimService.GetUserClaim();
@@ -181,12 +181,12 @@ namespace Application.Services
                 return response.SetBadRequest("Something is wrong about user claim !");
             }
 
-            else if (userClaim.Role == Role.InternshipCoordinators)
+            else if (userClaim.Role == Role.InternshipCoordinators && userId == 0)
             {
                 return await GetAllTrainingProgram();
             }
 
-            var trainingPrograms = await _unitOfWork.UserAccounts.GetTrainingProgramsByUserId(userClaim.Id);
+            var trainingPrograms = await _unitOfWork.UserAccounts.GetTrainingProgramsByUserId(userId);
             var trainingProgramResponseList = _mapper.Map<List<TrainingProgramResponse>>(trainingPrograms);
 
             return response.SetOk(trainingProgramResponseList);

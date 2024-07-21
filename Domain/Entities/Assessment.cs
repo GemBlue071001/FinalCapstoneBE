@@ -31,7 +31,9 @@ namespace Domain.Entities
     public enum AssessmentStatus
     {
         Pending,
-        Success,
-        Fail,
+        InProcess,
+        Completed,
+        //Success,
+        //Fail,
     }
 }

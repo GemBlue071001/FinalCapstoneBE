@@ -88,7 +88,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Assessments");
+                    b.ToTable("Assessments", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.AssessmentSubmition", b =>
@@ -136,7 +136,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("AssessmentId");
 
-                    b.ToTable("AssessmentSubmition");
+                    b.ToTable("AssessmentSubmition", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Campaign", b =>
@@ -189,7 +189,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Campaigns");
+                    b.ToTable("Campaigns", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.CampaignJob", b =>
@@ -212,7 +212,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("JobId");
 
-                    b.ToTable("CampaignJobs");
+                    b.ToTable("CampaignJobs", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Candidate", b =>
@@ -254,7 +254,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("CampaignJobId");
 
-                    b.ToTable("Candidates");
+                    b.ToTable("Candidates", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Job", b =>
@@ -310,7 +310,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Jobs");
+                    b.ToTable("Jobs", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.JobTrainingProgram", b =>
@@ -333,7 +333,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("TrainingProgramId");
 
-                    b.ToTable("JobTrainingPrograms");
+                    b.ToTable("JobTrainingPrograms", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.KPI", b =>
@@ -356,7 +356,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KPI");
+                    b.ToTable("KPI", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Meeting", b =>
@@ -414,7 +414,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Meetings");
+                    b.ToTable("Meetings", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.ProgramKPI", b =>
@@ -437,7 +437,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("TrainingProgramId");
 
-                    b.ToTable("ProgramKPI");
+                    b.ToTable("ProgramKPI", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Resource", b =>
@@ -477,7 +477,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Resource");
+                    b.ToTable("Resource", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.TrainingProgram", b =>
@@ -526,7 +526,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TrainingPrograms");
+                    b.ToTable("TrainingPrograms", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.TrainingProgramResource", b =>
@@ -549,7 +549,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("TrainingProgramId");
 
-                    b.ToTable("TrainingProgramResource");
+                    b.ToTable("TrainingProgramResource", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserAccount", b =>
@@ -612,7 +612,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserName")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
@@ -685,7 +685,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserMeeting");
+                    b.ToTable("UserMeeting", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserResult", b =>
@@ -730,7 +730,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserResults");
+                    b.ToTable("UserResults", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserResultDetail", b =>
@@ -758,7 +758,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserResultId");
 
-                    b.ToTable("UserResultDetail");
+                    b.ToTable("UserResultDetail", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Assessment", b =>

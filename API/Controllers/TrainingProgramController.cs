@@ -41,9 +41,9 @@ namespace API.Controllers
 
         [Authorize]
         [HttpGet("UserTrainingProgram")]
-        public async Task<IActionResult> GetUserTrainingProgramAsync()
+        public async Task<IActionResult> GetUserTrainingProgramAsync(int userId = 0)
         {
-            var result = await _service.GetUserTrainingProgram();
+            var result = await _service.GetUserTrainingProgram(userId);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

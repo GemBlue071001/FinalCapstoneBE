@@ -34,6 +34,7 @@ namespace Application.Services
             }
 
             var assessment = _mapper.Map<Assessment>(request);
+            //assessment.Status = 
             await _unitOfWork.Assessment.AddAsync(assessment);
             await _unitOfWork.SaveChangeAsync();
 

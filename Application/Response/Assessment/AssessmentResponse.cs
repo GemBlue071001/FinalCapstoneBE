@@ -16,6 +16,8 @@ namespace Application.Response.Assessment
         public int EstimateTime { get; set; }
         public int ActualTime { get; set; }
         public int TrainingProgramId { get; set; }
+        public AssessmentStatus AssessmentStatus { get; set; }
+        public string Comment { get; set; } = string.Empty;
 
         //Navigation Property
         public int UserId { get; set; }
