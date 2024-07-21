@@ -150,7 +150,7 @@ namespace Application.Services
                 return response.SetBadRequest("KPI already exist in this Tranning Program !!");
 
 
-            var allprogramKPI = await _unitOfWork.ProgramKPIs.GetAllAsync(x => x.TrainingProgramId == request.TrainingProgramId, 
+            var allprogramKPI = await _unitOfWork.ProgramKPIs.GetAllAsync(x => x.TrainingProgramId == request.TrainingProgramId,
                                                                             query => query.Include(p => p.KPI));
 
             var existingTotalWeight = allprogramKPI.Sum(x => x.KPI?.Weight ?? 0);
@@ -158,7 +158,7 @@ namespace Application.Services
             if (kpi == null)
                 return response.SetNotFound("KPI not found.");
 
-           
+
             if (existingTotalWeight + kpi.Weight > 100)
                 return response.SetBadRequest("Total KPI weight in this training program cannot over 100.");
             await _unitOfWork.ProgramKPIs.AddAsync(new ProgramKPI
@@ -186,10 +186,20 @@ namespace Application.Services
                 return await GetAllTrainingProgram();
             }
 
-            var trainingPrograms = await _unitOfWork.UserAccounts.GetTrainingProgramsByUserId(userId);
-            var trainingProgramResponseList = _mapper.Map<List<TrainingProgramResponse>>(trainingPrograms);
+            else
+            {
+                if (userId == 0)
+                {
+                    return response.SetBadRequest("UserId is required !");
 
-            return response.SetOk(trainingProgramResponseList);
+                }
+                var trainingPrograms = await _unitOfWork.UserAccounts.GetTrainingProgramsByUserId(userId);
+                var trainingProgramResponseList = _mapper.Map<List<TrainingProgramResponse>>(trainingPrograms);
+
+                return response.SetOk(trainingProgramResponseList);
+            }
+
+
         }
 
         public async Task<ApiResponse> RemoveKPIFromTrainingProgramAsync(ProgramKPIRequest request)
