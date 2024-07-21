@@ -49,8 +49,12 @@ namespace Application.Services
                 assessments = await _unitOfWork.Assessment.GetAllAsync(x => x.TrainingProgramId == programId,
                                                                        x => x.Include(x => x.Owner).Include(x => x.AssessmentSubmitions));
             }
-            assessments = await _unitOfWork.Assessment.GetAllAsync(null,
-                                                                       x => x.Include(x => x.Owner).Include(x => x.AssessmentSubmitions));
+
+            else
+            {
+                assessments = await _unitOfWork.Assessment.GetAllAsync(null,
+                                                                      x => x.Include(x => x.Owner).Include(x => x.AssessmentSubmitions));
+            }
 
             var responseList = _mapper.Map<List<AssessmentResponse>>(assessments);
             return response.SetOk(responseList);
