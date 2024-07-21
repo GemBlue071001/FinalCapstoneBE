@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Response.Campaign;
+using Application.Response.Job;
 
 namespace Application.Response.Candidate
 {
@@ -15,5 +12,7 @@ namespace Application.Response.Candidate
         public string PhoneNumber { get; set; } = string.Empty;
         public string Education { get; set; } = string.Empty;
         public string CVPath { get; set; } = string.Empty;
+        public JobResponse Job { get; set; }
+        public CampaignResponse Campaign { get; set; }
     }
 }

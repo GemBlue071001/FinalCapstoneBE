@@ -24,6 +24,7 @@ namespace Domain.Entities
         public List<Assessment> Assessments { get; set; }
         public List<UserMeeting> UserMeetings;
         public List<UserResult> UserResults;
+        public List<Candidate> Candidates;
     }
 
     public enum Role
@@ -32,6 +33,7 @@ namespace Domain.Entities
         Mentor,
         InternshipCoordinators,
         HRManager,
-        Admin
+        Admin,
+        Guest
     }
 }

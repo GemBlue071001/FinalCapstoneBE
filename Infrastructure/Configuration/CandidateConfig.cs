@@ -17,6 +17,11 @@ namespace Infrastructure.Configuration
             builder.HasOne(o => o.CampaignJob)
                .WithMany(o => o.Candidates)
                .HasForeignKey(o => o.CampaignJobId).OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(o => o.User)
+              .WithMany(o => o.Candidates)
+              .HasForeignKey(o => o.UserId);
+              //.OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

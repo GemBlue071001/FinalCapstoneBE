@@ -16,6 +16,10 @@ namespace Domain.Entities
         public string Education { get; set; } = string.Empty;
         public string CVPath {  get; set; } = string.Empty;
 
+
+        //Navigation Property
+        public int? UserId { get; set; }
+        public UserAccount? User {  get; set; }
         public CampaignJob? CampaignJob { get; set; }
         public int? CampaignJobId { get; set; }
     }

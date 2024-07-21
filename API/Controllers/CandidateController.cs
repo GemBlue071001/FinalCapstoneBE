@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.Campaign;
 using Application.Request.Candidate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,10 +17,19 @@ namespace API.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "Guest")]
         [HttpPost]
         public async Task<IActionResult> AddCampaign(CandidateRequest request)
         {
             var result = await _service.AddCadidate(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [Authorize(Roles ="Guest")]
+        [HttpGet("UserAplication")]
+        public async Task<IActionResult> GetUserAplicationAsync()
+        {
+            var result = await _service.GetUserAplication();
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

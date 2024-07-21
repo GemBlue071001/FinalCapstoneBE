@@ -4,6 +4,8 @@ using Application.Response;
 using Application.Response.Candidate;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Routing.Matching;
+using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
@@ -17,16 +19,21 @@ namespace Application.Services
     {
         private IUnitOfWork _unitOfWork;
         private IMapper _mapper;
-        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
+        private IClaimService _claimService;
+
+        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper, IClaimService claimService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _claimService = claimService;
         }
 
         public async Task<ApiResponse> AddCadidate(CandidateRequest request)
         {
+            var userClaim = _claimService.GetUserClaim();
+
             var response = new ApiResponse();
-            var campaignJob = await _unitOfWork.CampaignJobs.GetAsync(p => p.CampaignId == request.CampaignId && 
+            var campaignJob = await _unitOfWork.CampaignJobs.GetAsync(p => p.CampaignId == request.CampaignId &&
                                                                           p.JobId == request.JobId);
 
             if (campaignJob == null)
@@ -34,11 +41,26 @@ namespace Application.Services
 
             var candidate = _mapper.Map<Candidate>(request);
             candidate.CampaignJobId = campaignJob.Id;
+            candidate.UserId = userClaim.Id;
 
             await _unitOfWork.Candidates.AddAsync(candidate);
             await _unitOfWork.SaveChangeAsync();
 
             return response.SetOk("Create Success !!");
+        }
+
+        public async Task<ApiResponse> GetUserAplication()
+        {
+            var userClaim = _claimService.GetUserClaim();
+            var response = new ApiResponse();
+
+            var candidates = await _unitOfWork.Candidates.GetAllAsync(x => x.UserId == userClaim.Id,
+                                                                    include: x => x.Include(x => x.CampaignJob)
+                                                                                        .ThenInclude(x=>x.Campaign)
+                                                                                   .Include(x => x.CampaignJob).ThenInclude(x => x.Job));
+            var responseList = _mapper.Map<List<CandidateResponse>>(candidates);
+            return response.SetOk(responseList);
+
         }
 
         public async Task<ApiResponse> GetProgramCadidate(int campaignId, int jobId)
@@ -49,7 +71,7 @@ namespace Application.Services
             if (campaignJob == null)
                 return response.SetBadRequest("Campaign Job not found !!");
 
-            var candidates = await _unitOfWork.Candidates.GetAllAsync(c=> c.CampaignJobId == campaignJob.Id);
+            var candidates = await _unitOfWork.Candidates.GetAllAsync(c => c.CampaignJobId == campaignJob.Id);
 
             var responseList = _mapper.Map<List<CandidateResponse>>(candidates);
 
