@@ -38,6 +38,8 @@ namespace Infrastructure.Repositories
                 query = query.Where(filter);
             }
 
+            //query.IgnoreQueryFilters();
+
             if (include != null)
             {
                 query = include(query);

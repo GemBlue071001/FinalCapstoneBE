@@ -20,6 +20,8 @@ namespace Infrastructure.Configuration
             builder.HasMany(o => o.AssessmentSubmitions)
                .WithOne(o => o.Assessment)
                .HasForeignKey(o => o.AssessmentId);
+
+            //builder.HasQueryFilter(a => !a.Owner.IsDeleted);
         }
     }
 }

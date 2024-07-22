@@ -15,6 +15,9 @@ namespace Infrastructure.Configuration
             builder.HasOne(o => o.User)
                .WithMany(o => o.UserMeetings)
                .HasForeignKey(o => o.UserId);
+
+            //builder.HasQueryFilter(a => !a.User.IsDeleted);
+
         }
     }
 }

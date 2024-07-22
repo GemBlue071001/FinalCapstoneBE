@@ -1,3 +1,4 @@
+using API.Middleware;
 using Application;
 using Application.Interface;
 using Application.MyMapper;
@@ -122,6 +123,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 //}
 app.UseCors(p => p.SetIsOriginAllowed(origin => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

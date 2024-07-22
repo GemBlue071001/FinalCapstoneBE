@@ -23,6 +23,8 @@ namespace Infrastructure.Configuration
                 .WithOne(o => o.Owner)
                 .HasForeignKey(o => o.UserId);
 
+            //builder.HasQueryFilter(x => !x.IsDeleted);
+
             builder
             .HasIndex(q => q.UserName)
             .IsUnique();

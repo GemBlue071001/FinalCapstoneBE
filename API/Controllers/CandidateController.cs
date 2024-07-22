@@ -39,5 +39,12 @@ namespace API.Controllers
             var result = await _service.GetProgramCadidate(campaignId,jobId);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
+        [HttpDelete("soft")]
+        public async Task<IActionResult> DeleteCandidateAsync(int id)
+        {
+            var result = await _service.DeleteCandidateAsync(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
     }
 }

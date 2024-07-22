@@ -56,7 +56,7 @@ namespace Application.Services
 
             var candidates = await _unitOfWork.Candidates.GetAllAsync(x => x.UserId == userClaim.Id,
                                                                     include: x => x.Include(x => x.CampaignJob)
-                                                                                        .ThenInclude(x=>x.Campaign)
+                                                                                        .ThenInclude(x => x.Campaign)
                                                                                    .Include(x => x.CampaignJob).ThenInclude(x => x.Job));
             var responseList = _mapper.Map<List<CandidateResponse>>(candidates);
             return response.SetOk(responseList);
@@ -76,6 +76,18 @@ namespace Application.Services
             var responseList = _mapper.Map<List<CandidateResponse>>(candidates);
 
             return response.SetOk(responseList);
+        }
+
+        public async Task<ApiResponse> DeleteCandidateAsync(int id)
+        {
+            var response = new ApiResponse();
+
+            var candidate = await _unitOfWork.Candidates.GetAsync(x => x.Id == id);
+            candidate.IsDeleted = true;
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk("Remove Sucess !");
+
         }
     }
 }

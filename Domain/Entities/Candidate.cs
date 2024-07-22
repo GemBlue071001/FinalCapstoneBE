@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Candidate
+    public class Candidate : Base
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
