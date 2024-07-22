@@ -49,7 +49,7 @@ namespace Application.Services
             var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == userClaim.Id);
 
             List<UserAccount> users;
-            if (userClaim.Role == Role.InternshipCoordinators)
+            if (userClaim.Role == Role.InternshipCoordinators || userClaim.Role == Role.HRManager)
             {
                 users = userName != null
                     ? await _unitOfWork.UserAccounts.GetAllAsync(u => u.UserName.Contains(userName))
