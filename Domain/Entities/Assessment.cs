@@ -15,6 +15,7 @@ namespace Domain.Entities
         public DateTime StartDate { get; set; }
         public int EstimateTime { get; set; }
         public DateTime EndDate { get; set; }
+        public DateTime Deadline { get; set; }
         public int ActualTime { get; set; }
         public AssessmentStatus AssessmentStatus { get; set; } = AssessmentStatus.Pending;
         public string Comment { get; set; } = string.Empty;
