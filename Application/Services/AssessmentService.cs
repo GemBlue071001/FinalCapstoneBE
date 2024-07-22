@@ -114,21 +114,21 @@ namespace Application.Services
             var assessment = await _unitOfWork.Assessment.GetAsync(a => a.Id == request.Id);
             if (assessment == null)
             {
-                return response.SetBadRequest("assessment not found");
+                return response.SetBadRequest("Assessment not found");
             }
-            switch (assessment.Status)
+
+            switch (assessment.AssessmentStatus)
             {
-                case "pending":
+                case AssessmentStatus.Pending:
                     assessment.StartDate = DateTime.UtcNow;
                     break;
-                case "completed":
+                case AssessmentStatus.Completed:
                     assessment.EndDate = DateTime.UtcNow;
                     break;
                 default:
                     return response.SetBadRequest("Invalid status");
             }
             await _unitOfWork.SaveChangeAsync();
-
             return response.SetOk("Success");
         }
     }
