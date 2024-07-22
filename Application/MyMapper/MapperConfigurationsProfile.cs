@@ -88,6 +88,7 @@ namespace Application.MyMapper
             CreateMap<Assessment, AssessmentRequest>().ReverseMap();
             CreateMap<AssessmentUpdateRequest, Assessment>().ReverseMap();
             CreateMap<Assessment, AssessmentResponse>().ReverseMap();
+            CreateMap<Assessment, AssessmentUpdateStatusRequest>().ReverseMap();
 
             CreateMap<SubmitionRequest, AssessmentSubmition>();
             CreateMap<AssessmentSubmition, AssessmentSubmitionResponse>();

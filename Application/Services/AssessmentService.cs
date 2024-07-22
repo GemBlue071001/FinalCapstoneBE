@@ -108,5 +108,28 @@ namespace Application.Services
 
             return response.SetOk("Success");
         }
+        public async Task<ApiResponse> UpdateAssessmentStatusAsync(AssessmentUpdateStatusRequest request)
+        {
+            var response = new ApiResponse();
+            var assessment = await _unitOfWork.Assessment.GetAsync(a => a.Id == request.Id);
+            if (assessment == null)
+            {
+                return response.SetBadRequest("assessment not found");
+            }
+            switch (assessment.Status)
+            {
+                case "pending":
+                    assessment.StartDate = DateTime.UtcNow;
+                    break;
+                case "completed":
+                    assessment.EndDate = DateTime.UtcNow;
+                    break;
+                default:
+                    return response.SetBadRequest("Invalid status");
+            }
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk("Success");
+        }
     }
 }

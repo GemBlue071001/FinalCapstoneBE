@@ -12,5 +12,6 @@ namespace Application.Interface
         Task<ApiResponse> DeleteAssessmentAsync(int id);
         Task<ApiResponse> UpdateAssessmentAsync(AssessmentUpdateRequest request);
         Task<ApiResponse> AsignAssessmentToProgramAsync(ProgramAssessmentRequest request);
+        Task<ApiResponse> UpdateAssessmentStatusAsync(AssessmentUpdateStatusRequest request);
     }
 }

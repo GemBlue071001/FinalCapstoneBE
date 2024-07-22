@@ -50,5 +50,11 @@ namespace API.Controllers
             var result = await _service.AsignAssessmentToProgramAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+        [HttpPut("Status")]
+        public async Task<IActionResult> UpdateAssessmentStatusAsync(AssessmentUpdateStatusRequest request)
+        {
+            var result = await _service.UpdateAssessmentStatusAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
     }
 }
