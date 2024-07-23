@@ -30,6 +30,11 @@ namespace Infrastructure
         public DbSet<KPI> KPI { get; set; }
         public DbSet<ProgramKPI> ProgramKPI { get; set; }
         public DbSet<UserResult> UserResults { get; set; }
+        public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<UserConversation> UserConversations { get; set; }
+        public DbSet<Message> Messages { get; set; }
+
+        
 
 
 
@@ -44,6 +49,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new TrainingProgramResourceConfig());
             modelBuilder.ApplyConfiguration(new ProgramKPIConfig());
             modelBuilder.ApplyConfiguration(new UserResultConfig());
+            modelBuilder.ApplyConfiguration(new UserConversationConfig());
         }
 
     }
