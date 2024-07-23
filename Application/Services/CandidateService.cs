@@ -77,6 +77,19 @@ namespace Application.Services
 
             return response.SetOk(responseList);
         }
+        public async Task<ApiResponse> UpdateCandidateAsync(CandidateUpdateRequest request)
+        {
+            var response = new ApiResponse();
+            var candidate = await _unitOfWork.Candidates.GetAsync(x => x.Id == request.Id);
+            if (candidate == null)
+            {
+                return response.SetBadRequest("Candidate not found");
+            }
+            _mapper.Map(request, candidate);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk(candidate);
+        }
 
         public async Task<ApiResponse> DeleteCandidateAsync(int id)
         {

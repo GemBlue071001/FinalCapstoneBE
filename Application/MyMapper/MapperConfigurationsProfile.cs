@@ -62,6 +62,7 @@ namespace Application.MyMapper
 
 
             CreateMap<Candidate, CandidateRequest>().ReverseMap();
+            CreateMap<Candidate, CandidateUpdateRequest>().ReverseMap();
             CreateMap<Candidate, CandidateResponse>()
                 .ForMember(dest => dest.Job, opt => opt.MapFrom(src => src.CampaignJob.Job))
                 .ForMember(dest => dest.Campaign, opt => opt.MapFrom(src => src.CampaignJob.Campaign));

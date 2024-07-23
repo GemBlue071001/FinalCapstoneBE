@@ -39,6 +39,13 @@ namespace API.Controllers
             var result = await _service.GetProgramCadidate(campaignId,jobId);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+        
+        [HttpPut]
+        public async Task<IActionResult> UpdateCandidate(CandidateUpdateRequest request)
+        {
+            var result = await _service.UpdateCandidateAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
 
         [HttpDelete("soft")]
         public async Task<IActionResult> DeleteCandidateAsync(int id)
