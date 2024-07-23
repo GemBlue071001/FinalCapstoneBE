@@ -117,13 +117,15 @@ namespace Application.Services
                 return response.SetBadRequest("Assessment not found");
             }
 
-            switch (assessment.AssessmentStatus)
+            switch (request.Status)
             {
                 case AssessmentStatus.Pending:
                     assessment.StartDate = DateTime.UtcNow;
+                    assessment.AssessmentStatus = AssessmentStatus.Pending;
                     break;
                 case AssessmentStatus.Completed:
                     assessment.EndDate = DateTime.UtcNow;
+                    assessment.AssessmentStatus = AssessmentStatus.Completed;
                     break;
                 default:
                     return response.SetBadRequest("Invalid status");
