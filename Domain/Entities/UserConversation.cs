@@ -11,5 +11,9 @@ namespace Domain.Entities
         public int Id { get; set; }
         public int ConversationId { get; set; }
         public int UserId { get; set; }
+        //
+        public  UserAccount User { get; set; }
+        public Conversation Conversation { get; set; }
+
     }
 }

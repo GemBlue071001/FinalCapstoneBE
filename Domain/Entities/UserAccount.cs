@@ -25,6 +25,9 @@ namespace Domain.Entities
         public List<UserMeeting> UserMeetings;
         public List<UserResult> UserResults;
         public List<Candidate> Candidates;
+        public List<Message> Messages { get; set; }
+        public List<UserConversation> UserConversations { get; set; }
+
     }
 
     public enum Role
