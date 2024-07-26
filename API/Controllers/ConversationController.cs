@@ -1,0 +1,32 @@
+﻿using Application.Interface;
+using Application.Request.Assessment;
+using Application.Request.Conversation;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ConversationController : ControllerBase
+    {
+        private IConversationService _service;
+        public ConversationController(IConversationService service)
+        {
+            _service = service;
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddConversation(ConversationRequest request)
+        {
+            var result = await _service.AddConversation(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAssessment()
+        {
+            var result = await _service.GetAllConversation();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+    }
+}

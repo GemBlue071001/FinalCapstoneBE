@@ -26,6 +26,8 @@ namespace Application
         public IProgramKPIRepository ProgramKPIs { get; }
         public IUserResultRepository UserResults { get; }
         public IAssessmentSubmitionsRepository AssessmentSubmitions { get; }
+        public IConversationRepository Conversations { get; }
+        public IMessageRepository Messages { get; }
         public Task SaveChangeAsync();
     }
 }

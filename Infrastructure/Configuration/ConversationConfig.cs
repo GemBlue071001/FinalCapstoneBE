@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
-    public class MessageConfig : IEntityTypeConfiguration<Message>
+    public class ConversationConfig : IEntityTypeConfiguration<Conversation>
     {
-        public void Configure(EntityTypeBuilder<Message> builder)
+        public void Configure(EntityTypeBuilder<Conversation> builder)
         {
-            builder.HasOne(m => m.Conversation)
-              .WithMany(c => c.Messages)
-              .HasForeignKey(m => m.ConversationId);
+           
         }
     }
 }

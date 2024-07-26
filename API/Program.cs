@@ -92,7 +92,6 @@ builder.Services.AddSingleton(configuration!);
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJobService, JobService>();
 builder.Services.AddScoped<ICampaignService, CampaignService>();
@@ -107,6 +106,8 @@ builder.Services.AddScoped<IKPIService, KPIService>();
 builder.Services.AddScoped<IAssessmentSubmitionService, AssessmentSubmitionService>();
 builder.Services.AddScoped<IClaimService, ClaimService>();
 builder.Services.AddScoped<IExcelFileHandling, ExcelFileHandling>();
+builder.Services.AddScoped<IConversationService, ConversationService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
 
 builder.Services.AddControllers()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));

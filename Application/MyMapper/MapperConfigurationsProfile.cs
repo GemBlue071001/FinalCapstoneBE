@@ -2,9 +2,11 @@
 using Application.Request.AssessmentSubmition;
 using Application.Request.Campaign;
 using Application.Request.Candidate;
+using Application.Request.Conversation;
 using Application.Request.Job;
 using Application.Request.KPI;
 using Application.Request.Meeting;
+using Application.Request.Message;
 using Application.Request.Resource;
 using Application.Request.TrainingProgram;
 using Application.Request.User;
@@ -12,6 +14,7 @@ using Application.Response.Assessment;
 using Application.Response.AssessmentSubmition;
 using Application.Response.Campaign;
 using Application.Response.Candidate;
+using Application.Response.Conversation;
 using Application.Response.Job;
 using Application.Response.KPI;
 using Application.Response.MeetingResponse;
@@ -122,6 +125,14 @@ namespace Application.MyMapper
             CreateMap<KPI, KPIRequest>().ReverseMap();
             CreateMap<KPI, KPIResponse>().ReverseMap();
             CreateMap<KPI, UpdateKPIRequest>().ReverseMap();
+
+            CreateMap<Conversation, ConversationRequest>().ReverseMap();
+            CreateMap<Conversation, ConversationResponse>().ReverseMap();
+
+
+            CreateMap<Message, MessageRequest>().ReverseMap();
+
+
         }
     }
 }

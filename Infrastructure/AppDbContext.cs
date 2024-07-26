@@ -50,6 +50,8 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new ProgramKPIConfig());
             modelBuilder.ApplyConfiguration(new UserResultConfig());
             modelBuilder.ApplyConfiguration(new UserConversationConfig());
+            modelBuilder.ApplyConfiguration(new MessageConfig());
+            modelBuilder.ApplyConfiguration(new ConversationConfig());
         }
 
     }
