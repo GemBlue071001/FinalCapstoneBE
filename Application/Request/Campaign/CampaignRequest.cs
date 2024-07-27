@@ -15,6 +15,8 @@ namespace Application.Request.Campaign
         public int Duration { get; set; }
         public string? ImagePath { get; set; }
         public DateTime EstimateStartDate { get; set; }
+        public DateTime SubmissionDeadline { get; set; }
+
         //public DateTime EstimateEndDate { get; set; }
         public List<int> JobIds { get; set; }
     }

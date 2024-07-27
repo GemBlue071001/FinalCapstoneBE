@@ -19,7 +19,7 @@ namespace API.Controllers
 
         [Authorize(Roles = "Guest")]
         [HttpPost]
-        public async Task<IActionResult> AddCampaign(CandidateRequest request)
+        public async Task<IActionResult> AddCadidate(CandidateRequest request)
         {
             var result = await _service.AddCadidate(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
@@ -30,6 +30,14 @@ namespace API.Controllers
         public async Task<IActionResult> GetUserAplicationAsync()
         {
             var result = await _service.GetUserAplication();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        //[Authorize(Roles = "Guest")]
+        [HttpPut("Status")]
+        public async Task<IActionResult> UpdateCadidateStatus(CandidataStatusUpdate request)
+        {
+            var result = await _service.UpdateCadidateStatus(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

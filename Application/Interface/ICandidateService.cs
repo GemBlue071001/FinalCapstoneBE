@@ -15,5 +15,6 @@ namespace Application.Interface
         Task<ApiResponse> GetUserAplication();
         Task<ApiResponse> UpdateCandidateAsync(CandidateUpdateRequest request);
         Task<ApiResponse> DeleteCandidateAsync(int id);
+        Task<ApiResponse> UpdateCadidateStatus(CandidataStatusUpdate request);
     }
 }

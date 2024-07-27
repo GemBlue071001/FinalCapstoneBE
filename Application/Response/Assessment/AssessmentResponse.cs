@@ -21,6 +21,7 @@ namespace Application.Response.Assessment
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public AssessmentStatus AssessmentStatus { get; set; }
         public string Comment { get; set; } = string.Empty;
+        public int Point { get; set; }
 
         //Navigation Property
         public int UserId { get; set; }

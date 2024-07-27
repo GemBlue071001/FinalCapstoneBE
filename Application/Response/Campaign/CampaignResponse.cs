@@ -18,6 +18,8 @@ namespace Application.Response.Campaign
         public string? ImagePath { get; set; }
         public DateTime EstimateStartDate { get; set; }
         public DateTime EstimateEndDate { get; set; }
+        public DateTime SubmissionDeadline { get; set; }
+
 
         public List<JobResponse> Jobs { get; set; }
     }

@@ -13,5 +13,6 @@ namespace Application.Interface
         Task<ApiResponse> UpdateAssessmentAsync(AssessmentUpdateRequest request);
         Task<ApiResponse> AsignAssessmentToProgramAsync(ProgramAssessmentRequest request);
         Task<ApiResponse> UpdateAssessmentStatusAsync(AssessmentUpdateStatusRequest request);
+        Task<ApiResponse> GradeAssessmentAsync(GradeAssessmentRequest request);
     }
 }
