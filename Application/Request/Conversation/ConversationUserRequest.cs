@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Response.Message
+namespace Application.Request.Conversation
 {
-    public class MessageResponse
+    public class ConversationUserRequest
     {
-        public int Id { get; set; }
-        public string Content { get; set; }
-        public DateTime SendDate { get; set; }
         public int ConversationId { get; set; }
         public int UserId { get; set; }
     }

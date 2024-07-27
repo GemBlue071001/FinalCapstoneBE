@@ -28,5 +28,24 @@ namespace API.Controllers
             var result = await _service.GetAllConversation();
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+        [HttpPost("User")]
+        public async Task<IActionResult> AddUserToConversationAsync(ConversationUserRequest request)
+        {
+            var result = await _service.AddUserToConversationAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateConversationAsync(ConversationUpdateRequest request)
+        {
+            var result = await _service.UpdateConversationAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [HttpDelete("remove-user")]
+        public async Task<IActionResult> DeleteUserFromConversation(int conversationId, int userId)
+        {
+            var result = await _service.RemoveUserFromConversation(conversationId, userId);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
     }
 }

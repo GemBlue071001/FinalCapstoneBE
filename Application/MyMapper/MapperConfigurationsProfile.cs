@@ -18,6 +18,7 @@ using Application.Response.Conversation;
 using Application.Response.Job;
 using Application.Response.KPI;
 using Application.Response.MeetingResponse;
+using Application.Response.Message;
 using Application.Response.Resource;
 using Application.Response.TrainingProgram;
 using Application.Response.User;
@@ -131,8 +132,11 @@ namespace Application.MyMapper
 
 
             CreateMap<Message, MessageRequest>().ReverseMap();
+            CreateMap<Message, MessageResponse>().ReverseMap();
 
-
+            CreateMap<Conversation, ConversationResponse>().ReverseMap();
+            CreateMap<Conversation, ConversationUpdateRequest>().ReverseMap();
+           
         }
     }
 }

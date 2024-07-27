@@ -1,4 +1,5 @@
-﻿using Application.Request.Message;
+﻿using Application.Request.Conversation;
+using Application.Request.Message;
 using Application.Response;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ namespace Application.Interface
 {
     public interface IMessageService
     {
-       Task<ApiResponse> AddMessages(MessageRequest request);
+        Task<ApiResponse> AddMessages(MessageRequest request);
+        Task<ApiResponse> GetAllMessage();
+        Task<ApiResponse> RemoveMessageById(int id);
+       
+
     }
 }

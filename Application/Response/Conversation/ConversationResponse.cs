@@ -1,5 +1,6 @@
 ﻿
 using Application.Response.Message;
+using Application.Response.User;
 using Domain.Entities;
 
 namespace Application.Response.Conversation
@@ -11,6 +12,7 @@ namespace Application.Response.Conversation
         public DateTime CreatedDate { get; set; }
         public bool IsDeleted { get; set; }
         //
-        List<MessageResponse> Messages { get; set; }
+        public List<MessageResponse> Messages { get; set; }
+        public List<UserResponse> Users { get; set; }
     }
 }

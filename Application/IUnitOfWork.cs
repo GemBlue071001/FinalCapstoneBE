@@ -1,5 +1,6 @@
 ﻿using Application.Repositories;
 using Application.Repository;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace Application
         public IAssessmentSubmitionsRepository AssessmentSubmitions { get; }
         public IConversationRepository Conversations { get; }
         public IMessageRepository Messages { get; }
+        public IConversationUserRepository ConversationsUsers { get; }
         public Task SaveChangeAsync();
     }
 }
