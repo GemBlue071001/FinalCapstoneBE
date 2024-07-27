@@ -1,7 +1,6 @@
 ﻿
 using Application.Response.Message;
 using Application.Response.User;
-using Domain.Entities;
 
 namespace Application.Response.Conversation
 {

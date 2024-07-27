@@ -128,15 +128,20 @@ namespace Application.MyMapper
             CreateMap<KPI, UpdateKPIRequest>().ReverseMap();
 
             CreateMap<Conversation, ConversationRequest>().ReverseMap();
-            CreateMap<Conversation, ConversationResponse>().ReverseMap();
+            CreateMap<Conversation, ConversationResponse>()
+             .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.UserConversations.Select(uc => uc.User)));
+            CreateMap<UserConversation, UserResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.User.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email));
 
 
             CreateMap<Message, MessageRequest>().ReverseMap();
             CreateMap<Message, MessageResponse>().ReverseMap();
 
-            CreateMap<Conversation, ConversationResponse>().ReverseMap();
-            CreateMap<Conversation, ConversationUpdateRequest>().ReverseMap();
-           
+            //CreateMap<Conversation, ConversationResponse>().ReverseMap();
+            //CreateMap<Conversation, ConversationUpdateRequest>().ReverseMap();
+
         }
     }
 }

@@ -36,7 +36,9 @@ public class ConversationService : IConversationService
     {
         var response = new ApiResponse();
         var conversations = await _unitOfWork.Conversations.GetAllAsync(null, x => x.Include(x => x.Messages)
-                                                                        .ThenInclude(x => x.User));
+                                                                                         .ThenInclude(x => x.User)
+                                                                                    .Include(x => x.UserConversations)
+                                                                                         .ThenInclude(x => x.User));
         var responseList = _mapper.Map<List<ConversationResponse>>(conversations);
 
         return response.SetOk(responseList);
@@ -61,11 +63,11 @@ public class ConversationService : IConversationService
     {
         var response = new ApiResponse();
         var conversation = await _unitOfWork.Conversations.GetAsync(x => x.Id == request.Id);
-        if(conversation == null)
+        if (conversation == null)
         {
             return response.SetNotFound($"Conversation {request.Id} Not Found");
         }
-        _mapper.Map(request,conversation);
+        _mapper.Map(request, conversation);
         await _unitOfWork.SaveChangeAsync();
         return response.SetOk($"Update Conversation {request.Id} Success");
     }
