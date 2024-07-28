@@ -10,6 +10,7 @@ namespace Application.Request.Campaign
         public string? Requirements { get; set; }
         public int Duration { get; set; }
         public string? ImagePath { get; set; }
+        public string? Benefits { get; set; }
         public DateTime EstimateStartDate { get; set; }
         public DateTime EstimateEndDate { get; set; }
         public DateTime SubmissionDeadline { get; set; }

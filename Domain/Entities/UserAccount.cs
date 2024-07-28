@@ -27,6 +27,7 @@ namespace Domain.Entities
         public List<Candidate> Candidates;
         public List<Message> Messages { get; set; }
         public List<UserConversation> UserConversations { get; set; }
+        public List<Attendance> Attendances { get; set; }
 
     }
 

@@ -33,6 +33,7 @@ namespace Infrastructure
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<UserConversation> UserConversations { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
 
         
 
@@ -52,6 +53,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new UserConversationConfig());
             modelBuilder.ApplyConfiguration(new MessageConfig());
             modelBuilder.ApplyConfiguration(new ConversationConfig());
+            modelBuilder.ApplyConfiguration(new AttendanceConfig());
         }
 
     }
