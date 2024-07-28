@@ -53,6 +53,12 @@ namespace Application.Services
         {
             var response = new ApiResponse();
             var meeting = _mapper.Map<Meeting>(request);
+
+
+            if (meeting.StartTime > meeting.EndTime)
+            {
+                return response.SetBadRequest("Start Time must greater than end time");
+            }
             if (request.UserIds.Any())
             {
                 List<UserAccount> userAccounts = await _unitOfWork.UserAccounts.GetAllAsync(user => request.UserIds.Contains(user.Id));
