@@ -123,8 +123,12 @@ namespace Application.Services
             switch (request.Status)
             {
                 case AssessmentStatus.Pending:
-                    assessment.StartDate = DateTime.UtcNow;
+                    assessment.StartDate = default;
                     assessment.AssessmentStatus = AssessmentStatus.Pending;
+                    break;
+                case AssessmentStatus.InProcess:
+                    assessment.StartDate = DateTime.UtcNow;
+                    assessment.AssessmentStatus = AssessmentStatus.InProcess;
                     break;
                 case AssessmentStatus.Completed:
                     assessment.EndDate = DateTime.UtcNow;
