@@ -27,7 +27,13 @@ namespace Application.Services
             var jobs = await _unitOfWork.Jobs.GetAllAsync(u => request.JobIds.Contains(u.Id));
 
             var campaign = _mapper.Map<Campaign>(request);
+            
             var lisOfCampaignJob = new List<CampaignJob>();
+
+            if (campaign.SubmissionDeadline.Date < campaign.EstimateStartDate.Date) 
+            {
+                return response.SetBadRequest("Submition should before start day");
+            }
 
             foreach (var job in jobs)
             {
@@ -38,6 +44,7 @@ namespace Application.Services
                 });
             }
             campaign.CampaignJobs = lisOfCampaignJob;
+
 
 
             await _unitOfWork.Campaigns.AddAsync(campaign);
