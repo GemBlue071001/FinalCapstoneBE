@@ -18,5 +18,6 @@ namespace Domain.Entities
 
         public List<UserAccount> Interns { get; set; }
         public List<Candidate> Candidates { get; set; }
+        public List<Attendance> Attendances { get; set; }
     }
 }

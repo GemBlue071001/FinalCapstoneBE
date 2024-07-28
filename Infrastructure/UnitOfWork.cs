@@ -43,6 +43,8 @@ namespace Infrastructure
 
         public IConversationUserRepository ConversationsUsers { get; }
 
+        public IAttendanceRepository Attendances { get; }
+
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -65,6 +67,7 @@ namespace Infrastructure
             Conversations = new ConversationRepository(context);
             Messages = new MessageRepository(context);
             ConversationsUsers = new ConversationUserRepository(context);
+            Attendances = new AttendanceRepository(context);
         }
 
         public async Task SaveChangeAsync()

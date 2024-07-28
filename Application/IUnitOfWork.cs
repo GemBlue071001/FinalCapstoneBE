@@ -30,6 +30,7 @@ namespace Application
         public IConversationRepository Conversations { get; }
         public IMessageRepository Messages { get; }
         public IConversationUserRepository ConversationsUsers { get; }
+        public IAttendanceRepository Attendances{ get; }
         public Task SaveChangeAsync();
     }
 }
