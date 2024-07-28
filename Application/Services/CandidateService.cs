@@ -34,7 +34,13 @@ namespace Application.Services
 
             var response = new ApiResponse();
             var campaignJob = await _unitOfWork.CampaignJobs.GetAsync(p => p.CampaignId == request.CampaignId &&
-                                                                          p.JobId == request.JobId);
+                                                                          p.JobId == request.JobId, x => x.Include(x => x.Campaign));
+
+            var now = DateTime.UtcNow;
+            if (now > campaignJob.Campaign.SubmissionDeadline)
+            {
+                return response.SetBadRequest(" Submission Deadline have passes , Sorry !!");
+            }
 
             if (campaignJob == null)
                 return response.SetBadRequest("Campaign Job not found !!");
@@ -63,6 +69,23 @@ namespace Application.Services
 
         }
 
+        public async Task<ApiResponse> UpdateCadidateStatus(CandidataStatusUpdate request)
+        {
+            var response = new ApiResponse();
+
+            var candidate = await _unitOfWork.Candidates.GetAsync(x => x.Id == request.Id);
+            if (candidate == null)
+            {
+                return response.SetBadRequest("Candidate not found");
+            }
+
+            candidate.CandidateStatus = request.CandidateStatus;
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk("Status updated !");
+
+        }
+
         public async Task<ApiResponse> GetProgramCadidate(int campaignId, int jobId)
         {
             var response = new ApiResponse();
@@ -76,6 +99,19 @@ namespace Application.Services
             var responseList = _mapper.Map<List<CandidateResponse>>(candidates);
 
             return response.SetOk(responseList);
+        }
+        public async Task<ApiResponse> UpdateCandidateAsync(CandidateUpdateRequest request)
+        {
+            var response = new ApiResponse();
+            var candidate = await _unitOfWork.Candidates.GetAsync(x => x.Id == request.Id);
+            if (candidate == null)
+            {
+                return response.SetBadRequest("Candidate not found");
+            }
+            _mapper.Map(request, candidate);
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk(candidate);
         }
 
         public async Task<ApiResponse> DeleteCandidateAsync(int id)

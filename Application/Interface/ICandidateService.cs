@@ -13,6 +13,8 @@ namespace Application.Interface
         Task<ApiResponse> AddCadidate(CandidateRequest request);
         Task<ApiResponse> GetProgramCadidate(int campaignId, int jobId);
         Task<ApiResponse> GetUserAplication();
+        Task<ApiResponse> UpdateCandidateAsync(CandidateUpdateRequest request);
         Task<ApiResponse> DeleteCandidateAsync(int id);
+        Task<ApiResponse> UpdateCadidateStatus(CandidataStatusUpdate request);
     }
 }

@@ -2,9 +2,11 @@
 using Application.Request.AssessmentSubmition;
 using Application.Request.Campaign;
 using Application.Request.Candidate;
+using Application.Request.Conversation;
 using Application.Request.Job;
 using Application.Request.KPI;
 using Application.Request.Meeting;
+using Application.Request.Message;
 using Application.Request.Resource;
 using Application.Request.TrainingProgram;
 using Application.Request.User;
@@ -12,9 +14,11 @@ using Application.Response.Assessment;
 using Application.Response.AssessmentSubmition;
 using Application.Response.Campaign;
 using Application.Response.Candidate;
+using Application.Response.Conversation;
 using Application.Response.Job;
 using Application.Response.KPI;
 using Application.Response.MeetingResponse;
+using Application.Response.Message;
 using Application.Response.Resource;
 using Application.Response.TrainingProgram;
 using Application.Response.User;
@@ -62,6 +66,7 @@ namespace Application.MyMapper
 
 
             CreateMap<Candidate, CandidateRequest>().ReverseMap();
+            CreateMap<Candidate, CandidateUpdateRequest>().ReverseMap();
             CreateMap<Candidate, CandidateResponse>()
                 .ForMember(dest => dest.Job, opt => opt.MapFrom(src => src.CampaignJob.Job))
                 .ForMember(dest => dest.Campaign, opt => opt.MapFrom(src => src.CampaignJob.Campaign));
@@ -121,6 +126,22 @@ namespace Application.MyMapper
             CreateMap<KPI, KPIRequest>().ReverseMap();
             CreateMap<KPI, KPIResponse>().ReverseMap();
             CreateMap<KPI, UpdateKPIRequest>().ReverseMap();
+
+            CreateMap<Conversation, ConversationRequest>().ReverseMap();
+            CreateMap<Conversation, ConversationResponse>()
+             .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.UserConversations.Select(uc => uc.User)));
+            CreateMap<UserConversation, UserResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.User.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email));
+
+
+            CreateMap<Message, MessageRequest>().ReverseMap();
+            CreateMap<Message, MessageResponse>().ReverseMap();
+
+            //CreateMap<Conversation, ConversationResponse>().ReverseMap();
+            //CreateMap<Conversation, ConversationUpdateRequest>().ReverseMap();
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace API.Controllers
 
         [Authorize(Roles = "Guest")]
         [HttpPost]
-        public async Task<IActionResult> AddCampaign(CandidateRequest request)
+        public async Task<IActionResult> AddCadidate(CandidateRequest request)
         {
             var result = await _service.AddCadidate(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
@@ -33,10 +33,25 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
+        //[Authorize(Roles = "Guest")]
+        [HttpPut("Status")]
+        public async Task<IActionResult> UpdateCadidateStatus(CandidataStatusUpdate request)
+        {
+            var result = await _service.UpdateCadidateStatus(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetProgramCandidate(int campaignId, int jobId)
         {
             var result = await _service.GetProgramCadidate(campaignId,jobId);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        
+        [HttpPut]
+        public async Task<IActionResult> UpdateCandidate(CandidateUpdateRequest request)
+        {
+            var result = await _service.UpdateCandidateAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

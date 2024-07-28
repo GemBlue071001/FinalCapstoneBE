@@ -17,6 +17,7 @@ namespace Domain.Entities
         public string? ImagePath { get; set; }
         public DateTime EstimateStartDate { get; set; }
         public DateTime EstimateEndDate { get; set; }
+        public DateTime SubmissionDeadline { get; set; }
 
 
         public List<CampaignJob> CampaignJobs { get; set; }

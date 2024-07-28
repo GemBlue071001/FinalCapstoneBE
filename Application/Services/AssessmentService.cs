@@ -1,9 +1,12 @@
 ﻿using Application.Interface;
 using Application.Request.Assessment;
+using Application.Request.Candidate;
 using Application.Response;
 using Application.Response.Assessment;
 using Application.Response.Campaign;
 using Application.Response.Job;
+using Application.Validations;
+using Application.Validations.KPI;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -133,5 +136,32 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
             return response.SetOk("Success");
         }
+
+        public async Task<ApiResponse> GradeAssessmentAsync(GradeAssessmentRequest request)
+        {
+            var response = new ApiResponse();
+
+            var validator = new GradeAssessmentValidator();
+            var result = await validator.ValidateAsync(request);
+
+            if (!result.IsValid)
+            {
+                var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
+                return response.SetBadRequest(errors);
+            }
+
+            var candidate = await _unitOfWork.Assessment.GetAsync(x => x.Id == request.Id);
+            if (candidate == null)
+            {
+                return response.SetBadRequest("Assessment not found");
+            }
+
+            candidate.Point = request.Point;
+            await _unitOfWork.SaveChangeAsync();
+
+            return response.SetOk("Grade Success !");
+
+        }
+
     }
 }

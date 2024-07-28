@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.Assessment;
 using Application.Request.Campaign;
+using Application.Request.Candidate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +55,13 @@ namespace API.Controllers
         public async Task<IActionResult> UpdateAssessmentStatusAsync(AssessmentUpdateStatusRequest request)
         {
             var result = await _service.UpdateAssessmentStatusAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPut("Grade")]
+        public async Task<IActionResult> GradeAssessmentAsync(GradeAssessmentRequest request)
+        {
+            var result = await _service.GradeAssessmentAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }

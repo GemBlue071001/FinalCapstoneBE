@@ -19,6 +19,7 @@ namespace Domain.Entities
         public int ActualTime { get; set; }
         public AssessmentStatus AssessmentStatus { get; set; } = AssessmentStatus.Pending;
         public string Comment { get; set; } = string.Empty;
+        public int Point {  get; set; }
 
         //Navigation Property
         public int UserId { get; set; }

@@ -15,6 +15,7 @@ namespace Domain.Entities
         public string PhoneNumber { get; set; } = string.Empty;
         public string Education { get; set; } = string.Empty;
         public string CVPath {  get; set; } = string.Empty;
+        public CandidateStatus CandidateStatus { get; set; } = CandidateStatus.Applied;
 
 
         //Navigation Property
@@ -22,5 +23,14 @@ namespace Domain.Entities
         public UserAccount? User {  get; set; }
         public CampaignJob? CampaignJob { get; set; }
         public int? CampaignJobId { get; set; }
+    }
+
+    public enum CandidateStatus
+    {
+        Applied,
+        InterviewScheduled,
+        Interviewed,
+        Accepted,
+        Declined,
     }
 }
