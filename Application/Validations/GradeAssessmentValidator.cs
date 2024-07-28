@@ -11,6 +11,8 @@ namespace Application.Validations
             RuleFor(req => req.Point)
                 .InclusiveBetween(0, 10)
                 .WithMessage("Point must be between 0 and 10.");
+
+           
         }
     }
 }

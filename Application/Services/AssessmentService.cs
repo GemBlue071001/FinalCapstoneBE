@@ -159,6 +159,10 @@ namespace Application.Services
             {
                 return response.SetBadRequest("Assessment not found");
             }
+            if(candidate.AssessmentStatus == AssessmentStatus.Pending || candidate.AssessmentStatus == AssessmentStatus.InProcess)
+            {
+                return response.SetBadRequest("Assessment status not completed");
+            }
 
             candidate.Point = request.Point;
             await _unitOfWork.SaveChangeAsync();
