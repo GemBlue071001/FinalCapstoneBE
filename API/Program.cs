@@ -124,7 +124,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 //}
 app.UseCors(p => p.SetIsOriginAllowed(origin => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
-//app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
