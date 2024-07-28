@@ -36,6 +36,10 @@ namespace Application.Services
         {
             var response = new ApiResponse();
             var program = _mapper.Map<TrainingProgram>(request);
+            if (program.StartDate > program.EndDate) 
+            {
+                return response.SetBadRequest("Start day must before end Day");
+            }
             var jobs = await _unitOfWork.Jobs.GetAllAsync(u => request.JobIds.Contains(u.Id));
 
             if (request.JobIds.Count != jobs.Count)
