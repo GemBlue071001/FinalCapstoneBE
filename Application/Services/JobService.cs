@@ -2,9 +2,12 @@
 using Application.Request.Job;
 using Application.Response;
 using Application.Response.Job;
+using Application.Validations.Job;
+using Application.Validations.KPI;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Resources;
 
 namespace Application.Services
@@ -23,6 +26,15 @@ namespace Application.Services
         public async Task<ApiResponse> AddJob(JobRequest request)
         {
             var response = new ApiResponse();
+            var validator = new JobRequestValidator();
+
+            var result = await validator.ValidateAsync(request);
+
+            if (!result.IsValid)
+            {
+                var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
+                return response.SetBadRequest(errors);
+            }
             await _unitOfWork.Jobs.AddAsync(_mapper.Map<Job>(request));
             await _unitOfWork.SaveChangeAsync();
 
@@ -32,6 +44,7 @@ namespace Application.Services
         public async Task<ApiResponse> AddTrainingProgramToJobAsync(JobTrainingRequest request)
         {
             var response = new ApiResponse();
+            
             var jobTrainingProgram = await _unitOfWork.JobTrainingPrograms.GetAsync(x => x.JobId == request.JobId &&
                                                                      x.TrainingProgramId == request.TrainingProgramId);
             if (jobTrainingProgram != null)
