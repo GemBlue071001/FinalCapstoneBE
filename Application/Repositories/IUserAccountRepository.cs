@@ -9,6 +9,5 @@ namespace Application.Repository
 {
     public interface IUserAccountRepository : IGenericRepository<UserAccount>
     {
-        Task<List<TrainingProgram>> GetTrainingProgramsByUserId(int userId);
     }
 }

@@ -19,15 +19,7 @@ namespace Domain.Entities
         public Role Role { get; set; }
 
         //Navigation Property
-        public CampaignJob? CampaignJob { get; set; }
-        public int? CampaignJobId { get; set; }
-        public List<Assessment> Assessments { get; set; }
-        public List<UserMeeting> UserMeetings;
-        public List<UserResult> UserResults;
-        public List<Candidate> Candidates;
-        public List<Message> Messages { get; set; }
-        public List<UserConversation> UserConversations { get; set; }
-        public List<Attendance> Attendances { get; set; }
+      
 
     }
 

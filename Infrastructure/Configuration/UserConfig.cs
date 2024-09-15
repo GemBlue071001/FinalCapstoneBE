@@ -15,13 +15,7 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<UserAccount> builder)
         {
-            builder.HasOne(o => o.CampaignJob)
-                .WithMany(o => o.Interns)
-                .HasForeignKey(o => o.CampaignJobId);
-
-            builder.HasMany(o => o.Assessments)
-                .WithOne(o => o.Owner)
-                .HasForeignKey(o => o.UserId);
+            
 
             //builder.HasQueryFilter(x => !x.IsDeleted);
 

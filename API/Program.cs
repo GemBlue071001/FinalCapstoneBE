@@ -4,7 +4,6 @@ using Application.Interface;
 using Application.MyMapper;
 using Application.Services;
 using Application.SignalRHub.Model;
-using Application.Validations.KPI;
 using Domain;
 using FluentValidation.AspNetCore;
 using Infrastructure;
@@ -12,14 +11,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using System.Text;
-using static SignalrHub;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -93,7 +90,6 @@ builder.Services.AddScoped<IClaimsService, ClaimsService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClaimService, ClaimService>();
 
@@ -121,7 +117,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<SignalrHub>("/chat");
+
 
 using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
