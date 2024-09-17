@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class JobType
+    public class BusinessStream : Base
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string BusinessStreamName { get; set; }
         public string Description { get; set; }
         //Navigation Property
-        public List<JobPost> JobPosts { get; set; }
+        public List<Company> Companys { get; set; }
     }
 }

@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    internal class JobLocation
+    public class JobLocation: Base
     {
+        public int Id { get; set; }
+        public string District { get; set; }
+        public string City { get; set; }
+        public string PostCode { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
+        //Navigation Property
+        public List<JobPost> JobPosts { get; set; }
     }
 }

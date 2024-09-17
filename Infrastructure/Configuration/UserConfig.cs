@@ -27,6 +27,19 @@ namespace Infrastructure.Configuration
             var mentor1Pass = CreatePasswordHash("mentor1");
             var intern1Pass = CreatePasswordHash("intern1");
 
+
+            builder.HasMany(o => o.JobPosts)
+                .WithOne(o => o.UserAccount)
+                .HasForeignKey(o => o.UserId);
+
+            builder.HasMany(o => o.JobPostActivitys)
+                .WithOne(o => o.UserAccount)
+                .HasForeignKey(o => o.UserId);
+
+            builder.HasMany(o => o.SeekerProfiles)
+                .WithOne(o => o.UserAccount)
+                .HasForeignKey(o => o.UserId);
+
             builder.HasData
                 (
                   new UserAccount

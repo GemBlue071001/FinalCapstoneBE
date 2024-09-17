@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class JobSkillSet:Base
+    public class SeekerSkillSet:Base
     {
-        public int Id{ get; set; }
-        public string SkillLevelRequired { get; set; }
+        public int Id { get; set; }
+        public string ProficiencyLevel { get; set; }
+
         //Navigation Property
+        public SeekerProfile SeekerProfile { get; set; }
+        public int SeekerProfileId { get; set; }
         public SkillSet SkillSet { get; set; }
         public int SkillSetId { get; set; }
-        public int JobPostId { get; set; }
-        public JobPost JobPost { get; set; }
     }
 }

@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    internal class Company
+    public class Company: Base
     {
+        public int Id { get; set; }
+        public string CompanyName { get; set; }
+        public string CompanyDescription { get; set; }
+        public string WebsiteURL { get; set; }
+        public int EstablishedYear { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Address { get; set; }
+        public int NumberOfEmployees { get; set; }
+
+        //Navigation Property
+        public List<JobPost> JobPosts { get; set; }
+        public BusinessStream BusinessStream { get; set; }
+        public int BusinessStreamId { get; set; }
     }
 }
