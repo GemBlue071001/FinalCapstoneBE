@@ -17,6 +17,27 @@ namespace Infrastructure.Configuration
                .WithOne(o => o.JobType)
                .HasForeignKey(o => o.JobTypeId);
 
+            builder.HasData
+                (
+                  new JobType
+                  {
+                      Id = 1,
+                      Name = "Full Time",
+                      Description = "A Full Time Job"
+                  },
+                  new JobType
+                  {
+                      Id = 2,
+                      Name = "Part Time",
+                      Description = "A Part Time Job"
+                  },
+                  new JobType
+                  {
+                      Id = 3,
+                      Name = "Remote",
+                      Description = "A Remote Job"
+                  }
+                );
         }
     }
 }

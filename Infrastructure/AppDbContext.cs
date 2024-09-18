@@ -25,6 +25,18 @@ namespace Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.ApplyConfiguration(new BusinessStreamConfig());
+            modelBuilder.ApplyConfiguration(new CompanyConfig());
+            modelBuilder.ApplyConfiguration(new EducationDetailConfig());
+            modelBuilder.ApplyConfiguration(new ExperienceDetailConfig());
+            modelBuilder.ApplyConfiguration(new JobLocationConfig());
+            modelBuilder.ApplyConfiguration(new JobPostActivityConfig());
+            modelBuilder.ApplyConfiguration(new JobPostConfig());
+            modelBuilder.ApplyConfiguration(new JobSkillSetConfig());
+            modelBuilder.ApplyConfiguration(new JobTypeConfig());
+            modelBuilder.ApplyConfiguration(new SeekerProfileConfig());
+            modelBuilder.ApplyConfiguration(new SeekerSkillSetConfig());
+            modelBuilder.ApplyConfiguration(new SkillSetConfig());
            
         }
 

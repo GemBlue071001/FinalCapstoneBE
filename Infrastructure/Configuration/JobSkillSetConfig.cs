@@ -20,6 +20,12 @@ namespace Infrastructure.Configuration
             builder.HasOne(o => o.SkillSet)
                .WithMany(o => o.JobSkillSets)
                .HasForeignKey(o => o.SkillSetId);
+
+            //builder.HasData(new JobSkillSet
+            //{
+            //    Id = 1,
+                
+            //});
         }
     }
 }

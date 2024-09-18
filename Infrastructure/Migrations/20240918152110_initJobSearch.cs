@@ -44,6 +44,7 @@ namespace Infrastructure.Migrations
                     PostCode = table.Column<string>(type: "text", nullable: false),
                     State = table.Column<string>(type: "text", nullable: false),
                     Country = table.Column<string>(type: "text", nullable: false),
+                    StressAddress = table.Column<string>(type: "text", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
@@ -78,7 +79,6 @@ namespace Infrastructure.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Shorthand = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    SkillLevel = table.Column<string>(type: "text", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: true),
@@ -187,11 +187,8 @@ namespace Infrastructure.Migrations
                     JobTitle = table.Column<string>(type: "text", nullable: false),
                     JobDescription = table.Column<string>(type: "text", nullable: false),
                     Salary = table.Column<decimal>(type: "numeric", nullable: false),
-                    Currency = table.Column<string>(type: "text", nullable: false),
-                    EmploymentType = table.Column<string>(type: "text", nullable: false),
                     PostingDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ExpiryDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    NumberOfVacancies = table.Column<int>(type: "integer", nullable: false),
                     ExperienceRequired = table.Column<int>(type: "integer", nullable: false),
                     QualificationRequired = table.Column<string>(type: "text", nullable: false),
                     Benefits = table.Column<string>(type: "text", nullable: false),
@@ -394,14 +391,53 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "BusinessStream",
+                columns: new[] { "Id", "BusinessStreamName", "CreatedBy", "CreatedDate", "Description", "IsDeleted", "ModifiedBy", "ModifiedDate" },
+                values: new object[] { 1, "Tech", null, new DateTime(2024, 9, 18, 15, 21, 10, 510, DateTimeKind.Utc).AddTicks(8043), "Tech Industry", false, null, null });
+
+            migrationBuilder.InsertData(
+                table: "JobLocation",
+                columns: new[] { "Id", "City", "Country", "CreatedBy", "CreatedDate", "District", "IsDeleted", "ModifiedBy", "ModifiedDate", "PostCode", "State", "StressAddress" },
+                values: new object[] { 1, "HCM", "VietNam", null, new DateTime(2024, 9, 18, 15, 21, 10, 511, DateTimeKind.Utc).AddTicks(56), "District 9", false, null, null, "123", "state", "521 Le Van Si Stress" });
+
+            migrationBuilder.InsertData(
+                table: "JobType",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "A Full Time Job", "Full Time" },
+                    { 2, "A Part Time Job", "Part Time" },
+                    { 3, "A Remote Job", "Remote" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SkillSet",
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "Description", "IsDeleted", "ModifiedBy", "ModifiedDate", "Name", "Shorthand" },
+                values: new object[,]
+                {
+                    { 1, null, new DateTime(2024, 9, 18, 15, 21, 10, 511, DateTimeKind.Utc).AddTicks(4435), "Business Analyst", false, null, null, "Business Analyst", "BA" },
+                    { 2, null, new DateTime(2024, 9, 18, 15, 21, 10, 511, DateTimeKind.Utc).AddTicks(4437), "C#", false, null, null, "C#", "C#" },
+                    { 3, null, new DateTime(2024, 9, 18, 15, 21, 10, 511, DateTimeKind.Utc).AddTicks(4438), "Java Script", false, null, null, "Java Script", "JS" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "Email", "FirstName", "IsDeleted", "LastName", "ModifiedBy", "ModifiedDate", "PasswordHash", "PasswordSalt", "PhoneNumber", "Role", "UserName" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2024, 9, 18, 13, 17, 42, 213, DateTimeKind.Utc).AddTicks(4781), "HRAccount@gmail.com", null, false, "HRAccount", null, null, new byte[] { 229, 161, 2, 127, 217, 108, 217, 216, 48, 55, 41, 119, 249, 58, 87, 90, 97, 99, 221, 52, 154, 34, 1, 207, 32, 31, 98, 111, 196, 197, 104, 66, 186, 247, 93, 1, 214, 151, 137, 128, 222, 52, 225, 181, 245, 91, 68, 68, 103, 218, 234, 237, 94, 134, 62, 182, 148, 232, 215, 92, 243, 176, 48, 18 }, new byte[] { 242, 66, 74, 235, 107, 125, 4, 170, 205, 235, 115, 118, 228, 109, 44, 187, 171, 94, 239, 250, 147, 232, 199, 198, 253, 156, 138, 81, 100, 116, 254, 159, 171, 247, 218, 195, 230, 230, 144, 179, 152, 2, 237, 73, 23, 8, 41, 175, 36, 176, 241, 217, 235, 240, 251, 227, 130, 31, 47, 112, 100, 163, 153, 229, 93, 128, 181, 212, 92, 215, 84, 14, 88, 251, 39, 164, 248, 122, 114, 134, 41, 110, 220, 249, 98, 197, 1, 208, 226, 152, 11, 23, 192, 105, 146, 128, 80, 191, 199, 187, 176, 1, 38, 88, 112, 114, 126, 242, 75, 58, 172, 22, 254, 69, 246, 109, 165, 25, 131, 68, 147, 213, 252, 164, 17, 144, 58, 222 }, null, 3, "HRAccount" },
-                    { 2, null, new DateTime(2024, 9, 18, 13, 17, 42, 213, DateTimeKind.Utc).AddTicks(4788), "ICAccountt@gmail.com", null, false, "ICAccount", null, null, new byte[] { 94, 251, 70, 6, 165, 89, 49, 117, 92, 21, 97, 231, 4, 214, 27, 148, 215, 149, 99, 130, 51, 210, 181, 143, 63, 221, 126, 28, 190, 150, 181, 121, 143, 28, 171, 247, 152, 2, 174, 133, 20, 193, 98, 29, 13, 205, 103, 251, 153, 90, 180, 63, 114, 213, 109, 103, 39, 67, 205, 216, 7, 145, 41, 233 }, new byte[] { 97, 198, 57, 15, 15, 199, 43, 82, 146, 239, 126, 26, 23, 255, 210, 208, 89, 172, 229, 206, 36, 43, 3, 225, 180, 135, 191, 2, 194, 166, 86, 253, 34, 34, 67, 4, 222, 170, 59, 116, 138, 202, 106, 178, 98, 117, 164, 93, 224, 113, 89, 185, 130, 162, 165, 248, 100, 95, 79, 217, 116, 95, 93, 158, 173, 111, 77, 251, 82, 45, 18, 209, 213, 75, 91, 109, 173, 174, 219, 185, 103, 188, 221, 182, 92, 242, 231, 225, 244, 185, 163, 190, 107, 238, 65, 253, 191, 227, 14, 127, 31, 107, 154, 98, 107, 229, 217, 207, 179, 33, 254, 241, 211, 227, 165, 41, 130, 111, 222, 183, 214, 6, 157, 16, 81, 162, 76, 197 }, null, 2, "ICAccount" },
-                    { 3, null, new DateTime(2024, 9, 18, 13, 17, 42, 213, DateTimeKind.Utc).AddTicks(4790), "mentorAccount@gmail.com", null, false, "mentorAccount", null, null, new byte[] { 180, 24, 115, 65, 35, 77, 91, 116, 0, 57, 167, 180, 161, 19, 125, 57, 216, 5, 158, 209, 132, 232, 83, 64, 24, 216, 189, 18, 108, 175, 95, 245, 180, 64, 160, 150, 222, 63, 224, 210, 118, 150, 254, 65, 70, 83, 148, 124, 226, 161, 125, 135, 33, 100, 140, 236, 19, 13, 67, 145, 62, 136, 180, 200 }, new byte[] { 234, 32, 159, 164, 244, 142, 160, 160, 76, 90, 197, 8, 50, 245, 224, 70, 70, 166, 91, 233, 106, 112, 205, 204, 35, 227, 60, 161, 132, 90, 122, 115, 134, 16, 153, 192, 136, 234, 167, 115, 83, 64, 104, 92, 86, 220, 232, 82, 252, 35, 174, 161, 65, 215, 122, 217, 185, 1, 231, 24, 105, 118, 177, 100, 177, 75, 137, 124, 7, 158, 38, 194, 206, 254, 186, 185, 145, 149, 211, 125, 223, 245, 144, 139, 114, 210, 35, 224, 91, 54, 49, 237, 37, 164, 73, 166, 192, 248, 88, 90, 212, 2, 21, 117, 120, 132, 156, 154, 155, 241, 26, 187, 145, 139, 77, 40, 105, 190, 23, 87, 83, 168, 94, 40, 151, 120, 158, 194 }, null, 1, "mentorAccount" },
-                    { 4, null, new DateTime(2024, 9, 18, 13, 17, 42, 213, DateTimeKind.Utc).AddTicks(4792), "InternAccount@gmail.com", null, false, "InternAccount", null, null, new byte[] { 142, 199, 160, 58, 46, 84, 93, 195, 238, 200, 54, 251, 36, 69, 224, 141, 161, 24, 87, 166, 33, 133, 82, 1, 180, 71, 106, 229, 70, 74, 124, 49, 249, 192, 249, 163, 77, 132, 199, 21, 9, 102, 6, 218, 11, 11, 50, 205, 115, 50, 17, 114, 138, 56, 97, 114, 246, 216, 17, 131, 26, 238, 35, 173 }, new byte[] { 39, 40, 94, 21, 90, 235, 173, 206, 90, 115, 46, 240, 23, 197, 31, 86, 101, 245, 234, 26, 5, 59, 151, 171, 9, 227, 206, 210, 115, 150, 147, 157, 139, 81, 213, 210, 161, 130, 27, 41, 79, 234, 209, 125, 125, 47, 129, 116, 238, 6, 72, 177, 107, 105, 22, 135, 37, 251, 45, 236, 15, 185, 2, 246, 80, 221, 84, 105, 204, 70, 69, 166, 32, 100, 207, 162, 156, 33, 234, 32, 70, 225, 152, 251, 239, 170, 203, 250, 217, 142, 113, 99, 11, 78, 72, 176, 7, 169, 41, 157, 65, 73, 194, 132, 51, 155, 105, 2, 66, 53, 92, 104, 173, 189, 65, 173, 116, 164, 102, 28, 145, 70, 71, 147, 69, 192, 117, 113 }, null, 0, "InternAccount" }
+                    { 1, null, new DateTime(2024, 9, 18, 15, 21, 10, 510, DateTimeKind.Utc).AddTicks(7340), "User1@gmail.com", null, false, "User1", null, null, new byte[] { 40, 25, 11, 158, 14, 229, 189, 72, 125, 215, 47, 98, 78, 177, 89, 179, 212, 171, 112, 195, 176, 241, 52, 118, 92, 126, 124, 57, 255, 88, 7, 89, 211, 52, 33, 45, 83, 35, 125, 229, 9, 12, 204, 102, 137, 241, 174, 204, 105, 196, 225, 178, 162, 197, 130, 169, 116, 61, 222, 189, 56, 32, 95, 14 }, new byte[] { 64, 145, 179, 171, 40, 48, 187, 242, 106, 215, 149, 38, 115, 73, 56, 139, 208, 176, 250, 231, 224, 251, 92, 114, 134, 73, 173, 14, 255, 204, 199, 227, 51, 114, 198, 220, 60, 215, 31, 104, 190, 6, 139, 184, 61, 137, 241, 87, 135, 104, 224, 1, 193, 5, 92, 93, 88, 225, 23, 100, 248, 148, 185, 135, 195, 91, 209, 156, 126, 202, 103, 68, 119, 142, 92, 143, 231, 215, 226, 72, 171, 19, 174, 67, 162, 103, 112, 76, 68, 103, 243, 136, 154, 226, 75, 179, 203, 159, 28, 165, 193, 56, 95, 188, 3, 229, 26, 204, 113, 237, 170, 208, 194, 235, 17, 46, 70, 158, 137, 152, 127, 111, 213, 119, 125, 58, 93, 235 }, null, 0, "User1" },
+                    { 2, null, new DateTime(2024, 9, 18, 15, 21, 10, 510, DateTimeKind.Utc).AddTicks(7348), "User2@gmail.com", null, false, "User2", null, null, new byte[] { 132, 233, 3, 199, 193, 117, 153, 111, 135, 182, 255, 34, 219, 182, 63, 98, 49, 93, 134, 18, 14, 42, 204, 11, 93, 190, 62, 192, 59, 221, 187, 200, 59, 163, 186, 50, 187, 71, 148, 87, 17, 57, 68, 108, 198, 227, 24, 4, 173, 252, 20, 117, 135, 100, 148, 250, 52, 87, 219, 196, 204, 64, 235, 48 }, new byte[] { 186, 241, 53, 150, 165, 22, 103, 142, 171, 198, 44, 242, 74, 231, 139, 210, 30, 108, 40, 141, 54, 56, 150, 251, 44, 213, 164, 55, 219, 26, 182, 10, 6, 39, 222, 60, 80, 17, 91, 93, 238, 13, 220, 175, 145, 142, 125, 32, 37, 210, 168, 22, 138, 40, 147, 171, 213, 252, 208, 63, 142, 72, 76, 159, 184, 151, 42, 239, 147, 130, 196, 160, 253, 204, 226, 13, 210, 153, 61, 46, 41, 110, 101, 170, 62, 74, 84, 123, 225, 245, 68, 120, 150, 192, 206, 75, 203, 191, 133, 37, 239, 138, 131, 60, 22, 188, 166, 43, 224, 65, 105, 105, 223, 91, 1, 162, 27, 88, 227, 85, 94, 179, 101, 164, 87, 156, 188, 201 }, null, 0, "User2" },
+                    { 3, null, new DateTime(2024, 9, 18, 15, 21, 10, 510, DateTimeKind.Utc).AddTicks(7354), "Employer@gmail.com", null, false, "Employer", null, null, new byte[] { 46, 167, 49, 167, 85, 82, 225, 67, 246, 130, 75, 251, 134, 64, 117, 217, 88, 33, 161, 117, 151, 123, 217, 156, 151, 171, 251, 83, 193, 251, 211, 235, 202, 160, 105, 163, 82, 76, 14, 155, 51, 26, 202, 11, 146, 103, 175, 250, 246, 27, 119, 14, 47, 110, 128, 127, 128, 211, 161, 156, 150, 5, 205, 196 }, new byte[] { 191, 242, 228, 243, 252, 66, 123, 108, 204, 113, 58, 25, 73, 147, 158, 202, 211, 97, 72, 108, 231, 25, 240, 131, 84, 77, 98, 69, 169, 227, 203, 108, 145, 50, 71, 71, 233, 62, 55, 187, 193, 169, 127, 11, 60, 238, 83, 82, 4, 46, 78, 206, 18, 232, 182, 88, 212, 39, 238, 79, 159, 222, 183, 226, 0, 55, 41, 12, 15, 227, 111, 100, 249, 108, 66, 38, 124, 91, 88, 6, 69, 143, 164, 41, 234, 255, 96, 148, 26, 3, 29, 79, 220, 37, 197, 195, 208, 159, 228, 64, 190, 33, 254, 180, 201, 142, 103, 184, 137, 233, 63, 56, 121, 181, 209, 90, 166, 33, 64, 198, 8, 69, 235, 98, 56, 215, 160, 132 }, null, 1, "Employer" },
+                    { 4, null, new DateTime(2024, 9, 18, 15, 21, 10, 510, DateTimeKind.Utc).AddTicks(7355), "Admin@gmail.com", null, false, "Admin", null, null, new byte[] { 47, 170, 247, 52, 94, 85, 23, 80, 201, 83, 7, 218, 128, 255, 143, 134, 72, 135, 87, 201, 116, 64, 151, 40, 159, 40, 71, 254, 156, 205, 133, 76, 204, 231, 191, 6, 3, 144, 64, 114, 202, 239, 18, 233, 71, 246, 91, 211, 153, 140, 64, 127, 153, 77, 103, 108, 159, 183, 225, 39, 108, 30, 190, 109 }, new byte[] { 41, 178, 235, 170, 158, 117, 159, 217, 13, 46, 223, 46, 145, 229, 169, 198, 70, 206, 113, 181, 20, 139, 132, 157, 91, 128, 71, 57, 68, 232, 220, 158, 94, 111, 22, 54, 151, 177, 157, 15, 160, 171, 115, 30, 242, 235, 10, 118, 126, 239, 92, 117, 204, 25, 71, 248, 46, 232, 185, 139, 209, 230, 169, 133, 113, 147, 145, 61, 178, 216, 148, 39, 157, 95, 163, 41, 240, 48, 126, 70, 212, 32, 169, 247, 62, 34, 91, 146, 101, 20, 163, 75, 156, 167, 4, 27, 105, 186, 175, 129, 152, 156, 255, 106, 2, 206, 95, 189, 212, 238, 201, 71, 0, 148, 61, 252, 182, 209, 5, 138, 153, 144, 91, 16, 117, 1, 100, 144 }, null, 2, "Admin" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Company",
+                columns: new[] { "Id", "Address", "BusinessStreamId", "City", "CompanyDescription", "CompanyName", "Country", "CreatedBy", "CreatedDate", "EstablishedYear", "IsDeleted", "ModifiedBy", "ModifiedDate", "NumberOfEmployees", "WebsiteURL" },
+                values: new object[,]
+                {
+                    { 1, "39 Vo Chi Cong Stress", 1, "HCM", "Tech Company", "Fpt Software", "VietNam", null, new DateTime(2024, 9, 18, 15, 21, 10, 510, DateTimeKind.Utc).AddTicks(8716), 2008, false, null, null, 1000, "https://fpt.com/vi" },
+                    { 2, "64 Le Van Si Stress", 1, "HCM", "Tech Company", "High Tech", "VietNam", null, new DateTime(2024, 9, 18, 15, 21, 10, 510, DateTimeKind.Utc).AddTicks(8720), 2008, false, null, null, 50, "https://fpt.com/vi" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -16,6 +16,34 @@ namespace Infrastructure.Configuration
             builder.HasMany(o => o.JobPosts)
                .WithOne(o => o.Company)
                .HasForeignKey(o => o.CompanyId);
+
+            builder.HasData(new Company()
+            {
+                Id = 1,
+                Address = "39 Vo Chi Cong Stress",
+                City = "HCM",
+                Country = "VietNam",
+                WebsiteURL = "https://fpt.com/vi",
+                CompanyName = "Fpt Software",
+                NumberOfEmployees = 1000,
+                EstablishedYear = 2008,
+                CompanyDescription = "Tech Company",
+                BusinessStreamId = 1,
+            },
+            new Company()
+            {
+                Id = 2,
+                Address = "64 Le Van Si Stress",
+                City = "HCM",
+                Country = "VietNam",
+                WebsiteURL = "https://fpt.com/vi",
+                CompanyName = "High Tech",
+                NumberOfEmployees = 50,
+                EstablishedYear = 2008,
+                CompanyDescription = "Tech Company",
+                BusinessStreamId = 1,
+            }
+            );
         }
     }
 }

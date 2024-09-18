@@ -16,6 +16,18 @@ namespace Infrastructure.Configuration
             builder.HasMany(o => o.JobPosts)
                 .WithOne(o => o.JobLocation)
                 .HasForeignKey(o => o.JobLocationId);
+
+            builder.HasData(new JobLocation
+            {
+                Id = 1,
+                City = "HCM",
+                Country = "VietNam",
+                District = "District 9",
+                State = "state",
+                StressAddress = "521 Le Van Si Stress",
+                PostCode = "123",
+                
+            });
         }
     }
 }

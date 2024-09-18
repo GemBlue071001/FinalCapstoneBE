@@ -28,11 +28,8 @@ namespace Domain.Entities
 
     public enum Role
     {
-        Intern,
-        Mentor,
-        InternshipCoordinators,
-        HRManager,
+        JobSeeker,
+        Employer,
         Admin,
-        Guest
     }
 }

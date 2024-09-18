@@ -16,6 +16,14 @@ namespace Infrastructure.Configuration
             builder.HasMany(o => o.Companys)
               .WithOne(o => o.BusinessStream)
               .HasForeignKey(o => o.BusinessStreamId);
+
+            builder.HasData(new BusinessStream
+            {
+                Id =1,
+                BusinessStreamName = "Tech",
+                Description = "Tech Industry",
+                
+            });
         }
     }
 }

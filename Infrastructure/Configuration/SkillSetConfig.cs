@@ -20,6 +20,29 @@ namespace Infrastructure.Configuration
             builder.HasMany(o => o.SeekerSkillSets)
                .WithOne(o => o.SkillSet)
                .HasForeignKey(o => o.SkillSetId);
+
+            builder.HasData(new SkillSet
+            {
+                Id = 1,
+                Name = "Business Analyst",
+                Shorthand = "BA",
+                Description = "Business Analyst",
+            },
+            new SkillSet
+            {
+                Id = 2,
+                Name = "C#",
+                Shorthand = "C#",
+                Description = "C#",
+            },
+            new SkillSet
+            {
+                Id = 3,
+                Name = "Java Script",
+                Shorthand = "JS",
+                Description = "Java Script",
+            }
+            );
         }
     }
 }

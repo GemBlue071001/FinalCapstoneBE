@@ -12,11 +12,10 @@ namespace Domain.Entities
         public string JobTitle { get; set; }
         public string JobDescription { get; set; }
         public decimal Salary { get; set; }
-        public string Currency { get; set; }
-        public string EmploymentType { get; set; }
+        //public string Currency { get; set; }
+        //public string EmploymentType { get; set; }
         public DateTime PostingDate { get; set; }
         public DateTime ExpiryDate { get; set; }
-        public int NumberOfVacancies { get; set; }
         public int ExperienceRequired { get; set; }
         public string QualificationRequired { get; set; }
         public string Benefits { get; set; }

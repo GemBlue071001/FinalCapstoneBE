@@ -86,12 +86,12 @@ builder.Services.AddSingleton<IDictionary<string, UserConnection>>(opts => new D
 builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 
 builder.Services.AddSingleton(configuration!);
-builder.Services.AddScoped<IClaimsService, ClaimsService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClaimService, ClaimService>();
+builder.Services.AddScoped<IJobPostService, JobPostService>();
 
 
 builder.Services.AddControllers()

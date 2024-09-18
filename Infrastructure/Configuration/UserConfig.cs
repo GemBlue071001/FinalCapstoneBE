@@ -22,10 +22,10 @@ namespace Infrastructure.Configuration
             builder
             .HasIndex(q => q.UserName)
             .IsUnique();
-            var hr1Pass = CreatePasswordHash("HR1");
-            var ic1Pass = CreatePasswordHash("IC1");
-            var mentor1Pass = CreatePasswordHash("mentor1");
-            var intern1Pass = CreatePasswordHash("intern1");
+            var user1 = CreatePasswordHash("User1");
+            var user2 = CreatePasswordHash("User2");
+            var employer = CreatePasswordHash("Employer");
+            var admin = CreatePasswordHash("Admin");
 
 
             builder.HasMany(o => o.JobPosts)
@@ -45,42 +45,42 @@ namespace Infrastructure.Configuration
                   new UserAccount
                   {
                       Id = 1,
-                      UserName = "HRAccount",
-                      PasswordHash = hr1Pass.PasswordHash,
-                      PasswordSalt = hr1Pass.PasswordSalt,
-                      LastName = "HRAccount",
-                      Role = Role.HRManager,
-                      Email = "HRAccount@gmail.com",
+                      UserName = "User1",
+                      PasswordHash = user1.PasswordHash,
+                      PasswordSalt = user1.PasswordSalt,
+                      LastName = "User1",
+                      Role = Role.JobSeeker,
+                      Email = "User1@gmail.com",
                   },
                   new UserAccount
                   {
                       Id = 2,
-                      UserName = "ICAccount",
-                      PasswordHash = ic1Pass.PasswordHash,
-                      PasswordSalt = ic1Pass.PasswordSalt,
-                      LastName = "ICAccount",
-                      Role = Role.InternshipCoordinators,
-                      Email = "ICAccountt@gmail.com",
+                      UserName = "User2",
+                      PasswordHash = user2.PasswordHash,
+                      PasswordSalt = user2.PasswordSalt,
+                      LastName = "User2",
+                      Role = Role.JobSeeker,
+                      Email = "User2@gmail.com",
                   },
                   new UserAccount
                   {
                       Id = 3,
-                      UserName = "mentorAccount",
-                      PasswordHash = mentor1Pass.PasswordHash,
-                      PasswordSalt = mentor1Pass.PasswordSalt,
-                      LastName = "mentorAccount",
-                      Role = Role.Mentor,
-                      Email = "mentorAccount@gmail.com",
+                      UserName = "Employer",
+                      PasswordHash = employer.PasswordHash,
+                      PasswordSalt = employer.PasswordSalt,
+                      LastName = "Employer",
+                      Role = Role.Employer,
+                      Email = "Employer@gmail.com",
                   },
                   new UserAccount
                   {
                       Id = 4,
-                      UserName = "InternAccount",
-                      PasswordHash = intern1Pass.PasswordHash,
-                      PasswordSalt = intern1Pass.PasswordSalt,
-                      LastName = "InternAccount",
-                      Role = Role.Intern,
-                      Email = "InternAccount@gmail.com",
+                      UserName = "Admin",
+                      PasswordHash = admin.PasswordHash,
+                      PasswordSalt = admin.PasswordSalt,
+                      LastName = "Admin",
+                      Role = Role.Admin,
+                      Email = "Admin@gmail.com",
                   }
                 );
         }

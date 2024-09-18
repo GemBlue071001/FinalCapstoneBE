@@ -1,4 +1,6 @@
-﻿using Application.Request.User;
+﻿using Application.Request.JobPost;
+using Application.Request.User;
+using Application.Response.JobPost;
 using Application.Response.User;
 using AutoMapper;
 using Domain.Entities;
@@ -11,7 +13,9 @@ namespace Application.MyMapper
         {
             CreateMap<UserAccount, UserResponse>().ReverseMap();
 
-
+            //JobPost
+            CreateMap<JobPostRequest, JobPost>();
+            CreateMap<JobPost, JobPostResponse>();
         }
     }
 }
