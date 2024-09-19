@@ -92,6 +92,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClaimService, ClaimService>();
 builder.Services.AddScoped<IJobPostService, JobPostService>();
+builder.Services.AddScoped<ISeekerProfileService, SeekerProfileService>();
 
 
 builder.Services.AddControllers()

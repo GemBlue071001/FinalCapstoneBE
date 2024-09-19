@@ -9,15 +9,15 @@ namespace Infrastructure
     {
         private AppDbContext _context;
         public IUserAccountRepository UserAccounts { get; }
-
         public IJobPostRepository JobPosts { get; }
+        public ISeekerProfileRepository SeekerProfiles { get; set; }
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
             UserAccounts = new UserAccountRepository(context);
             JobPosts = new JobPostRepository(context);
-
+            SeekerProfiles = new SeekerProfileRepository(context);
         }
 
         public async Task SaveChangeAsync()

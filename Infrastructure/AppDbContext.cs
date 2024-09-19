@@ -16,10 +16,8 @@ namespace Infrastructure
         }
 
         public DbSet<UserAccount> Users { get; set; }
-       
-
-        
-
+        public DbSet<JobPost> jobPosts { get; set; }
+        public DbSet<SeekerProfile> SeekerProfile { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,7 +35,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new SeekerProfileConfig());
             modelBuilder.ApplyConfiguration(new SeekerSkillSetConfig());
             modelBuilder.ApplyConfiguration(new SkillSetConfig());
-           
+
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using Application.Request.JobPost;
+using Application.Request.SeekerProfile;
 using Application.Request.User;
 using Application.Response.JobPost;
 using Application.Response.User;
@@ -16,6 +17,10 @@ namespace Application.MyMapper
             //JobPost
             CreateMap<JobPostRequest, JobPost>();
             CreateMap<JobPost, JobPostResponse>();
+
+            //SeekerProfile
+            CreateMap<SeekerProfileRequest, SeekerProfile>();
+
         }
     }
 }
