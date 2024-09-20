@@ -11,5 +11,7 @@ namespace Application.Interface
     public interface ISeekerProfileService
     {
         Task<ApiResponse> AddNewSeekerProfilesAsync(SeekerProfileRequest seekerProfileRequest);
+        Task<ApiResponse> GetAllSeekerProfileAsync();
+        Task<ApiResponse> DeletedSeekerProfileByIdAsync(int id);
     }
 }
