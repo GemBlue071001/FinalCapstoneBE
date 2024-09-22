@@ -42,7 +42,7 @@ namespace Application.Services
         {
             try
             {
-                var seekerProfile = _unitOfWork.SeekerProfiles.GetAllAsync(null);
+                var seekerProfile = await _unitOfWork.SeekerProfiles.GetAllAsync(null);
                 var seekerProfileResponse = _mapper.Map<List<SeekerProfileResponse>>(seekerProfile);
                 return new ApiResponse().SetOk(seekerProfileResponse);
             }
@@ -57,7 +57,7 @@ namespace Application.Services
             var response = new ApiResponse();
             try
             {
-                var seekerProfile = _unitOfWork.SeekerProfiles.GetAsync(x => x.Id == id);
+                var seekerProfile = await _unitOfWork.SeekerProfiles.GetAsync(x => x.Id == id);
                 if (seekerProfile == null)
                 {
                     return response.SetNotFound("Can not found seeker profile id: " + id);
