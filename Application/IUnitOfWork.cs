@@ -9,6 +9,7 @@ namespace Application
         public IJobPostRepository JobPosts { get; }
         public ISeekerProfileRepository SeekerProfiles { get; }
         public IJobLocationRepository JobLocations { get; set; }
+        public IJobTypeRepository JobTypes { get; set; }
         public Task SaveChangeAsync();
     }
 }
