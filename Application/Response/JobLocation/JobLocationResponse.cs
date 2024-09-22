@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Request.JobLocation
+namespace Application.Response.JobLocation
 {
-    public class JobLocationRequest
+    public class JobLocationResponse
     {
         public int Id { get; set; }
         public string District { get; set; }

@@ -30,7 +30,7 @@ namespace Application.Services
                 var seekerProfile = _mapper.Map<SeekerProfile>(seekerProfileRequest);
                 await _unitOfWork.SeekerProfiles.AddAsync(seekerProfile);
                 await _unitOfWork.SaveChangeAsync();
-                return new ApiResponse().SetOk();
+                return new ApiResponse().SetOk(seekerProfile);
             }
             catch (Exception ex)
             {
