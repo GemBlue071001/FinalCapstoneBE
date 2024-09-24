@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class CompanyService: ICompanyService
+    public class CompanyService : ICompanyService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -31,13 +31,14 @@ namespace Application.Services
             try
             {
                 var company = _mapper.Map<Company>(companyRequest);
+                company.BusinessStreamId = 1;
                 await _unitOfWork.Companys.AddAsync(company);
                 await _unitOfWork.SaveChangeAsync();
                 return new ApiResponse().SetOk(company);
             }
             catch (Exception ex)
             {
-                return new ApiResponse().SetBadRequest(ex.Message);
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
             }
 
         }
