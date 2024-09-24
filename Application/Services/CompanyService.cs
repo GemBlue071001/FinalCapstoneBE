@@ -6,6 +6,7 @@ using Application.Response.Company;
 using Application.Response.JobLocation;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,7 @@ namespace Application.Services
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
+
         }
         public async Task<ApiResponse> GetAllCompanyAsync()
         {

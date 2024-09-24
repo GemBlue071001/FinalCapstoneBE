@@ -3,12 +3,15 @@ using Application.Request.JobLocation;
 using Application.Request.JobPost;
 using Application.Request.JobType;
 using Application.Request.SeekerProfile;
+using Application.Request.SkillSet;
 using Application.Request.User;
+using Application.Response;
 using Application.Response.Company;
 using Application.Response.JobLocation;
 using Application.Response.JobPost;
 using Application.Response.JobType;
 using Application.Response.SeekerProfile;
+using Application.Response.SkillSet;
 using Application.Response.User;
 using AutoMapper;
 using Domain.Entities;
@@ -40,6 +43,10 @@ namespace Application.MyMapper
             //Company
             CreateMap<CompanyRequest, Company>();
             CreateMap<Company, CompanyResponse>();
+
+            //SkillSet
+            CreateMap<SkillSetRequest, SkillSet>();
+            CreateMap<SkillSet, SkillSetResponse>();
 
         }
     }

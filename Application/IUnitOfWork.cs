@@ -11,6 +11,7 @@ namespace Application
         public IJobLocationRepository JobLocations { get; set; }
         public IJobTypeRepository JobTypes { get; set; }
         public ICompanyRepository Companys { get; set; }
+        public ISkillSetRepository SkillSets { get; set; }
         public Task SaveChangeAsync();
     }
 }

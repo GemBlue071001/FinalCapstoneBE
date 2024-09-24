@@ -22,6 +22,7 @@ namespace Infrastructure
         public DbSet<JobLocation> JobLocations { get; set; }
         public DbSet<JobType> JobTypes { get; set; }
         public DbSet<Company> Companys { get; set; }
+        public DbSet<SkillSet> SkillSets { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,7 +40,6 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new SeekerProfileConfig());
             modelBuilder.ApplyConfiguration(new SeekerSkillSetConfig());
             modelBuilder.ApplyConfiguration(new SkillSetConfig());
-
         }
 
     }

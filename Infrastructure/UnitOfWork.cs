@@ -14,6 +14,7 @@ namespace Infrastructure
         public IJobLocationRepository JobLocations { get; set; }
         public IJobTypeRepository JobTypes { get; set; }
         public ICompanyRepository Companys { get; set; }
+        public ISkillSetRepository SkillSets { get; set; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -24,6 +25,7 @@ namespace Infrastructure
             JobLocations = new JobLocationRepository(context);
             JobTypes = new JobTypeRepository(context);
             Companys = new CompanyRepository(context);
+            SkillSets = new SkillSetRepository(context);
         }
 
         public async Task SaveChangeAsync()
