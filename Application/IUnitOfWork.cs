@@ -13,6 +13,7 @@ namespace Application
         public ICompanyRepository Companys { get; }
         public IEducationDetailRepository EducationDetails { get; }
         public IExperienceDetailRepository ExperienceDetails { get; }
+        public ISkillSetRepository SkillSets { get; set; }
         public Task SaveChangeAsync();
     }
 }

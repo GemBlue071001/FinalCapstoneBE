@@ -8,7 +8,6 @@ namespace Application.Request.Company
 {
     public class CompanyRequest
     {
-        public int Id { get; set; }
         public string CompanyName { get; set; }
         public string CompanyDescription { get; set; }
         public string WebsiteURL { get; set; }
