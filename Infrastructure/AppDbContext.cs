@@ -23,6 +23,12 @@ namespace Infrastructure
         public DbSet<JobType> JobTypes { get; set; }
         public DbSet<Company> Companys { get; set; }
         public DbSet<SkillSet> SkillSets { get; set; }
+        public DbSet<BusinessStream> BusinessStreams { get; set; }
+        public DbSet<JobPostActivity> JobPostActivitys { get; set; }
+        public DbSet<JobSkillSet> JobSkillSets { get; set; }
+        public DbSet<SeekerSkillSet> SeekerSkillSets { get; set; }
+        public DbSet<EducationDetail> EducationDetails { get; set; }
+        public DbSet<ExperienceDetail> ExperienceDetails { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
