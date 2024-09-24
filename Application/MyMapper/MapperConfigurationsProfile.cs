@@ -1,8 +1,10 @@
-﻿using Application.Request.JobLocation;
+﻿using Application.Request.Company;
+using Application.Request.JobLocation;
 using Application.Request.JobPost;
 using Application.Request.JobType;
 using Application.Request.SeekerProfile;
 using Application.Request.User;
+using Application.Response.Company;
 using Application.Response.JobLocation;
 using Application.Response.JobPost;
 using Application.Response.JobType;
@@ -34,6 +36,10 @@ namespace Application.MyMapper
             //JobType
             CreateMap<JobTypeRequest, JobType>();
             CreateMap<JobType, JobTypeResponse>();
+
+            //Company
+            CreateMap<CompanyRequest, Company>();
+            CreateMap<Company, CompanyResponse>();
 
         }
     }

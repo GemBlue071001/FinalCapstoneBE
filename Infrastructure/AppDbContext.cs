@@ -13,6 +13,7 @@ namespace Infrastructure
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
+
         }
 
         public DbSet<UserAccount> Users { get; set; }
@@ -20,6 +21,7 @@ namespace Infrastructure
         public DbSet<SeekerProfile> SeekerProfile { get; set; }
         public DbSet<JobLocation> JobLocations { get; set; }
         public DbSet<JobType> JobTypes { get; set; }
+        public DbSet<Company> Companys { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

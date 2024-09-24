@@ -13,6 +13,7 @@ namespace Infrastructure
         public ISeekerProfileRepository SeekerProfiles { get; set; }
         public IJobLocationRepository JobLocations { get; set; }
         public IJobTypeRepository JobTypes { get; set; }
+        public ICompanyRepository Companys { get; set; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -22,6 +23,7 @@ namespace Infrastructure
             SeekerProfiles = new SeekerProfileRepository(context);
             JobLocations = new JobLocationRepository(context);
             JobTypes = new JobTypeRepository(context);
+            Companys = new CompanyRepository(context);
         }
 
         public async Task SaveChangeAsync()

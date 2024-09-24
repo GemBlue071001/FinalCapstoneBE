@@ -1,70 +1,77 @@
 ﻿using Application.Interface;
+using Application.Request.Company;
 using Application.Request.JobLocation;
 using Application.Response;
+using Application.Response.Company;
 using Application.Response.JobLocation;
 using AutoMapper;
 using Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class JobLocationService: IJobLocationService
+    public class CompanyService: ICompanyService
     {
         private readonly IUnitOfWork _unitOfWork;
 
         private readonly IMapper _mapper;
-
-        public JobLocationService(IUnitOfWork unitOfWork, IMapper mapper)
+        public CompanyService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<ApiResponse> AddNewJobLocationAsync(JobLocationRequest jobLocationRequest)
+        public async Task<ApiResponse> AddNewCompanyAsync(CompanyRequest companyRequest)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var joblocation = _mapper.Map<JobLocation>(jobLocationRequest);
-                await _unitOfWork.JobLocations.AddAsync(joblocation);
+                var company = _mapper.Map<Company>(companyRequest);
+                await _unitOfWork.Companys.AddAsync(company);
                 await _unitOfWork.SaveChangeAsync();
-                return new ApiResponse().SetOk(joblocation);
+                return new ApiResponse().SetOk(company);
             }
             catch (Exception ex)
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
-        public async Task<ApiResponse> GetAllJobLocationAsync()
+        public async Task<ApiResponse> GetAllCompanyAsync()
         {
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var jobLocations = await _unitOfWork.JobLocations.GetAllAsync(null);
-                var jobLocationResponse = _mapper.Map<List<JobLocationResponse>>(jobLocations);
-                return new ApiResponse().SetOk(jobLocationResponse);
+                var companys = await _unitOfWork.Companys.GetAllAsync(null);
+                var companyResponse = _mapper.Map<List<CompanyResponse>>(companys);
+                return new ApiResponse().SetOk(companyResponse);
             }
             catch (Exception ex)
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
-        public async Task<ApiResponse> DeleteJobLocationByIdAsync(int id)
+        public async Task<ApiResponse> DeleteCompanyByIdAsync(int id)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var jobLocation = await _unitOfWork.JobLocations.GetAsync(x => x.Id == id);
-                if (jobLocation == null)
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == id);
+                if (company == null)
                 {
-                    return apiResponse.SetNotFound("Can not found job location id: " + id);
+                    return apiResponse.SetNotFound("Can not found company id: " + id);
                 }
-                await _unitOfWork.JobLocations.RemoveByIdAsync(jobLocation.Id);
+                await _unitOfWork.Companys.RemoveByIdAsync(company.Id);
                 await _unitOfWork.SaveChangeAsync();
-                return new ApiResponse().SetOk(jobLocation);
+                return new ApiResponse().SetOk(company);
             }
             catch (Exception ex)
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
+
     }
 }
