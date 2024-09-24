@@ -8,9 +8,11 @@ namespace Application
         public IUserAccountRepository UserAccounts { get; }
         public IJobPostRepository JobPosts { get; }
         public ISeekerProfileRepository SeekerProfiles { get; }
-        public IJobLocationRepository JobLocations { get; set; }
-        public IJobTypeRepository JobTypes { get; set; }
-        public ICompanyRepository Companys { get; set; }
+        public IJobLocationRepository JobLocations { get; }
+        public IJobTypeRepository JobTypes { get; }
+        public ICompanyRepository Companys { get; }
+        public IEducationDetailRepository EducationDetails { get; }
+        public IExperienceDetailRepository ExperienceDetails { get; }
         public Task SaveChangeAsync();
     }
 }

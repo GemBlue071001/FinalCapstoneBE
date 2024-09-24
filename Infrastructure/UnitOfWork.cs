@@ -10,10 +10,12 @@ namespace Infrastructure
         private AppDbContext _context;
         public IUserAccountRepository UserAccounts { get; }
         public IJobPostRepository JobPosts { get; }
-        public ISeekerProfileRepository SeekerProfiles { get; set; }
-        public IJobLocationRepository JobLocations { get; set; }
-        public IJobTypeRepository JobTypes { get; set; }
-        public ICompanyRepository Companys { get; set; }
+        public ISeekerProfileRepository SeekerProfiles { get; }
+        public IJobLocationRepository JobLocations { get;  }
+        public IJobTypeRepository JobTypes { get;  }
+        public ICompanyRepository Companys { get;  }
+        public IEducationDetailRepository EducationDetails { get; }
+        public IExperienceDetailRepository ExperienceDetails { get; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -24,6 +26,8 @@ namespace Infrastructure
             JobLocations = new JobLocationRepository(context);
             JobTypes = new JobTypeRepository(context);
             Companys = new CompanyRepository(context);
+            EducationDetails = new EducationDetailRepository(context);
+            ExperienceDetails = new ExperienceDetailRepository(context);
         }
 
         public async Task SaveChangeAsync()

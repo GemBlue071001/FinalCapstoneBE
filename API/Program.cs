@@ -96,6 +96,8 @@ builder.Services.AddScoped<ISeekerProfileService, SeekerProfileService>();
 builder.Services.AddScoped<IJobLocationService, JobLocationService>();
 builder.Services.AddScoped<IJobTypeService, JobTypeServcie>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IEducationDetailsService, EducationDetailsService>();
+builder.Services.AddScoped<IExperienceDetailService, ExperienceDetailService>();
 
 
 builder.Services.AddControllers()

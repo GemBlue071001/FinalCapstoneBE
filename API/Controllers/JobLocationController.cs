@@ -14,12 +14,14 @@ namespace API.Controllers
         {
             _service = service;
         }
+
         [HttpPost]
         public async Task<IActionResult> AddNewJobLocationAsync(JobLocationRequest jobLocationRequest)
         {
             var response = await _service.AddNewJobLocationAsync(jobLocationRequest);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAllSeekerProfileAsync()
         {
