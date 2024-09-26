@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Application.Response.Company;
+using Application.Response.JobLocation;
+using Application.Response.JobType;
+using Application.Response.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +22,9 @@ namespace Application.Response.JobPost
         public string QualificationRequired { get; set; }
         public string Benefits { get; set; }
         public bool IsActive { get; set; }
+        public UserResponse User { get; set; }
+        public CompanyResponse Company { get; set; }
+        public JobTypeResponse JobType { get; set; }
+        public JobLocationResponse JobLocation { get; set; }
     }
 }

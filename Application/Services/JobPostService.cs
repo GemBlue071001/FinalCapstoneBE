@@ -4,6 +4,7 @@ using Application.Response;
 using Application.Response.JobPost;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,30 @@ namespace Application.Services
             try
             {
                 var jobPost = _mapper.Map<JobPost>(jobPostRequest);
+                var company = await _unitOfWork.Companys.GetAsync(c => c.Id == jobPostRequest.CompanyId);
+                if (company == null)
+                {
+                    return new ApiResponse().SetBadRequest("Company not found");
+                }
+                var jobType = await _unitOfWork.JobTypes.GetAsync(jt => jt.Id == jobPostRequest.JobTypeId);
+                if (jobType == null)
+                {
+                    return new ApiResponse().SetBadRequest("Job type not found");
+                }
+                var jobLocation = await _unitOfWork.JobLocations.GetAsync(jl => jl.Id == jobPostRequest.JobLocationId);
+                if (jobLocation == null)
+                {
+                    return new ApiResponse().SetBadRequest("Job location not found");
+                }
+                var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == jobPostRequest.UserId);
+                if (user == null)
+                {
+                    return new ApiResponse().SetBadRequest("User not found");
+                }
+                jobPost.Company = company;
+                jobPost.JobType = jobType;
+                jobPost.JobLocation = jobLocation;
+                jobPost.UserAccount = user;
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
 
@@ -45,7 +70,10 @@ namespace Application.Services
         {
             try
             {
-                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null);
+                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null,x => x.Include(x => x.Company)
+                                                                                  .Include(x => x.JobLocation)
+                                                                                  .Include(x => x.JobType)
+                                                                                  .Include(x => x.UserAccount));
                 var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);
 
                 return new ApiResponse().SetOk(jobPostsResponse);

@@ -21,5 +21,7 @@ namespace Application.Request.JobPost
         public int JobLocationId { get; set; }
         public int UserId { get; set; }
 
+
+
     }
 }
