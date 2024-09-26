@@ -20,8 +20,7 @@ namespace Application.Request.JobPost
         public int CompanyId { get; set; }
         public int JobLocationId { get; set; }
         public int UserId { get; set; }
-
-
+        public List<int> SkillSetIds { get; set; }
 
     }
 }

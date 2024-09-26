@@ -17,6 +17,7 @@ namespace Infrastructure
         public IEducationDetailRepository EducationDetails { get; }
         public IExperienceDetailRepository ExperienceDetails { get; }
         public ISkillSetRepository SkillSets { get; set; }
+        public IJobSkillSetRepository JobSkillSets { get; set; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -30,6 +31,7 @@ namespace Infrastructure
             EducationDetails = new EducationDetailRepository(context);
             ExperienceDetails = new ExperienceDetailRepository(context);
             SkillSets = new SkillSetRepository(context);
+            JobSkillSets = new JobSkillSetRepository(context);
         }
 
         public async Task SaveChangeAsync()
