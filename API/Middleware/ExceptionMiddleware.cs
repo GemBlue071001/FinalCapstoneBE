@@ -84,7 +84,7 @@ namespace API.Middleware
                 ApiResponse apiResponse = new ApiResponse().SetApiResponse(
                        statusCode: HttpStatusCode.BadRequest,
                        isSuccess: false,
-                       message: $"message: {ex.Message}  detail:  {ex.InnerException.Message}"
+                       message: $"message: {ex.Message}  detail:  {ex.InnerException?.Message}"
                        );
 
                 await context.Response.WriteAsync(JsonConvert.SerializeObject(apiResponse));

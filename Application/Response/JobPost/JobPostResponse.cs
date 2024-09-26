@@ -22,8 +22,9 @@ namespace Application.Response.JobPost
         public string QualificationRequired { get; set; }
         public string Benefits { get; set; }
         public bool IsActive { get; set; }
-        public UserResponse User { get; set; }
-        public CompanyResponse Company { get; set; }
+        //public UserResponse User { get; set; }
+        public string CompanyName { get; set; }
+        public string WebsiteCompanyURL { get; set; }
         public JobTypeResponse JobType { get; set; }
         public JobLocationResponse JobLocation { get; set; }
     }

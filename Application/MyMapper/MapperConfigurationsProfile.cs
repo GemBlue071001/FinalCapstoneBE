@@ -28,7 +28,12 @@ namespace Application.MyMapper
 
             //JobPost
             CreateMap<JobPostRequest, JobPost>();
-            CreateMap<JobPost, JobPostResponse>();
+            CreateMap<JobPost, JobPostResponse>()
+                .ForMember(
+                           dest => dest.CompanyName,
+                           opt => opt.MapFrom(src => src.Company.CompanyName))
+                 .ForMember(dest => dest.WebsiteCompanyURL,
+                           opt => opt.MapFrom(src => src.Company.WebsiteURL));
 
             //SeekerProfile
             CreateMap<SeekerProfileRequest, SeekerProfile>();
