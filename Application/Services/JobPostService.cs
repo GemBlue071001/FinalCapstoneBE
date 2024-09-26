@@ -30,72 +30,55 @@ namespace Application.Services
             try
             {
                 var jobPost = _mapper.Map<JobPost>(jobPostRequest);
-
-                // Check if company exists
                 var company = await _unitOfWork.Companys.GetAsync(c => c.Id == jobPostRequest.CompanyId);
                 if (company == null)
                 {
-                    return new ApiResponse().SetBadRequest("Company not found.");
+                    return new ApiResponse().SetBadRequest("Company not found");
                 }
-
-                // Check if job type exists
                 var jobType = await _unitOfWork.JobTypes.GetAsync(jt => jt.Id == jobPostRequest.JobTypeId);
                 if (jobType == null)
                 {
-                    return new ApiResponse().SetBadRequest("Job type not found.");
+                    return new ApiResponse().SetBadRequest("Job type not found");
                 }
-
-                // Check if job location exists
                 var jobLocation = await _unitOfWork.JobLocations.GetAsync(jl => jl.Id == jobPostRequest.JobLocationId);
                 if (jobLocation == null)
                 {
-                    return new ApiResponse().SetBadRequest("Job location not found.");
+                    return new ApiResponse().SetBadRequest("Job location not found");
                 }
-
-                // Check if user exists
                 var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == jobPostRequest.UserId);
                 if (user == null)
                 {
-                    return new ApiResponse().SetBadRequest("User not found.");
+                    return new ApiResponse().SetBadRequest("User not found");
                 }
-
-                // Check if all provided skill sets are valid
                 var skillSets = await _unitOfWork.SkillSets.GetAllAsync(u => jobPostRequest.SkillSetIds.Contains(u.Id));
-                if (jobPostRequest.SkillSetIds.Count != skillSets.Count)
+                if (jobPostRequest.SkillSetIds.Count != skillSets.Count) 
                 {
-                    return new ApiResponse().SetBadRequest("Invalid skill set IDs provided.");
+                    return new ApiResponse().SetBadRequest("Job Skill Set Id is invalid !");
                 }
-
-                // Create JobSkillSet relationships
-                var listJobPostSkillSet = skillSets.Select(skillSet => new JobSkillSet
+                var listJobPostSkillSet = new List<JobSkillSet>();
+                foreach (var skillSet in skillSets)
                 {
-                    SkillSetId = skillSet.Id,
-                    JobPost = jobPost
-                }).ToList();
-
-                // Assign data to job post
+                    listJobPostSkillSet.Add(new JobSkillSet
+                    {
+                        SkillSetId = skillSet.Id,
+                        JobPost = jobPost
+                    });
+                }
                 jobPost.JobSkillSets = listJobPostSkillSet;
                 jobPost.Company = company;
                 jobPost.JobType = jobType;
                 jobPost.JobLocation = jobLocation;
                 jobPost.UserAccount = user;
-
-                // Save the job post
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
 
-                return new ApiResponse().SetOk("Job post created successfully.");
+                return new ApiResponse().SetOk("Create Success !!");
             }
             catch (Exception ex)
             {
-                // Log the exception for further debugging
-                // _logger.LogError(ex, "Error occurred while adding job post.");
-
-                return new ApiResponse().SetBadRequest("An error occurred while saving the job post. Please try again.");
+                return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
-
-
         public async Task<ApiResponse> GetJobPostAsync()
         {
             try
