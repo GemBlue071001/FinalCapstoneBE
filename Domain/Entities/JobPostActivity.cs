@@ -10,12 +10,18 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public DateTime ApplicationDate { get; set; }
-        public string Status { get; set; }
+        public JobPostActivityStatus Status { get; set; }
         //Navigation Property
         public UserAccount UserAccount { get; set; }
         public JobPost JobPost { get; set; }
         public int UserId { get; set; }
         public int JobPostId { get; set; }
+    }
 
+    public enum JobPostActivityStatus
+    {
+        Applied,
+        Pending,
+        Rejected,
     }
 }
