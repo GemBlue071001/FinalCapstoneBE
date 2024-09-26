@@ -9,7 +9,6 @@ namespace Domain.Entities
     public class JobSkillSet:Base
     {
         public int Id{ get; set; }
-        public string SkillLevelRequired { get; set; }
         //Navigation Property
         public SkillSet SkillSet { get; set; }
         public int SkillSetId { get; set; }

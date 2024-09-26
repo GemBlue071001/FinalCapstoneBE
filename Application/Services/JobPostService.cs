@@ -110,7 +110,7 @@ namespace Application.Services
                 }
                 await _unitOfWork.JobSkillSets.AddAsync(new JobSkillSet
                 {
-                    SkillLevelRequired = jobPostSkillSetRequest.SkillLevelRequired,
+                    //SkillLevelRequired = jobPostSkillSetRequest.SkillLevelRequired,
                     SkillSetId = jobPostSkillSetRequest.SkillSetId,
                     JobPostId = jobPostSkillSetRequest.JobPostId
                 });

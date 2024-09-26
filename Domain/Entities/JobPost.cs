@@ -17,8 +17,10 @@ namespace Domain.Entities
         public DateTime PostingDate { get; set; }
         public DateTime ExpiryDate { get; set; }
         public int ExperienceRequired { get; set; }
-        public string QualificationRequired { get; set; }
-        public string Benefits { get; set; }
+        public string? QualificationRequired { get; set; }
+
+        public int SkillLevelRequired { get; set; }
+        public string? Benefits { get; set; }
         public bool IsActive { get; set; }
 
         //Navigation Property

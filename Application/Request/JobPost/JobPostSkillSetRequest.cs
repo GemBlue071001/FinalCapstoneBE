@@ -10,6 +10,6 @@ namespace Application.Request.JobPost
     {
         public int JobPostId { get; set; }
         public int SkillSetId { get; set; }
-        public string SkillLevelRequired { get; set; }
+        //public string SkillLevelRequired { get; set; }
     }
 }
