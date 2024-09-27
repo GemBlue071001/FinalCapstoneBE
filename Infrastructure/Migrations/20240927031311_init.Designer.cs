@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240924150329_changeTableName")]
-    partial class changeTableName
+    [Migration("20240927031311_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,7 +65,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             BusinessStreamName = "Tech",
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 266, DateTimeKind.Utc).AddTicks(1976),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 151, DateTimeKind.Utc).AddTicks(2975),
                             Description = "Tech Industry",
                             IsDeleted = false
                         });
@@ -143,7 +143,7 @@ namespace Infrastructure.Migrations
                             CompanyDescription = "Tech Company",
                             CompanyName = "Fpt Software",
                             Country = "VietNam",
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 266, DateTimeKind.Utc).AddTicks(2821),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 151, DateTimeKind.Utc).AddTicks(4543),
                             EstablishedYear = 2008,
                             IsDeleted = false,
                             NumberOfEmployees = 1000,
@@ -158,7 +158,7 @@ namespace Infrastructure.Migrations
                             CompanyDescription = "Tech Company",
                             CompanyName = "High Tech",
                             Country = "VietNam",
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 266, DateTimeKind.Utc).AddTicks(2828),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 151, DateTimeKind.Utc).AddTicks(4548),
                             EstablishedYear = 2008,
                             IsDeleted = false,
                             NumberOfEmployees = 50,
@@ -336,7 +336,7 @@ namespace Infrastructure.Migrations
                             Id = 1,
                             City = "HCM",
                             Country = "VietNam",
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 266, DateTimeKind.Utc).AddTicks(4337),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 151, DateTimeKind.Utc).AddTicks(8273),
                             District = "District 9",
                             IsDeleted = false,
                             PostCode = "123",
@@ -354,7 +354,6 @@ namespace Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Benefits")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("CompanyId")
@@ -402,11 +401,13 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("QualificationRequired")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<decimal>("Salary")
                         .HasColumnType("numeric");
+
+                    b.Property<int>("SkillLevelRequired")
+                        .HasColumnType("integer");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -453,9 +454,8 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -494,10 +494,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("SkillLevelRequired")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<int>("SkillSetId")
                         .HasColumnType("integer");
@@ -697,7 +693,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 266, DateTimeKind.Utc).AddTicks(8704),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 153, DateTimeKind.Utc).AddTicks(2267),
                             Description = "Business Analyst",
                             IsDeleted = false,
                             Name = "Business Analyst",
@@ -706,7 +702,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 266, DateTimeKind.Utc).AddTicks(8707),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 153, DateTimeKind.Utc).AddTicks(2272),
                             Description = "C#",
                             IsDeleted = false,
                             Name = "C#",
@@ -715,7 +711,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 266, DateTimeKind.Utc).AddTicks(8709),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 153, DateTimeKind.Utc).AddTicks(2273),
                             Description = "Java Script",
                             IsDeleted = false,
                             Name = "Java Script",
@@ -784,48 +780,48 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 265, DateTimeKind.Utc).AddTicks(9601),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 151, DateTimeKind.Utc).AddTicks(1009),
                             Email = "User1@gmail.com",
                             IsDeleted = false,
                             LastName = "User1",
-                            PasswordHash = new byte[] { 172, 178, 9, 204, 138, 27, 105, 211, 178, 87, 54, 3, 34, 203, 168, 120, 183, 38, 0, 105, 244, 108, 40, 229, 66, 96, 178, 118, 18, 239, 143, 227, 150, 254, 202, 137, 79, 113, 48, 75, 177, 206, 25, 35, 43, 31, 144, 4, 246, 17, 177, 111, 146, 18, 5, 31, 156, 106, 165, 214, 197, 120, 160, 152 },
-                            PasswordSalt = new byte[] { 159, 63, 197, 227, 54, 68, 219, 235, 0, 79, 202, 61, 210, 82, 38, 153, 161, 173, 126, 166, 254, 159, 141, 189, 247, 75, 85, 184, 85, 204, 63, 137, 230, 131, 229, 162, 124, 137, 134, 77, 93, 28, 176, 15, 44, 174, 232, 210, 64, 145, 197, 111, 200, 146, 38, 197, 34, 164, 183, 108, 205, 253, 99, 184, 48, 93, 175, 154, 35, 29, 133, 216, 98, 214, 57, 132, 2, 5, 144, 252, 123, 2, 39, 18, 114, 164, 126, 91, 240, 52, 200, 225, 177, 46, 75, 90, 138, 168, 64, 199, 113, 150, 141, 201, 186, 0, 144, 167, 16, 89, 223, 86, 234, 60, 166, 137, 7, 69, 251, 32, 175, 35, 116, 61, 78, 144, 151, 74 },
+                            PasswordHash = new byte[] { 245, 244, 88, 216, 128, 168, 67, 109, 115, 185, 77, 168, 90, 152, 245, 112, 152, 111, 93, 144, 100, 89, 20, 34, 196, 221, 40, 229, 146, 80, 40, 31, 148, 197, 90, 221, 198, 138, 219, 211, 41, 85, 129, 239, 41, 131, 101, 28, 50, 194, 108, 207, 0, 155, 121, 236, 85, 68, 29, 155, 189, 184, 70, 149 },
+                            PasswordSalt = new byte[] { 88, 181, 240, 125, 222, 105, 135, 143, 18, 99, 153, 69, 96, 236, 109, 91, 212, 21, 147, 17, 144, 120, 160, 33, 129, 168, 222, 122, 135, 67, 161, 244, 42, 32, 217, 207, 135, 245, 124, 159, 233, 169, 131, 13, 230, 187, 187, 170, 240, 168, 142, 152, 253, 173, 68, 100, 69, 148, 195, 64, 22, 126, 239, 36, 151, 24, 72, 24, 50, 100, 176, 154, 53, 128, 20, 88, 42, 244, 61, 95, 236, 250, 143, 229, 72, 8, 149, 38, 98, 76, 181, 52, 75, 121, 92, 118, 48, 225, 42, 175, 250, 36, 161, 96, 103, 224, 94, 103, 188, 78, 194, 220, 133, 88, 223, 38, 119, 157, 236, 127, 160, 132, 214, 141, 239, 74, 101, 125 },
                             Role = 0,
                             UserName = "User1"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 265, DateTimeKind.Utc).AddTicks(9610),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 151, DateTimeKind.Utc).AddTicks(1016),
                             Email = "User2@gmail.com",
                             IsDeleted = false,
                             LastName = "User2",
-                            PasswordHash = new byte[] { 30, 44, 19, 159, 203, 216, 80, 60, 209, 229, 134, 132, 85, 44, 112, 153, 231, 147, 20, 149, 24, 221, 119, 110, 54, 165, 224, 112, 171, 211, 21, 106, 159, 34, 7, 230, 152, 181, 213, 166, 1, 222, 127, 21, 14, 129, 197, 251, 115, 74, 106, 24, 254, 39, 214, 184, 182, 117, 66, 213, 32, 196, 218, 58 },
-                            PasswordSalt = new byte[] { 65, 102, 164, 246, 115, 162, 62, 225, 78, 246, 34, 47, 18, 119, 169, 62, 213, 121, 131, 205, 48, 121, 193, 151, 119, 80, 41, 176, 227, 131, 68, 202, 78, 27, 71, 218, 102, 189, 139, 46, 154, 59, 217, 238, 185, 128, 225, 136, 172, 189, 6, 237, 226, 3, 135, 134, 70, 109, 112, 119, 205, 146, 24, 102, 171, 225, 69, 220, 252, 215, 174, 198, 16, 79, 127, 6, 88, 66, 50, 123, 171, 224, 36, 246, 31, 229, 168, 109, 137, 0, 71, 5, 130, 6, 208, 182, 31, 50, 41, 186, 65, 94, 155, 38, 159, 217, 103, 175, 18, 26, 209, 69, 223, 64, 226, 241, 152, 81, 161, 155, 148, 64, 82, 18, 164, 244, 94, 173 },
+                            PasswordHash = new byte[] { 152, 86, 161, 191, 139, 67, 100, 42, 66, 73, 49, 131, 26, 166, 128, 127, 164, 105, 56, 229, 157, 232, 230, 186, 92, 137, 93, 204, 234, 66, 224, 90, 244, 18, 88, 90, 144, 22, 76, 142, 7, 93, 164, 46, 1, 233, 82, 178, 0, 197, 55, 137, 108, 153, 45, 123, 169, 125, 34, 149, 8, 253, 3, 154 },
+                            PasswordSalt = new byte[] { 148, 72, 25, 253, 61, 210, 207, 50, 39, 63, 64, 213, 32, 159, 159, 101, 151, 242, 130, 167, 226, 5, 113, 197, 150, 58, 53, 112, 71, 135, 68, 92, 252, 228, 168, 236, 169, 135, 226, 183, 130, 134, 94, 41, 227, 224, 12, 79, 79, 52, 28, 84, 153, 147, 102, 220, 93, 40, 97, 231, 168, 22, 162, 48, 230, 51, 33, 79, 241, 33, 25, 71, 232, 90, 235, 141, 205, 199, 43, 37, 181, 48, 157, 87, 164, 252, 186, 216, 242, 61, 38, 239, 21, 6, 71, 12, 144, 6, 172, 203, 143, 69, 16, 3, 158, 254, 71, 216, 125, 119, 72, 118, 113, 75, 142, 164, 43, 198, 12, 96, 5, 149, 7, 1, 250, 105, 108, 204 },
                             Role = 0,
                             UserName = "User2"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 265, DateTimeKind.Utc).AddTicks(9612),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 151, DateTimeKind.Utc).AddTicks(1018),
                             Email = "Employer@gmail.com",
                             IsDeleted = false,
                             LastName = "Employer",
-                            PasswordHash = new byte[] { 146, 171, 133, 229, 155, 168, 26, 241, 180, 12, 144, 150, 33, 207, 125, 214, 205, 43, 174, 191, 86, 1, 54, 18, 197, 205, 59, 40, 157, 124, 221, 1, 183, 116, 125, 144, 244, 59, 31, 136, 224, 69, 217, 165, 153, 179, 87, 101, 232, 120, 212, 91, 2, 190, 120, 231, 247, 163, 24, 249, 127, 70, 156, 232 },
-                            PasswordSalt = new byte[] { 129, 152, 66, 237, 198, 72, 94, 101, 25, 5, 121, 28, 253, 66, 183, 171, 220, 255, 198, 112, 164, 234, 14, 197, 45, 59, 72, 241, 70, 28, 102, 162, 100, 233, 98, 141, 111, 229, 246, 64, 242, 24, 162, 176, 58, 182, 112, 167, 188, 144, 158, 0, 140, 205, 110, 105, 67, 192, 225, 122, 243, 88, 139, 105, 198, 136, 226, 214, 92, 58, 123, 31, 125, 158, 150, 57, 94, 82, 22, 194, 211, 5, 250, 161, 242, 78, 158, 30, 250, 55, 1, 202, 22, 34, 86, 52, 33, 194, 233, 149, 244, 12, 35, 214, 197, 236, 226, 121, 186, 75, 72, 255, 113, 18, 133, 237, 240, 158, 44, 48, 68, 215, 196, 147, 81, 240, 40, 194 },
+                            PasswordHash = new byte[] { 47, 1, 209, 182, 181, 13, 63, 33, 129, 14, 51, 0, 152, 91, 205, 134, 11, 184, 53, 133, 247, 0, 160, 8, 142, 145, 159, 217, 240, 73, 20, 111, 11, 165, 132, 253, 46, 197, 73, 118, 68, 49, 145, 213, 135, 181, 249, 24, 72, 140, 179, 240, 182, 91, 141, 71, 72, 188, 64, 220, 205, 35, 127, 230 },
+                            PasswordSalt = new byte[] { 96, 205, 204, 32, 142, 239, 33, 95, 214, 135, 234, 215, 162, 209, 74, 234, 36, 190, 216, 117, 88, 173, 148, 182, 12, 123, 238, 240, 179, 71, 111, 120, 247, 68, 157, 153, 81, 93, 243, 155, 157, 29, 166, 203, 198, 102, 101, 191, 26, 16, 147, 241, 156, 103, 168, 178, 41, 107, 74, 244, 96, 164, 112, 191, 227, 249, 19, 86, 61, 222, 144, 182, 188, 46, 130, 54, 72, 154, 31, 34, 43, 29, 198, 154, 132, 2, 35, 197, 72, 220, 182, 121, 49, 147, 172, 177, 71, 194, 45, 199, 234, 76, 14, 246, 121, 193, 156, 195, 203, 179, 50, 26, 57, 186, 92, 230, 26, 160, 121, 48, 106, 74, 103, 136, 175, 100, 195, 155 },
                             Role = 1,
                             UserName = "Employer"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 9, 24, 15, 3, 29, 265, DateTimeKind.Utc).AddTicks(9614),
+                            CreatedDate = new DateTime(2024, 9, 27, 3, 13, 11, 151, DateTimeKind.Utc).AddTicks(1019),
                             Email = "Admin@gmail.com",
                             IsDeleted = false,
                             LastName = "Admin",
-                            PasswordHash = new byte[] { 247, 66, 76, 204, 245, 248, 73, 225, 228, 236, 104, 17, 15, 237, 208, 47, 241, 201, 44, 131, 56, 185, 91, 85, 39, 166, 150, 163, 162, 74, 47, 31, 33, 250, 196, 1, 86, 135, 138, 30, 232, 190, 173, 119, 198, 121, 38, 114, 182, 77, 223, 97, 213, 5, 100, 230, 98, 228, 122, 182, 14, 93, 102, 79 },
-                            PasswordSalt = new byte[] { 51, 128, 221, 82, 224, 50, 199, 150, 104, 36, 196, 245, 115, 194, 71, 91, 205, 15, 250, 203, 194, 172, 153, 205, 207, 116, 221, 4, 49, 164, 212, 31, 86, 251, 144, 246, 128, 69, 50, 99, 163, 37, 6, 228, 226, 191, 230, 189, 40, 159, 55, 175, 86, 107, 168, 116, 186, 74, 175, 251, 172, 151, 158, 124, 190, 55, 59, 117, 104, 161, 84, 132, 98, 225, 214, 137, 47, 121, 222, 66, 170, 108, 165, 189, 90, 92, 207, 254, 136, 83, 152, 217, 90, 171, 155, 52, 36, 143, 32, 75, 242, 141, 188, 212, 194, 160, 85, 22, 236, 218, 24, 248, 123, 13, 58, 213, 12, 218, 20, 216, 120, 1, 104, 30, 20, 77, 220, 173 },
+                            PasswordHash = new byte[] { 87, 75, 202, 33, 77, 77, 168, 32, 154, 77, 225, 88, 232, 167, 187, 8, 34, 33, 152, 236, 94, 107, 99, 151, 209, 159, 63, 66, 245, 154, 66, 44, 194, 116, 172, 7, 222, 240, 67, 30, 42, 75, 237, 217, 35, 238, 57, 2, 41, 198, 2, 186, 69, 9, 16, 3, 62, 177, 234, 104, 145, 162, 55, 20 },
+                            PasswordSalt = new byte[] { 47, 95, 90, 137, 243, 145, 199, 206, 93, 179, 201, 137, 29, 188, 193, 60, 39, 83, 109, 38, 243, 136, 0, 162, 73, 39, 100, 252, 29, 55, 240, 69, 123, 197, 244, 80, 205, 113, 200, 239, 79, 164, 143, 85, 154, 45, 127, 213, 194, 176, 102, 197, 192, 168, 232, 165, 175, 148, 255, 208, 141, 181, 92, 129, 236, 65, 225, 151, 147, 169, 167, 222, 87, 102, 199, 57, 99, 186, 187, 6, 247, 249, 211, 254, 222, 65, 87, 185, 100, 216, 132, 12, 98, 9, 10, 246, 238, 15, 239, 213, 74, 134, 111, 107, 132, 22, 170, 247, 203, 129, 92, 157, 12, 175, 248, 232, 7, 13, 15, 51, 123, 221, 223, 57, 240, 140, 174, 19 },
                             Role = 2,
                             UserName = "Admin"
                         });

@@ -20,8 +20,8 @@ namespace Domain.Entities
 
     public enum JobPostActivityStatus
     {
-        Applied,
-        Pending,
-        Rejected,
+        Applied=0,
+        Pending=1,
+        Rejected=2,
     }
 }
