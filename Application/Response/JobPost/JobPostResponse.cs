@@ -21,6 +21,7 @@ namespace Application.Response.JobPost
         public int ExperienceRequired { get; set; }
         public string QualificationRequired { get; set; }
         public string Benefits { get; set; }
+        public string? ImageURL { get; set; }
         public bool IsActive { get; set; }
         //public UserResponse User { get; set; }
         public int CompanyId { get; set; }
@@ -28,5 +29,6 @@ namespace Application.Response.JobPost
         public string WebsiteCompanyURL { get; set; }
         public JobTypeResponse JobType { get; set; }
         public JobLocationResponse JobLocation { get; set; }
+        public List<string> SkillSets { get; set; }
     }
 }

@@ -85,7 +85,10 @@ namespace Application.Services
             {
                 var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null,x => x.Include(x => x.Company)
                                                                                   .Include(x => x.JobLocation)
-                                                                                  .Include(x => x.JobType));
+                                                                                  .Include(x => x.JobType)
+                                                                                  .Include(x=>x.JobSkillSets)
+                                                                                    .ThenInclude(x=>x.SkillSet));
+
                 var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);
 
                 return new ApiResponse().SetOk(jobPostsResponse);

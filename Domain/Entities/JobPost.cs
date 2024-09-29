@@ -18,6 +18,7 @@ namespace Domain.Entities
         public DateTime ExpiryDate { get; set; }
         public int ExperienceRequired { get; set; }
         public string? QualificationRequired { get; set; }
+        public string? ImageURL { get; set; }
 
         public int SkillLevelRequired { get; set; }
         public string? Benefits { get; set; }
