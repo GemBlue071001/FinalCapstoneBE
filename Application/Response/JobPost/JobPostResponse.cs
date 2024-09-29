@@ -23,6 +23,7 @@ namespace Application.Response.JobPost
         public string Benefits { get; set; }
         public bool IsActive { get; set; }
         //public UserResponse User { get; set; }
+        public int CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string WebsiteCompanyURL { get; set; }
         public JobTypeResponse JobType { get; set; }

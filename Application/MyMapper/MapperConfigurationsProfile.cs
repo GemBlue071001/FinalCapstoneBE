@@ -32,6 +32,9 @@ namespace Application.MyMapper
                 .ForMember(
                            dest => dest.CompanyName,
                            opt => opt.MapFrom(src => src.Company.CompanyName))
+                .ForMember(
+                           dest => dest.CompanyId,
+                           opt => opt.MapFrom(src => src.Company.Id))
                  .ForMember(dest => dest.WebsiteCompanyURL,
                            opt => opt.MapFrom(src => src.Company.WebsiteURL));
 

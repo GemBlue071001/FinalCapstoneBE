@@ -13,5 +13,6 @@ namespace Application.Interface
         Task<ApiResponse> AddNewCompanyAsync(CompanyRequest companyRequest);
         Task<ApiResponse> DeleteCompanyByIdAsync(int id);
         Task<ApiResponse> GetAllCompanyAsync();
+        Task<ApiResponse> GetCompanyDetailAsync(int companyId);
     }
 }

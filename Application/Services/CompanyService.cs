@@ -33,7 +33,7 @@ namespace Application.Services
             {
                 var company = _mapper.Map<Company>(companyRequest);
                 company.BusinessStreamId = 1;
-                if (companyRequest.JobPostsId != null && companyRequest.JobPostsId.Any()) 
+                if (companyRequest.JobPostsId != null && companyRequest.JobPostsId.Any())
                 {
                     var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(jp => companyRequest.JobPostsId.Contains(jp.Id));
 
@@ -75,6 +75,26 @@ namespace Application.Services
             catch (Exception ex)
             {
                 // Xử lý ngoại lệ khác
+                return new ApiResponse().SetBadRequest($"Error: {ex.Message} - InnerException: {ex.InnerException?.Message}");
+            }
+        }
+
+        public async Task<ApiResponse> GetCompanyDetailAsync(int companyId)
+        {
+            ApiResponse apiResponse = new ApiResponse();
+            try
+            {
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts));
+                var companyResponse = _mapper.Map<CompanyResponse>(company);
+
+                return new ApiResponse().SetOk(companyResponse);
+            }
+            catch (JsonException jsonEx)
+            {
+                return new ApiResponse().SetBadRequest($"JSON Error: {jsonEx.Message}");
+            }
+            catch (Exception ex)
+            {
                 return new ApiResponse().SetBadRequest($"Error: {ex.Message} - InnerException: {ex.InnerException?.Message}");
             }
         }
