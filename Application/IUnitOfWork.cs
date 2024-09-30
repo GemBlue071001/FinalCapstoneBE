@@ -13,8 +13,9 @@ namespace Application
         public ICompanyRepository Companys { get; }
         public IEducationDetailRepository EducationDetails { get; }
         public IExperienceDetailRepository ExperienceDetails { get; }
-        public ISkillSetRepository SkillSets { get; set; }
-        public IJobSkillSetRepository JobSkillSets { get; set; }
+        public ISkillSetRepository SkillSets { get; }
+        public IJobSkillSetRepository JobSkillSets { get; }
+        public IJobPostActivityRepository JobPostActivities { get; }
         public Task SaveChangeAsync();
     }
 }

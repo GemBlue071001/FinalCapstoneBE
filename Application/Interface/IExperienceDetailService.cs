@@ -1,4 +1,4 @@
-﻿using Application.Request;
+﻿using Application.Request.ExperienceDetail;
 using Application.Response;
 
 namespace Application.Interface

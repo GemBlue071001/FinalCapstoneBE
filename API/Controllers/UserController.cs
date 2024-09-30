@@ -16,7 +16,14 @@ namespace API.Controllers
             _service = service;
         }
 
-       
+        [Authorize(Roles = "JobSeeker")]
+        [Route("JobPostActivity")]
+        [HttpGet]
+        public async Task<IActionResult> GetJobActivities( )
+        {
+            var result = await _service.GetUserJobPostActivity();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
 
         [HttpPut]
         public async Task<IActionResult> UpdateUserAsync(UpdateUserRequest request)

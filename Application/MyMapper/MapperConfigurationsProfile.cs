@@ -1,7 +1,9 @@
-﻿using Application.Request;
-using Application.Request.Company;
+﻿using Application.Request.Company;
+using Application.Request.EducationDetail;
+using Application.Request.ExperienceDetail;
 using Application.Request.JobLocation;
 using Application.Request.JobPost;
+using Application.Request.JobPostActivity;
 using Application.Request.JobType;
 using Application.Request.SeekerProfile;
 using Application.Request.SkillSet;
@@ -10,6 +12,7 @@ using Application.Response;
 using Application.Response.Company;
 using Application.Response.JobLocation;
 using Application.Response.JobPost;
+using Application.Response.JobPostActivity;
 using Application.Response.JobType;
 using Application.Response.SeekerProfile;
 using Application.Response.SkillSet;
@@ -66,9 +69,20 @@ namespace Application.MyMapper
             //ExperienceDetail
             CreateMap<ExperienceDetailRequest, ExperienceDetail>();
             CreateMap<ExperienceDetail, ExperienceDetailResponse>();
+
             //SkillSet
             CreateMap<SkillSetRequest, SkillSet>();
             CreateMap<SkillSet, SkillSetResponse>();
+
+            //JobPostActivity
+            CreateMap<JobPostActivityRequest, JobPostActivity>();
+            CreateMap<JobPostActivity, JobPostActivityResponse>()
+                            .ForMember(
+                                    dest => dest.ImageURL,
+                                    opt => opt.MapFrom(src => src.JobPost.ImageURL))
+                            .ForMember(
+                                    dest => dest.JobTitle,
+                                    opt => opt.MapFrom(src => src.JobPost.JobTitle));
 
         }
     }

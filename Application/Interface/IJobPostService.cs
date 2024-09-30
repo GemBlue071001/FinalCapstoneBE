@@ -13,5 +13,6 @@ namespace Application.Interface
         Task<ApiResponse> AddNewJobPostAsync(JobPostRequest jobPostRequest);
         Task<ApiResponse> GetJobPostAsync();
         Task<ApiResponse> AddSkillSetToJobPost(JobPostSkillSetRequest jobPostSkillSetRequest);
+        Task<ApiResponse> GetJobSeekerByJobPost(int jobPostId);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Application.Interface;
-using Application.Request;
+using Application.Request.EducationDetail;
 using Application.Response;
 using AutoMapper;
 using DocumentFormat.OpenXml.Bibliography;

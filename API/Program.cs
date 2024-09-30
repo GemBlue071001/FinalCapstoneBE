@@ -99,6 +99,7 @@ builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IEducationDetailsService, EducationDetailsService>();
 builder.Services.AddScoped<IExperienceDetailService, ExperienceDetailService>();
 builder.Services.AddScoped<ISkillSetService, SkillSetService>();
+builder.Services.AddScoped<IJobPostActivityService, JobPostActivityService>();
 
 
 builder.Services.AddControllers()
