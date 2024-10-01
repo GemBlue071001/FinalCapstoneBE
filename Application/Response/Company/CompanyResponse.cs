@@ -1,4 +1,5 @@
-﻿using Application.Response.JobPost;
+﻿using Application.Response.BusinessStream;
+using Application.Response.JobPost;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Application.Response.Company
         public string City { get; set; }
         public string Address { get; set; }
         public int NumberOfEmployees { get; set; }
+        public BusinessStreamResponse BusinessStream { get; set; }
         public List <JobPostResponse> JobPosts { get; set; }
     }
 }

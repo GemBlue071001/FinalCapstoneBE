@@ -16,6 +16,7 @@ namespace Application.Request.Company
         public string City { get; set; }
         public string Address { get; set; }
         public int NumberOfEmployees { get; set; }
+        public int BusinessStreamId { get; set; }
         //public List<int> JobPostsId { get; set; }
     }
 }

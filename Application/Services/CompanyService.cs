@@ -32,7 +32,7 @@ namespace Application.Services
             try
             {
                 var company = _mapper.Map<Company>(companyRequest);
-                company.BusinessStreamId = 1;
+                //company.BusinessStreamId = 1;
                
 
                 await _unitOfWork.Companys.AddAsync(company);
@@ -50,7 +50,7 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var companies = await _unitOfWork.Companys.GetAllAsync(null, x => x.Include(c => c.JobPosts));
+                var companies = await _unitOfWork.Companys.GetAllAsync(null, x => x.Include(c => c.JobPosts).Include(x=>x.BusinessStream));
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(companies);
 
                 return new ApiResponse().SetOk(companyResponse);
