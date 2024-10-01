@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class JobPostActivity:Base
+    public class JobPostActivity : Base
     {
         public int Id { get; set; }
         public DateTime ApplicationDate { get; set; }
@@ -20,8 +20,8 @@ namespace Domain.Entities
 
     public enum JobPostActivityStatus
     {
-        Applied=0,
-        Pending=1,
-        Rejected=2,
+        Applied = 0,
+        Pending = 1,
+        Rejected = 2,
     }
 }

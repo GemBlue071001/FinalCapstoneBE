@@ -1,12 +1,15 @@
 ﻿using Application.Request;
+using Application.Request.BusinessStream;
 using Application.Request.Company;
 using Application.Request.JobLocation;
 using Application.Request.JobPost;
+using Application.Request.JobPostActivity;
 using Application.Request.JobType;
 using Application.Request.SeekerProfile;
 using Application.Request.SkillSet;
 using Application.Request.User;
 using Application.Response;
+using Application.Response.BusinessStream;
 using Application.Response.Company;
 using Application.Response.JobLocation;
 using Application.Response.JobPost;
@@ -61,6 +64,12 @@ namespace Application.MyMapper
             //SkillSet
             CreateMap<SkillSetRequest, SkillSet>();
             CreateMap<SkillSet, SkillSetResponse>();
+            //
+            CreateMap<JobPostActivityRequest, JobPostActivity>();
+
+            //
+            CreateMap<BusinessStreamRequest, BusinessStream>();
+            CreateMap<BusinessStream, BusinessStreamResponse>();
 
         }
     }

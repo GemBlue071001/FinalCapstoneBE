@@ -4,6 +4,7 @@ using Application.Interface;
 using Application.MyMapper;
 using Application.Services;
 using Application.SignalRHub.Model;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Domain;
 using FluentValidation.AspNetCore;
 using Infrastructure;
@@ -99,6 +100,9 @@ builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IEducationDetailsService, EducationDetailsService>();
 builder.Services.AddScoped<IExperienceDetailService, ExperienceDetailService>();
 builder.Services.AddScoped<ISkillSetService, SkillSetService>();
+builder.Services.AddScoped<IJobPostActivityService, JobPostActivityService>();
+builder.Services.AddScoped<IBusinessStreamService, BusinessStreamService>();
+
 
 
 builder.Services.AddControllers()
