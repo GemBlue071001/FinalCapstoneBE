@@ -1,5 +1,5 @@
 ﻿using Application.Interface;
-using Application.Request;
+using Application.Request.EducationDetail;
 using Application.Request.JobLocation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

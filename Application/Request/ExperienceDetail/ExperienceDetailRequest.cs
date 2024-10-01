@@ -1,4 +1,4 @@
-﻿namespace Application.Request
+﻿namespace Application.Request.ExperienceDetail
 {
     public class ExperienceDetailRequest
     {

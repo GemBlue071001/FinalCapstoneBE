@@ -130,9 +130,9 @@ app.MapControllers();
 
 
 
-using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
-{
-    serviceScope.ServiceProvider.GetService<AppDbContext>().Database.Migrate();
-}
+//using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+//{
+//    serviceScope.ServiceProvider.GetService<AppDbContext>().Database.Migrate();
+//}
 
 app.Run();

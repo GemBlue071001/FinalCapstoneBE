@@ -16,10 +16,13 @@ namespace Infrastructure
         public ICompanyRepository Companys { get;  }
         public IEducationDetailRepository EducationDetails { get; }
         public IExperienceDetailRepository ExperienceDetails { get; }
-        public ISkillSetRepository SkillSets { get;  }
-        public IJobSkillSetRepository JobSkillSets { get;  }
+        
+        
         public IBusinessStreamRepository BusinessStreams { get;  }
         
+        public ISkillSetRepository SkillSets { get; set; }
+        public IJobSkillSetRepository JobSkillSets { get; set; }
+        public IJobPostActivityRepository JobPostActivities { get; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -35,6 +38,7 @@ namespace Infrastructure
             SkillSets = new SkillSetRepository(context);
             JobSkillSets = new JobSkillSetRepository(context);
             BusinessStreams = new BusinessStreamRepository(context);
+            JobPostActivities = new JobPostActivityRepository(context);
         }
 
         public async Task SaveChangeAsync()

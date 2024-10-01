@@ -2,6 +2,7 @@
 using Application.Request.JobPost;
 using Application.Response;
 using Application.Response.JobPost;
+using Application.Response.User;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +52,7 @@ namespace Application.Services
                     return new ApiResponse().SetBadRequest("User not found");
                 }
                 var skillSets = await _unitOfWork.SkillSets.GetAllAsync(u => jobPostRequest.SkillSetIds.Contains(u.Id));
-                if (jobPostRequest.SkillSetIds.Count != skillSets.Count) 
+                if (jobPostRequest.SkillSetIds.Count != skillSets.Count)
                 {
                     return new ApiResponse().SetBadRequest("Job Skill Set Id is invalid !");
                 }
@@ -83,9 +84,12 @@ namespace Application.Services
         {
             try
             {
-                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null,x => x.Include(x => x.Company)
+                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null, x => x.Include(x => x.Company)
                                                                                   .Include(x => x.JobLocation)
-                                                                                  .Include(x => x.JobType));
+                                                                                  .Include(x => x.JobType)
+                                                                                  .Include(x => x.JobSkillSets)
+                                                                                    .ThenInclude(x => x.SkillSet));
+
                 var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);
 
                 return new ApiResponse().SetOk(jobPostsResponse);
@@ -104,7 +108,7 @@ namespace Application.Services
             {
                 var jobPostSkillSet = await _unitOfWork.JobSkillSets.GetAsync(x => x.SkillSetId == jobPostSkillSetRequest.SkillSetId &&
                                                                                    x.JobPostId == jobPostSkillSetRequest.JobPostId);
-                if(jobPostSkillSet != null)
+                if (jobPostSkillSet != null)
                 {
                     return response.SetBadRequest($"Skill Set already exist in this Job Post !!");
                 }
@@ -120,6 +124,18 @@ namespace Application.Services
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
+        }
+
+
+        public async Task<ApiResponse> GetJobSeekerByJobPost(int jobPostId)
+        {
+            var jobPostAct = await _unitOfWork.JobPostActivities.GetAllAsync(x => x.JobPostId == jobPostId, x => x.Include(x => x.UserAccount));
+            var users = jobPostAct.Select(x => x.UserAccount).ToList();
+
+            var usersResponse = _mapper.Map<List<UserResponse>>(users);
+
+            return new ApiResponse().SetOk(usersResponse);
+
         }
     }
 }

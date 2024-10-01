@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Request
+namespace Application.Request.EducationDetail
 {
     public class EducationDetailRequest
     {
@@ -12,7 +12,7 @@ namespace Application.Request
         public string InstitutionName { get; set; } = string.Empty;
         public string Degree { get; set; } = string.Empty;
         public string FieldOfStudy { get; set; } = string.Empty;
-        public DateTime StartDate { get; set; } 
+        public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public decimal GPA { get; set; }
         public int SeekerProfileId { get; set; }

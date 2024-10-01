@@ -1,6 +1,9 @@
 ﻿using Application.Request;
 using Application.Request.BusinessStream;
+
 using Application.Request.Company;
+using Application.Request.EducationDetail;
+using Application.Request.ExperienceDetail;
 using Application.Request.JobLocation;
 using Application.Request.JobPost;
 using Application.Request.JobPostActivity;
@@ -13,6 +16,7 @@ using Application.Response.BusinessStream;
 using Application.Response.Company;
 using Application.Response.JobLocation;
 using Application.Response.JobPost;
+using Application.Response.JobPostActivity;
 using Application.Response.JobType;
 using Application.Response.SeekerProfile;
 using Application.Response.SkillSet;
@@ -32,11 +36,19 @@ namespace Application.MyMapper
             //JobPost
             CreateMap<JobPostRequest, JobPost>();
             CreateMap<JobPost, JobPostResponse>()
-                .ForMember(
-                           dest => dest.CompanyName,
-                           opt => opt.MapFrom(src => src.Company.CompanyName))
-                 .ForMember(dest => dest.WebsiteCompanyURL,
-                           opt => opt.MapFrom(src => src.Company.WebsiteURL));
+                       .ForMember(dest => dest.CompanyName,
+                                   opt => opt.MapFrom(src => src.Company.CompanyName))
+                        .ForMember(
+                                   dest => dest.SkillSets,
+                                    opt => opt.MapFrom(src => src.JobSkillSets
+                                   .Select(x => x.SkillSet.Name)
+                                   .ToList()))
+                        .ForMember(
+                                   dest => dest.CompanyId,
+                                   opt => opt.MapFrom(src => src.Company.Id))
+                        .ForMember(
+                                    dest => dest.WebsiteCompanyURL,
+                                    opt => opt.MapFrom(src => src.Company.WebsiteURL));
 
             //SeekerProfile
             CreateMap<SeekerProfileRequest, SeekerProfile>();
@@ -61,6 +73,7 @@ namespace Application.MyMapper
             //ExperienceDetail
             CreateMap<ExperienceDetailRequest, ExperienceDetail>();
             CreateMap<ExperienceDetail, ExperienceDetailResponse>();
+
             //SkillSet
             CreateMap<SkillSetRequest, SkillSet>();
             CreateMap<SkillSet, SkillSetResponse>();
@@ -70,6 +83,16 @@ namespace Application.MyMapper
             //
             CreateMap<BusinessStreamRequest, BusinessStream>();
             CreateMap<BusinessStream, BusinessStreamResponse>();
+
+            //JobPostActivity
+            CreateMap<JobPostActivityRequest, JobPostActivity>();
+            CreateMap<JobPostActivity, JobPostActivityResponse>()
+                            .ForMember(
+                                    dest => dest.ImageURL,
+                                    opt => opt.MapFrom(src => src.JobPost.ImageURL))
+                            .ForMember(
+                                    dest => dest.JobTitle,
+                                    opt => opt.MapFrom(src => src.JobPost.JobTitle));
 
         }
     }

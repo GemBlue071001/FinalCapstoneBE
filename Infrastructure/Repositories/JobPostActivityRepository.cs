@@ -1,4 +1,4 @@
-﻿using Application.Repositories;
+using Application.Repositories;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class JobPostActivityRepository : GenericRepository<JobPostActivity>, IJobPostActivityRepository
+    public class JobPostActivityRepository : GenericRepository<JobPostActivity> , IJobPostActivityRepository
     {
         public JobPostActivityRepository(AppDbContext context) : base(context)
         {

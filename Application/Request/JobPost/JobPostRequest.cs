@@ -19,6 +19,7 @@ namespace Application.Request.JobPost
         public int SkillLevelRequired { get; set; }
         public int JobTypeId { get; set; }
         public int CompanyId { get; set; }
+        public string? ImageURL { get; set; }
         public int JobLocationId { get; set; }
         public int UserId { get; set; }
         public List<int> SkillSetIds { get; set; }

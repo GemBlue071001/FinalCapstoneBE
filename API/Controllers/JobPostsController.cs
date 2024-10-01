@@ -31,10 +31,18 @@ namespace API.Controllers
             var resposne = await _service.GetJobPostAsync();
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
+
         [HttpPost("SkillSet")]
         public async Task<IActionResult> AddSkillSetToJobPost(JobPostSkillSetRequest request)
         {
             var resposne = await _service.AddSkillSetToJobPost(request);
+            return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
+        }
+
+        [HttpGet("Id/{id}/Seekers")]
+        public async Task<IActionResult> GetJobSeekersAsync(int id)
+        {
+            var resposne = await _service.GetJobSeekerByJobPost(id);
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
     }

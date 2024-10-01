@@ -27,6 +27,14 @@ namespace API.Controllers
             var response = await _service.GetAllCompanyAsync();
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCompanyDetailAsync(int id)
+        {
+            var response = await _service.GetCompanyDetailAsync(id);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteCompanyByIdAsync(int id)
         {
