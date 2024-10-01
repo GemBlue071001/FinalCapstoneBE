@@ -18,7 +18,6 @@ namespace Infrastructure
         public IExperienceDetailRepository ExperienceDetails { get; }
         public ISkillSetRepository SkillSets { get;  }
         public IJobSkillSetRepository JobSkillSets { get;  }
-        public IJobPostActivityRepository JobPostActivitys { get;  }
         public IBusinessStreamRepository BusinessStreams { get;  }
         
 
@@ -35,7 +34,6 @@ namespace Infrastructure
             ExperienceDetails = new ExperienceDetailRepository(context);
             SkillSets = new SkillSetRepository(context);
             JobSkillSets = new JobSkillSetRepository(context);
-            JobPostActivitys = new JobPostActivityRepository(context);
             BusinessStreams = new BusinessStreamRepository(context);
         }
 
