@@ -33,19 +33,7 @@ namespace Application.Services
             {
                 var company = _mapper.Map<Company>(companyRequest);
                 company.BusinessStreamId = 1;
-                if (companyRequest.JobPostsId != null && companyRequest.JobPostsId.Any())
-                {
-                    var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(jp => companyRequest.JobPostsId.Contains(jp.Id));
-
-                    if (jobPosts != null && jobPosts.Any())
-                    {
-                        company.JobPosts = jobPosts;
-                    }
-                    else
-                    {
-                        return new ApiResponse().SetBadRequest("Invalid JobPostsId(s) provided.");
-                    }
-                }
+               
 
                 await _unitOfWork.Companys.AddAsync(company);
                 await _unitOfWork.SaveChangeAsync();
