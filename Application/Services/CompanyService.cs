@@ -33,11 +33,15 @@ namespace Application.Services
             {
                 var company = _mapper.Map<Company>(companyRequest);
                 //company.BusinessStreamId = 1;
-               
-
+                var businessStream = await _unitOfWork.BusinessStreams.GetAsync(x => x.Id == companyRequest.BusinessStreamId);
+                if (businessStream == null)
+                {
+                    return new ApiResponse().SetBadRequest("Can not found Business Stream Id " + companyRequest.BusinessStreamId);
+                }
+                company.BusinessStreamId = businessStream.Id;   
                 await _unitOfWork.Companys.AddAsync(company);
                 await _unitOfWork.SaveChangeAsync();
-                return new ApiResponse().SetOk(company);
+                return new ApiResponse().SetOk("Create success !");
             }
             catch (Exception ex)
             {
@@ -50,7 +54,7 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var companies = await _unitOfWork.Companys.GetAllAsync(null, x => x.Include(c => c.JobPosts).Include(x=>x.BusinessStream));
+                var companies = await _unitOfWork.Companys.GetAllAsync(null, x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(companies);
 
                 return new ApiResponse().SetOk(companyResponse);
