@@ -17,6 +17,8 @@ namespace Domain.Entities
         public JobPost JobPost { get; set; }
         public int UserId { get; set; }
         public int JobPostId { get; set; }
+        public CurriculumVitae CurriculumVitae { get; set; }
+        public int CurriculumVitaeId { get; set; }
     }
 
     public enum JobPostActivityStatus
