@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 
 namespace Application.Services
 {
-    public class AuthService: IAuthService
+    public class AuthService : IAuthService
     {
         private IUnitOfWork _unitOfWork;
         private AppSettings _appSettings;
@@ -73,6 +73,15 @@ namespace Application.Services
                 new Claim( "name" , user.UserName),
                 new Claim("UserId", user.Id.ToString()),
             };
+
+            if (user.CompanyId != null)
+            {
+                claims.Add(new Claim("CompanyId", user.CompanyId?.ToString() ?? string.Empty));
+            }
+            else
+            {
+                claims.Add(new Claim("CompanyId", "null"));
+            }
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
                  _appSettings!.SecretToken.Value));
