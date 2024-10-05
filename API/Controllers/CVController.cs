@@ -24,6 +24,8 @@ namespace API.Controllers
             var response = await _service.AddNewCVAsync(request);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+        [Authorize]
+        [Route("JobSeeker")]
         [HttpGet]
         public async Task<IActionResult> GetCVListAsync()
         {

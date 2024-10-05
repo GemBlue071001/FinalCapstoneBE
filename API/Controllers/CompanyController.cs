@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.Company;
 using Application.Request.JobLocation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +28,7 @@ namespace API.Controllers
             var response = await _service.GetAllCompanyAsync();
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
-
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCompanyDetailAsync(int id)
         {

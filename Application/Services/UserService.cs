@@ -4,6 +4,8 @@ using Application.Response;
 using Application.Response.JobPostActivity;
 using Application.Response.User;
 using AutoMapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 
@@ -57,7 +59,6 @@ namespace Application.Services
             return response.SetOk(user);
         }
 
-
         public async Task<ApiResponse> GetUserJobPostActivity()
         {
             var claim = _claimService.GetUserClaim();
@@ -66,6 +67,32 @@ namespace Application.Services
             var jobPostActivitiesResponse = _mapper.Map<List<JobPostActivityResponse>>(userJobPostActivities);
 
             return new ApiResponse().SetOk(jobPostActivitiesResponse);
+        }
+
+        public async Task<ApiResponse> AddEmployerToCompany(AddEmployerToCompanyRequest request)
+        {
+            var claim = _claimService.GetUserClaim();
+            try
+            {
+                if(claim.Role != Role.Employer)
+                {
+                    return new ApiResponse().SetBadRequest("User be employer");
+                }
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == request.CompanyId);
+                if (company == null) 
+                {
+                    return new ApiResponse().SetBadRequest("Company not exist");
+                }
+                var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == claim.Id);
+                user.CompanyId = company.Id;
+                await _unitOfWork.SaveChangeAsync();
+                return new ApiResponse().SetOk("Add success !");
+
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
+            }
         }
 
 

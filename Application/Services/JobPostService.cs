@@ -88,7 +88,7 @@ namespace Application.Services
                                                                                   .Include(x => x.JobLocation)
                                                                                   .Include(x => x.JobType)
                                                                                   .Include(x => x.JobSkillSets)
-                                                                                    .ThenInclude(x => x.SkillSet));
+                                                                                  .ThenInclude(x => x.SkillSet));
 
                 var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);
 
@@ -126,7 +126,6 @@ namespace Application.Services
             }
         }
 
-
         public async Task<ApiResponse> GetJobSeekerByJobPost(int jobPostId)
         {
             var jobPostAct = await _unitOfWork.JobPostActivities.GetAllAsync(x => x.JobPostId == jobPostId, x => x.Include(x => x.UserAccount));
@@ -137,5 +136,28 @@ namespace Application.Services
             return new ApiResponse().SetOk(usersResponse);
 
         }
+        public async Task<ApiResponse> GetJobPostById(int jobPostId)
+        {
+            ApiResponse response = new ApiResponse();
+            try
+            {
+                var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == jobPostId, x => x.Include(x => x.Company)
+                                                                                                .Include(x => x.JobLocation)
+                                                                                                .Include(x => x.JobType)
+                                                                                                .Include(x => x.JobSkillSets)
+                                                                                                .ThenInclude(x => x.SkillSet));
+                if (jobPost == null)
+                {
+                    return response.SetBadRequest("Can not found jobPost Id" + jobPostId);
+                }
+                var jobPostResponse = _mapper.Map<JobPostResponse>(jobPost);
+                return response.SetOk(jobPostResponse);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest(ex.Message);
+            }
+        }
+
     }
 }

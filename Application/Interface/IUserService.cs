@@ -7,5 +7,6 @@ namespace Application.Interface
     {
         Task<ApiResponse> GetUserJobPostActivity();
         Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request);
+        Task<ApiResponse> AddEmployerToCompany(AddEmployerToCompanyRequest request);
     }
 }

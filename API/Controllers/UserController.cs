@@ -1,7 +1,6 @@
 ﻿using Application.Interface;
 using Application.Request.User;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -19,19 +18,26 @@ namespace API.Controllers
         [Authorize(Roles = "JobSeeker")]
         [Route("JobPostActivity")]
         [HttpGet]
-        public async Task<IActionResult> GetJobActivities( )
+        public async Task<IActionResult> GetJobActivities()
         {
             var result = await _service.GetUserJobPostActivity();
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
-
         [HttpPut]
         public async Task<IActionResult> UpdateUserAsync(UpdateUserRequest request)
         {
             var result = await _service.UpdateUserAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+        [Authorize(Roles = "Employer")]
+        [Route("Company")]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployerToCompany(AddEmployerToCompanyRequest request)
+        {
+            var result = await _service.AddEmployerToCompany(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
 
-        
+
     }
 }

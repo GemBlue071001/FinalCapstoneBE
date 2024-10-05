@@ -43,7 +43,8 @@ namespace Application.Services
         }
         public async Task<ApiResponse> GetCVListAsync()
         {
-            var cvs = await _unitOfWork.CVs.GetAllAsync(null);
+            var claim = _claimService.GetUserClaim();
+            var cvs = await _unitOfWork.CVs.GetAllAsync(x => x.UserId == claim.Id);
             var responseList = _mapper.Map<List<CVResponse>>(cvs);
 
             return new ApiResponse().SetOk(responseList);

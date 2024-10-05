@@ -45,5 +45,11 @@ namespace API.Controllers
             var resposne = await _service.GetJobSeekerByJobPost(id);
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
+        [HttpGet("Id/{id}")]
+        public async Task<IActionResult> GetJobPostById(int id)
+        {
+            var resposne = await _service.GetJobPostById(id);
+            return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
+        }
     }
 }
