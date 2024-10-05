@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class SeekerProfileRepository: GenericRepository<SeekerProfile>, ISeekerProfileRepository
+    public class CVRepository : GenericRepository<CV>, ICVRepository
     {
-        public SeekerProfileRepository(AppDbContext context) : base(context)
+        public CVRepository(AppDbContext context) : base(context)
         {
         }
     }

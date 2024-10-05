@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class EducationDetail:Base
+    public class EducationDetail : Base
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,8 +17,8 @@ namespace Domain.Entities
         public DateTime EndDate { get; set; }
         public decimal GPA { get; set; }
         //Navigation Property
-        public SeekerProfile SeekerProfile { get; set; }
-        public int SeekerProfileId { get; set; }
+        public UserAccount? UserAccount { get; set; }
+        public int? UserId { get; set; }
 
     }
 }

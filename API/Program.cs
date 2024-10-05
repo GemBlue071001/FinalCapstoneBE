@@ -93,7 +93,6 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClaimService, ClaimService>();
 builder.Services.AddScoped<IJobPostService, JobPostService>();
-builder.Services.AddScoped<ISeekerProfileService, SeekerProfileService>();
 builder.Services.AddScoped<IJobLocationService, JobLocationService>();
 builder.Services.AddScoped<IJobTypeService, JobTypeServcie>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
@@ -102,6 +101,7 @@ builder.Services.AddScoped<IExperienceDetailService, ExperienceDetailService>();
 builder.Services.AddScoped<ISkillSetService, SkillSetService>();
 builder.Services.AddScoped<IJobPostActivityService, JobPostActivityService>();
 builder.Services.AddScoped<IBusinessStreamService, BusinessStreamService>();
+builder.Services.AddScoped<ICVService, CVService>();
 
 
 

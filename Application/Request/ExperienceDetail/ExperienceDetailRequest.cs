@@ -8,6 +8,6 @@
         public DateTime EndDate { get; set; }
         public string Responsibilities { get; set; } = string.Empty;
         public string Achievements { get; set; } = string.Empty;
-        public int SeekerProfileId { get; set; }
+        //public int SeekerProfileId { get; set; }
     }
 }

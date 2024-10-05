@@ -22,5 +22,7 @@ namespace Domain.Entities
         public List<JobPost> JobPosts { get; set; }
         public BusinessStream BusinessStream { get; set; }
         public int BusinessStreamId { get; set; }
+        public List<Review>? Reviews { get; set; }
+        public List<UserAccount>? UserAccounts { get; set; }
     }
 }

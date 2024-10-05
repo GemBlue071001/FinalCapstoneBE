@@ -21,6 +21,10 @@ namespace Infrastructure.Configuration
                .WithMany(o => o.JobPostActivitys)
                .HasForeignKey(o => o.UserId);
 
+            builder.HasOne(o => o.CV)
+                .WithMany(o => o.JobPostActivitys)
+                .HasForeignKey(o => o.CvId);
+
             builder.Property(o => o.Status)
                 .HasConversion<int>();
         }

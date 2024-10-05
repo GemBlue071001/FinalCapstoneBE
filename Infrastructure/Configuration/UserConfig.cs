@@ -36,9 +36,11 @@ namespace Infrastructure.Configuration
                 .WithOne(o => o.UserAccount)
                 .HasForeignKey(o => o.UserId);
 
-            builder.HasMany(o => o.SeekerProfiles)
-                .WithOne(o => o.UserAccount)
-                .HasForeignKey(o => o.UserId);
+            builder.HasOne(o => o.Company)
+               .WithMany(o => o.UserAccounts)
+               .HasForeignKey(o => o.CompanyId);
+
+
 
             builder.HasData
                 (

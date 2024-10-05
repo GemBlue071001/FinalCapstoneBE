@@ -15,6 +15,6 @@ namespace Application.Request.EducationDetail
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public decimal GPA { get; set; }
-        public int SeekerProfileId { get; set; }
+        //public int SeekerProfileId { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Application.Request.BusinessStream;
 
 using Application.Request.Company;
+using Application.Request.CV;
 using Application.Request.EducationDetail;
 using Application.Request.ExperienceDetail;
 using Application.Request.JobLocation;
@@ -14,6 +15,7 @@ using Application.Request.User;
 using Application.Response;
 using Application.Response.BusinessStream;
 using Application.Response.Company;
+using Application.Response.CV;
 using Application.Response.JobLocation;
 using Application.Response.JobPost;
 using Application.Response.JobPostActivity;
@@ -50,9 +52,7 @@ namespace Application.MyMapper
                                     dest => dest.WebsiteCompanyURL,
                                     opt => opt.MapFrom(src => src.Company.WebsiteURL));
 
-            //SeekerProfile
-            CreateMap<SeekerProfileRequest, SeekerProfile>();
-            CreateMap<SeekerProfile, SeekerProfileResponse>();
+            
 
             //JobLocation
             CreateMap<JobLocationRequest, JobLocation>();
@@ -93,6 +93,11 @@ namespace Application.MyMapper
                             .ForMember(
                                     dest => dest.JobTitle,
                                     opt => opt.MapFrom(src => src.JobPost.JobTitle));
+                            
+
+            //CV
+            CreateMap<CVRequest, CV>();
+            CreateMap<CV, CVResponse>();
 
         }
     }

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Configuration
+namespace Application.Request.CV
 {
-    internal class CurriculumVitaeConfig
+    public class CVRequest
     {
+        public string Url { get; set; }
     }
 }

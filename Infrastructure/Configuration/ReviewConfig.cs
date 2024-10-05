@@ -9,13 +9,17 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
-    public class ExperienceDetailConfig : IEntityTypeConfiguration<ExperienceDetail>
+    public class ReviewConfig : IEntityTypeConfiguration<Review>
     {
-        public void Configure(EntityTypeBuilder<ExperienceDetail> builder)
+        public void Configure(EntityTypeBuilder<Review> builder)
         {
             builder.HasOne(o => o.UserAccount)
-                 .WithMany(o => o.ExperienceDetails)
-                 .HasForeignKey(o => o.UserId);
+             .WithMany(o => o.Reviews)
+             .HasForeignKey(o => o.UserId);
+
+            builder.HasOne(o => o.Company)
+             .WithMany(o => o.Reviews)
+             .HasForeignKey(o => o.CompanyId);
         }
     }
 }

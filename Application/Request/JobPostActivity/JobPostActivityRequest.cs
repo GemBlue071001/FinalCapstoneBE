@@ -10,5 +10,6 @@ namespace Application.Request.JobPostActivity
     public class JobPostActivityRequest
     {
         public int JobPostId { get; set; }
+        public int CvId { get; set; }
     }
 }

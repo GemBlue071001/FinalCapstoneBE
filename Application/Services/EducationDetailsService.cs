@@ -27,20 +27,10 @@ namespace Application.Services
         {
             try
             {
-                var profile = await _unitOfWork.SeekerProfiles.GetAsync(x => x.Id == request.SeekerProfileId);
-
-                if (profile == null)
-                {
-                    return new ApiResponse().SetNotFound($"Profile id {request.SeekerProfileId} not found !");
-                }
-                else
-                {
-                    var educationDetail = _mapper.Map<EducationDetail>(request);
-                    await _unitOfWork.EducationDetails.AddAsync(educationDetail);
-                    await _unitOfWork.SaveChangeAsync();
-
-                    return new ApiResponse().SetOk("Success !");
-                }
+                var educationDetail = _mapper.Map<EducationDetail>(request);
+                await _unitOfWork.EducationDetails.AddAsync(educationDetail);
+                await _unitOfWork.SaveChangeAsync();
+                return new ApiResponse().SetOk("Success !");
             }
             catch (Exception ex)
             {

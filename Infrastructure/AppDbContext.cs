@@ -18,7 +18,7 @@ namespace Infrastructure
 
         public DbSet<UserAccount> Users { get; set; }
         public DbSet<JobPost> JobPosts { get; set; }
-        public DbSet<SeekerProfile> SeekerProfile { get; set; }
+        //public DbSet<SeekerProfile> SeekerProfile { get; set; }
         public DbSet<JobLocation> JobLocations { get; set; }
         public DbSet<JobType> JobTypes { get; set; }
         public DbSet<Company> Companys { get; set; }
@@ -29,6 +29,8 @@ namespace Infrastructure
         public DbSet<SeekerSkillSet> SeekerSkillSets { get; set; }
         public DbSet<EducationDetail> EducationDetails { get; set; }
         public DbSet<ExperienceDetail> ExperienceDetails { get; set; }
+        public DbSet<CV> CVs { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,9 +45,12 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new JobPostConfig());
             modelBuilder.ApplyConfiguration(new JobSkillSetConfig());
             modelBuilder.ApplyConfiguration(new JobTypeConfig());
-            modelBuilder.ApplyConfiguration(new SeekerProfileConfig());
+            //modelBuilder.ApplyConfiguration(new SeekerProfileConfig());
             modelBuilder.ApplyConfiguration(new SeekerSkillSetConfig());
             modelBuilder.ApplyConfiguration(new SkillSetConfig());
+            modelBuilder.ApplyConfiguration(new CVConfig());
+            modelBuilder.ApplyConfiguration(new ReviewConfig());
+
         }
 
     }

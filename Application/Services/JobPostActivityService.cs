@@ -18,16 +18,29 @@ namespace Application.Services
             _mapper = mapper;
             _claimService = claimService;
         }
-
+        
         public async Task<ApiResponse> AddNewJobPostActivityAsync(JobPostActivityRequest request)
         {
             var claim = _claimService.GetUserClaim();
-
+            var jobPostActivityModel = await _unitOfWork.JobPostActivities.GetAsync( x => x.JobPostId == request.JobPostId && claim.Id == x.UserId );
+            if (jobPostActivityModel != null) 
+            {
+                return new ApiResponse().SetBadRequest("User have already apply.");
+            }
+            var userCvs = await _unitOfWork.CVs.GetAllAsync(cv => cv.UserId == claim.Id);
+            if (userCvs == null || !userCvs.Any())
+            {
+                return new ApiResponse().SetBadRequest("User must have at least one CV to apply.");
+            }
+            var userCv = userCvs.FirstOrDefault(cv => cv.Id == request.CvId);
+            if (userCv == null) 
+            {
+                return new ApiResponse().SetBadRequest("Invalid CV provided.");
+            }
             var jobPostActivity = _mapper.Map<JobPostActivity>(request);
             jobPostActivity.UserId = claim.Id;
             jobPostActivity.ApplicationDate = DateTime.UtcNow;
             jobPostActivity.Status = JobPostActivityStatus.Applied;
-
             await _unitOfWork.JobPostActivities.AddAsync(jobPostActivity);
             await _unitOfWork.SaveChangeAsync();
 

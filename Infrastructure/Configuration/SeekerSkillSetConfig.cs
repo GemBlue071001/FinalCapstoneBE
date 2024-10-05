@@ -13,9 +13,9 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<SeekerSkillSet> builder)
         {
-            builder.HasOne(o => o.SeekerProfile)
+            builder.HasOne(o => o.UserAccount)
               .WithMany(o => o.SeekerSkillSets)
-              .HasForeignKey(o => o.SeekerProfileId);
+              .HasForeignKey(o => o.UserId);
 
             builder.HasOne(o => o.SkillSet)
              .WithMany(o => o.SeekerSkillSets)

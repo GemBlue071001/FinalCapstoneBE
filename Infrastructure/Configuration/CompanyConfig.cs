@@ -21,6 +21,14 @@ namespace Infrastructure.Configuration
                 .WithOne(o => o.Company)
                 .HasForeignKey(o => o.CompanyId);
 
+            builder.HasMany(o => o.Reviews)
+                .WithOne(o => o.Company)
+                .HasForeignKey(o => o.CompanyId);
+
+            builder.HasOne(o => o.BusinessStream)
+                .WithMany(o => o.Companys)
+                .HasForeignKey(o => o.BusinessStreamId);
+
             builder.HasData(new Company()
             {
                 Id = 1,
@@ -48,6 +56,7 @@ namespace Infrastructure.Configuration
                 BusinessStreamId = 1,
             }
             );
+           
         }
     }
 }

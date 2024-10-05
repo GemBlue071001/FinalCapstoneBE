@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class SeekerSkillSet:Base
+    public class SeekerSkillSet : Base
     {
         public int Id { get; set; }
         public string ProficiencyLevel { get; set; }
 
         //Navigation Property
-        public SeekerProfile SeekerProfile { get; set; }
-        public int SeekerProfileId { get; set; }
+        public UserAccount UserAccount { get; set; }
+        public int UserId { get; set; }
         public SkillSet SkillSet { get; set; }
         public int SkillSetId { get; set; }
     }

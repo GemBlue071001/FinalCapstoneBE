@@ -19,12 +19,16 @@ namespace Domain.Entities
         public Role Role { get; set; }
 
         //Navigation Property
-        public Company Company { get; set; }
-        public int CompanyId { get; set; }
-        public List<JobPost> JobPosts { get; set; }
-        public List<JobPostActivity> JobPostActivitys { get; set; }
-        public List<SeekerProfile> SeekerProfiles { get; set; }
-        public List<CurriculumVitae> CurriculumVitaes { get; set; }
+        public Company? Company { get; set; }
+        public int? CompanyId { get; set; }
+        public List<JobPost>? JobPosts { get; set; }
+        public List<JobPostActivity>? JobPostActivitys { get; set; }
+        //public List<SeekerProfile> SeekerProfiles { get; set; }
+        public List<EducationDetail>? EducationDetails { get; set; }
+        public List<ExperienceDetail>? ExperienceDetails { get; set; }
+        public List<SeekerSkillSet>? SeekerSkillSets { get; set; }
+        public List<CV>? CVs { get; set; }
+        public List<Review>? Reviews { get; set; }
 
 
     }

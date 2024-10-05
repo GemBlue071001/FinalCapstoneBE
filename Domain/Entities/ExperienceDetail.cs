@@ -16,7 +16,10 @@ namespace Domain.Entities
         public string Responsibilities { get; set; }
         public string Achievements { get; set; }
         //Navigation Property
-        public SeekerProfile SeekerProfile { get; set; }
-        public int SeekerProfileId { get; set; }
+        //public SeekerProfile SeekerProfile { get; set; }
+        //public int SeekerProfileId { get; set; }
+        public UserAccount? UserAccount { get; set; }
+        public int? UserId { get; set; }
+
     }
 }

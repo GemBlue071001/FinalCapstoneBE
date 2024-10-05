@@ -7,7 +7,6 @@ namespace Application
     {
         public IUserAccountRepository UserAccounts { get; }
         public IJobPostRepository JobPosts { get; }
-        public ISeekerProfileRepository SeekerProfiles { get; }
         public IJobLocationRepository JobLocations { get; }
         public IJobTypeRepository JobTypes { get; }
         public ICompanyRepository Companys { get; }
@@ -17,6 +16,7 @@ namespace Application
         public IBusinessStreamRepository BusinessStreams { get;  }
         public IJobSkillSetRepository JobSkillSets { get; }
         public IJobPostActivityRepository JobPostActivities { get; }
+        public ICVRepository CVs { get; }
         public Task SaveChangeAsync();
     }
 }
