@@ -128,14 +128,33 @@ namespace Application.Services
 
         public async Task<ApiResponse> GetJobSeekerByJobPost(int jobPostId)
         {
-            var jobPostAct = await _unitOfWork.JobPostActivities.GetAllAsync(x => x.JobPostId == jobPostId, x => x.Include(x => x.UserAccount));
-            var users = jobPostAct.Select(x => x.UserAccount).ToList();
+            // Fetch JobPostActivities including the related UserAccount
+            var jobPostAct = await _unitOfWork.JobPostActivities.GetAllAsync(
+                x => x.JobPostId == jobPostId,
+                x => x.Include(x => x.UserAccount)
+                      .Include(x => x.CV) 
+            );
 
-            var usersResponse = _mapper.Map<List<UserResponse>>(users);
+            // Map JobPostActivity to CandidateResponse
+            var candidateResponses = jobPostAct.Select(x => new CandidateResponse
+            {
+                Id = x.UserAccount.Id,
+                UserName = x.UserAccount.UserName,
+                FirstName = x.UserAccount.FirstName,
+                LastName = x.UserAccount.LastName,
+                Email = x.UserAccount.Email,
+                PhoneNumber = x.UserAccount.PhoneNumber,
+                CVId = x.CvId,
+                CVPath = x.CV?.Url ?? string.Empty, // Assuming CV has a property 'Path'
+                JobPostActivityId = x.Id
+            }).ToList();
 
-            return new ApiResponse().SetOk(usersResponse);
-
+            // Return the mapped CandidateResponse list
+            return new ApiResponse().SetOk(candidateResponses);
         }
+
+
+
         public async Task<ApiResponse> GetJobPostById(int jobPostId)
         {
             ApiResponse response = new ApiResponse();
