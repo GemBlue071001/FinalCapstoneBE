@@ -112,17 +112,31 @@ namespace Application.Services
                 {
                     return response.SetBadRequest($"Skill Set already exist in this Job Post !!");
                 }
+
+                var skillSet = await _unitOfWork.SkillSets.GetAsync(x => x.Id == jobPostSkillSetRequest.SkillSetId);
+                if (skillSet == null)
+                {
+                    return response.SetBadRequest($"Skill set id {jobPostSkillSetRequest.SkillSetId} is not found !!");
+                }
+
+                var jobpost = await _unitOfWork.SkillSets.GetAsync(x => x.Id == jobPostSkillSetRequest.JobPostId);
+                if (skillSet == null)
+                {
+                    return response.SetBadRequest($"Job post id {jobPostSkillSetRequest.JobPostId} is not found !!");
+                }
+
                 await _unitOfWork.JobSkillSets.AddAsync(new JobSkillSet
                 {
                     //SkillLevelRequired = jobPostSkillSetRequest.SkillLevelRequired,
                     SkillSetId = jobPostSkillSetRequest.SkillSetId,
                     JobPostId = jobPostSkillSetRequest.JobPostId
                 });
+                await _unitOfWork.SaveChangeAsync();
                 return response.SetOk("Add Skill Set To Job Post Success !!");
             }
             catch (Exception ex)
             {
-                return new ApiResponse().SetBadRequest(ex.Message);
+                return new ApiResponse().SetBadRequest($"{ex.Message} - {ex.InnerException?.Message}");
             }
         }
 
@@ -132,7 +146,7 @@ namespace Application.Services
             var jobPostAct = await _unitOfWork.JobPostActivities.GetAllAsync(
                 x => x.JobPostId == jobPostId,
                 x => x.Include(x => x.UserAccount)
-                      .Include(x => x.CV) 
+                      .Include(x => x.CV)
             );
 
             // Map JobPostActivity to CandidateResponse
