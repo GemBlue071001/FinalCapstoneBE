@@ -18,12 +18,17 @@ namespace Application.Services
             _mapper = mapper;
             _claimService = claimService;
         }
-        
+
         public async Task<ApiResponse> AddNewJobPostActivityAsync(JobPostActivityRequest request)
         {
             var claim = _claimService.GetUserClaim();
-            var jobPostActivityModel = await _unitOfWork.JobPostActivities.GetAsync( x => x.JobPostId == request.JobPostId && claim.Id == x.UserId );
-            if (jobPostActivityModel != null) 
+            var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == request.JobPostId);
+            if (jobPost == null)
+            {
+                return new ApiResponse().SetBadRequest("Job Post not found.");
+            }
+            var jobPostActivityModel = await _unitOfWork.JobPostActivities.GetAsync(x => x.JobPostId == request.JobPostId && claim.Id == x.UserId);
+            if (jobPostActivityModel != null)
             {
                 return new ApiResponse().SetBadRequest("User have already apply.");
             }
@@ -33,7 +38,7 @@ namespace Application.Services
                 return new ApiResponse().SetBadRequest("User must have at least one CV to apply.");
             }
             var userCv = userCvs.FirstOrDefault(cv => cv.Id == request.CvId);
-            if (userCv == null) 
+            if (userCv == null)
             {
                 return new ApiResponse().SetBadRequest("Invalid CV provided.");
             }
