@@ -26,7 +26,7 @@ namespace Application.Services
             _claimService = claimService;
         }
         public async Task<ApiResponse> AddNewCVAsync(CVRequest request)
-        {   
+        {
             try
             {
                 var claim = _claimService.GetUserClaim();
@@ -48,6 +48,27 @@ namespace Application.Services
             var responseList = _mapper.Map<List<CVResponse>>(cvs);
 
             return new ApiResponse().SetOk(responseList);
+        }
+        public async Task<ApiResponse> DeletedCvByIdAsync(int id)
+        {
+            try
+            {
+                var claim = _claimService.GetUserClaim();
+                var cv = await _unitOfWork.CVs.GetAsync(x => x.UserId == claim.Id && x.Id == id);
+                if (cv == null)
+                {
+                    return new ApiResponse().SetNotFound("CV not found or you do not have permission to delete this CV.");
+                }
+                await _unitOfWork.CVs.RemoveByIdAsync(cv.Id);
+                await _unitOfWork.SaveChangeAsync();
+                return new ApiResponse().SetOk("CV deleted successfully!");
+
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest(ex.Message);
+            }
+            
         }
     }
 }

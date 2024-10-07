@@ -91,6 +91,10 @@ namespace Application.Services
                     return new ApiResponse().SetBadRequest("Company not exist");
                 }
                 var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == claim.Id);
+                if(user.CompanyId != null)
+                {
+                    return new ApiResponse().SetBadRequest("Employee have already exist in company");
+                }
                 user.CompanyId = company.Id;
                 await _unitOfWork.SaveChangeAsync();
                 return new ApiResponse().SetOk("Add success !");
