@@ -53,34 +53,12 @@ namespace API.Controllers
 
             var response = await _service.UpdateEducationDetailAsync(userId, request);
 
-            if (response is null)
+            if (response is null || !response.IsSuccess)
             {
                 return BadRequest("Unhandle exception occured");
             }
 
-            switch (response.StatusCode)
-            {
-                case System.Net.HttpStatusCode.OK:
-                    {
-                        return Ok(response);
-                    }
-                case System.Net.HttpStatusCode.NoContent:
-                    {
-                        return NoContent();
-                    }
-                case System.Net.HttpStatusCode.Conflict:
-                    {
-                        return Conflict(response.ErrorMessage);
-                    }
-                case System.Net.HttpStatusCode.NotFound:
-                    {
-                        return NotFound(response.ErrorMessage);
-                    }
-                default:
-                    {
-                        return BadRequest("Unhandle exception occured");
-                    }
-            }
+            return Ok(response);
         }
     }
 }
