@@ -29,11 +29,18 @@ namespace Application.Services
         {
             ApiResponse response = new ApiResponse();
 
-            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id);
+            var user = await _unitOfWork.UserAccounts.GetAsync(
+    u => u.Id == id,
+    x => x.Include(x => x.EducationDetails)
+          .Include(x => x.ExperienceDetails)
+          .Include(x => x.SeekerSkillSets)
+             .ThenInclude(ss => ss.SkillSet)
+);
+
             if (user == null)
                 return response.SetNotFound("User not found");
 
-            var userReponse = _mapper.Map<UserResponse>(user);
+            var userReponse = _mapper.Map<UserProfileResponse>(user);
 
             return response.SetOk(user);
         }
@@ -74,12 +81,12 @@ namespace Application.Services
             var claim = _claimService.GetUserClaim();
             try
             {
-                if(claim.Role != Role.Employer)
+                if (claim.Role != Role.Employer)
                 {
                     return new ApiResponse().SetBadRequest("User be employer");
                 }
                 var company = await _unitOfWork.Companys.GetAsync(x => x.Id == request.CompanyId);
-                if (company == null) 
+                if (company == null)
                 {
                     return new ApiResponse().SetBadRequest("Company not exist");
                 }

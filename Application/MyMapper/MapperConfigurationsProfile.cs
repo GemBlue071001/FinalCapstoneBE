@@ -34,6 +34,12 @@ namespace Application.MyMapper
         public MapperConfigurationsProfile()
         {
             CreateMap<UserAccount, UserResponse>().ReverseMap();
+            CreateMap<UserAccount, UserProfileResponse>()
+                                  .ForMember(
+                                   dest => dest.SkillSets,
+                                    opt => opt.MapFrom(src => src.SeekerSkillSets
+                                   .Select(x => x.SkillSet.Name)
+                                   .ToList()));
 
             //JobPost
             CreateMap<JobPostRequest, JobPost>();
