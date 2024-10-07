@@ -1,12 +1,7 @@
-﻿using Application.Repository;
+﻿using Application.CustomExceptions;
+using Application.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Infrastructure.Repositories
 {
@@ -92,6 +87,5 @@ namespace Infrastructure.Repositories
         {
             await _db.AddRangeAsync(entities);
         }
-
     }
 }

@@ -1,8 +1,10 @@
-﻿using Application.Interface;
+﻿using Application.CustomExceptions;
+using Application.Interface;
 using Application.Request.ExperienceDetail;
 using Application.Response;
 using AutoMapper;
 using Domain.Entities;
+using System.Net;
 using System.Security.Claims;
 
 namespace Application.Services
@@ -48,5 +50,29 @@ namespace Application.Services
             return new ApiResponse().SetOk(responseList);
         }
 
+        public async Task<ApiResponse> UpdateExperienceDetailAsync(int userId, UpdateExperienceDetailRequest request)
+        {
+            var experienceDetail = await _unitOfWork.ExperienceDetails.GetAsync(experience => experience.Id == request.Id);
+            if (experienceDetail == null)
+            {
+                throw new NotFoundException($"ExperienceDetail ID: {request.Id} not found.");
+            }
+
+            if (experienceDetail.UserId != userId)
+            {
+                throw new NotMatchException($"UserId from request: {experienceDetail.UserId} not match with {userId}");
+            }
+
+            experienceDetail.CompanyName = request.CompanyName;
+            experienceDetail.Position = request.Position;
+            experienceDetail.StartDate = request.StartDate;
+            experienceDetail.EndDate = request.EndDate;
+            experienceDetail.Responsibilities = request.Responsibilities;
+            experienceDetail.Achievements = request.Achievements;
+
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ApiResponse().SetApiResponse(HttpStatusCode.NoContent, true, experienceDetail.Id.ToString());
+        }
     }
 }
