@@ -28,7 +28,7 @@ namespace API.Controllers
             var response = await _service.GetAllCompanyAsync();
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCompanyDetailAsync(int id)
         {

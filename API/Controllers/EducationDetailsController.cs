@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.EducationDetail;
 using Application.Request.JobLocation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,15 +18,17 @@ namespace API.Controllers
             _service = service;
         }
 
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetJobPostAsync()
+        public async Task<IActionResult> GetEducationDetailListAsync()
         {
             var resposne = await _service.GetEducationDetailListAsync();
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
 
+        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddNewJobLocationAsync(EducationDetailRequest request)
+        public async Task<IActionResult> AddNewEducationDetailAsync(EducationDetailRequest request)
         {
             var response = await _service.AddNewEducationDetailAsync(request);
             return response.IsSuccess ? Ok(response) : BadRequest(response);

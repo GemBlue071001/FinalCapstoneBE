@@ -1,5 +1,6 @@
 ﻿using Application.Interface;
 using Application.Request.ExperienceDetail;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace API.Controllers
             _service = service;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetExperienceListAsync()
         {
@@ -23,6 +25,7 @@ namespace API.Controllers
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddExperienceDetailAsync(ExperienceDetailRequest request)
         {
