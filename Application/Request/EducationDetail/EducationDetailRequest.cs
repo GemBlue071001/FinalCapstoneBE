@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Request.EducationDetail
+﻿namespace Application.Request.EducationDetail
 {
     public class EducationDetailRequest
     {
@@ -16,5 +10,10 @@ namespace Application.Request.EducationDetail
         public DateTime EndDate { get; set; }
         public decimal GPA { get; set; }
         //public int SeekerProfileId { get; set; }
+    }
+
+    public class UpdateEducationDetailRequest : EducationDetailRequest
+    {
+        public int Id { get; set; }
     }
 }

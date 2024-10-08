@@ -1,4 +1,5 @@
-﻿using Application.Repositories;
+﻿using Application.CustomExceptions;
+using Application.Repositories;
 using Domain.Entities;
 
 namespace Infrastructure.Repositories

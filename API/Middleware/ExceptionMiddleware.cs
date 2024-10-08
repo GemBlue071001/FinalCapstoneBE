@@ -1,4 +1,5 @@
-﻿using Application.Response;
+﻿using Application.CustomExceptions;
+using Application.Response;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Net;
@@ -78,6 +79,39 @@ namespace API.Middleware
                     await context.Response.WriteAsync("Database error: " + ex.Message);
                     _logger.LogError("Database error: " + ex.Message);
                 }
+            }
+            catch (NotFoundException ex)
+            {
+                ApiResponse apiResponse = new ApiResponse().SetApiResponse(
+                       statusCode: HttpStatusCode.NotFound,
+                       isSuccess: false,
+                       message: $"message: {ex.Message}  detail:  {ex.InnerException?.Message}"
+                       );
+
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(apiResponse));
+                _logger.LogError("NotFound error: " + ex.Message);
+            }
+            catch (NotMatchException ex)
+            {
+                ApiResponse apiResponse = new ApiResponse().SetApiResponse(
+                       statusCode: HttpStatusCode.Conflict,
+                       isSuccess: false,
+                       message: $"message: {ex.Message}  detail:  {ex.InnerException?.Message}"
+                       );
+
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(apiResponse));
+                _logger.LogError("NotMatch error: " + ex.Message);
+            }
+            catch (ConflictException ex)
+            {
+                ApiResponse apiResponse = new ApiResponse().SetApiResponse(
+                       statusCode: HttpStatusCode.NotFound,
+                       isSuccess: false,
+                       message: $"message: {ex.Message}  detail:  {ex.InnerException?.Message}"
+                       );
+
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(apiResponse));
+                _logger.LogError("Conflict error: " + ex.Message);
             }
             catch (Exception ex)
             {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 
 namespace Application.Response
 {
@@ -38,7 +33,7 @@ namespace Application.Response
         {
             IsSuccess = false;
             StatusCode = HttpStatusCode.BadRequest;
-            if (message != null)
+            if (!string.IsNullOrEmpty(message))
             {
                 ErrorMessage = message;
             }
@@ -50,7 +45,7 @@ namespace Application.Response
         {
             IsSuccess = isSuccess;
             StatusCode = statusCode;
-            if (message != null)
+            if (!string.IsNullOrEmpty(message))
             {
                 ErrorMessage = message;
             }
