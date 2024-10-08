@@ -25,11 +25,11 @@ namespace Application.Services
         }
 
 
-        public async Task<ApiResponse> GetUserProfileAsync()
+        public async Task<ApiResponse> GetUserProfileAsync(int id)
         {
             ApiResponse response = new ApiResponse();
             var claim = _claimService.GetUserClaim();
-            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == claim.Id, x=>x.Include(x=>x.EducationDetails!)
+            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id, x=>x.Include(x=>x.EducationDetails!)
                                                                                      .Include(x=>x.ExperienceDetails!)
                                                                                      .Include(x=>x.SeekerSkillSets!)
                                                                                         .ThenInclude(x=>x.SkillSet));

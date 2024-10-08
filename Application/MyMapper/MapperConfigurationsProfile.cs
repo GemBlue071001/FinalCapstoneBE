@@ -45,6 +45,10 @@ namespace Application.MyMapper
             CreateMap<JobPost, JobPostResponse>()
                        .ForMember(dest => dest.CompanyName,
                                    opt => opt.MapFrom(src => src.Company.CompanyName))
+                       .ForMember(dest => dest.JobLocationCities,
+                                   opt => opt.MapFrom(src => src.JobLocations != null ? src.JobLocations.Select(x => x.Location!.City).ToList() : new List<string>()))
+                       .ForMember(dest => dest.JobLocationAddressDetail,
+                                   opt => opt.MapFrom(src => src.JobLocations != null ? src.JobLocations.Select(x => x.StressAddressDetail).ToList() : new List<string>()))
                         .ForMember(
                                    dest => dest.SkillSets,
                                     opt => opt.MapFrom(src => src.JobSkillSets

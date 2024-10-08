@@ -46,6 +46,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new SkillSetConfig());
             modelBuilder.ApplyConfiguration(new CVConfig());
             modelBuilder.ApplyConfiguration(new ReviewConfig());
+            modelBuilder.ApplyConfiguration(new LocationConfig());
 
         }
 

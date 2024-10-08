@@ -1,5 +1,6 @@
 ﻿using Application.Interface;
 using Application.Request.User;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,10 +26,10 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpGet("Profile")]
-        public async Task<IActionResult> GetUserProfileDetail()
+        [HttpGet("Profile/{id}")]
+        public async Task<IActionResult> GetUserProfileDetail(int id)
         {
-            var result = await _service.GetUserProfileAsync();
+            var result = await _service.GetUserProfileAsync(id);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

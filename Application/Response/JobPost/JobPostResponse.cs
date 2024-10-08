@@ -28,7 +28,8 @@ namespace Application.Response.JobPost
         public string CompanyName { get; set; }
         public string WebsiteCompanyURL { get; set; }
         public JobTypeResponse JobType { get; set; }
-        public JobLocationResponse JobLocation { get; set; }
+        public List<string> JobLocationCities { get; set; }
+        public List<string> JobLocationAddressDetail { get; set; }
         public List<string> SkillSets { get; set; }
     }
 }
