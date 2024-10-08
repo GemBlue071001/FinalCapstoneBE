@@ -41,11 +41,13 @@ namespace Application.Services
                 {
                     return new ApiResponse().SetBadRequest("Job type not found");
                 }
-                var jobLocation = await _unitOfWork.JobLocations.GetAsync(jl => jl.Id == jobPostRequest.JobLocationId);
-                if (jobLocation == null)
-                {
-                    return new ApiResponse().SetBadRequest("Job location not found");
-                }
+
+                //var jobLocation = await _unitOfWork.JobLocations.GetAsync(jl => jl.Id == jobPostRequest.JobLocationId);
+                //if (jobLocation == null)
+                //{
+                //    return new ApiResponse().SetBadRequest("Job location not found");
+                //}
+
                 var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == jobPostRequest.UserId);
                 if (user == null)
                 {
@@ -68,7 +70,7 @@ namespace Application.Services
                 jobPost.JobSkillSets = listJobPostSkillSet;
                 jobPost.Company = company;
                 jobPost.JobType = jobType;
-                jobPost.JobLocation = jobLocation;
+                //jobPost.JobLocation = jobLocation;
                 jobPost.UserAccount = user;
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
@@ -85,10 +87,11 @@ namespace Application.Services
             try
             {
                 var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null, x => x.Include(x => x.Company)
-                                                                                  .Include(x => x.JobLocation)
+                                                                                  .Include(x => x.JobLocations)
+                                                                                        .ThenInclude(x=>x.Location)
                                                                                   .Include(x => x.JobType)
                                                                                   .Include(x => x.JobSkillSets)
-                                                                                  .ThenInclude(x => x.SkillSet));
+                                                                                        .ThenInclude(x => x.SkillSet));
 
                 var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);
 
@@ -175,10 +178,11 @@ namespace Application.Services
             try
             {
                 var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == jobPostId, x => x.Include(x => x.Company)
-                                                                                                .Include(x => x.JobLocation)
+                                                                                                .Include(x => x.JobLocations)
+                                                                                                    .ThenInclude(x => x.Location)
                                                                                                 .Include(x => x.JobType)
                                                                                                 .Include(x => x.JobSkillSets)
-                                                                                                .ThenInclude(x => x.SkillSet));
+                                                                                                    .ThenInclude(x => x.SkillSet));
                 if (jobPost == null)
                 {
                     return response.SetBadRequest("Can not found jobPost Id" + jobPostId);

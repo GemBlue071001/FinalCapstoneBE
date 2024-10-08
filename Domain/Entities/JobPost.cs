@@ -28,11 +28,11 @@ namespace Domain.Entities
         public UserAccount UserAccount { get; set; }
         public JobType  JobType { get; set; }
         public Company Company { get; set; }
-        public JobLocation JobLocation { get; set; }
-        public int UserId { get; set; }
-        public int JobTypeId { get; set; }
-        public int CompanyId { get; set; }
-        public int JobLocationId { get; set; }
+        public List<JobLocation> JobLocations { get; set; } = new List<JobLocation>();
+        public int? UserId { get; set; }
+        public int? JobTypeId { get; set; }
+        public int? CompanyId { get; set; }
+        public int? JobLocationId { get; set; }
         public List<JobSkillSet> JobSkillSets { get; set; }
         public List<JobPostActivity> JobPostActivitys { get; set; }
 

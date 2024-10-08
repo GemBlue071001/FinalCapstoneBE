@@ -9,13 +9,13 @@ namespace Domain.Entities
     public class JobLocation: Base
     {
         public int Id { get; set; }
-        public string District { get; set; }
-        public string City { get; set; }
-        public string PostCode { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
-        public string StressAddress { get; set; }
+        public string StressAddressDetail { get; set; } = string.Empty;
+
+
         //Navigation Property
-        public List<JobPost> JobPosts { get; set; }
+        public JobPost? JobPost { get; set; }
+        public int? JobPostId { get; set; }
+        public Location? Location { get; set; }
+        public int? LocationId { get; set; }
     }
 }

@@ -13,8 +13,8 @@ namespace Domain.Entities
 
         //Navigation Property
         public UserAccount UserAccount { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public SkillSet SkillSet { get; set; }
-        public int SkillSetId { get; set; }
+        public int? SkillSetId { get; set; }
     }
 }

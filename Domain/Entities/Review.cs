@@ -13,8 +13,8 @@ namespace Domain.Entities
         public string ReviewContent { get; set; }
         //Navigation Property
         public UserAccount UserAccount { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public Company Company { get; set; }
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
     }
 }

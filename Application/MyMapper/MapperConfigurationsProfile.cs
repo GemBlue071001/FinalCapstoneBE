@@ -35,11 +35,10 @@ namespace Application.MyMapper
         {
             CreateMap<UserAccount, UserResponse>().ReverseMap();
             CreateMap<UserAccount, UserProfileResponse>()
-                                  .ForMember(
-                                   dest => dest.SkillSets,
-                                    opt => opt.MapFrom(src => src.SeekerSkillSets
-                                   .Select(x => x.SkillSet.Name)
-                                   .ToList()));
+                            .ForMember(
+                              dest => dest.SkillSets,
+                              opt => opt.MapFrom(src => src.SeekerSkillSets != null ? src.SeekerSkillSets.Select(x => x.SkillSet.Name).ToList(): new List<string>())
+                            );
 
             //JobPost
             CreateMap<JobPostRequest, JobPost>();

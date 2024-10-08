@@ -23,6 +23,15 @@ namespace API.Controllers
             var result = await _service.GetUserJobPostActivity();
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
+        [Authorize]
+        [HttpGet("Profile")]
+        public async Task<IActionResult> GetUserProfileDetail()
+        {
+            var result = await _service.GetUserProfileAsync();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPut]
         public async Task<IActionResult> UpdateUserAsync(UpdateUserRequest request)
         {

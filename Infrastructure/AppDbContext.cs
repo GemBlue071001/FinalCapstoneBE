@@ -24,13 +24,14 @@ namespace Infrastructure
         public DbSet<Company> Companys { get; set; }
         public DbSet<SkillSet> SkillSets { get; set; }
         public DbSet<BusinessStream> BusinessStreams { get; set; }
-        public DbSet<JobPostActivity> JobPostActivitys { get; set; }
+        public DbSet<JobPostActivity> JobPostActivities { get; set; }
         public DbSet<JobSkillSet> JobSkillSets { get; set; }
         public DbSet<SeekerSkillSet> SeekerSkillSets { get; set; }
         public DbSet<EducationDetail> EducationDetails { get; set; }
         public DbSet<ExperienceDetail> ExperienceDetails { get; set; }
         public DbSet<CV> CVs { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Location> Locations { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

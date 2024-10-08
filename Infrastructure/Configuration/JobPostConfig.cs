@@ -33,9 +33,9 @@ namespace Infrastructure.Configuration
                 .WithMany(o => o.JobPosts)
                 .HasForeignKey(o => o.JobTypeId);
 
-            builder.HasOne(o => o.JobLocation)
-                .WithMany(o => o.JobPosts)
-                .HasForeignKey(o => o.JobLocationId);
+            //builder.HasOne(o => o.JobLocation)
+            //    .WithMany(o => o.JobPosts)
+            //    .HasForeignKey(o => o.JobLocationId);
 
         }
     }

@@ -7,7 +7,7 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string Url { get; set; }
         //Navigation Property
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public UserAccount UserAccount { get; set; }
         public List<JobPostActivity> JobPostActivitys { get; set; }
     }
