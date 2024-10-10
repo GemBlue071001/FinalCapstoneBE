@@ -1,4 +1,6 @@
-﻿using Application.Response.CV;
+﻿using Application.Request.SkillSet;
+using Application.Response.CV;
+using Application.Response.SkillSet;
 namespace Application.Response.User
 
 {
@@ -13,6 +15,6 @@ namespace Application.Response.User
         public List<EducationDetailResponse> EducationDetails { get; set; } = new List<EducationDetailResponse>();
         public List<ExperienceDetailResponse> ExperienceDetails { get; set; } = new List<ExperienceDetailResponse>();
         public List<CVResponse> Cvs { get; set; } = new List<CVResponse>();
-        public List<string> SkillSets { get; set; } = new List<string>();
+        public List<SkillSetResponse> SkillSets { get; set; } = new List<SkillSetResponse>();
     }
 }

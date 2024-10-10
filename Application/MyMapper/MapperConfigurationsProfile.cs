@@ -40,7 +40,13 @@ namespace Application.MyMapper
             CreateMap<UserAccount, UserProfileResponse>()
                             .ForMember(
                               dest => dest.SkillSets,
-                              opt => opt.MapFrom(src => src.SeekerSkillSets != null ? src.SeekerSkillSets.Select(x => x.SkillSet.Name).ToList(): new List<string>())
+                              opt => opt.MapFrom(src => src.SeekerSkillSets != null ? src.SeekerSkillSets.Select(x => new SkillSetResponse
+                              {
+                                  Id = x.SkillSet.Id,
+                                  Name = x.SkillSet.Name,
+                                  Description = x.SkillSet.Description,
+                                  Shorthand = x.SkillSet.Shorthand
+                              }).ToList(): new List<SkillSetResponse>())
                             );
 
             //JobPost
