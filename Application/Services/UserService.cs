@@ -5,6 +5,7 @@ using Application.Response.JobPostActivity;
 using Application.Response.User;
 using AutoMapper;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
@@ -89,8 +90,8 @@ namespace Application.Services
                 var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == claim.Id);
                 user.CompanyId = company.Id;
                 await _unitOfWork.SaveChangeAsync();
-                return new ApiResponse().SetOk("Add success !");
 
+                return new ApiResponse().SetOk("Add success !");
             }
             catch (Exception ex)
             {
@@ -98,6 +99,36 @@ namespace Application.Services
             }
         }
 
+
+        public async Task<ApiResponse> AddSkillSetToUser(SeekerSkillSetRequest request)
+        {
+            try
+            {
+                var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == request.UserId);
+                if (user == null)
+                {
+                    return new ApiResponse().SetBadRequest("User Not Found");
+                }
+
+                var skillSet = await _unitOfWork.SkillSets.GetAsync(x => x.Id == request.SkillSetId);
+                if (skillSet == null)
+                {
+                    return new ApiResponse().SetBadRequest("Skill Set Not Found !");
+                }
+
+                var seekerSkillSet = _mapper.Map<SeekerSkillSet>(request);
+
+                await _unitOfWork.SeekerSkillSets.AddAsync(seekerSkillSet);
+                await _unitOfWork.SaveChangeAsync();
+
+                return new ApiResponse().SetOk("Add success !");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
+            }
+            
+        }
 
         private bool ValidateEmail(string email)
         {

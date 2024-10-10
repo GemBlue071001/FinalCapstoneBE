@@ -33,7 +33,10 @@ namespace Application.MyMapper
     {
         public MapperConfigurationsProfile()
         {
+            //User
             CreateMap<UserAccount, UserResponse>().ReverseMap();
+            CreateMap<SeekerSkillSetRequest, SeekerSkillSet>();
+
             CreateMap<UserAccount, UserProfileResponse>()
                             .ForMember(
                               dest => dest.SkillSets,

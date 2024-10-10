@@ -39,12 +39,22 @@ namespace API.Controllers
             var result = await _service.UpdateUserAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
         [Authorize(Roles = "Employer")]
         [Route("Company")]
         [HttpPost]
         public async Task<IActionResult> AddEmployerToCompany(AddEmployerToCompanyRequest request)
         {
             var result = await _service.AddEmployerToCompany(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        //[Authorize]
+        [Route("SkilSet")]
+        [HttpPost]
+        public async Task<IActionResult> AddSkillSetToUser(SeekerSkillSetRequest request)
+        {
+            var result = await _service.AddSkillSetToUser(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

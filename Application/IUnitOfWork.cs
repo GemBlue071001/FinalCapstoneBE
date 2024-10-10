@@ -17,6 +17,7 @@ namespace Application
         public IJobSkillSetRepository JobSkillSets { get; }
         public IJobPostActivityRepository JobPostActivities { get; }
         public ICVRepository CVs { get; }
+        public ISeekerSkillSetRepository SeekerSkillSets { get; }
         public Task SaveChangeAsync();
     }
 }

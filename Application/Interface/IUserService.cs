@@ -9,5 +9,6 @@ namespace Application.Interface
         Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request);
         Task<ApiResponse> AddEmployerToCompany(AddEmployerToCompanyRequest request);
         Task<ApiResponse> GetUserProfileAsync(int id);
+        Task<ApiResponse> AddSkillSetToUser(SeekerSkillSetRequest request);
     }
 }
