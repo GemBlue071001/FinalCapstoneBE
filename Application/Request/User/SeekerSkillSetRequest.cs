@@ -10,6 +10,6 @@ namespace Application.Request.User
     {
         public int UserId { get; set; }
         public int SkillSetId { get; set; }
-        public string ProficiencyLevel { get; set; }
+        public string? ProficiencyLevel { get; set; }
     }
 }

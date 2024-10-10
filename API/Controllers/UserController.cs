@@ -58,6 +58,13 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
+        [Route("SkilSet")]
+        [HttpDelete]
+        public async Task<IActionResult> RemoveSkillSetToUser(SeekerSkillSetRequest request)
+        {
+            var result = await _service.RemoveSkillSetToUser(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
 
     }
 }

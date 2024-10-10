@@ -30,10 +30,10 @@ namespace Application.Services
         {
             ApiResponse response = new ApiResponse();
             var claim = _claimService.GetUserClaim();
-            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id, x=>x.Include(x=>x.EducationDetails!)
-                                                                                     .Include(x=>x.ExperienceDetails!)
-                                                                                     .Include(x=>x.SeekerSkillSets!)
-                                                                                        .ThenInclude(x=>x.SkillSet));
+            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id, x => x.Include(x => x.EducationDetails!)
+                                                                                     .Include(x => x.ExperienceDetails!)
+                                                                                     .Include(x => x.SeekerSkillSets!)
+                                                                                        .ThenInclude(x => x.SkillSet));
             if (user == null)
                 return response.SetNotFound("User not found");
 
@@ -78,12 +78,12 @@ namespace Application.Services
             var claim = _claimService.GetUserClaim();
             try
             {
-                if(claim.Role != Role.Employer)
+                if (claim.Role != Role.Employer)
                 {
                     return new ApiResponse().SetBadRequest("User be employer");
                 }
                 var company = await _unitOfWork.Companys.GetAsync(x => x.Id == request.CompanyId);
-                if (company == null) 
+                if (company == null)
                 {
                     return new ApiResponse().SetBadRequest("Company not exist");
                 }
@@ -127,7 +127,27 @@ namespace Application.Services
             {
                 return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
             }
-            
+        }
+
+        public async Task<ApiResponse> RemoveSkillSetToUser(SeekerSkillSetRequest request)
+        {
+            try
+            {
+                var userSkillSet = await _unitOfWork.SeekerSkillSets.GetAsync(x => x.UserId == request.UserId && x.SkillSetId == request.SkillSetId);
+                if (userSkillSet == null)
+                {
+                    return new ApiResponse().SetBadRequest("User Skill Set Not Found !");
+                }
+
+                    await _unitOfWork.SeekerSkillSets.RemoveByIdAsync(userSkillSet.Id);
+                await _unitOfWork.SaveChangeAsync();
+
+                return new ApiResponse().SetOk("Remove success !");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
+            }
         }
 
         private bool ValidateEmail(string email)
