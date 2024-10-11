@@ -49,6 +49,7 @@ namespace Application.Services
             }
 
         }
+
         public async Task<ApiResponse> GetAllCompanyAsync()
         {
             ApiResponse apiResponse = new ApiResponse();

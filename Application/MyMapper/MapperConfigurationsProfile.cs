@@ -52,12 +52,6 @@ namespace Application.MyMapper
                                     dest => dest.WebsiteCompanyURL,
                                     opt => opt.MapFrom(src => src.Company.WebsiteURL));
 
-            CreateMap<UserAccount, CandidateResponse>()
-                        .ForMember(dest => dest.CVPath,
-                                    opt => opt.MapFrom(src => src.JobPostActivitys
-                                                .Select(x => x.CV.Url)))
-                        .ForMember(dest => dest.JobPostActivityId,
-                                    opt => opt.MapFrom(src => src.JobPostActivitys.Select(x => x.JobPostId)));
 
 
             //JobLocation
