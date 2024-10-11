@@ -25,5 +25,6 @@ namespace Domain.Entities
         public int? BusinessStreamId { get; set; }
         public List<Review>? Reviews { get; set; }
         public List<UserAccount>? UserAccounts { get; set; }
+        public List<FollowCompany> FollowCompanys { get; set; }
     }
 }

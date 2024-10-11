@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Application.Request.FollowCompany
 {
-    internal class FollowCompanyRequest
+    public class FollowCompanyRequest
     {
+        public int CompanyId { get; set; }
     }
 }
