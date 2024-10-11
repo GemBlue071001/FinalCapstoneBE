@@ -40,6 +40,10 @@ namespace Infrastructure.Configuration
                .WithMany(o => o.UserAccounts)
                .HasForeignKey(o => o.CompanyId);
 
+            builder.HasMany(o => o.FollowCompanys)
+                .WithOne(o => o.UserAccount)
+                .HasForeignKey(o => o.UserId);
+
 
 
             builder.HasData

@@ -27,6 +27,7 @@ namespace Infrastructure
         public DbSet<CV> CVs { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<FollowCompany> FollowCompanys { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,6 +48,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new CVConfig());
             modelBuilder.ApplyConfiguration(new ReviewConfig());
             modelBuilder.ApplyConfiguration(new LocationConfig());
+            modelBuilder.ApplyConfiguration(new FollowCompanyConfig());
 
         }
 
