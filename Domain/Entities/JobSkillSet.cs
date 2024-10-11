@@ -11,8 +11,8 @@ namespace Domain.Entities
         public int Id{ get; set; }
         //Navigation Property
         public SkillSet SkillSet { get; set; }
-        public int SkillSetId { get; set; }
-        public int JobPostId { get; set; }
+        public int? SkillSetId { get; set; }
+        public int? JobPostId { get; set; }
         public JobPost JobPost { get; set; }
     }
 }

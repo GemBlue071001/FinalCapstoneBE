@@ -33,13 +33,31 @@ namespace Application.MyMapper
     {
         public MapperConfigurationsProfile()
         {
+            //User
             CreateMap<UserAccount, UserResponse>().ReverseMap();
+            CreateMap<SeekerSkillSetRequest, SeekerSkillSet>();
+
+            CreateMap<UserAccount, UserProfileResponse>()
+                            .ForMember(
+                              dest => dest.SkillSets,
+                              opt => opt.MapFrom(src => src.SeekerSkillSets != null ? src.SeekerSkillSets.Select(x => new SkillSetResponse
+                              {
+                                  Id = x.SkillSet.Id,
+                                  Name = x.SkillSet.Name,
+                                  Description = x.SkillSet.Description,
+                                  Shorthand = x.SkillSet.Shorthand
+                              }).ToList(): new List<SkillSetResponse>())
+                            );
 
             //JobPost
             CreateMap<JobPostRequest, JobPost>();
             CreateMap<JobPost, JobPostResponse>()
                        .ForMember(dest => dest.CompanyName,
                                    opt => opt.MapFrom(src => src.Company.CompanyName))
+                       .ForMember(dest => dest.JobLocationCities,
+                                   opt => opt.MapFrom(src => src.JobLocations != null ? src.JobLocations.Select(x => x.Location!.City).ToList() : new List<string>()))
+                       .ForMember(dest => dest.JobLocationAddressDetail,
+                                   opt => opt.MapFrom(src => src.JobLocations != null ? src.JobLocations.Select(x => x.StressAddressDetail).ToList() : new List<string>()))
                         .ForMember(
                                    dest => dest.SkillSets,
                                     opt => opt.MapFrom(src => src.JobSkillSets
@@ -52,6 +70,12 @@ namespace Application.MyMapper
                                     dest => dest.WebsiteCompanyURL,
                                     opt => opt.MapFrom(src => src.Company.WebsiteURL));
 
+            //CreateMap<UserAccount, CandidateResponse>()
+            //            .ForMember(dest => dest.CVPath,
+            //                        opt => opt.MapFrom(src => src.JobPostActivitys
+            //                                    .Select(x => x.CV.Url)))
+            //            .ForMember(dest => dest.JobPostActivityId,
+            //                        opt => opt.MapFrom(src => src.JobPostActivitys.Select(x => x.JobPostId)));
 
 
             //JobLocation

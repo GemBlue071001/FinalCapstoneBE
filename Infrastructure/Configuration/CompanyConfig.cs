@@ -29,6 +29,11 @@ namespace Infrastructure.Configuration
                 .WithMany(o => o.Companys)
                 .HasForeignKey(o => o.BusinessStreamId);
 
+            builder.HasMany(o => o.FollowCompanys)
+                .WithOne(o => o.Company)
+                .HasForeignKey(o => o.CompanyId);
+
+
             builder.HasData(new Company()
             {
                 Id = 1,

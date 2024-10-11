@@ -77,7 +77,7 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts));
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts).ThenInclude(x=>x.JobSkillSets).ThenInclude(x=>x.SkillSet));
                 var companyResponse = _mapper.Map<CompanyResponse>(company);
 
                 return new ApiResponse().SetOk(companyResponse);

@@ -14,7 +14,8 @@ namespace Application.Response.User
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
-        public string? CVPath { get; set; }
+        public int? CVId { get; set; }
+        public string CVPath { get; set; }
         public int? JobPostActivityId { get; set; }
     }
 }

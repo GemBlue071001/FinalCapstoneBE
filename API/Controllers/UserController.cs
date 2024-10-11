@@ -1,5 +1,6 @@
 ﻿using Application.Interface;
 using Application.Request.User;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,12 +24,22 @@ namespace API.Controllers
             var result = await _service.GetUserJobPostActivity();
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
+        [Authorize]
+        [HttpGet("Profile/{id}")]
+        public async Task<IActionResult> GetUserProfileDetail(int id)
+        {
+            var result = await _service.GetUserProfileAsync(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPut]
         public async Task<IActionResult> UpdateUserAsync(UpdateUserRequest request)
         {
             var result = await _service.UpdateUserAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
         [Authorize(Roles = "Employer")]
         [Route("Company")]
         [HttpPost]
@@ -38,6 +49,22 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
+        //[Authorize]
+        [Route("SkilSet")]
+        [HttpPost]
+        public async Task<IActionResult> AddSkillSetToUser(SeekerSkillSetRequest request)
+        {
+            var result = await _service.AddSkillSetToUser(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [Route("SkilSet")]
+        [HttpDelete]
+        public async Task<IActionResult> RemoveSkillSetToUser(SeekerSkillSetRequest request)
+        {
+            var result = await _service.RemoveSkillSetToUser(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
 
     }
 }

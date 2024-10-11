@@ -10,4 +10,9 @@
         public string Achievements { get; set; } = string.Empty;
         //public int SeekerProfileId { get; set; }
     }
+
+    public class UpdateExperienceDetailRequest : ExperienceDetailRequest
+    {
+        public int Id { get; set; }
+    }
 }

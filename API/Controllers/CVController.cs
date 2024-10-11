@@ -32,5 +32,13 @@ namespace API.Controllers
             var resposne = await _service.GetCVListAsync();
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
+        [Authorize]
+        [Route("JobSeeker")]
+        [HttpDelete]
+        public async Task<IActionResult> GetCVListAsync(int id)
+        {
+            var resposne = await _service.DeletedCvByIdAsync(id);
+            return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
+        }
     }
 }

@@ -1,11 +1,6 @@
 ﻿using Domain.Entities;
 using Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure
 {
@@ -24,13 +19,15 @@ namespace Infrastructure
         public DbSet<Company> Companys { get; set; }
         public DbSet<SkillSet> SkillSets { get; set; }
         public DbSet<BusinessStream> BusinessStreams { get; set; }
-        public DbSet<JobPostActivity> JobPostActivitys { get; set; }
+        public DbSet<JobPostActivity> JobPostActivities { get; set; }
         public DbSet<JobSkillSet> JobSkillSets { get; set; }
         public DbSet<SeekerSkillSet> SeekerSkillSets { get; set; }
         public DbSet<EducationDetail> EducationDetails { get; set; }
         public DbSet<ExperienceDetail> ExperienceDetails { get; set; }
         public DbSet<CV> CVs { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<FollowCompany> FollowCompanys { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -50,6 +47,8 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new SkillSetConfig());
             modelBuilder.ApplyConfiguration(new CVConfig());
             modelBuilder.ApplyConfiguration(new ReviewConfig());
+            modelBuilder.ApplyConfiguration(new LocationConfig());
+            modelBuilder.ApplyConfiguration(new FollowCompanyConfig());
 
         }
 

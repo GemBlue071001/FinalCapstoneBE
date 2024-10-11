@@ -20,6 +20,7 @@ namespace Infrastructure
         public IJobSkillSetRepository JobSkillSets { get; set; }
         public IJobPostActivityRepository JobPostActivities { get; }
         public ICVRepository CVs { get; set; }
+        public ISeekerSkillSetRepository SeekerSkillSets { get; set; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -36,6 +37,7 @@ namespace Infrastructure
             BusinessStreams = new BusinessStreamRepository(context);
             JobPostActivities = new JobPostActivityRepository(context);
             CVs = new CVRepository(context);
+            SeekerSkillSets = new SeekerSkillSetRepository(context);
         }
 
         public async Task SaveChangeAsync()

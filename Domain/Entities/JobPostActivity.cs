@@ -15,10 +15,10 @@ namespace Domain.Entities
         //Navigation Property
         public UserAccount UserAccount { get; set; }
         public JobPost JobPost { get; set; }
-        public int UserId { get; set; }
-        public int JobPostId { get; set; }
+        public int? UserId { get; set; }
+        public int? JobPostId { get; set; }
         public CV CV { get; set; }
-        public int CvId { get; set; }
+        public int? CvId { get; set; }
     }
 
     public enum JobPostActivityStatus

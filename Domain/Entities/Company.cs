@@ -12,6 +12,7 @@ namespace Domain.Entities
         public string CompanyName { get; set; }
         public string CompanyDescription { get; set; }
         public string WebsiteURL { get; set; }
+        public string? ImageUrl { get; set; }
         public int EstablishedYear { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
@@ -21,7 +22,7 @@ namespace Domain.Entities
         //Navigation Property
         public List<JobPost> JobPosts { get; set; }
         public BusinessStream BusinessStream { get; set; }
-        public int BusinessStreamId { get; set; }
+        public int? BusinessStreamId { get; set; }
         public List<Review>? Reviews { get; set; }
         public List<UserAccount>? UserAccounts { get; set; }
     }

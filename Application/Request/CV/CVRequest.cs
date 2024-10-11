@@ -9,5 +9,6 @@ namespace Application.Request.CV
     public class CVRequest
     {
         public string Url { get; set; }
+        public string? Name { get; set; }
     }
 }

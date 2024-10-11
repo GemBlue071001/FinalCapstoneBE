@@ -29,6 +29,7 @@ namespace Domain.Entities
         public List<SeekerSkillSet>? SeekerSkillSets { get; set; }
         public List<CV>? CVs { get; set; }
         public List<Review>? Reviews { get; set; }
+        public List<FollowCompany>? FollowCompanys { get; set; }
 
 
     }

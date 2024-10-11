@@ -12,5 +12,6 @@ namespace Application.Interface
     {
         Task<ApiResponse> AddNewCVAsync(CVRequest request);
         Task<ApiResponse> GetCVListAsync();
+        Task<ApiResponse> DeletedCvByIdAsync(int id);
     }
 }
