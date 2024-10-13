@@ -21,15 +21,15 @@ public class SignalrHub : Hub
         await Clients.All.SendAsync("all", message);
     }
 
-    public  async Task SendMessageToGroup(string groupId, string message)
+    public  async Task SendMessageToGroup(string groupId, string message, string sender)
     {
-        await Clients.Group(groupId).SendAsync("GroupReceiveMessage", message);
+        await Clients.Group(groupId).SendAsync("GroupReceiveMessage", message, sender);
     }
 
-    public async Task JoinRoom(string groupId)
+    public async Task JoinRoom(string groupId, string username)
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, groupId);
-        await Clients.Group(groupId).SendAsync("GroupReceiveMessage", Context.ConnectionId + " joined.");
+        await Clients.Group(groupId).SendAsync("GroupReceiveMessage", username + " joined.");
     }
 
     public async Task LeaveRoom(string groupId)
