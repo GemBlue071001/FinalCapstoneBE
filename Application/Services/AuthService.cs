@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request;
 using Application.Response;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Domain;
 using Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
@@ -14,10 +15,12 @@ namespace Application.Services
     {
         private IUnitOfWork _unitOfWork;
         private AppSettings _appSettings;
-        public AuthService(IUnitOfWork unitOfWork, AppSettings appSettings)
+        private IClaimService _claimService;
+        public AuthService(IUnitOfWork unitOfWork, AppSettings appSettings, IClaimService claimService)
         {
             _unitOfWork = unitOfWork;
             _appSettings = appSettings;
+            _claimService = claimService;
         }
 
         public async Task<ApiResponse> RegisterAsync(UserRegisterRequest user)
@@ -94,9 +97,38 @@ namespace Application.Services
                 signingCredentials: creds);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
             return jwt;
         }
+
+        public async Task<ApiResponse> ChangePassword(string currentPassword, string newPassword, string confirmPassword)
+        {
+            var userClaim = _claimService.GetUserClaim();
+            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == userClaim.Id);
+
+            if (user == null)
+            {
+                return new ApiResponse().SetBadRequest("Can't find User !");
+            }
+
+            if (!VerifyPasswordHash(currentPassword, user.PasswordHash, user.PasswordSalt))
+            {
+                return new ApiResponse().SetBadRequest("Current password is incorrect !");
+            }
+
+            if (newPassword != confirmPassword)
+            {
+                return new ApiResponse().SetBadRequest("New password and confirmation do not match !"); // New password and confirmation do not match
+            }
+            
+            var passwordData = CreatePasswordHash(newPassword);
+            user.PasswordHash = passwordData.PasswordHash;
+            user.PasswordSalt = passwordData.PasswordSalt;
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ApiResponse().SetOk(" Password change was successful !"); // Password change was successful
+        }
+
+
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {

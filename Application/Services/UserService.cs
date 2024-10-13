@@ -46,22 +46,29 @@ namespace Application.Services
 
         public async Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request)
         {
-            ApiResponse response = new ApiResponse();
-            var claim = _claimService.GetUserClaim();
-            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == claim.Id);
-            if (user == null)
-                return response.SetNotFound("User not found");
-            if (!ValidateEmail(request.Email))
-                return response.SetBadRequest("Invalid email format");
-            if (!ValidatePhoneNum(request.PhoneNumber))
+            try
             {
-                return response.SetBadRequest("Invalid phone format");
+                ApiResponse response = new ApiResponse();
+                var claim = _claimService.GetUserClaim();
+                var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == claim.Id);
+                if (user == null)
+                    return response.SetNotFound("User not found");
+                if (!ValidateEmail(request.Email))
+                    return response.SetBadRequest("Invalid email format");
+                if (!ValidatePhoneNum(request.PhoneNumber))
+                {
+                    return response.SetBadRequest("Invalid phone format");
 
+                }
+                _mapper.Map(request, user);
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Update Success");
             }
-            _mapper.Map(request, user);
-            await _unitOfWork.SaveChangeAsync();
-
-            return response.SetOk("Update Success");
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
+            }
         }
 
         public async Task<ApiResponse> GetUserJobPostActivity()
