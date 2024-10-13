@@ -103,9 +103,7 @@ builder.Services.AddScoped<IJobPostActivityService, JobPostActivityService>();
 builder.Services.AddScoped<IBusinessStreamService, BusinessStreamService>();
 builder.Services.AddScoped<ICVService, CVService>();
 builder.Services.AddScoped<IFollowCompanyService, FollowCompanyService>();
-
-
-
+builder.Services.AddScoped<IEventTriggerService, EventTriggerService>();
 
 builder.Services.AddControllers()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
@@ -125,6 +123,8 @@ app.UseCors(p => p.SetIsOriginAllowed(origin => true).AllowAnyHeader().AllowAnyM
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.MapHub<SignalrHub>("/signalrHub");
 
 app.UseAuthorization();
 

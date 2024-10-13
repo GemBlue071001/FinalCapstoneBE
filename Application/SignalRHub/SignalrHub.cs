@@ -1,6 +1,4 @@
-﻿using Application.SignalRHub.Model;
-using Microsoft.AspNetCore.SignalR;
-using System.Collections.Concurrent;
+﻿using Microsoft.AspNetCore.SignalR;
 
 public class SignalrHub : Hub
 {
@@ -16,5 +14,27 @@ public class SignalrHub : Hub
     {
         await Clients.User(userId).SendAsync("ReceiveMessage", userId, message);
         //await Clients.All.SendAsync("ReceiveMessage", userId, message);
+    }
+
+    public async Task SendMessageToAll(string message)
+    {
+        await Clients.All.SendAsync("all", message);
+    }
+
+    public  async Task SendMessageToGroup(string groupId, string message)
+    {
+        await Clients.Group(groupId).SendAsync("GroupReceiveMessage", message);
+    }
+
+    public async Task JoinRoom(string groupId)
+    {
+        await Groups.AddToGroupAsync(Context.ConnectionId, groupId);
+        await Clients.Group(groupId).SendAsync("GroupReceiveMessage", Context.ConnectionId + " joined.");
+    }
+
+    public async Task LeaveRoom(string groupId)
+    {
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupId);
+        await Clients.Group(groupId).SendAsync("GroupReceiveMessage", Context.ConnectionId + " left.");
     }
 }

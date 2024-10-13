@@ -11,10 +11,12 @@ namespace API.Controllers
     public class EducationDetailsController : ControllerBase
     {
         private IEducationDetailsService _service;
+        private readonly IEventTriggerService _eventTriggerService;
 
-        public EducationDetailsController(IEducationDetailsService service)
+        public EducationDetailsController(IEducationDetailsService service, IEventTriggerService eventTriggerService)
         {
             _service = service;
+            _eventTriggerService = eventTriggerService;
         }
 
         [Authorize]
@@ -22,6 +24,7 @@ namespace API.Controllers
         public async Task<IActionResult> GetEducationDetailListAsync()
         {
             var resposne = await _service.GetEducationDetailListAsync();
+            await _eventTriggerService.TriggerSendMessageToGroupEvent("1", "Hello world");
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
 
