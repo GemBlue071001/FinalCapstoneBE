@@ -22,6 +22,7 @@ namespace Infrastructure
         public ICVRepository CVs { get; set; }
         public ISeekerSkillSetRepository SeekerSkillSets { get; set; }
         public IFollowCompanyRepository FollowCompanies { get; set; }
+        public INotifcationRepository Notifcations { get; set; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -40,6 +41,7 @@ namespace Infrastructure
             CVs = new CVRepository(context);
             SeekerSkillSets = new SeekerSkillSetRepository(context);
             FollowCompanies = new FollowCompanyRepository(context);
+            Notifcations = new NotificationRepository(context);
         }
 
         public async Task SaveChangeAsync()

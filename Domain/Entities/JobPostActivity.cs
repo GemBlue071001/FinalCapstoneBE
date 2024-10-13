@@ -19,6 +19,7 @@ namespace Domain.Entities
         public int? JobPostId { get; set; }
         public CV CV { get; set; }
         public int? CvId { get; set; }
+        public List<Notification>? Notifications { get; set; }
     }
 
     public enum JobPostActivityStatus

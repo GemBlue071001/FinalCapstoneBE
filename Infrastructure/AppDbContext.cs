@@ -28,6 +28,7 @@ namespace Infrastructure
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<FollowCompany> FollowCompanys { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -49,6 +50,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new ReviewConfig());
             modelBuilder.ApplyConfiguration(new LocationConfig());
             modelBuilder.ApplyConfiguration(new FollowCompanyConfig());
+            modelBuilder.ApplyConfiguration(new NotificationConfig());
 
         }
 

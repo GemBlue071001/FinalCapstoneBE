@@ -62,10 +62,31 @@ namespace Application.Services
             }
 
             jobPostActivity.Status = (JobPostActivityStatus)request.Status!;
+
+            var notification = new Notification
+            {
+                JobPostActivityId = request.JobPostActivityId,
+                Title = "Application Status Updated",
+                Description = "Status: " + jobPostActivity.Status.ToString(),
+                CreatedDate = DateTime.UtcNow,
+            };
+
+            if(jobPostActivity.UserId is not null)
+            {
+                var userAccount = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == jobPostActivity.UserId);
+                
+                if (userAccount is not null) 
+                { 
+                    notification.ReceiverId = userAccount.Id;
+                }
+            }
+
+            await _unitOfWork.Notifcations.AddAsync(notification);
+
             await _unitOfWork.SaveChangeAsync();
 
 
-            return new ApiResponse().SetOk("Update Job Post Activity Success !");
+            return new ApiResponse().SetOk(notification.ReceiverId);
         }
 
     }

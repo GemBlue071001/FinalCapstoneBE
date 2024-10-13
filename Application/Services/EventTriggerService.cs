@@ -12,6 +12,11 @@ namespace Application.Services
             _hubContext = hubContext;
         }
 
+        public async Task SendMessageToUser(string userId, string message)
+        {
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", userId, message);
+        }
+
         public async Task TriggerSendMessageToGroupEvent(string groupId, string message)
         {
             await _hubContext.Clients.Group(groupId).SendAsync("GroupReceiveMessage", message);

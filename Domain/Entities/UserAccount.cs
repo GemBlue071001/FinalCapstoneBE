@@ -30,6 +30,7 @@ namespace Domain.Entities
         public List<CV>? CVs { get; set; }
         public List<Review>? Reviews { get; set; }
         public List<FollowCompany>? FollowCompanys { get; set; }
+        public List<Notification>? Notifications { get; set; }
 
 
     }

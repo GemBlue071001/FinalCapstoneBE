@@ -19,6 +19,7 @@ namespace Application
         public ICVRepository CVs { get; }
         public ISeekerSkillSetRepository SeekerSkillSets { get; }
         public IFollowCompanyRepository FollowCompanies{ get; set; }
+        public INotifcationRepository Notifcations { get; set; }
         public Task SaveChangeAsync();
     }
 }
