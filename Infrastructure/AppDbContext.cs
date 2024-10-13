@@ -51,6 +51,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new LocationConfig());
             modelBuilder.ApplyConfiguration(new FollowCompanyConfig());
             modelBuilder.ApplyConfiguration(new NotificationConfig());
+            modelBuilder.ApplyConfiguration(new EmailTemplateConfig());
 
         }
 

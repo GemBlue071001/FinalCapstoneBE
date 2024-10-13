@@ -3,6 +3,7 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241013115438_addEmailTemplate")]
+    partial class addEmailTemplate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -677,55 +680,6 @@ namespace Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("boolean");
-
-                    b.Property<int?>("JobPostActivityId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("ReceiverId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobPostActivityId");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.ToTable("Notifications");
-                });
-
             modelBuilder.Entity("Domain.Entities.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -1107,23 +1061,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("SkillSet");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Notification", b =>
-                {
-                    b.HasOne("Domain.Entities.JobPostActivity", "JobPostActivity")
-                        .WithMany("Notifications")
-                        .HasForeignKey("JobPostActivityId");
-
-                    b.HasOne("Domain.Entities.UserAccount", "UserAccount")
-                        .WithMany("Notifications")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JobPostActivity");
-
-                    b.Navigation("UserAccount");
-                });
-
             modelBuilder.Entity("Domain.Entities.Review", b =>
                 {
                     b.HasOne("Domain.Entities.Company", "Company")
@@ -1193,11 +1130,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("JobSkillSets");
                 });
 
-            modelBuilder.Entity("Domain.Entities.JobPostActivity", b =>
-                {
-                    b.Navigation("Notifications");
-                });
-
             modelBuilder.Entity("Domain.Entities.JobType", b =>
                 {
                     b.Navigation("JobPosts");
@@ -1228,8 +1160,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("JobPostActivitys");
 
                     b.Navigation("JobPosts");
-
-                    b.Navigation("Notifications");
 
                     b.Navigation("Reviews");
 
