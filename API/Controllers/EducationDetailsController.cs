@@ -63,7 +63,7 @@ namespace API.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeletedEducationDetailByIdAsync(int id)
         {
-            var response = await _service.DeletedEducationDetailByIdAsync(id);
+            var response = await _service.DeleteEducationDetailByIdAsync(id);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }

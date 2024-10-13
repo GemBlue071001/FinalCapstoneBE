@@ -84,9 +84,9 @@ namespace Application.Services
                 {
                     return response.SetNotFound("Can not found experienceDetail id: " + id);
                 }
-                await _unitOfWork.JobTypes.RemoveByIdAsync(id);
+                await _unitOfWork.ExperienceDetails.RemoveByIdAsync(id);
                 await _unitOfWork.SaveChangeAsync();
-                return response.SetOk(jobType);
+                return response.SetOk("deleted !");
             }
             catch (Exception ex)
             {

@@ -73,7 +73,7 @@ namespace Application.Services
 
             return new ApiResponse().SetApiResponse(HttpStatusCode.NoContent, true, string.Empty, educationDetail.Id.ToString());
         }
-        public async Task<ApiResponse> DeletedExperienceDetailByIdAsync(int id)
+        public async Task<ApiResponse> DeleteEducationDetailByIdAsync(int id)
         {
             var response = new ApiResponse();
             try
@@ -83,7 +83,7 @@ namespace Application.Services
                 {
                     return response.SetNotFound("Can not found Education Detail id: " + id);
                 }
-                await _unitOfWork.JobTypes.RemoveByIdAsync(id);
+                await _unitOfWork.EducationDetails.RemoveByIdAsync(educationDetail.Id);
                 await _unitOfWork.SaveChangeAsync();
                 return response.SetOk(educationDetail);
             }

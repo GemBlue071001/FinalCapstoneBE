@@ -47,7 +47,8 @@ namespace Application.Services
         public async Task<ApiResponse> UpdateUserAsync(UpdateUserRequest request)
         {
             ApiResponse response = new ApiResponse();
-            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == request.Id);
+            var claim = _claimService.GetUserClaim();
+            var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == claim.Id);
             if (user == null)
                 return response.SetNotFound("User not found");
             if (!ValidateEmail(request.Email))
@@ -60,7 +61,7 @@ namespace Application.Services
             _mapper.Map(request, user);
             await _unitOfWork.SaveChangeAsync();
 
-            return response.SetOk(user);
+            return response.SetOk("Update Success");
         }
 
         public async Task<ApiResponse> GetUserJobPostActivity()

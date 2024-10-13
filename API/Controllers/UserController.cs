@@ -33,6 +33,7 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateUserAsync(UpdateUserRequest request)
         {
