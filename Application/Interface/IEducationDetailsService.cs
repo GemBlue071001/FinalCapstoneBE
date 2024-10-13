@@ -8,5 +8,6 @@ namespace Application.Interface
         Task<ApiResponse> AddNewEducationDetailAsync(EducationDetailRequest request);
         Task<ApiResponse> GetEducationDetailListAsync();
         Task<ApiResponse> UpdateEducationDetailAsync(int userId, UpdateEducationDetailRequest request);
+        Task<ApiResponse> DeletedEducationDetailByIdAsync(int id);
     }
 }

@@ -73,5 +73,24 @@ namespace Application.Services
 
             return new ApiResponse().SetApiResponse(HttpStatusCode.NoContent, true, string.Empty, educationDetail.Id.ToString());
         }
+        public async Task<ApiResponse> DeletedExperienceDetailByIdAsync(int id)
+        {
+            var response = new ApiResponse();
+            try
+            {
+                var educationDetail = await _unitOfWork.EducationDetails.GetAsync(x => x.Id == id);
+                if (educationDetail == null)
+                {
+                    return response.SetNotFound("Can not found Education Detail id: " + id);
+                }
+                await _unitOfWork.JobTypes.RemoveByIdAsync(id);
+                await _unitOfWork.SaveChangeAsync();
+                return response.SetOk(educationDetail);
+            }
+            catch (Exception ex)
+            {
+                return response.SetBadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -1,18 +1,15 @@
 ﻿using Application.Interface;
 using Application.Request.FollowCompany;
 using Application.Response;
+using Application.Response.Company;
 using Application.Response.FollowCompany;
 using AutoMapper;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Application.Services
 {
-    public class FollowCompanyService
+    public class FollowCompanyService : IFollowCompanyService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -31,7 +28,7 @@ namespace Application.Services
             {
                 var claim = _claimService.GetUserClaim();
                 var company = await _unitOfWork.Companys.GetAsync(x => x.Id == followCompanyRequest.CompanyId);
-                if (company != null)
+                if (company == null)
                 {
                     return apiResponse.SetBadRequest("Not found Company " + followCompanyRequest.CompanyId);
                 }
@@ -47,14 +44,37 @@ namespace Application.Services
                 return apiResponse.SetBadRequest(ex.Message);
             }
         }
-        public async Task<ApiResponse> getFollowCompanyAsync() 
+        public async Task<ApiResponse> GetFollowCompanyAsync()
         {
             ApiResponse apiResponse = new ApiResponse();
             try
             {
                 var claim = _claimService.GetUserClaim();
                 var followCompanies = await _unitOfWork.FollowCompanies.GetAllAsync(x => x.UserId == claim.Id);
-                var responseList = _mapper.Map<List<FollowCompanyResponse>>(followCompanies)l
+                var listCompaniesId = followCompanies.Select(x => x.CompanyId).ToList();
+                var companies = await _unitOfWork.Companys.GetAllAsync(x => listCompaniesId.Contains(x.Id));
+                var responseList = _mapper.Map<List<CompanyResponse>>(companies);
+                return apiResponse.SetOk(responseList);
+            }
+            catch (Exception ex)
+            {
+                return apiResponse.SetBadRequest(ex.Message);
+            }
+        }
+        public async Task<ApiResponse> DeleteFollowCompanyById(int id)
+        {
+            ApiResponse apiResponse = new ApiResponse();
+            try
+            {
+                var claim = _claimService.GetUserClaim();
+                var followCompany = await _unitOfWork.FollowCompanies.GetAsync(x => x.UserId == claim.Id && x.CompanyId == id);
+                if (followCompany == null)
+                {
+                    return apiResponse.SetBadRequest("Not found follow company " + id);
+                }
+                await _unitOfWork.CVs.RemoveByIdAsync(followCompany.Id);
+                await _unitOfWork.SaveChangeAsync();
+                return new ApiResponse().SetOk("follow company deleted successfully!");
             }
             catch (Exception ex)
             {

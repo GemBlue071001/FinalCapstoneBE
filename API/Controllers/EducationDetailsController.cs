@@ -60,5 +60,11 @@ namespace API.Controllers
 
             return Ok(response);
         }
+        [HttpDelete]
+        public async Task<IActionResult> DeletedEducationDetailByIdAsync(int id)
+        {
+            var response = await _service.DeletedEducationDetailByIdAsync(id);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
     }
 }

@@ -60,5 +60,12 @@ namespace API.Controllers
 
             return Ok(response);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeletedExperienceDetailByIdAsync(int id)
+        {
+            var response = await _service.DeletedExperienceDetailByIdAsync(id);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
     }
 }

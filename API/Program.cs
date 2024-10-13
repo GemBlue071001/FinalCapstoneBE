@@ -102,6 +102,8 @@ builder.Services.AddScoped<ISkillSetService, SkillSetService>();
 builder.Services.AddScoped<IJobPostActivityService, JobPostActivityService>();
 builder.Services.AddScoped<IBusinessStreamService, BusinessStreamService>();
 builder.Services.AddScoped<ICVService, CVService>();
+builder.Services.AddScoped<IFollowCompanyService, FollowCompanyService>();
+
 
 
 
