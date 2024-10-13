@@ -1,10 +1,7 @@
 ﻿using Application.Interface;
-using Application.Request.EducationDetail;
 using Application.Request.JobPostActivity;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Validations;
 
 namespace API.Controllers
 {
@@ -28,7 +25,7 @@ namespace API.Controllers
             var response = await _service.AddNewJobPostActivityAsync(request);
             if (response.IsSuccess && response.Result is not null)
             {
-                await _eventTriggerService.SendMessageToUser(response.Result.ToString() ?? "0", "Application Applied");
+                await _eventTriggerService.TriggerSendMessageToGroupEvent($"{response.Result}", "Application Applied");
             }
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
@@ -40,7 +37,7 @@ namespace API.Controllers
             var response = await _service.UpdateJobPostActivityAsync(request);
             if (response.IsSuccess && response.Result is not null ) 
             {
-                await _eventTriggerService.SendMessageToUser(response.Result.ToString() ?? "0", "Application Status Updated");
+                await _eventTriggerService.SendMessageToUser($"{response.Result}", $"Application status updated to: ${request.Status?.ToString()}");
             }
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }

@@ -68,7 +68,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             {
                 var accessToken = context.Request.Query["access_token"];
                 if (!string.IsNullOrEmpty(accessToken) &&
-                    context.HttpContext.Request.Path.StartsWithSegments("/chat"))
+                    context.HttpContext.Request.Path.StartsWithSegments("/signalrHub"))
                 {
                     context.Token = accessToken;
                 }
