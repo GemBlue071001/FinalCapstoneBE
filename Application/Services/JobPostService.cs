@@ -163,7 +163,8 @@ namespace Application.Services
                 PhoneNumber = x.UserAccount.PhoneNumber,
                 CVId = x.CvId,
                 CVPath = x.CV?.Url ?? string.Empty, // Assuming CV has a property 'Path'
-                JobPostActivityId = x.Id
+                JobPostActivityId = x.Id,
+                Status = x.Status.ToString(),
             }).ToList();
 
             // Return the mapped CandidateResponse list
