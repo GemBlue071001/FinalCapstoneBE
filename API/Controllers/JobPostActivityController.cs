@@ -26,6 +26,10 @@ namespace API.Controllers
         public async Task<IActionResult> AddNewJobPostActivityAsync(JobPostActivityRequest request)
         {
             var response = await _service.AddNewJobPostActivityAsync(request);
+            if (response.IsSuccess && response.Result is not null)
+            {
+                await _eventTriggerService.SendMessageToUser(response.Result.ToString() ?? "0", "Application Applied");
+            }
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 

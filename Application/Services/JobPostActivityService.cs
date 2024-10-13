@@ -49,7 +49,7 @@ namespace Application.Services
             await _unitOfWork.JobPostActivities.AddAsync(jobPostActivity);
             await _unitOfWork.SaveChangeAsync();
 
-            return new ApiResponse().SetOk("Apply Success!");
+            return new ApiResponse().SetOk(jobPost.UserId?.ToString() ?? "0");
         }
 
         public async Task<ApiResponse> UpdateJobPostActivityAsync(JobPostActivityUpdateRequest request)
