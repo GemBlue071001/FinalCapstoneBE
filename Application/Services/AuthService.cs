@@ -88,11 +88,11 @@ namespace Application.Services
 
             // Retrieve the verification record
             var verificationRecord = await _unitOfWork.EmailVerifications
-                .GetAsync(ev => ev.UserId == userId && ev.VerificationCode == verificationCode && ev.IsUsed == false);
+                .GetAsync(x => x.UserId == userId && x.VerificationCode == verificationCode && x.IsUsed == false);
 
+            // Verification record not found or code already used
             if (verificationRecord == null)
             {
-                // Verification record not found or code already used
                 response.SetBadRequest("Invalid or expired verification code.");
                 return response;
             }
