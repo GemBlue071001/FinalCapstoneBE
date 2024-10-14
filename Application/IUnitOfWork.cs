@@ -21,6 +21,7 @@ namespace Application
         public IFollowCompanyRepository FollowCompanies { get;  }
         public INotifcationRepository Notifcations { get; }
         public IEmailTemplateRepository EmailTemplates { get; }
+        public IEmailVerificationRepository EmailVerifications { get; }
         public Task SaveChangeAsync();
     }
 }

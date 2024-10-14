@@ -1,4 +1,5 @@
 using API.Middleware;
+using API.Validation;
 using Application;
 using Application.Interface;
 using Application.MyMapper;
@@ -6,9 +7,11 @@ using Application.Services;
 using Application.SignalRHub.Model;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Domain;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -25,6 +28,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration.Get<AppSettings>();
 builder.Services.AddControllers();
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+builder.Services.AddFluentValidationAutoValidation();
+
+
 //config api 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -106,8 +116,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IFollowCompanyService, FollowCompanyService>();
 builder.Services.AddScoped<IEventTriggerService, EventTriggerService>();
 
-builder.Services.AddControllers()
-    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -121,6 +130,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 //}
 app.UseCors(p => p.SetIsOriginAllowed(origin => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+app.UseMiddleware<ValidationMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();

@@ -21,6 +21,22 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegisterRequest user)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    isSuccess = false,
+                    errorMessage = string.Join("; ", errors),
+                    result = (object)null
+                });
+            }
+
             var result = await _service.RegisterAsync(user);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }

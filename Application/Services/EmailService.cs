@@ -7,6 +7,9 @@ namespace Application.Services
 {
     public class EmailService : IEmailService
     {
+        public const string EmailUserSystem = "trinhtam2001@gmail.com";
+        public const string EmailPasswordSystem = "hqpr gldl ccku rute";
+
         public EmailService()
         {
 
@@ -32,7 +35,7 @@ namespace Application.Services
                 using (var client = new SmtpClient())
                 {
                     await client.ConnectAsync("smtp.gmail.com", 465, true);
-                    await client.AuthenticateAsync("trinhtam2001@gmail.com", "hqpr gldl ccku rute");
+                    await client.AuthenticateAsync(EmailUserSystem, EmailPasswordSystem);
                     await client.SendAsync(message);
                     await client.DisconnectAsync(true);
                 }

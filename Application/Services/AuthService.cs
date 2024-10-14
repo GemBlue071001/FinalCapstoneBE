@@ -16,40 +16,72 @@ namespace Application.Services
         private IUnitOfWork _unitOfWork;
         private AppSettings _appSettings;
         private IClaimService _claimService;
-        public AuthService(IUnitOfWork unitOfWork, AppSettings appSettings, IClaimService claimService)
+        private IEmailService _emailService;
+        public AuthService(IUnitOfWork unitOfWork, AppSettings appSettings, IClaimService claimService, IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
             _appSettings = appSettings;
             _claimService = claimService;
+            _emailService = emailService;
         }
 
-        public async Task<ApiResponse> RegisterAsync(UserRegisterRequest user)
+        public async Task<ApiResponse> RegisterAsync(UserRegisterRequest userRequest)
         {
             ApiResponse response = new ApiResponse();
 
-            var checkPassword = CheckUserPassword(user);
+            var checkPassword = CheckUserPassword(userRequest);
             if (!checkPassword)
             {
                 response.SetBadRequest(message: "Confirm password is wrong !");
                 return response;
             }
-            var pass = CreatePasswordHash(user.Password);
-            UserAccount _user = new UserAccount()
+
+            // Create password hash and save user details
+            var pass = CreatePasswordHash(userRequest.Password);
+            UserAccount user = new UserAccount()
             {
-                UserName = user.UserName,
+                UserName = userRequest.UserName,
                 PasswordHash = pass.PasswordHash,
                 PasswordSalt = pass.PasswordSalt,
-                Email = user.Email,
-                FirstName = user.FistName,
-                LastName = user.LastName,
-                Role = user.Role,
+                Email = userRequest.Email,
+                FirstName = userRequest.FistName,
+                LastName = userRequest.LastName,
+                Role = userRequest.Role,
+                IsEmailVerified = false // Initially, email is not verified
             };
-            await _unitOfWork.UserAccounts.AddAsync(_user);
+
+            await _unitOfWork.UserAccounts.AddAsync(user);
             await _unitOfWork.SaveChangeAsync();
 
-            response.SetOk("Resgister Complete");
+            // Generate verification code
+            var verificationCode = GenerateVerificationCode(); // Method to generate the code
+            var emailVerification = new EmailVerification
+            {
+                UserId = user.Id,
+                VerificationCode = verificationCode,
+                ExpiresAt = DateTime.Now.AddMinutes(30), // Code valid for 30 minutes
+                IsUsed = false
+            };
+
+            // Save verification code to the database
+            await _unitOfWork.EmailVerifications.AddAsync(emailVerification);
+            await _unitOfWork.SaveChangeAsync();
+
+            // Prepare email content
+            string emailContent = $"Dear {user.FirstName},<br/>Please use the following verification code to validate your email: <strong>{verificationCode}</strong>.<br/>The code will expire in 30 minutes.";
+
+            // Send validation email
+            var emailResponse = await _emailService.SendValidationEmail(user.Email, emailContent);
+            if (!emailResponse.IsSuccess)
+            {
+                response.SetBadRequest("Failed to send verification email.");
+                return response;
+            }
+
+            response.SetOk("Register complete. Please check your email for the verification code.");
             return response;
         }
+
 
         public async Task<ApiResponse> LoginAsync(LoginRequest account)
         {
@@ -154,6 +186,12 @@ namespace Application.Services
                 pass.PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
             return pass;
+        }
+
+        private string GenerateVerificationCode()
+        {
+            Random random = new Random();
+            return random.Next(100000, 999999).ToString(); // Generate a 6-digit code
         }
     }
     public class PasswordDTO

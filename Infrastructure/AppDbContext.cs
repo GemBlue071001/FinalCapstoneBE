@@ -29,6 +29,7 @@ namespace Infrastructure
         public DbSet<Location> Locations { get; set; }
         public DbSet<FollowCompany> FollowCompanys { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<EmailVerification> EmailVerifications { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -52,7 +53,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new FollowCompanyConfig());
             modelBuilder.ApplyConfiguration(new NotificationConfig());
             modelBuilder.ApplyConfiguration(new EmailTemplateConfig());
-
+            modelBuilder.ApplyConfiguration(new EmailVerificationsConfig());
         }
 
     }
