@@ -1,4 +1,5 @@
-﻿using Application.Interface;
+﻿using Application.Constants.SignalRHub;
+using Application.Interface;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Application.Services
@@ -14,12 +15,14 @@ namespace Application.Services
 
         public async Task SendMessageToUser(string userId, string message)
         {
-            await _hubContext.Clients.All.SendAsync("ReceiveMessage", userId, message);
+            if(string.IsNullOrEmpty(userId)) { return; }
+            await _hubContext.Clients.All.SendAsync(SignalRMethodNames.SendMessageToUser, userId, message);
         }
 
         public async Task TriggerSendMessageToGroupEvent(string groupId, string message)
         {
-            await _hubContext.Clients.Group(groupId).SendAsync("GroupReceiveMessage", message);
+            if(string.IsNullOrEmpty(groupId)) { return; }
+            await _hubContext.Clients.Group(groupId).SendAsync(SignalRMethodNames.SendMessageToGroup, message);
         }
     }
 }
