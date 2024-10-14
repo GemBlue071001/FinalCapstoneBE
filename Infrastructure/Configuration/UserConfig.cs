@@ -22,6 +22,11 @@ namespace Infrastructure.Configuration
             builder
             .HasIndex(q => q.UserName)
             .IsUnique();
+
+            builder
+            .HasIndex(q => q.Email)
+            .IsUnique();
+
             var user1 = CreatePasswordHash("User1");
             var user2 = CreatePasswordHash("User2");
             var employer = CreatePasswordHash("Employer");

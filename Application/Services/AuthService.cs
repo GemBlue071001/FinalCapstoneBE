@@ -78,24 +78,123 @@ namespace Application.Services
                 return response;
             }
 
-            response.SetOk("Register complete. Please check your email for the verification code.");
+            response.SetOk(user.Id);
             return response;
         }
 
-
-        public async Task<ApiResponse> LoginAsync(LoginRequest account)
+        public async Task<ApiResponse> VerifyEmailAsync(int userId, string verificationCode)
         {
             ApiResponse response = new ApiResponse();
-            var _account = await _unitOfWork.UserAccounts.GetAsync(u => u.UserName == account.UserName);
-            if (_account == null || !VerifyPasswordHash(account.Password, _account.PasswordHash, _account.PasswordSalt))
+
+            // Retrieve the verification record
+            var verificationRecord = await _unitOfWork.EmailVerifications
+                .GetAsync(ev => ev.UserId == userId && ev.VerificationCode == verificationCode && ev.IsUsed == false);
+
+            if (verificationRecord == null)
+            {
+                // Verification record not found or code already used
+                response.SetBadRequest("Invalid or expired verification code.");
+                return response;
+            }
+
+            // Check if the code has expired
+            if (verificationRecord.ExpiresAt < DateTime.Now)
+            {
+                response.SetBadRequest("The verification code has expired.");
+                return response;
+            }
+
+            // Mark the verification code as used
+            verificationRecord.IsUsed = true;
+            await _unitOfWork.SaveChangeAsync();
+
+            // Mark the user's email as verified
+            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == userId);
+            if (user == null)
+            {
+                response.SetBadRequest("User not found.");
+                return response;
+            }
+
+            user.IsEmailVerified = true;
+            await _unitOfWork.SaveChangeAsync();
+
+            response.SetOk("Email verified successfully.");
+            return response;
+        }
+
+        public async Task<ApiResponse> UpdateEmailAsync(int userId, string newEmail)
+        {
+            ApiResponse response = new ApiResponse();
+
+            // Find the user
+            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == userId);
+            if (user == null)
+            {
+                response.SetBadRequest("User not found.");
+                return response;
+            }
+
+            // Check if the email is already verified
+            if ((bool)user.IsEmailVerified!)
+            {
+                response.SetBadRequest("You have Verified already , Please Login to change your email !");
+                return response;
+            }
+
+            // Update the user's email and reset verification status
+            user.Email = newEmail;
+            user.IsEmailVerified = false;  // Reset the verification flag
+
+            // Generate a new verification code
+            var verificationCode = GenerateVerificationCode();
+            var emailVerification = new EmailVerification
+            {
+                UserId = user.Id,
+                VerificationCode = verificationCode,
+                ExpiresAt = DateTime.Now.AddMinutes(30), // New code valid for 30 minutes
+                IsUsed = false
+            };
+
+            // Save the updated user and the new verification code
+            await _unitOfWork.EmailVerifications.AddAsync(emailVerification);
+            await _unitOfWork.SaveChangeAsync();
+
+            // Send the new verification email
+            string emailContent = $"Dear {user.UserName},<br/>Please use the following verification code to validate your email: <strong>{verificationCode}</strong>.<br/>The code will expire in 30 minutes.";
+            var emailResponse = await _emailService.SendValidationEmail(user.Email, emailContent);
+
+            if (!emailResponse.IsSuccess)
+            {
+                response.SetBadRequest("Failed to send verification email.");
+                return response;
+            }
+
+            response.SetOk("Email updated successfully. Please check your new email for the verification code.");
+            return response;
+        }
+
+        public async Task<ApiResponse> LoginAsync(LoginRequest request)
+        {
+            ApiResponse response = new ApiResponse();
+            var account = await _unitOfWork.UserAccounts.GetAsync(u => u.Email == request.UserEmail);
+            if (account == null || !VerifyPasswordHash(request.Password, account.PasswordHash, account.PasswordSalt))
             {
                 response.SetBadRequest(message: "Username or password is wrong");
                 return response;
             }
 
-            response.SetOk(CreateToken(_account));
+            if (account.IsEmailVerified == false)
+            {
+                response.SetBadRequest(message: "Please Verify your email");
+                return response;
+            }
+
+            response.SetOk(CreateToken(account));
             return response;
         }
+
+
 
         private string CreateToken(UserAccount user)
         {
@@ -151,7 +250,7 @@ namespace Application.Services
             {
                 return new ApiResponse().SetBadRequest("New password and confirmation do not match !"); // New password and confirmation do not match
             }
-            
+
             var passwordData = CreatePasswordHash(newPassword);
             user.PasswordHash = passwordData.PasswordHash;
             user.PasswordSalt = passwordData.PasswordSalt;

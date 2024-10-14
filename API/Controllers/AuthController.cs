@@ -41,6 +41,22 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("Verification")]
+        public async Task<IActionResult> Verification(VerificationEmailRequest request)
+        {
+
+            var result = await _service.VerifyEmailAsync(request.UserId, request.VerificationCode);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPut("Email")]
+        public async Task<IActionResult> UpdateEmailVerification(UpdateEmailVerification request)
+        {
+
+            var result = await _service.UpdateEmailAsync(request.UserId, request.NewEmail);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
         [Authorize]
         [HttpPost("UpdatePassword")]
         public async Task<IActionResult> UpdatePassword(ChangePasswordRequest request)
