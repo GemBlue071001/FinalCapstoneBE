@@ -16,12 +16,15 @@ namespace Infrastructure
         public IEducationDetailRepository EducationDetails { get; }
         public IExperienceDetailRepository ExperienceDetails { get; }
         public IBusinessStreamRepository BusinessStreams { get;  }
-        public ISkillSetRepository SkillSets { get; set; }
-        public IJobSkillSetRepository JobSkillSets { get; set; }
+        public ISkillSetRepository SkillSets { get; }
+        public IJobSkillSetRepository JobSkillSets { get;  }
         public IJobPostActivityRepository JobPostActivities { get; }
-        public ICVRepository CVs { get; set; }
-        public ISeekerSkillSetRepository SeekerSkillSets { get; set; }
-        public IFollowCompanyRepository FollowCompanies { get; set; }
+        public ICVRepository CVs { get;  }
+        public ISeekerSkillSetRepository SeekerSkillSets { get; }
+        public IFollowCompanyRepository FollowCompanies { get;  }
+        public INotifcationRepository Notifcations { get;  }
+        public IEmailTemplateRepository EmailTemplates { get; }
+        public IEmailVerificationRepository EmailVerifications { get; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -40,6 +43,9 @@ namespace Infrastructure
             CVs = new CVRepository(context);
             SeekerSkillSets = new SeekerSkillSetRepository(context);
             FollowCompanies = new FollowCompanyRepository(context);
+            Notifcations = new NotificationRepository(context);
+            EmailTemplates = new EmailTemplateRepository(context);
+            EmailVerifications = new EmailVerificationRepository(context);
         }
 
         public async Task SaveChangeAsync()

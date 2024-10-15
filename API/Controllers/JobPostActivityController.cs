@@ -1,8 +1,6 @@
 ﻿using Application.Interface;
-using Application.Request.EducationDetail;
 using Application.Request.JobPostActivity;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -12,10 +10,12 @@ namespace API.Controllers
     public class JobPostActivityController : ControllerBase
     {
         private IJobPostActivityService _service;
+        private readonly IEventTriggerService _eventTriggerService;
 
-        public JobPostActivityController(IJobPostActivityService service)
+        public JobPostActivityController(IJobPostActivityService service, IEventTriggerService eventTriggerService)
         {
             _service = service;
+            _eventTriggerService = eventTriggerService;
         }
 
         [Authorize(Roles = "JobSeeker")]
@@ -23,6 +23,10 @@ namespace API.Controllers
         public async Task<IActionResult> AddNewJobPostActivityAsync(JobPostActivityRequest request)
         {
             var response = await _service.AddNewJobPostActivityAsync(request);
+            if (response.IsSuccess && response.Result is not null)
+            {
+                await _eventTriggerService.TriggerSendMessageToGroupEvent($"{response.Result}", "Application Applied");
+            }
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
@@ -31,6 +35,10 @@ namespace API.Controllers
         public async Task<IActionResult> UpdateJobPostActivityAsync(JobPostActivityUpdateRequest request)
         {
             var response = await _service.UpdateJobPostActivityAsync(request);
+            if (response.IsSuccess && response.Result is not null ) 
+            {
+                await _eventTriggerService.SendMessageToUser($"{response.Result}", $"Application status updated to: ${request.Status?.ToString()}");
+            }
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }

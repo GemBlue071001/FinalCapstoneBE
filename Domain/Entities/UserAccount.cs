@@ -16,6 +16,7 @@ namespace Domain.Entities
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
+        public bool? IsEmailVerified { get; set; } = false;
         public Role Role { get; set; }
 
         //Navigation Property
@@ -30,6 +31,8 @@ namespace Domain.Entities
         public List<CV>? CVs { get; set; }
         public List<Review>? Reviews { get; set; }
         public List<FollowCompany>? FollowCompanys { get; set; }
+        public List<Notification>? Notifications { get; set; }
+        public List<EmailVerification>? EmailVerifications { get; set; }
 
 
     }

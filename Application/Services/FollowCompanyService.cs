@@ -72,7 +72,7 @@ namespace Application.Services
                 {
                     return apiResponse.SetBadRequest("Not found follow company " + id);
                 }
-                await _unitOfWork.CVs.RemoveByIdAsync(followCompany.Id);
+                await _unitOfWork.FollowCompanies.RemoveByIdAsync(followCompany.Id);
                 await _unitOfWork.SaveChangeAsync();
                 return new ApiResponse().SetOk("follow company deleted successfully!");
             }

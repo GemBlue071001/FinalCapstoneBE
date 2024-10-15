@@ -38,6 +38,7 @@ namespace Application.MyMapper
             //User
             CreateMap<UserAccount, UserResponse>().ReverseMap();
             CreateMap<SeekerSkillSetRequest, SeekerSkillSet>();
+            CreateMap<UpdateUserRequest, UserAccount>();
 
             CreateMap<UserAccount, UserProfileResponse>()
                             .ForMember(

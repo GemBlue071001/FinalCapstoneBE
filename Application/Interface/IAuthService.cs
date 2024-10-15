@@ -12,5 +12,8 @@ namespace Application.Interface
     {
         Task<ApiResponse> LoginAsync(LoginRequest account);
         Task<ApiResponse> RegisterAsync(UserRegisterRequest user);
+        Task<ApiResponse> ChangePassword(string currentPassword, string newPassword, string confirmPassword);
+        Task<ApiResponse> VerifyEmailAsync(int userId, string verificationCode);
+        Task<ApiResponse> UpdateEmailAsync(int userId, string newEmail);
     }
 }

@@ -19,10 +19,13 @@ namespace Application.Services
         private readonly IUnitOfWork _unitOfWork;
 
         private readonly IMapper _mapper;
-        public JobPostService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IEmailService _emailService;
+
+        public JobPostService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
 
@@ -42,12 +45,6 @@ namespace Application.Services
                     return new ApiResponse().SetBadRequest("Job type not found");
                 }
 
-                //var jobLocation = await _unitOfWork.JobLocations.GetAsync(jl => jl.Id == jobPostRequest.JobLocationId);
-                //if (jobLocation == null)
-                //{
-                //    return new ApiResponse().SetBadRequest("Job location not found");
-                //}
-
                 var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == jobPostRequest.UserId);
                 if (user == null)
                 {
@@ -56,8 +53,9 @@ namespace Application.Services
                 var skillSets = await _unitOfWork.SkillSets.GetAllAsync(u => jobPostRequest.SkillSetIds.Contains(u.Id));
                 if (jobPostRequest.SkillSetIds.Count != skillSets.Count)
                 {
-                    return new ApiResponse().SetBadRequest("Job Skill Set Id is invalid !");
+                    return new ApiResponse().SetBadRequest("Job Skill Set Id is invalid!");
                 }
+
                 var listJobPostSkillSet = new List<JobSkillSet>();
                 foreach (var skillSet in skillSets)
                 {
@@ -70,25 +68,39 @@ namespace Application.Services
                 jobPost.JobSkillSets = listJobPostSkillSet;
                 jobPost.Company = company;
                 jobPost.JobType = jobType;
-                //jobPost.JobLocation = jobLocation;
                 jobPost.UserAccount = user;
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
 
-                return new ApiResponse().SetOk("Create Success !!");
+                // Fetch all users who have followed the company
+                var followers = await _unitOfWork.FollowCompanies.GetAllAsync(f => f.CompanyId == jobPostRequest.CompanyId, x => x.Include(x => x.UserAccount));
+                if (followers != null && followers.Count > 0)
+                {
+                    var followerEmails = followers.Select(f => f.UserAccount.Email).ToList();
+                    var emailContent = await _unitOfWork.EmailTemplates.GetAsync(x => x.Name.Equals("Job Opportunity Email"));
+
+                    // Send email to each follower
+                    foreach (var userEmail in followerEmails)
+                    {
+                        await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}" , company.CompanyName, jobPost.JobTitle);
+                    }
+                }
+
+                return new ApiResponse().SetOk("Create Success and emails sent to followers!");
             }
             catch (Exception ex)
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
+
         public async Task<ApiResponse> GetJobPostAsync()
         {
             try
             {
                 var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null, x => x.Include(x => x.Company)
                                                                                   .Include(x => x.JobLocations)
-                                                                                        .ThenInclude(x=>x.Location)
+                                                                                        .ThenInclude(x => x.Location)
                                                                                   .Include(x => x.JobType)
                                                                                   .Include(x => x.JobSkillSets)
                                                                                         .ThenInclude(x => x.SkillSet));
@@ -163,7 +175,8 @@ namespace Application.Services
                 PhoneNumber = x.UserAccount.PhoneNumber,
                 CVId = x.CvId,
                 CVPath = x.CV?.Url ?? string.Empty, // Assuming CV has a property 'Path'
-                JobPostActivityId = x.Id
+                JobPostActivityId = x.Id,
+                Status = x.Status.ToString(),
             }).ToList();
 
             // Return the mapped CandidateResponse list
