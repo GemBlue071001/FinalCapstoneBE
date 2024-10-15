@@ -86,7 +86,7 @@ namespace Application.Services
                 }
                 await _unitOfWork.JobTypes.RemoveByIdAsync(id);
                 await _unitOfWork.SaveChangeAsync();
-                return response.SetOk(jobType);
+                return response.SetOk(experienceDetail);
             }
             catch (Exception ex)
             {
