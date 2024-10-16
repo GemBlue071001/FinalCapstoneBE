@@ -25,6 +25,8 @@ namespace Infrastructure
         public INotifcationRepository Notifcations { get;  }
         public IEmailTemplateRepository EmailTemplates { get; }
         public IEmailVerificationRepository EmailVerifications { get; }
+        public IFollowJobRepository FollowJobs { get; }
+        
 
         public UnitOfWork(AppDbContext context)
         {
@@ -46,6 +48,7 @@ namespace Infrastructure
             Notifcations = new NotificationRepository(context);
             EmailTemplates = new EmailTemplateRepository(context);
             EmailVerifications = new EmailVerificationRepository(context);
+            FollowJobs = new FollowJobRepository(context);
         }
 
         public async Task SaveChangeAsync()

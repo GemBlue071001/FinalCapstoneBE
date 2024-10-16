@@ -22,6 +22,7 @@ namespace Application
         public INotifcationRepository Notifcations { get; }
         public IEmailTemplateRepository EmailTemplates { get; }
         public IEmailVerificationRepository EmailVerifications { get; }
+        public IFollowJobRepository FollowJobs { get;  }
         public Task SaveChangeAsync();
     }
 }

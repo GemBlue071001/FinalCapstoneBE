@@ -115,6 +115,7 @@ builder.Services.AddScoped<ICVService, CVService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IFollowCompanyService, FollowCompanyService>();
 builder.Services.AddScoped<IEventTriggerService, EventTriggerService>();
+builder.Services.AddScoped<IFollowJobPostService, FollowJobPostService>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
 

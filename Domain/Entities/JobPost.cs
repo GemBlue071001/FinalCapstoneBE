@@ -35,6 +35,7 @@ namespace Domain.Entities
         public int? JobLocationId { get; set; }
         public List<JobSkillSet> JobSkillSets { get; set; }
         public List<JobPostActivity> JobPostActivitys { get; set; }
+        public List<FollowJob> FollowJobs { get; set; }
 
     }
 }

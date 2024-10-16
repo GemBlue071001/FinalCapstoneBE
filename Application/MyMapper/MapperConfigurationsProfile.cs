@@ -6,6 +6,7 @@ using Application.Request.CV;
 using Application.Request.EducationDetail;
 using Application.Request.ExperienceDetail;
 using Application.Request.FollowCompany;
+using Application.Request.FollowJob;
 using Application.Request.JobLocation;
 using Application.Request.JobPost;
 using Application.Request.JobPostActivity;
@@ -18,6 +19,7 @@ using Application.Response.BusinessStream;
 using Application.Response.Company;
 using Application.Response.CV;
 using Application.Response.FollowCompany;
+using Application.Response.FollowJob;
 using Application.Response.JobLocation;
 using Application.Response.JobPost;
 using Application.Response.JobPostActivity;
@@ -128,7 +130,10 @@ namespace Application.MyMapper
             //FollowCompany
             CreateMap<FollowCompanyRequest, FollowCompany>();
             CreateMap<FollowCompany, FollowCompanyResponse>();
-                            
+            //FollowJob
+            CreateMap<FollowJobRequest, FollowJob>();
+            CreateMap<FollowJob, FollowJobResponse>();
+
 
         }
     }
