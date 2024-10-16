@@ -20,6 +20,7 @@ namespace Domain.Entities
         public CV CV { get; set; }
         public int? CvId { get; set; }
         public List<Notification>? Notifications { get; set; }
+        public List<JobPostActivityComment>? JobPostActivityComments { get; set; }
     }
 
     public enum JobPostActivityStatus
@@ -28,5 +29,7 @@ namespace Domain.Entities
         Pending=1,
         Rejected=2,
         Passed=3,
+        CVScreeningPassed = 4,
+        InterviewStage = 5,
     }
 }
