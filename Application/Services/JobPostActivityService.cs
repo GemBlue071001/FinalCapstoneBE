@@ -45,7 +45,7 @@ namespace Application.Services
             var jobPostActivity = _mapper.Map<JobPostActivity>(request);
             jobPostActivity.UserId = claim.Id;
             jobPostActivity.ApplicationDate = DateTime.UtcNow;
-            jobPostActivity.Status = JobPostActivityStatus.Applied;
+            jobPostActivity.Status = JobPostActivityStatus.Pending;
             await _unitOfWork.JobPostActivities.AddAsync(jobPostActivity);
             await _unitOfWork.SaveChangeAsync();
 
