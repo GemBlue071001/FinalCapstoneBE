@@ -10,6 +10,7 @@ using Application.Request.FollowJob;
 using Application.Request.JobLocation;
 using Application.Request.JobPost;
 using Application.Request.JobPostActivity;
+using Application.Request.JobPostActivityComment;
 using Application.Request.JobType;
 using Application.Request.SeekerProfile;
 using Application.Request.SkillSet;
@@ -23,6 +24,7 @@ using Application.Response.FollowJob;
 using Application.Response.JobLocation;
 using Application.Response.JobPost;
 using Application.Response.JobPostActivity;
+using Application.Response.JobPostActivityComment;
 using Application.Response.JobType;
 using Application.Response.SeekerProfile;
 using Application.Response.SkillSet;
@@ -133,7 +135,9 @@ namespace Application.MyMapper
             //FollowJob
             CreateMap<FollowJobRequest, FollowJob>();
             CreateMap<FollowJob, FollowJobResponse>();
-
+            //JobPostActivityComment
+            CreateMap<JobPostActivityCommentRequest, JobPostActivityComment>();
+            CreateMap<JobPostActivityComment, JobPostActivityCommentResponse>();
 
         }
     }
