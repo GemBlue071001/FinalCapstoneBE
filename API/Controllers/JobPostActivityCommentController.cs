@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.JobLocation;
 using Application.Request.JobPostActivityComment;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,12 @@ namespace API.Controllers
         public async Task<IActionResult> GetAllJobPostActivityCommentByJobPostActivityIdAsync(int id)
         {
             var response = await _service.GetAllJobPostActivityCommentByJobPostActivityIdAsync(id);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateJobPostActivityCommentRequest request)
+        {
+            var response = await _service.UpdateJobPostActivityCommentByIdAsync(request);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 

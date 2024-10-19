@@ -138,6 +138,7 @@ namespace Application.MyMapper
             //JobPostActivityComment
             CreateMap<JobPostActivityCommentRequest, JobPostActivityComment>();
             CreateMap<JobPostActivityComment, JobPostActivityCommentResponse>();
+            CreateMap<UpdateJobPostActivityCommentRequest, JobPostActivityComment>();
 
         }
     }

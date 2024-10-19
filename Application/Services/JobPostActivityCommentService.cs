@@ -6,6 +6,7 @@ using Application.Response.CV;
 using Application.Response.JobPost;
 using Application.Response.JobPostActivityComment;
 using AutoMapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -95,6 +96,25 @@ namespace Application.Services
                 await _unitOfWork.JobPostActivityComments.RemoveByIdAsync(id);
                 await _unitOfWork.SaveChangeAsync();
                 return apiResponse.SetOk("Delete Success");
+            }
+            catch (Exception ex)
+            {
+                return apiResponse.SetBadRequest(ex.Message);
+            }
+        }
+        public async Task<ApiResponse> UpdateJobPostActivityCommentByIdAsync(UpdateJobPostActivityCommentRequest updateJobPostActivityCommentRequest)
+        {
+            ApiResponse apiResponse = new ApiResponse();
+            try
+            {
+                var jobPostActivityComment = await _unitOfWork.JobPostActivityComments.GetAsync(x => x.Id == updateJobPostActivityCommentRequest.Id);
+                if(jobPostActivityComment == null)
+                {
+                    return apiResponse.SetNotFound("Can not found JobPostActivityComments id: " + updateJobPostActivityCommentRequest.Id);
+                }
+                _mapper.Map(updateJobPostActivityCommentRequest, jobPostActivityComment);
+                await _unitOfWork.SaveChangeAsync();
+                return apiResponse.SetOk("Update Success");
             }
             catch (Exception ex)
             {
