@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Response.JobPostActivityComment;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,6 @@ namespace Application.Response.User
         public string CVPath { get; set; } = string.Empty;
         public int? JobPostActivityId { get; set; }
         public string Status { get; set; } = string.Empty;
+        public List<JobPostActivityCommentResponse> JobPostActivityComments { get; set; } = new List<JobPostActivityCommentResponse>();
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Hangfire;
 using Application.MyBackgroundJob;
 using Hangfire.Storage.Monitoring;
+using Application.Response.JobPostActivityComment;
 
 namespace Application.Services
 {
@@ -150,6 +151,7 @@ namespace Application.Services
                 x => x.JobPostId == jobPostId,
                 x => x.Include(x => x.UserAccount)
                       .Include(x => x.CV)
+                      .Include(x=>x.JobPostActivityComments!)
             );
 
             // Map JobPostActivity to CandidateResponse
@@ -165,6 +167,13 @@ namespace Application.Services
                 CVPath = x.CV?.Url ?? string.Empty, // Assuming CV has a property 'Path'
                 JobPostActivityId = x.Id,
                 Status = x.Status.ToString(),
+                JobPostActivityComments = x.JobPostActivityComments!.Select(x=> new JobPostActivityCommentResponse
+                {
+                    Id=x.Id,
+                    CommentDate = x.CommentDate,
+                    CommentText = x.CommentText,
+                    Rating = x.Rating,
+                }).ToList()
             }).ToList();
 
             // Return the mapped CandidateResponse list
