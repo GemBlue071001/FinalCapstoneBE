@@ -6,11 +6,9 @@ using Application.Response.User;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Hangfire;
+using Application.MyBackgroundJob;
+using Hangfire.Storage.Monitoring;
 
 namespace Application.Services
 {
@@ -72,27 +70,17 @@ namespace Application.Services
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
 
-                // Fetch all users who have followed the company
-                var followers = await _unitOfWork.FollowCompanies.GetAllAsync(f => f.CompanyId == jobPostRequest.CompanyId, x => x.Include(x => x.UserAccount));
-                if (followers != null && followers.Count > 0)
-                {
-                    var followerEmails = followers.Select(f => f.UserAccount.Email).ToList();
-                    var emailContent = await _unitOfWork.EmailTemplates.GetAsync(x => x.Name.Equals("Job Opportunity Email"));
+                // Gọi Hangfire để xử lý việc gửi email sau khi job post được tạo thành công
+                BackgroundJob.Enqueue<EmailJob>(emailJob => emailJob.SendEmailsToFollowers(jobPostRequest.CompanyId, jobPost));
 
-                    // Send email to each follower
-                    foreach (var userEmail in followerEmails)
-                    {
-                        await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}" , company.CompanyName, jobPost.JobTitle);
-                    }
-                }
-
-                return new ApiResponse().SetOk("Create Success and emails sent to followers!");
+                return new ApiResponse().SetOk("Create Success! Emails will be sent to followers.");
             }
             catch (Exception ex)
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
+
 
         public async Task<ApiResponse> GetJobPostAsync()
         {

@@ -5,10 +5,11 @@ using Application.Interface;
 using Application.MyMapper;
 using Application.Services;
 using Application.SignalRHub.Model;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Domain;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Hangfire;
+using Hangfire.PostgreSql;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using Swashbuckle.AspNetCore.Filters;
-using System.Reflection;
 using System.Text;
 
 
@@ -42,6 +42,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.ConfigureWarnings(warnings =>
             warnings.Ignore(CoreEventId.NavigationBaseIncludeIgnored));
 });
+
+builder.Services.AddHangfire(config => config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration!.ConnectionStrings.DefaultConnection)));
+
+
+builder.Services.AddHangfireServer();
+
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -133,6 +139,7 @@ app.UseSwaggerUI();
 app.UseCors(p => p.SetIsOriginAllowed(origin => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 app.UseMiddleware<ValidationMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseHangfireDashboard("/dashboard");
 
 app.UseHttpsRedirection();
 
