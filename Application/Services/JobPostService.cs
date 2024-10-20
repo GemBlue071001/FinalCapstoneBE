@@ -8,8 +8,8 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Hangfire;
 using Application.MyBackgroundJob;
-using Hangfire.Storage.Monitoring;
 using Application.Response.JobPostActivityComment;
+using Application.Extensions;
 
 namespace Application.Services
 {
@@ -206,5 +206,11 @@ namespace Application.Services
             }
         }
 
+        public async Task<ApiResponse> SearchJobs(SearchJobPostRequest searchJobPostRequest)
+        {
+            var jobPosts = await _unitOfWork.JobPosts.SearchJobPosts(searchJobPostRequest);
+            var result = _mapper.Map<List<JobPostResponse>>(jobPosts ?? []);
+            return new ApiResponse().SetOk(result.ToPaginationResponse(searchJobPostRequest.PageIndex, searchJobPostRequest.PageSize));
+        }
     }
 }

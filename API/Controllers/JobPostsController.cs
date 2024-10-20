@@ -1,8 +1,5 @@
 ﻿using Application.Interface;
 using Application.Request.JobPost;
-using Application.Request.User;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -50,6 +47,13 @@ namespace API.Controllers
         {
             var resposne = await _service.GetJobPostById(id);
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchJobPost([FromBody] SearchJobPostRequest request)
+        {
+            var response = await _service.SearchJobs(request);
+            return Ok(response);
         }
     }
 }
