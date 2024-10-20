@@ -87,9 +87,9 @@ namespace API.Controllers
         }
         [Authorize]
         [HttpPost("Verification-for-employee")]
-        public async Task<IActionResult> Verification(int companyId, int employeeId, string verificationCode)
+        public async Task<IActionResult> VerifyEmailForCompanyAsync(VerifyEmailForCompanyRequest request)
         {
-            var result = await _service.VerifyEmailForCompanyAsync(companyId, employeeId, verificationCode);
+            var result = await _service.VerifyEmailForCompanyAsync(request.CompanyId, request.EmployeeId, request.VerificationCode);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }
