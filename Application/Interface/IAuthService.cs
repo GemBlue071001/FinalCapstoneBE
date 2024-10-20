@@ -1,4 +1,5 @@
 ﻿using Application.Request;
+using Application.Request.Company;
 using Application.Response;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,7 @@ namespace Application.Interface
         Task<ApiResponse> ChangePassword(string currentPassword, string newPassword, string confirmPassword);
         Task<ApiResponse> VerifyEmailAsync(int userId, string verificationCode);
         Task<ApiResponse> UpdateEmailAsync(int userId, string newEmail);
+        Task<ApiResponse> GenerateCodeToAddCompanyAsync(CompanyRegisterRequest request);
+        Task<ApiResponse> VerifyEmailForCompanyAsync(int companyId, int employeeId, string verificationCode);
     }
 }

@@ -26,5 +26,6 @@ namespace Domain.Entities
         public List<Review>? Reviews { get; set; }
         public List<UserAccount>? UserAccounts { get; set; }
         public List<FollowCompany> FollowCompanys { get; set; }
+        public List<EmailVerification>? EmailVerifications { get; set; }
     }
 }
