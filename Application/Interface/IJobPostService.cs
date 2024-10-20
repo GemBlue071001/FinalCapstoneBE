@@ -1,5 +1,6 @@
 ﻿using Application.Request.JobPost;
 using Application.Response;
+using Domain.Entities;
 
 namespace Application.Interface
 {
@@ -11,5 +12,7 @@ namespace Application.Interface
         Task<ApiResponse> GetJobSeekerByJobPost(int jobPostId);
         Task<ApiResponse> GetJobPostById(int jobPostId);
         Task<ApiResponse> SearchJobs(SearchJobPostRequest searchJobPostRequest);
+        Task<ApiResponse> UpdateStatusJobPost(int id, JobPostReviewStatus status);
+        Task<ApiResponse> UpdateJobPost(int id, JobPostRequest request);
     }
 }
