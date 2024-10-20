@@ -11,6 +11,7 @@ namespace Domain.Entities
         public int Id { get; set; }
         public DateTime ApplicationDate { get; set; }
         public JobPostActivityStatus Status { get; set; }
+        public double? Score { get; set; }
 
         //Navigation Property
         public UserAccount UserAccount { get; set; }
