@@ -2,7 +2,6 @@
 using Application.Interface;
 using Application.Request.JobPostActivity;
 using Application.Response.JobPostActivity;
-using Application.Response.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -41,8 +40,8 @@ namespace API.Controllers
         }
 
         [Authorize(Roles = "JobSeeker, Employer")]
-        [HttpGet("notifications/employer")]
-        public async Task<IActionResult> GetNotificationsForEmployer()
+        [HttpGet("notifications")]
+        public async Task<IActionResult> GetNotifications()
         {
             var userClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
 
@@ -58,7 +57,7 @@ namespace API.Controllers
                 return BadRequest("Invalid User Id. Must be integer.");
             }
 
-            var response = await _service.GetNotificationsByEmployerId(userId, false);
+            var response = await _service.GetNotifications(userId, false);
             return Ok(response);
         } 
 
@@ -72,6 +71,36 @@ namespace API.Controllers
                 await _eventTriggerService.SendMessageToUser($"{response.Result}", SignalMessage.APPLICATION_STATUS_UPDATE);
             }
             return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [Authorize(Roles = "JobSeeker, Employer")]
+        [HttpPut("notification/read")]
+        public async Task<IActionResult> ReadNotification([FromQuery] int notificationId)
+        {
+            var isReadSuccess = await _service.ReadNotification(notificationId);
+            return  isReadSuccess ? Ok() : NotFound();
+        }
+
+        [Authorize(Roles = "JobSeeker, Employer")]
+        [HttpPut("notification/read-all")]
+        public async Task<IActionResult> ReadAllNotification()
+        {
+            var userClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userClaim is null)
+            {
+                return Unauthorized();
+            }
+
+            bool isUserIdValid = int.TryParse(userClaim.Value, out int userId);
+
+            if (!isUserIdValid)
+            {
+                return BadRequest("Invalid User Id. Must be integer.");
+            }
+
+            await _service.ReadAllNotification(userId);
+            return Ok();
         }
     }
 }

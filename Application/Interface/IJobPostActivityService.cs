@@ -8,8 +8,8 @@ namespace Application.Interface
     {
         Task<ApiResponse> AddNewJobPostActivityAsync(JobPostActivityRequest request);
         Task<ApiResponse> UpdateJobPostActivityAsync(JobPostActivityUpdateRequest request);
-        Task<List<Notification>> GetNotificationsByCompanyId(int applicationId, bool isRead);
-        Task<List<Notification>> GetNotificationsByEmployerId(int useId, bool isRead);
-
+        Task<List<Notification>> GetNotifications(int useId, bool isRead);
+        Task<bool> ReadNotification(int id);
+        Task ReadAllNotification(int userId);
     }
 }
