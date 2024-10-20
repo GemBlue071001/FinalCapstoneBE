@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.JobPostActivity;
 using Application.Response;
+using Application.Response.JobPostActivity;
 using AutoMapper;
 using Domain.Entities;
 
@@ -49,7 +50,20 @@ namespace Application.Services
             await _unitOfWork.JobPostActivities.AddAsync(jobPostActivity);
             await _unitOfWork.SaveChangeAsync();
 
-            return new ApiResponse().SetOk($"{jobPost.CompanyId}");
+            var notification = new Notification
+            {
+                JobPostActivityId = jobPostActivity.Id,
+                Title = "New Application Created",
+                Description = "Status: " + jobPostActivity.Status.ToString(),
+                CreatedDate = DateTime.UtcNow,
+                ReceiverId = jobPost.CompanyId ?? 0,
+            };
+
+            await _unitOfWork.Notifcations.AddAsync(notification);
+
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ApiResponse().SetOk(new JobPostActivityMessageTemplate { CompanyId = jobPost.CompanyId ?? 0, JobPostActivityId = jobPostActivity.Id });
         }
 
         public async Task<ApiResponse> UpdateJobPostActivityAsync(JobPostActivityUpdateRequest request)
@@ -89,5 +103,48 @@ namespace Application.Services
             return new ApiResponse().SetOk(notification.ReceiverId);
         }
 
+        public async Task<List<Notification>> GetNotificationsByEmployerId(int userId, bool isRead = false)
+        {
+            var account = await _unitOfWork.UserAccounts.GetAsync(a => a.Id == userId);
+
+            if(account is null || account.CompanyId is null)
+            {
+                return [];
+            }
+
+            List<Notification> result = await GetNotificationsByCompanyId(account.CompanyId ?? 0, isRead);
+
+            return result ?? [];
+        }
+
+        public async Task<List<Notification>> GetNotificationsByCompanyId(int companyId, bool isRead = false)
+        {
+            var notifications = await _unitOfWork.Notifcations.GetAllAsync(x => x.ReceiverId == companyId);
+
+            if(notifications is null || (notifications != null && notifications.Count <= 0))
+            {
+                return [];
+            }
+
+            List<Notification> result = notifications!.Select(n => new Notification
+            {
+                Id = n.Id,
+                Title = n.Title,
+                Description = n.Description,
+                IsRead = n.IsRead,
+                CreatedDate = DateTime.UtcNow,
+                JobPostActivityId = companyId,
+                ReceiverId = n.ReceiverId,
+            }).ToList();
+
+            if (isRead == false)
+            {
+                result = result.Where(res => res.IsRead == false).ToList();
+            }
+
+            result = result.OrderByDescending(item => item.CreatedDate).ToList();
+
+            return result ?? [];
+        }
     }
 }

@@ -24,7 +24,6 @@ namespace API.Controllers
         public async Task<IActionResult> GetEducationDetailListAsync()
         {
             var resposne = await _service.GetEducationDetailListAsync();
-            await _eventTriggerService.TriggerSendMessageToGroupEvent("1", "Hello world");
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
 
