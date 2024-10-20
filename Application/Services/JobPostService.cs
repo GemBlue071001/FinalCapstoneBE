@@ -247,23 +247,22 @@ namespace Application.Services
             jobPost.ImageURL = request.ImageURL;
 
             //replace all skill set
-            var postSkillSet = await _unitOfWork.JobSkillSets.GetAllAsync(skill => skill.JobPostId == id);
+            var validSkillIds = new List<int>();
 
-            if (postSkillSet != null && request.SkillSetIds != null)
+            foreach(var newId in request.SkillSetIds)
             {
-                var currentSkillIds = postSkillSet.Select(item => item.SkillSetId).ToList();
+                var skillSet = await _unitOfWork.SkillSets.GetAsync(s => s.Id == newId);
+                if(skillSet != null)
+                {
+                    validSkillIds.Add(skillSet.Id);
+                }
+            }
 
-                var notChangeSkillIds = request.SkillSetIds.Intersect(currentSkillIds).ToList();
-                var newSkillIds = request.SkillSetIds.Except(currentSkillIds).ToList();
-                var removedSkillIds = currentSkillIds.Except(newSkillIds).ToList();
-
-                currentSkillIds.Clear();
-                currentSkillIds.AddRange(notChangeSkillIds);
-                currentSkillIds.AddRange(newSkillIds);
-
+            if (validSkillIds.Count >= 0)
+            {
                 jobPost.JobSkillSets?.Clear();
 
-                jobPost.JobSkillSets?.AddRange(currentSkillIds.Select(skillId => new JobSkillSet
+                jobPost.JobSkillSets?.AddRange(validSkillIds.Select(skillId => new JobSkillSet
                 {
                     CreatedDate = DateTime.Now,
                     IsDeleted = false,
