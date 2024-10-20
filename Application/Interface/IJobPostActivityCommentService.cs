@@ -13,7 +13,7 @@ namespace Application.Interface
         Task<ApiResponse> AddNewJobPostActivityCommentAsync(JobPostActivityCommentRequest jobPostActivityCommentRequest);
         Task<ApiResponse> GetAllJobPostActivityCommentAsync();
         Task<ApiResponse> DeleteJobPostActivityCommentByIdAsync(int id);
-        Task<ApiResponse> GetAllJobPostActivityCommentByJobPostActivityIdAsync(int jobPostActivity);
+        Task<ApiResponse> GetAllJobPostActivityCommentByJobPostActivityIdAsync(JobPostCommentViewRequest request);
         Task<ApiResponse> UpdateJobPostActivityCommentByIdAsync(UpdateJobPostActivityCommentRequest updateJobPostActivityCommentRequest);
 
     }

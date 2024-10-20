@@ -8,8 +8,8 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Hangfire;
 using Application.MyBackgroundJob;
-using Hangfire.Storage.Monitoring;
 using Application.Response.JobPostActivityComment;
+using Application.Extensions;
 
 namespace Application.Services
 {
@@ -68,6 +68,7 @@ namespace Application.Services
                 jobPost.Company = company;
                 jobPost.JobType = jobType;
                 jobPost.UserAccount = user;
+                jobPost.JobPostReviewStatus = JobPostReviewStatus.Pending;
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
 
@@ -206,5 +207,78 @@ namespace Application.Services
             }
         }
 
+        public async Task<ApiResponse> SearchJobs(SearchJobPostRequest searchJobPostRequest)
+        {
+            var jobPosts = await _unitOfWork.JobPosts.SearchJobPosts(searchJobPostRequest);
+            var result = _mapper.Map<List<JobPostResponse>>(jobPosts ?? []);
+            return new ApiResponse().SetOk(result.ToPaginationResponse(searchJobPostRequest.PageIndex, searchJobPostRequest.PageSize));
+        }
+
+        public async Task<ApiResponse> UpdateStatusJobPost(int id, JobPostReviewStatus status)
+        {
+            var post = await _unitOfWork.JobPosts.GetAsync(post => post.Id ==  id);
+
+            if (post == null) {
+                return new ApiResponse().SetNotFound();
+            }
+
+            post.JobPostReviewStatus = status;
+            await _unitOfWork.SaveChangeAsync();
+            return new ApiResponse().SetOk(post);
+        }
+
+        public async Task<ApiResponse> UpdateJobPost(int id, JobPostRequest request)
+        {
+            var jobPost = await _unitOfWork.JobPosts.GetAsync(post => post.Id == id, x => x.Include(p => p.JobSkillSets));
+            
+            if (jobPost == null)
+            {
+                return new ApiResponse().SetNotFound();
+            }
+
+            jobPost.JobTitle = request.JobTitle;
+            jobPost.JobDescription = request.JobDescription;
+            jobPost.Salary = request.Salary;
+            jobPost.ExperienceRequired = request.ExperienceRequired;
+            jobPost.QualificationRequired = request.QualificationRequired;
+            jobPost.Benefits = request.Benefits;
+            jobPost.SkillLevelRequired = request.SkillLevelRequired;
+            jobPost.JobTypeId = request.JobTypeId;
+            jobPost.ImageURL = request.ImageURL;
+
+            //replace all skill set
+            var validSkillIds = new List<int>();
+
+            foreach(var newId in request.SkillSetIds)
+            {
+                var skillSet = await _unitOfWork.SkillSets.GetAsync(s => s.Id == newId);
+                if(skillSet != null)
+                {
+                    validSkillIds.Add(skillSet.Id);
+                }
+            }
+
+            if (validSkillIds.Count >= 0)
+            {
+                jobPost.JobSkillSets?.Clear();
+
+                jobPost.JobSkillSets?.AddRange(validSkillIds.Select(skillId => new JobSkillSet
+                {
+                    CreatedDate = DateTime.Now,
+                    IsDeleted = false,
+                    JobPostId = id,
+                    SkillSetId = skillId,
+                }).ToList());
+            }
+
+            //re-submit rejected post
+            if (jobPost.JobPostReviewStatus == JobPostReviewStatus.Rejected) 
+            {
+                jobPost.JobPostReviewStatus = JobPostReviewStatus.Pending;
+            }
+
+            await _unitOfWork.SaveChangeAsync();
+            return new ApiResponse().SetOk();
+        }
     }
 }

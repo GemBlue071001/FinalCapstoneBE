@@ -3,6 +3,7 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241020143211_addScore")]
+    partial class addScore
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -286,9 +289,6 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("ExpiresAt")
                         .HasColumnType("timestamp without time zone");
 
@@ -303,8 +303,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("UserId");
 
@@ -1109,17 +1107,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.EmailVerification", b =>
                 {
-                    b.HasOne("Domain.Entities.Company", "Company")
-                        .WithMany("EmailVerifications")
-                        .HasForeignKey("CompanyId");
-
                     b.HasOne("Domain.Entities.UserAccount", "User")
                         .WithMany("EmailVerifications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Company");
 
                     b.Navigation("User");
                 });
@@ -1322,8 +1314,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Company", b =>
                 {
-                    b.Navigation("EmailVerifications");
-
                     b.Navigation("FollowCompanys");
 
                     b.Navigation("JobPosts");

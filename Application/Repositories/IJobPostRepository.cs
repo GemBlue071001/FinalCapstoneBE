@@ -1,14 +1,11 @@
 ﻿using Application.Repository;
+using Application.Request.JobPost;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Repositories
 {
     public interface IJobPostRepository : IGenericRepository<JobPost>
     {
+        Task<List<JobPost>> SearchJobPosts(SearchJobPostRequest request);
     }
 }
