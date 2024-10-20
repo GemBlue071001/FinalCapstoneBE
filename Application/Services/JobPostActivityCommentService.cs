@@ -1,19 +1,11 @@
-﻿using Application.Interface;
-using Application.Request.JobPostActivity;
+﻿using Application.Extensions;
+using Application.Interface;
 using Application.Request.JobPostActivityComment;
 using Application.Response;
-using Application.Response.CV;
-using Application.Response.JobPost;
 using Application.Response.JobPostActivityComment;
 using AutoMapper;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -63,12 +55,12 @@ namespace Application.Services
                 return apiResponse.SetBadRequest(ex.Message);
             }
         }
-        public async Task<ApiResponse> GetAllJobPostActivityCommentByJobPostActivityIdAsync(int jobPostActivity)
+        public async Task<ApiResponse> GetAllJobPostActivityCommentByJobPostActivityIdAsync(JobPostCommentViewRequest request)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var jobPostActivityComments = await _unitOfWork.JobPostActivityComments.GetAllAsync(x => x.JobPostActivityId == jobPostActivity, x => x.Include(x => x.JobPostActivity));
+                var jobPostActivityComments = await _unitOfWork.JobPostActivityComments.GetAllAsync(x => x.JobPostActivityId == request.Id, x => x.Include(x => x.JobPostActivity));
                 var jobPostActivityCommentResponse = jobPostActivityComments.Select(x => new JobPostActivityCommentOfJobPostActivityResponse
                 {
                     Id = x.Id,
@@ -76,7 +68,7 @@ namespace Application.Services
                     CommentText = x.CommentText,
                     Rating = x.Rating,
                 }).ToList();
-                return apiResponse.SetOk(jobPostActivityCommentResponse);
+                return apiResponse.SetOk(jobPostActivityCommentResponse.ToPaginationResponse(request.PageIndex, request.PageSize));
             }
             catch (Exception ex)
             {
