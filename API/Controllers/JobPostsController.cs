@@ -75,7 +75,7 @@ namespace API.Controllers
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
 
-        [HttpGet("search")]
+        [HttpPost("search")]
         public async Task<IActionResult> SearchJobPost([FromBody] SearchJobPostRequest request)
         {
             var response = await _service.SearchJobs(request);
