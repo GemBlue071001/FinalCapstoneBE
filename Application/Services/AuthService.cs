@@ -130,7 +130,7 @@ namespace Application.Services
 
             // Generate verification code
             var verificationCode = GenerateVerificationCode(); // Method to generate the code
-            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == claim.Id);
+            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Email!.Equals(request.Email));
             var emailVerification = new EmailVerification
             {
                 UserId = user.Id,
