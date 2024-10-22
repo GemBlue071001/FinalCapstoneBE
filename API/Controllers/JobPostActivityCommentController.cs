@@ -43,7 +43,7 @@ namespace API.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
         
-        [HttpGet("comments")]
+        [HttpPost("comments")]
         public async Task<IActionResult> GetPaginatedJobPostActivityCommentByJobPostActivityIdAsync(JobPostCommentViewRequest request)
         {
             var response = await _service.GetAllJobPostActivityCommentByJobPostActivityIdAsync(request);

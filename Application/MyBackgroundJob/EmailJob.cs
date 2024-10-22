@@ -20,7 +20,7 @@ namespace Application.MyBackgroundJob
         }
 
         [AutomaticRetry(Attempts = 2)]
-        public async Task SendEmailsToFollowers(int companyId, JobPost jobPost)
+        public async Task SendEmailsToFollowers(int companyId, string jobTitle)
         {
             var company = await _unitOfWork.Companys.GetAsync(c => c.Id == companyId);
             if (company == null)
@@ -36,7 +36,7 @@ namespace Application.MyBackgroundJob
 
                 foreach (var userEmail in followerEmails)
                 {
-                    await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}", company.CompanyName, jobPost.JobTitle);
+                    await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}", company.CompanyName, jobTitle);
                 }
             }
         }

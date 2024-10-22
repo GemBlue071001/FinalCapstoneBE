@@ -68,12 +68,14 @@ namespace Application.Services
                 jobPost.Company = company;
                 jobPost.JobType = jobType;
                 jobPost.UserAccount = user;
+                jobPost.CreatedDate = DateTime.UtcNow;
+                jobPost.PostingDate = DateTime.UtcNow;
                 jobPost.JobPostReviewStatus = JobPostReviewStatus.Pending;
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
 
                 // Gọi Hangfire để xử lý việc gửi email sau khi job post được tạo thành công
-                BackgroundJob.Enqueue<EmailJob>(emailJob => emailJob.SendEmailsToFollowers(jobPostRequest.CompanyId, jobPost));
+                BackgroundJob.Enqueue<EmailJob>(emailJob => emailJob.SendEmailsToFollowers(jobPostRequest.CompanyId, jobPost.JobTitle));
 
                 return new ApiResponse().SetOk("Create Success! Emails will be sent to followers.");
             }

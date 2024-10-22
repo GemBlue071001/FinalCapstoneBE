@@ -5,8 +5,7 @@
         public string JobTitle { get; set; }
         public string JobDescription { get; set; }
         public decimal Salary { get; set; }
-        //public DateTime PostingDate { get; set; } = DateTime.SpecifyKind(new DateTime(), DateTimeKind.Utc);
-        //public DateTime ExpiryDate { get; set; }
+        public DateTime ExpiryDate { get; set; }
         public int ExperienceRequired { get; set; }
         public string QualificationRequired { get; set; }
         public string Benefits { get; set; }
