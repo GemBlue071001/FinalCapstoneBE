@@ -18,7 +18,8 @@ namespace Infrastructure.Repositories
                 .Include(jp => jp.JobLocations)
                 .Include(jp => jp.Company) 
                 .Include(jp => jp.JobSkillSets)
-                    .ThenInclude(jssk => jssk.SkillSet);
+                    .ThenInclude(jssk => jssk.SkillSet)
+                    .Where(jp => jp.JobPostReviewStatus == JobPostReviewStatus.Accepted);
 
             if (!string.IsNullOrEmpty(request.JobType))
             {
