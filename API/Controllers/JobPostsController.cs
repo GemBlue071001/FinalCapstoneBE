@@ -48,7 +48,7 @@ namespace API.Controllers
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
 
-        [HttpGet]
+        [HttpGet("accept")]
         public async Task<IActionResult> GetJobPostAsync()
         {
             var resposne = await _service.GetJobPostAsync();
