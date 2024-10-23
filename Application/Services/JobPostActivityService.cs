@@ -28,6 +28,10 @@ namespace Application.Services
             {
                 return new ApiResponse().SetBadRequest("Job Post not found.");
             }
+            if(DateTime.UtcNow > jobPost.ExpiryDate)
+            {
+                return new ApiResponse().SetBadRequest("Job Post Exprire");
+            }
             var jobPostActivityModel = await _unitOfWork.JobPostActivities.GetAsync(x => x.JobPostId == request.JobPostId && claim.Id == x.UserId);
             if (jobPostActivityModel != null)
             {
