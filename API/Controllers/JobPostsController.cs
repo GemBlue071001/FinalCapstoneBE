@@ -81,5 +81,11 @@ namespace API.Controllers
             var response = await _service.SearchJobs(request);
             return Ok(response);
         }
+        [HttpGet("pending")]
+        public async Task<IActionResult> GetAllJobPostPending()
+        {
+            var resposne = await _service.GetAllJobPostPending();
+            return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
+        }
     }
 }
