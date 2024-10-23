@@ -1,8 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.JobPost;
-using Application.Request.User;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -25,7 +24,31 @@ namespace API.Controllers
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
 
-        [HttpGet]
+        [Authorize(Roles = "Employer, Manager, Admin")]
+        [HttpPut("approve")]
+        public async Task<IActionResult> ApproveJobPost([FromQuery] int id)
+        {
+            var resposne = await _service.UpdateStatusJobPost(id, JobPostReviewStatus.Accepted);
+            return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
+        }
+
+        [Authorize(Roles = "Employer, Manager, Admin")]
+        [HttpPut("reject")]
+        public async Task<IActionResult> RejectJobPost(int id)
+        {
+            var resposne = await _service.UpdateStatusJobPost(id, JobPostReviewStatus.Rejected);
+            return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
+        }
+
+        [Authorize(Roles = "Employer")]
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateJobPost([FromQuery] int id, [FromBody] JobPostRequest request)
+        {
+            var resposne = await _service.UpdateJobPost(id, request);
+            return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
+        }
+
+        [HttpGet("accept")]
         public async Task<IActionResult> GetJobPostAsync()
         {
             var resposne = await _service.GetJobPostAsync();
@@ -49,6 +72,19 @@ namespace API.Controllers
         public async Task<IActionResult> GetJobPostById(int id)
         {
             var resposne = await _service.GetJobPostById(id);
+            return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
+        }
+
+        [HttpPost("search")]
+        public async Task<IActionResult> SearchJobPost([FromBody] SearchJobPostRequest request)
+        {
+            var response = await _service.SearchJobs(request);
+            return Ok(response);
+        }
+        [HttpGet("pending")]
+        public async Task<IActionResult> GetAllJobPostPending()
+        {
+            var resposne = await _service.GetAllJobPostPending();
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
     }

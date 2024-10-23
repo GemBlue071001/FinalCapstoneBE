@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.JobPostActivity;
 using Application.Response;
+using Application.Response.JobPostActivity;
 using AutoMapper;
 using Domain.Entities;
 
@@ -27,6 +28,10 @@ namespace Application.Services
             {
                 return new ApiResponse().SetBadRequest("Job Post not found.");
             }
+            if(DateTime.UtcNow > jobPost.ExpiryDate)
+            {
+                return new ApiResponse().SetBadRequest("Job Post Exprire");
+            }
             var jobPostActivityModel = await _unitOfWork.JobPostActivities.GetAsync(x => x.JobPostId == request.JobPostId && claim.Id == x.UserId);
             if (jobPostActivityModel != null)
             {
@@ -45,11 +50,24 @@ namespace Application.Services
             var jobPostActivity = _mapper.Map<JobPostActivity>(request);
             jobPostActivity.UserId = claim.Id;
             jobPostActivity.ApplicationDate = DateTime.UtcNow;
-            jobPostActivity.Status = JobPostActivityStatus.Applied;
+            jobPostActivity.Status = JobPostActivityStatus.Pending;
             await _unitOfWork.JobPostActivities.AddAsync(jobPostActivity);
             await _unitOfWork.SaveChangeAsync();
 
-            return new ApiResponse().SetOk($"{jobPost.CompanyId}");
+            var notification = new Notification
+            {
+                JobPostActivityId = jobPostActivity.Id,
+                Title = "New Application Created",
+                Description = "Status: " + jobPostActivity.Status.ToString(),
+                CreatedDate = DateTime.UtcNow,
+                ReceiverId = jobPost.CompanyId ?? 0,
+            };
+
+            await _unitOfWork.Notifcations.AddAsync(notification);
+
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ApiResponse().SetOk(new JobPostActivityMessageTemplate { CompanyId = jobPost.CompanyId ?? 0, JobPostActivityId = jobPostActivity.Id });
         }
 
         public async Task<ApiResponse> UpdateJobPostActivityAsync(JobPostActivityUpdateRequest request)
@@ -71,12 +89,12 @@ namespace Application.Services
                 CreatedDate = DateTime.UtcNow,
             };
 
-            if(jobPostActivity.UserId is not null)
+            if (jobPostActivity.UserId is not null)
             {
                 var userAccount = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == jobPostActivity.UserId);
-                
-                if (userAccount is not null) 
-                { 
+
+                if (userAccount is not null)
+                {
                     notification.ReceiverId = userAccount.Id;
                 }
             }
@@ -89,5 +107,74 @@ namespace Application.Services
             return new ApiResponse().SetOk(notification.ReceiverId);
         }
 
+        public async Task<List<Notification>> GetNotifications(int userId, bool isUnreadOnly = false)
+        {
+            var account = await _unitOfWork.UserAccounts.GetAsync(a => a.Id == userId);
+
+            if (account is null)
+            {
+                return [];
+            }
+
+            var receiverId = userId;
+
+            if(account.Role == Role.Employer)
+            {
+                receiverId = account.CompanyId ?? 0;
+            }
+
+            var notifications = await _unitOfWork.Notifcations.GetAllAsync(x => x.ReceiverId == receiverId);
+
+            if (notifications is null || (notifications != null && notifications.Count <= 0))
+            {
+                return [];
+            }
+
+            List<Notification> result = notifications!.Select(n => new Notification
+            {
+                Id = n.Id,
+                Title = n.Title,
+                Description = n.Description,
+                IsRead = n.IsRead,
+                CreatedDate = DateTime.UtcNow,
+                JobPostActivityId = n.JobPostActivityId,
+                ReceiverId = n.ReceiverId,
+            }).ToList();
+
+            if (isUnreadOnly == true)
+            {
+                result = result.Where(item => item.IsRead == false).ToList();
+            }
+
+            result = result.OrderByDescending(item => item.CreatedDate).ToList();
+
+            return result ?? [];
+        }
+
+        public async Task<bool> ReadNotification(int id)
+        {
+            var notification = await _unitOfWork.Notifcations.GetAsync(x => x.Id == id);
+            if (notification != null)
+            {
+                notification.IsRead = true;
+                await _unitOfWork.SaveChangeAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task ReadAllNotification(int userId)
+        {
+            var notifications = await GetNotifications(userId, false);
+
+            if (notifications != null && notifications.Count > 0)
+            {
+                foreach (var notify in notifications.ToList())
+                {
+                    notify.IsRead = true;
+                }
+                await _unitOfWork.SaveChangeAsync();
+            }
+        }
     }
 }

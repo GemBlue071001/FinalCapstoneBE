@@ -18,10 +18,12 @@ namespace Application
         public IJobPostActivityRepository JobPostActivities { get; }
         public ICVRepository CVs { get; }
         public ISeekerSkillSetRepository SeekerSkillSets { get; }
-        public IFollowCompanyRepository FollowCompanies { get;  }
+        public IFollowCompanyRepository FollowCompanies { get; }
         public INotifcationRepository Notifcations { get; }
         public IEmailTemplateRepository EmailTemplates { get; }
         public IEmailVerificationRepository EmailVerifications { get; }
+        public IFollowJobRepository FollowJobs { get; }
+        public IJobPostActivityCommentRepository JobPostActivityComments { get; }
         public Task SaveChangeAsync();
     }
 }

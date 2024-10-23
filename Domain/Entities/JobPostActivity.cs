@@ -11,6 +11,7 @@ namespace Domain.Entities
         public int Id { get; set; }
         public DateTime ApplicationDate { get; set; }
         public JobPostActivityStatus Status { get; set; }
+        public double? Score { get; set; }
 
         //Navigation Property
         public UserAccount UserAccount { get; set; }
@@ -20,6 +21,7 @@ namespace Domain.Entities
         public CV CV { get; set; }
         public int? CvId { get; set; }
         public List<Notification>? Notifications { get; set; }
+        public List<JobPostActivityComment>? JobPostActivityComments { get; set; }
     }
 
     public enum JobPostActivityStatus
@@ -28,5 +30,7 @@ namespace Domain.Entities
         Pending=1,
         Rejected=2,
         Passed=3,
+        CVScreeningPassed = 4,
+        InterviewStage = 5,
     }
 }

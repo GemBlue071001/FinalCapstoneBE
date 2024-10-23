@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Repositories;
+using Domain.Entities;
 using Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,8 @@ namespace Infrastructure
         public DbSet<FollowCompany> FollowCompanys { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<EmailVerification> EmailVerifications { get; set; }
+        public DbSet<FollowJob> FollowJobs { get; set; }
+        public DbSet<JobPostActivityComment> JobPostActivityComments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -54,6 +57,8 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new NotificationConfig());
             modelBuilder.ApplyConfiguration(new EmailTemplateConfig());
             modelBuilder.ApplyConfiguration(new EmailVerificationsConfig());
+            modelBuilder.ApplyConfiguration(new FollowJobConfig());
+            modelBuilder.ApplyConfiguration(new JobPostActivityCommentConfig());
         }
 
     }

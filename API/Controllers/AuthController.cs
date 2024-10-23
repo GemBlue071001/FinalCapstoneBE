@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request;
 using Application.Request.Auth;
+using Application.Request.Company;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -68,14 +69,27 @@ namespace API.Controllers
         [HttpPost("test")]
         public async Task<IActionResult> Test(UserRegisterRequest user)
         {
-            return Ok("result");
-            
+            return Ok("result");            
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest user)
         {
             var result = await _service.LoginAsync(user);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [Authorize]
+        [HttpPost("register-for-employee")]
+        public async Task<IActionResult> UpdatePassword(CompanyRegisterRequest request)
+        {
+            var result = await _service.GenerateCodeToAddCompanyAsync(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [Authorize]
+        [HttpPost("Verification-for-employee")]
+        public async Task<IActionResult> VerifyEmailForCompanyAsync(VerifyEmailForCompanyRequest request)
+        {
+            var result = await _service.VerifyEmailForCompanyAsync(request.CompanyId, request.EmployeeId, request.VerificationCode);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     public class JobPost: Base
     {
@@ -19,6 +13,7 @@ namespace Domain.Entities
         public int ExperienceRequired { get; set; }
         public string? QualificationRequired { get; set; }
         public string? ImageURL { get; set; }
+        public JobPostReviewStatus JobPostReviewStatus { get; set; }
 
         public int SkillLevelRequired { get; set; }
         public string? Benefits { get; set; }
@@ -35,6 +30,14 @@ namespace Domain.Entities
         public int? JobLocationId { get; set; }
         public List<JobSkillSet> JobSkillSets { get; set; }
         public List<JobPostActivity> JobPostActivitys { get; set; }
+        public List<FollowJob> FollowJobs { get; set; }
 
+    }
+
+    public enum JobPostReviewStatus
+    {
+        Pending,
+        Accepted,
+        Rejected,
     }
 }

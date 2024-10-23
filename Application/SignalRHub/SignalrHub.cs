@@ -38,7 +38,7 @@ public class SignalrHub : Hub
     public async Task JoinRoom(string groupId, string username)
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, groupId);
-        await Clients.Group(groupId).SendAsync(SignalRMethodNames.SendMessageToGroup, username + " joined.");
+        //await Clients.Group(groupId).SendAsync(SignalRMethodNames.SendMessageToGroup, username + " joined.");
     }
 
     public async Task LeaveRoom(string groupId)
@@ -63,6 +63,7 @@ public class SignalrHub : Hub
                 if (user.CompanyId is not null)
                 {
                     await JoinRoom($"{user.CompanyId}", $"{user.Id}");
+                    Console.WriteLine($"User {userId} - Name: {user.UserName} has joined group: {user.CompanyId}");
                 }
             }
         } 

@@ -41,7 +41,7 @@ namespace Application.Services
                 company.BusinessStreamId = businessStream.Id;   
                 await _unitOfWork.Companys.AddAsync(company);
                 await _unitOfWork.SaveChangeAsync();
-                return new ApiResponse().SetOk("Create success !");
+                return new ApiResponse().SetOk(company.Id);
             }
             catch (Exception ex)
             {

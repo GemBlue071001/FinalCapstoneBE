@@ -16,6 +16,11 @@ namespace Infrastructure.Configuration
             builder.HasOne(x => x.User)
                    .WithMany(x => x.EmailVerifications)
                    .HasForeignKey(x => x.UserId);
+
+            builder.HasOne(x => x.Company)
+                   .WithMany(x => x.EmailVerifications)
+                   .HasForeignKey(x => x.CompanyId);
+
         }
     }
 }

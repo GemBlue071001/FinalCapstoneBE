@@ -1,5 +1,6 @@
 ﻿using Application.Interface;
 using Application.Request;
+using Application.Request.Company;
 using Application.Response;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Domain;
@@ -120,6 +121,92 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
 
             response.SetOk("Email verified successfully.");
+            return response;
+        }
+        public async Task<ApiResponse> GenerateCodeToAddCompanyAsync(CompanyRegisterRequest request)
+        {
+            ApiResponse response = new ApiResponse();
+            var claim = _claimService.GetUserClaim();
+
+            // Generate verification code
+            var verificationCode = GenerateVerificationCode(); // Method to generate the code
+            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Email!.Equals(request.Email));
+            var emailVerification = new EmailVerification
+            {
+                UserId = user.Id,
+                VerificationCode = verificationCode,
+                ExpiresAt = DateTime.Now.AddMinutes(30), // Code valid for 30 minutes
+                IsUsed = false,
+                CompanyId = user.CompanyId,
+            };
+
+
+            // Save verification code to the database
+            await _unitOfWork.EmailVerifications.AddAsync(emailVerification);
+            await _unitOfWork.SaveChangeAsync();
+
+            // Prepare email content
+            string emailContent = $"Dear {request.Email},<br/>Please use the following verification code to validate your company: <strong>{verificationCode}</strong>.<br/>The code will expire in 30 minutes.";
+
+            // Send validation email
+            var emailResponse = await _emailService.SendValidationEmail(request.Email, emailContent);
+            if (!emailResponse.IsSuccess)
+            {
+                response.SetBadRequest("Failed to send verification email.");
+                return response;
+            }
+
+            response.SetOk(user.Id);
+            return response;
+        }
+        public async Task<ApiResponse> VerifyEmailForCompanyAsync(int companyId, int employeeId, string verificationCode)
+        {
+            ApiResponse response = new ApiResponse();
+            var claim = _claimService.GetUserClaim();
+            // Retrieve the verification record
+            var verificationRecord = await _unitOfWork.EmailVerifications
+                .GetAsync(x => x.UserId == claim.Id && x.VerificationCode == verificationCode && x.IsUsed == false);
+
+            // Verification record not found or code already used
+            if (verificationRecord == null)
+            {
+                response.SetBadRequest("Invalid or expired verification code.");
+                return response;
+            }
+
+
+            if (claim.Role != Role.Employer)
+            {
+                response.SetBadRequest("User be employer");
+            }
+            var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId);
+            if (company == null)
+            {
+                return response.SetBadRequest("Company not exist or user not in company");
+            }
+            var employee = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == employeeId);
+            if (employee == null)
+            {
+                return response.SetBadRequest($"EmployeeId {employeeId} not exist");
+            }
+            if (employee.CompanyId != null)
+            {
+                return response.SetBadRequest("Employee already assign in company");
+            }
+            employee.CompanyId = companyId;
+            await _unitOfWork.SaveChangeAsync();
+
+            // Check if the code has expired
+            if (verificationRecord.ExpiresAt < DateTime.Now)
+            {
+                response.SetBadRequest("The verification code has expired.");
+                return response;
+            }
+
+            // Mark the verification code as used
+            verificationRecord.IsUsed = true;
+            await _unitOfWork.SaveChangeAsync();
+            response.SetOk("Add success !");
             return response;
         }
 

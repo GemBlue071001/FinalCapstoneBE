@@ -6,11 +6,10 @@ using Application.Response.User;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Hangfire;
+using Application.MyBackgroundJob;
+using Application.Response.JobPostActivityComment;
+using Application.Extensions;
 
 namespace Application.Services
 {
@@ -69,24 +68,16 @@ namespace Application.Services
                 jobPost.Company = company;
                 jobPost.JobType = jobType;
                 jobPost.UserAccount = user;
+                jobPost.CreatedDate = DateTime.UtcNow;
+                jobPost.PostingDate = DateTime.UtcNow;
+                jobPost.JobPostReviewStatus = JobPostReviewStatus.Pending;
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
 
-                // Fetch all users who have followed the company
-                var followers = await _unitOfWork.FollowCompanies.GetAllAsync(f => f.CompanyId == jobPostRequest.CompanyId, x => x.Include(x => x.UserAccount));
-                if (followers != null && followers.Count > 0)
-                {
-                    var followerEmails = followers.Select(f => f.UserAccount.Email).ToList();
-                    var emailContent = await _unitOfWork.EmailTemplates.GetAsync(x => x.Name.Equals("Job Opportunity Email"));
+                // Gọi Hangfire để xử lý việc gửi email sau khi job post được tạo thành công
+                BackgroundJob.Enqueue<EmailJob>(emailJob => emailJob.SendEmailsToFollowers(jobPostRequest.CompanyId, jobPost.JobTitle));
 
-                    // Send email to each follower
-                    foreach (var userEmail in followerEmails)
-                    {
-                        await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}" , company.CompanyName, jobPost.JobTitle);
-                    }
-                }
-
-                return new ApiResponse().SetOk("Create Success and emails sent to followers!");
+                return new ApiResponse().SetOk("Create Success! Emails will be sent to followers.");
             }
             catch (Exception ex)
             {
@@ -94,11 +85,12 @@ namespace Application.Services
             }
         }
 
+
         public async Task<ApiResponse> GetJobPostAsync()
         {
             try
             {
-                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null, x => x.Include(x => x.Company)
+                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x => x.JobPostReviewStatus == JobPostReviewStatus.Accepted, x => x.Include(x => x.Company)
                                                                                   .Include(x => x.JobLocations)
                                                                                         .ThenInclude(x => x.Location)
                                                                                   .Include(x => x.JobType)
@@ -115,6 +107,7 @@ namespace Application.Services
             }
 
         }
+
 
         public async Task<ApiResponse> AddSkillSetToJobPost(JobPostSkillSetRequest jobPostSkillSetRequest)
         {
@@ -162,6 +155,7 @@ namespace Application.Services
                 x => x.JobPostId == jobPostId,
                 x => x.Include(x => x.UserAccount)
                       .Include(x => x.CV)
+                      .Include(x=>x.JobPostActivityComments!)
             );
 
             // Map JobPostActivity to CandidateResponse
@@ -177,6 +171,13 @@ namespace Application.Services
                 CVPath = x.CV?.Url ?? string.Empty, // Assuming CV has a property 'Path'
                 JobPostActivityId = x.Id,
                 Status = x.Status.ToString(),
+                JobPostActivityComments = x.JobPostActivityComments!.Select(x=> new JobPostActivityCommentResponse
+                {
+                    Id=x.Id,
+                    CommentDate = x.CommentDate,
+                    CommentText = x.CommentText,
+                    Rating = x.Rating,
+                }).ToList()
             }).ToList();
 
             // Return the mapped CandidateResponse list
@@ -209,5 +210,97 @@ namespace Application.Services
             }
         }
 
+        public async Task<ApiResponse> SearchJobs(SearchJobPostRequest searchJobPostRequest)
+        {
+            var jobPosts = await _unitOfWork.JobPosts.SearchJobPosts(searchJobPostRequest);
+            var result = _mapper.Map<List<JobPostResponse>>(jobPosts ?? []);
+            return new ApiResponse().SetOk(result.ToPaginationResponse(searchJobPostRequest.PageIndex, searchJobPostRequest.PageSize));
+        }
+
+        public async Task<ApiResponse> UpdateStatusJobPost(int id, JobPostReviewStatus status)
+        {
+            var post = await _unitOfWork.JobPosts.GetAsync(post => post.Id ==  id);
+
+            if (post == null) {
+                return new ApiResponse().SetNotFound();
+            }
+
+            post.JobPostReviewStatus = status;
+            await _unitOfWork.SaveChangeAsync();
+            return new ApiResponse().SetOk(post);
+        }
+
+        public async Task<ApiResponse> UpdateJobPost(int id, JobPostRequest request)
+        {
+            var jobPost = await _unitOfWork.JobPosts.GetAsync(post => post.Id == id, x => x.Include(p => p.JobSkillSets));
+            
+            if (jobPost == null)
+            {
+                return new ApiResponse().SetNotFound();
+            }
+
+            jobPost.JobTitle = request.JobTitle;
+            jobPost.JobDescription = request.JobDescription;
+            jobPost.Salary = request.Salary;
+            jobPost.ExperienceRequired = request.ExperienceRequired;
+            jobPost.QualificationRequired = request.QualificationRequired;
+            jobPost.Benefits = request.Benefits;
+            jobPost.SkillLevelRequired = request.SkillLevelRequired;
+            jobPost.JobTypeId = request.JobTypeId;
+            jobPost.ImageURL = request.ImageURL;
+
+            //replace all skill set
+            var validSkillIds = new List<int>();
+
+            foreach(var newId in request.SkillSetIds)
+            {
+                var skillSet = await _unitOfWork.SkillSets.GetAsync(s => s.Id == newId);
+                if(skillSet != null)
+                {
+                    validSkillIds.Add(skillSet.Id);
+                }
+            }
+
+            if (validSkillIds.Count >= 0)
+            {
+                jobPost.JobSkillSets?.Clear();
+
+                jobPost.JobSkillSets?.AddRange(validSkillIds.Select(skillId => new JobSkillSet
+                {
+                    CreatedDate = DateTime.Now,
+                    IsDeleted = false,
+                    JobPostId = id,
+                    SkillSetId = skillId,
+                }).ToList());
+            }
+
+            //re-submit rejected post
+            if (jobPost.JobPostReviewStatus == JobPostReviewStatus.Rejected) 
+            {
+                jobPost.JobPostReviewStatus = JobPostReviewStatus.Pending;
+            }
+
+            await _unitOfWork.SaveChangeAsync();
+            return new ApiResponse().SetOk();
+        }
+        public async Task<ApiResponse> GetAllJobPostPending()
+        {
+            ApiResponse apiResponse = new ApiResponse();
+            try
+            {
+                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x => x.JobPostReviewStatus == JobPostReviewStatus.Pending, x => x.Include(x => x.Company)
+                                                                                  .Include(x => x.JobLocations)
+                                                                                        .ThenInclude(x => x.Location)
+                                                                                  .Include(x => x.JobType)
+                                                                                  .Include(x => x.JobSkillSets)
+                                                                                        .ThenInclude(x => x.SkillSet));
+                var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);
+                return new ApiResponse().SetOk(jobPostsResponse);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest(ex.Message);
+            }
+        }
     }
 }
