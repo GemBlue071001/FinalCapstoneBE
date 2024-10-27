@@ -14,12 +14,12 @@ namespace Infrastructure.Repositories
         public async Task<List<JobPost>> SearchJobPosts(SearchJobPostRequest request)
         {
             IQueryable<JobPost> query = _context.JobPosts
-                .Include(jp => jp.JobType) 
+                .Include(jp => jp.JobType)
                 .Include(jp => jp.JobLocations)
-                .Include(jp => jp.Company) 
+                .Include(jp => jp.Company)
                 .Include(jp => jp.JobSkillSets)
-                    .ThenInclude(jssk => jssk.SkillSet)
-                    .Where(jp => jp.JobPostReviewStatus == JobPostReviewStatus.Accepted);
+                    .ThenInclude(jssk => jssk.SkillSet);
+                    //.Where(jp => jp.JobPostReviewStatus == JobPostReviewStatus.Accepted);
 
             if (!string.IsNullOrEmpty(request.JobType))
             {
