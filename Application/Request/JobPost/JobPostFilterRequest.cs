@@ -29,7 +29,7 @@ namespace Application.Request.JobPost
         //public UserAccount UserAccount { get; set; }
         //public JobType JobType { get; set; }
         //public Company Company { get; set; }
-        public List<JobLocation> JobLocations { get; set; }
+        //public List<JobLocation> JobLocations { get; set; }
         //public int? UserId { get; set; }
         //public int? JobTypeId { get; set; }
         //public int? CompanyId { get; set; }
