@@ -27,7 +27,7 @@ namespace Application.Services
             List<JobPost> jobPosts = new List<JobPost>();
             using (var stream = new MemoryStream())
             {
-                await file.CopyToAsync(stream);
+                 await file.CopyToAsync(stream);
                 using (var workbook = new XLWorkbook(stream))
                 {
                     var worksheet = workbook.Worksheet(1); // First worksheet
@@ -35,16 +35,17 @@ namespace Application.Services
 
                     foreach (var row in rows.Skip(1)) // Skip header row
                     {
-                        var record = new JobPost
-                        {
-                            JobTitle = row.Cell(1).GetValue<string>(),
-                            Salary = row.Cell(2).GetValue<decimal>(),
-                            JobType = row.Cell(3).GetValue<JobType>(),
-                            Company = row.Cell(4).GetValue<Company>(),
-                            
-                            // Add more properties as needed
-                        };
-                        jobPosts.Add(record);
+                        //var record = new JobPost
+                        //{
+                        //    JobTitle = row.Cell(1).GetValue<string>(),
+                        //    Salary = row.Cell(2).GetValue<decimal>(),
+                        //    JobType = row.Cell(3).GetValue<JobType>(),
+                        //    Company = row.Cell(4).GetValue<Company>(),
+
+                        //    // Add more properties as needed
+                        //};
+                        //jobPosts.Add(record);
+                        var a = row.Cell(1).GetValue<string>();
                     }
                 }
             }
