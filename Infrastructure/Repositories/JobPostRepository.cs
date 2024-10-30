@@ -14,12 +14,13 @@ namespace Infrastructure.Repositories
         public async Task<List<JobPost>> SearchJobPosts(SearchJobPostRequest request)
         {
             IQueryable<JobPost> query = _context.JobPosts
-                .Include(jp => jp.JobType) 
+                .Include(jp => jp.JobType)
                 .Include(jp => jp.JobLocations)
-                .Include(jp => jp.Company) 
+                    .ThenInclude(x=>x.Location)
+                .Include(jp => jp.Company)
                 .Include(jp => jp.JobSkillSets)
-                    .ThenInclude(jssk => jssk.SkillSet)
-                    .Where(jp => jp.JobPostReviewStatus == JobPostReviewStatus.Accepted);
+                    .ThenInclude(jssk => jssk.SkillSet);
+                    //.Where(jp => jp.JobPostReviewStatus == JobPostReviewStatus.Accepted);
 
             if (!string.IsNullOrEmpty(request.JobType))
             {
@@ -29,6 +30,11 @@ namespace Infrastructure.Repositories
             if (!string.IsNullOrEmpty(request.Location))
             {
                 query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
+            }
+
+            if (!string.IsNullOrEmpty(request.City))
+            {
+                query = query.Where(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.Location.ToLower())));
             }
 
             if (!string.IsNullOrEmpty(request.CompanyName))

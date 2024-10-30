@@ -90,7 +90,13 @@ namespace Application.Services
         {
             try
             {
-                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x => x.JobPostReviewStatus == JobPostReviewStatus.Accepted, x => x.Include(x => x.Company)
+                //var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x => x.JobPostReviewStatus == JobPostReviewStatus.Accepted, x => x.Include(x => x.Company)
+                //                                                                  .Include(x => x.JobLocations)
+                //                                                                        .ThenInclude(x => x.Location)
+                //                                                                  .Include(x => x.JobType)
+                //                                                                  .Include(x => x.JobSkillSets)
+                //                                                                        .ThenInclude(x => x.SkillSet));
+                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null, x => x.Include(x => x.Company)
                                                                                   .Include(x => x.JobLocations)
                                                                                         .ThenInclude(x => x.Location)
                                                                                   .Include(x => x.JobType)
