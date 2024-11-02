@@ -2,7 +2,7 @@
 {
     public class EducationDetailRequest
     {
-        public string Name { get; set; } = string.Empty;
+        //public string Name { get; set; } = string.Empty;
         public string InstitutionName { get; set; } = string.Empty;
         public string Degree { get; set; } = string.Empty;
         public string FieldOfStudy { get; set; } = string.Empty;
