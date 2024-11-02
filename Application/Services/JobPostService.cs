@@ -251,7 +251,7 @@ namespace Application.Services
             jobPost.ExperienceRequired = request.ExperienceRequired;
             jobPost.QualificationRequired = request.QualificationRequired;
             jobPost.Benefits = request.Benefits;
-            jobPost.SkillLevelRequired = request.SkillLevelRequired;
+            //jobPost.SkillLevelRequired = request.SkillLevelRequired;
             jobPost.JobTypeId = request.JobTypeId;
             jobPost.ImageURL = request.ImageURL;
 
