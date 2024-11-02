@@ -77,7 +77,7 @@ namespace Application.Services
                 // Gọi Hangfire để xử lý việc gửi email sau khi job post được tạo thành công
                 BackgroundJob.Enqueue<EmailJob>(emailJob => emailJob.SendEmailsToFollowers(jobPostRequest.CompanyId, jobPost.JobTitle));
 
-                return new ApiResponse().SetOk("Create Success! Emails will be sent to followers.");
+                return new ApiResponse().SetOk(jobPost.Id);
             }
             catch (Exception ex)
             {
