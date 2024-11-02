@@ -41,7 +41,7 @@ namespace Application.Services
             var pass = CreatePasswordHash(userRequest.Password);
             UserAccount user = new UserAccount()
             {
-                UserName = userRequest.UserName,
+                //UserName = userRequest.UserName,
                 PasswordHash = pass.PasswordHash,
                 PasswordSalt = pass.PasswordSalt,
                 Email = userRequest.Email,
@@ -248,7 +248,7 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
 
             // Send the new verification email
-            string emailContent = $"Dear {user.UserName},<br/>Please use the following verification code to validate your email: <strong>{verificationCode}</strong>.<br/>The code will expire in 30 minutes.";
+            string emailContent = $"Dear user {user.Email},<br/>Please use the following verification code to validate your email: <strong>{verificationCode}</strong>.<br/>The code will expire in 30 minutes.";
             var emailResponse = await _emailService.SendValidationEmail(user.Email, emailContent);
 
             if (!emailResponse.IsSuccess)
@@ -267,7 +267,7 @@ namespace Application.Services
             var account = await _unitOfWork.UserAccounts.GetAsync(u => u.Email == request.UserEmail);
             if (account == null || !VerifyPasswordHash(request.Password, account.PasswordHash, account.PasswordSalt))
             {
-                response.SetBadRequest(message: "Username or password is wrong");
+                response.SetBadRequest(message: "Email or password is wrong");
                 return response;
             }
 
@@ -291,7 +291,7 @@ namespace Application.Services
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim("Role", user.Role.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString()),
-                new Claim( "name" , user.UserName),
+                new Claim( "Email" , user.Email!),
                 new Claim("UserId", user.Id.ToString()),
             };
 

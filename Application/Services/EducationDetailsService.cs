@@ -61,7 +61,7 @@ namespace Application.Services
                 throw new NotMatchException($"UserId from request: {educationDetail.UserId} not match with ${userId}");
             }
 
-            educationDetail.Name = request.Name;
+            //educationDetail.Name = request.Name;
             educationDetail.InstitutionName = request.InstitutionName;
             educationDetail.Degree = request.Degree;
             educationDetail.FieldOfStudy = request.FieldOfStudy;
