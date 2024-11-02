@@ -9,7 +9,7 @@ namespace Domain.Entities
     public class EducationDetail : Base
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        //public string Name { get; set; }
         public string InstitutionName { get; set; }
         public string Degree { get; set; }
         public string FieldOfStudy { get; set; }
