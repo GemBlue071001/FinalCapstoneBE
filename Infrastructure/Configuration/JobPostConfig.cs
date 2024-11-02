@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,17 @@ namespace Infrastructure.Configuration
             //    .WithMany(o => o.JobPosts)
             //    .HasForeignKey(o => o.JobLocationId);
 
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string parentDirectory = Directory.GetParent(currentDirectory).FullName;
+
+            string jsonPath = Path.Combine(parentDirectory, "jobPostData.json"); // Replace with your path
+            string jsonContent = File.ReadAllText(jsonPath);
+            List<JobPost> jobs = JsonConvert.DeserializeObject<List<JobPost>>(jsonContent);
+            foreach (JobPost job in jobs)
+            {
+                job.JobLocations = null;
+            }
+            builder.HasData(jobs);
         }
     }
 }
