@@ -168,7 +168,7 @@ namespace Application.Services
             var candidateResponses = jobPostAct.Select(x => new CandidateResponse
             {
                 Id = x.UserAccount.Id,
-                UserName = x.UserAccount.UserName,
+                //UserName = x.UserAccount.UserName,
                 FirstName = x.UserAccount.FirstName,
                 LastName = x.UserAccount.LastName,
                 Email = x.UserAccount.Email,

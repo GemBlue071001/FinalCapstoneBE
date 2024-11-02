@@ -19,9 +19,9 @@ namespace Infrastructure.Configuration
 
             //builder.HasQueryFilter(x => !x.IsDeleted);
 
-            builder
-            .HasIndex(q => q.UserName)
-            .IsUnique();
+            //builder
+            //.HasIndex(q => q.UserName)
+            //.IsUnique();
 
             builder
             .HasIndex(q => q.Email)
@@ -56,7 +56,7 @@ namespace Infrastructure.Configuration
                   new UserAccount
                   {
                       Id = 1,
-                      UserName = "User1",
+                      //UserName = "User1",
                       PasswordHash = user1.PasswordHash,
                       PasswordSalt = user1.PasswordSalt,
                       LastName = "User1",
@@ -66,7 +66,7 @@ namespace Infrastructure.Configuration
                   new UserAccount
                   {
                       Id = 2,
-                      UserName = "User2",
+                      //UserName = "User2",
                       PasswordHash = user2.PasswordHash,
                       PasswordSalt = user2.PasswordSalt,
                       LastName = "User2",
@@ -76,7 +76,7 @@ namespace Infrastructure.Configuration
                   new UserAccount
                   {
                       Id = 3,
-                      UserName = "Employer",
+                      //UserName = "Employer",
                       PasswordHash = employer.PasswordHash,
                       PasswordSalt = employer.PasswordSalt,
                       LastName = "Employer",
@@ -86,7 +86,7 @@ namespace Infrastructure.Configuration
                   new UserAccount
                   {
                       Id = 4,
-                      UserName = "Admin",
+                      //UserName = "Admin",
                       PasswordHash = admin.PasswordHash,
                       PasswordSalt = admin.PasswordSalt,
                       LastName = "Admin",
