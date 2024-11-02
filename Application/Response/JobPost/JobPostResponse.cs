@@ -1,12 +1,4 @@
-﻿using Application.Response.Company;
-using Application.Response.JobLocation;
-using Application.Response.JobType;
-using Application.Response.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Response.JobType;
 
 namespace Application.Response.JobPost
 {
