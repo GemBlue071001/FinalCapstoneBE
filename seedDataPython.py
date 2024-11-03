@@ -22,7 +22,7 @@ def generate_job_postings(num_postings):
             "ExpiryDate": (datetime.datetime.now() + datetime.timedelta(days=30)).strftime("%Y-%m-%d %H:%M:%S.%f"),
             "ExperienceRequired": str(random.randint(1, 5)),
             "QualificationRequired": str(f"{random.randint(2, 5)}+ years in {random.choice(skills)}" ),
-            "ImageURL": "https://picsum.photos/200/300",
+            "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
             "JobPostReviewStatus": str(random.randint(0, 1)),
             "IsActive": "true",
             "UserId": "3",
@@ -53,5 +53,5 @@ def generate_job_postings(num_postings):
 job_data = generate_job_postings(40)
 
 # Save to a JSON file
-with open('job_postings.json', 'w') as f:
+with open('jobPostData.json', 'w') as f:
     json.dump(job_data, f, indent=4)
