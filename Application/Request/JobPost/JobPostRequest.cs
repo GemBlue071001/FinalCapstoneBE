@@ -9,7 +9,7 @@
         public int ExperienceRequired { get; set; }
         public string QualificationRequired { get; set; }
         public string Benefits { get; set; }
-        public int SkillLevelRequired { get; set; }
+        //public int SkillLevelRequired { get; set; }
         public int JobTypeId { get; set; }
         public int CompanyId { get; set; }
         public string? ImageURL { get; set; }

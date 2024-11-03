@@ -15,7 +15,7 @@
         public string? ImageURL { get; set; }
         public JobPostReviewStatus JobPostReviewStatus { get; set; }
 
-        public int SkillLevelRequired { get; set; }
+        //public int? SkillLevelRequired { get; set; }
         public string? Benefits { get; set; }
         public bool IsActive { get; set; }
 
