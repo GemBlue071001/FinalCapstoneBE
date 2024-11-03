@@ -30,7 +30,36 @@ def generate_job_postings(num_postings):
     "Career Advancement Opportunities: Advance your career through promotions, leadership roles, and specialized tracks.",
     "Work-Life Balance: Prioritize your well-being with generous time off, wellness programs, and flexible work arrangements.",
     "Global Opportunities: Collaborate with teams around the world and gain international experience.",
-    "Innovative Projects: Be part of groundbreaking projects that push the boundaries of technology."
+    "Innovative Projects: Be part of groundbreaking projects that push the boundaries of technology.",
+    "Remote Work Options: Work from the comfort of your home or any location that suits you.",
+    "Health Insurance: Comprehensive health coverage to protect your well-being.",
+    "Retirement Plans: Secure your future with retirement savings plans.",
+    "Performance Bonuses: Reward your hard work and achievements with additional compensation.",
+    "Paid Time Off: Enjoy generous vacation, sick leave, and holiday pay.",
+    "Parental Leave: Support work-life balance with paid parental leave.",
+    "Professional Development Budget: Invest in your career with funds for training, certifications, and conferences.",
+    "Tuition Reimbursement: Further your education with tuition assistance for relevant courses.",
+    "Mentorship Programs: Learn from experienced professionals and grow your skills.",
+    "Hackathons and Tech Talks: Participate in innovative challenges and learn from industry experts.",
+    "State-of-the-Art Equipment: Work with the latest technology and tools to boost productivity.",
+    "Ergonomic Workspaces: Enjoy a comfortable and healthy work environment.",
+    "Casual Dress Code: Express your individuality with a relaxed dress code.",
+    "Free Meals and Snacks: Fuel your workday with complimentary food and drinks.",
+    "On-site Gym and Fitness Classes: Stay fit and healthy with on-site fitness facilities and classes.",
+    "Employee Assistance Programs: Access confidential counseling and support services.",
+    "Volunteer Opportunities: Give back to the community and make a positive impact.",
+    "Social Events and Team Building Activities: Strengthen team bonds and have fun with team-building events.",
+    "Opportunity to Work on Open-Source Projects: Contribute to open-source projects and collaborate with the global developer community.",
+    "Exposure to Diverse Technologies and Methodologies: Expand your skillset and stay up-to-date with the latest trends.",
+    "Collaboration with Industry Leaders: Network with top industry professionals and learn from their expertise.",
+    "Chance to Shape the Future of Technology: Be part of groundbreaking innovations and drive technological advancements.",
+    "Positive and Inclusive Work Environment: Work in a supportive and welcoming atmosphere.",
+    "Recognition and Rewards for Achievements: Celebrate your successes with recognition and rewards.",
+    "Opportunities to Travel for Work: Explore new places and cultures while    working on exciting projects.",
+    "Flexible Scheduling: Customize your work schedule to fit your lifestyle.",
+    "Compressed Workweeks: Work fewer days per week with longer hours.",
+    "Job Security and Stability: Enjoy a secure and stable career path.",
+    "Opportunities to Work on High-Profile Projects: Work on challenging and impactful projects that can advance your career."
     ]
 
     job_postings = []
@@ -52,7 +81,7 @@ def generate_job_postings(num_postings):
             "UserId": "3",
             "CompanyId": "1",
             "JobTypeId": str(random.randint(1, 3)),
-            "Benefits": random.choice(benefis),
+            "Benefits": "</br>".join(random.sample(benefis, 5)),
             "JobLocations": [
                 {
                     "Id": str(postId),
