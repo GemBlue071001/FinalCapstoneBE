@@ -13,61 +13,70 @@ namespace Infrastructure.Repositories
 
         public async Task<List<JobPost>> SearchJobPosts(SearchJobPostRequest request)
         {
-            IQueryable<JobPost> query = _context.JobPosts
+            try
+            {
+                IQueryable<JobPost> query = _context.JobPosts
                 .Include(jp => jp.JobType)
                 .Include(jp => jp.JobLocations)
-                    .ThenInclude(x=>x.Location)
+                    .ThenInclude(x => x.Location)
                 .Include(jp => jp.Company)
                 .Include(jp => jp.JobSkillSets)
                     .ThenInclude(jssk => jssk.SkillSet);
-                    //.Where(jp => jp.JobPostReviewStatus == JobPostReviewStatus.Accepted);
+                //.Where(jp => jp.JobPostReviewStatus == JobPostReviewStatus.Accepted);
 
-            if (!string.IsNullOrEmpty(request.JobType))
-            {
-                query = query.Where(x => x.JobType.Name.ToLower().Contains(request.JobType.ToLower()));
-            }
+                if (!string.IsNullOrEmpty(request.JobType))
+                {
+                    query = query.Where(x => x.JobType.Name.ToLower().Contains(request.JobType.ToLower()));
+                }
 
-            if (!string.IsNullOrEmpty(request.Location))
-            {
-                query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
-            }
+                if (!string.IsNullOrEmpty(request.Location))
+                {
+                    query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
+                }
 
-            if (!string.IsNullOrEmpty(request.City))
-            {
-                query = query.Where(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.Location.ToLower())));
-            }
+                if (!string.IsNullOrEmpty(request.City))
+                {
+                    query = query.Where(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.City.ToLower())));
+                }
 
-            if (!string.IsNullOrEmpty(request.CompanyName))
-            {
-                query = query.Where(x => x.Company.CompanyName.ToLower().Contains(request.CompanyName.ToLower()));
-            }
+                if (!string.IsNullOrEmpty(request.CompanyName))
+                {
+                    query = query.Where(x => x.Company.CompanyName.ToLower().Contains(request.CompanyName.ToLower()));
+                }
 
-            if (!string.IsNullOrEmpty(request.SkillSet))
-            {
-                query = query.Where(x => x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.SkillSet.ToLower())));
-            }
+                if (!string.IsNullOrEmpty(request.SkillSet))
+                {
+                    query = query.Where(x => x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.SkillSet.ToLower())));
+                }
 
-            if (request.MinSalary != null && request.MinSalary > 0)
-            {
-                query = query.Where(x => x.Salary >= request.MinSalary);
-            }
+                if (request.MinSalary != null && request.MinSalary > 0)
+                {
+                    query = query.Where(x => x.Salary >= request.MinSalary);
+                }
 
-            if (request.MaxSalary != null && request.MaxSalary > 0)
-            {
-                query = query.Where(x => x.Salary <= request.MaxSalary);
-            }
+                if (request.MaxSalary != null && request.MaxSalary > 0)
+                {
+                    query = query.Where(x => x.Salary <= request.MaxSalary);
+                }
 
-            if (request.Experience != null)
-            {
-                query = query.Where(x => request.Experience >= x.ExperienceRequired);
-            }
+                if (request.Experience != null)
+                {
+                    query = query.Where(x => request.Experience >= x.ExperienceRequired);
+                }
 
-            if (query != null)
-            {
-                var result = await query.ToListAsync();
-                return result ?? [];
+                if (query != null)
+                {
+                    var result = await query.ToListAsync();
+                    return result ?? [];
+                }
+                return [];
             }
-            return [];
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
     }
 }
