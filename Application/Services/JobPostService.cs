@@ -10,6 +10,7 @@ using Hangfire;
 using Application.MyBackgroundJob;
 using Application.Response.JobPostActivityComment;
 using Application.Extensions;
+using Newtonsoft.Json;
 
 namespace Application.Services
 {
@@ -307,6 +308,23 @@ namespace Application.Services
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
+        }
+
+        public async Task<ApiResponse> SeedsData()
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string parentDirectory = Directory.GetParent(currentDirectory).FullName;
+
+            string jsonPath = Path.Combine(parentDirectory, "jobPostData.json");
+            string jsonContent = File.ReadAllText(jsonPath);
+            List<JobPost> jobs = JsonConvert.DeserializeObject<List<JobPost>>(jsonContent);
+            await _unitOfWork.JobPosts.AddRangeAsync(jobs);
+            await _unitOfWork.SaveChangeAsync();
+
+            var tests = await _unitOfWork.JobPosts.GetAllAsync(s => true);
+            var response = _mapper.Map<List<JobPostResponse>>(tests);
+
+            return new ApiResponse().SetOk(response);
         }
     }
 }

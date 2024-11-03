@@ -1,141 +1,170 @@
 [
     {
         "Id": "1001",
-        "JobTitle": "Full Stack Developer",
-        "JobDescription": "Give else soldier identify. No official discuss movie weight air speech. Question raise fill quality.",
-        "Salary": "63356",
-        "PostingDate": "2024-11-03 02:19:03.675174",
-        "ExpiryDate": "2024-12-03 02:19:03.675196",
-        "ExperienceRequired": "4",
-        "QualificationRequired": "5+ years in Docker",
+        "JobTitle": "Project Manager",
+        "JobDescription": "Song carry certainly debate player establish. Little building cost baby. Week style identify energy be break series. Police item dog similar contain into benefit.",
+        "Salary": "112143",
+        "PostingDate": "2024-11-03 14:06:19.070909",
+        "ExpiryDate": "2024-12-03 14:06:19.070933",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "2+ years in Java",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "3",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
-        "JobTypeId": "2",
+        "JobTypeId": "1",
         "JobLocations": [
             {
                 "Id": "1001",
-                "StressAddressDetail": "8958 Lutz Fords, Tylertown, Connecticut",
+                "StressAddressDetail": "73235 Cassandra Gardens Suite 869, Lake Cathy, Oklahoma",
                 "JobPostId": "1001",
-                "LocationId": "3"
+                "LocationId": "2"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1001",
+                "SkillSetId": "2",
+                "JobPostId": "1001"
             }
         ]
     },
     {
         "Id": "1002",
         "JobTitle": "IT Support Specialist",
-        "JobDescription": "Live expect theory establish. Often development debate control agency. Next describe line outside serious perhaps. Society form everybody try listen build.",
-        "Salary": "83465",
-        "PostingDate": "2024-11-03 02:19:03.675589",
-        "ExpiryDate": "2024-12-03 02:19:03.675599",
-        "ExperienceRequired": "5",
-        "QualificationRequired": "5+ years in SQL",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "1",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "3",
-        "JobLocations": [
-            {
-                "Id": "1002",
-                "StressAddressDetail": "66836 Cindy Hill, Joanborough, Vermont",
-                "JobPostId": "1002",
-                "LocationId": "6"
-            }
-        ]
-    },
-    {
-        "Id": "1003",
-        "JobTitle": "IT Support Specialist",
-        "JobDescription": "Difficult head audience interview our. Ground language author several activity. Condition training low style mention.",
-        "Salary": "134210",
-        "PostingDate": "2024-11-03 02:19:03.675818",
-        "ExpiryDate": "2024-12-03 02:19:03.675827",
-        "ExperienceRequired": "5",
-        "QualificationRequired": "5+ years in SQL",
+        "JobDescription": "In bad boy notice personal usually court. Memory spend our develop outside. And indeed put.",
+        "Salary": "137358",
+        "PostingDate": "2024-11-03 14:06:19.071254",
+        "ExpiryDate": "2024-12-03 14:06:19.071265",
+        "ExperienceRequired": "3",
+        "QualificationRequired": "5+ years in JavaScript",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "2",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "1",
-        "JobLocations": [
-            {
-                "Id": "1003",
-                "StressAddressDetail": "16001 Fitzpatrick Parkway, New Larryville, Vermont",
-                "JobPostId": "1003",
-                "LocationId": "6"
-            }
-        ]
-    },
-    {
-        "Id": "1004",
-        "JobTitle": "Data Scientist",
-        "JobDescription": "Thing boy four inside. Example begin reveal box PM require question. Require somebody lot me politics student executive.",
-        "Salary": "56883",
-        "PostingDate": "2024-11-03 02:19:03.676039",
-        "ExpiryDate": "2024-12-03 02:19:03.676054",
-        "ExperienceRequired": "5",
-        "QualificationRequired": "2+ years in NoSQL",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "3",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
         "JobTypeId": "2",
         "JobLocations": [
             {
-                "Id": "1004",
-                "StressAddressDetail": "902 Andrea Fields Suite 761, East Vicki, Missouri",
-                "JobPostId": "1004",
-                "LocationId": "3"
+                "Id": "1002",
+                "StressAddressDetail": "481 Olivia Prairie, Jonathanport, Wyoming",
+                "JobPostId": "1002",
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1002",
+                "SkillSetId": "1",
+                "JobPostId": "1002"
             }
         ]
     },
     {
-        "Id": "1005",
-        "JobTitle": "Full Stack Developer",
-        "JobDescription": "Partner because be even. Article our pick finally mention. Government word hair on.",
-        "Salary": "58549",
-        "PostingDate": "2024-11-03 02:19:03.676245",
-        "ExpiryDate": "2024-12-03 02:19:03.676253",
-        "ExperienceRequired": "2",
-        "QualificationRequired": "3+ years in C++",
+        "Id": "1003",
+        "JobTitle": "Software Engineer",
+        "JobDescription": "Man subject you wide. Water contain she scene cold.",
+        "Salary": "135542",
+        "PostingDate": "2024-11-03 14:06:19.071492",
+        "ExpiryDate": "2024-12-03 14:06:19.071502",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "2+ years in SQL",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "2",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "JobLocations": [
+            {
+                "Id": "1003",
+                "StressAddressDetail": "0599 Nicholas Drive, Danielport, Connecticut",
+                "JobPostId": "1003",
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1003",
+                "SkillSetId": "3",
+                "JobPostId": "1003"
+            }
+        ]
+    },
+    {
+        "Id": "1004",
+        "JobTitle": "Software Engineer",
+        "JobDescription": "Expect smile must budget actually.",
+        "Salary": "126738",
+        "PostingDate": "2024-11-03 14:06:19.071670",
+        "ExpiryDate": "2024-12-03 14:06:19.071873",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "3+ years in NoSQL",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
         "JobTypeId": "1",
         "JobLocations": [
             {
+                "Id": "1004",
+                "StressAddressDetail": "94412 Buck Pine Suite 950, Mitchellberg, Texas",
+                "JobPostId": "1004",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1004",
+                "SkillSetId": "3",
+                "JobPostId": "1004"
+            }
+        ]
+    },
+    {
+        "Id": "1005",
+        "JobTitle": "Software Engineer",
+        "JobDescription": "Down miss safe. Officer mention theory. Mother turn chance care enjoy watch.",
+        "Salary": "61748",
+        "PostingDate": "2024-11-03 14:06:19.072632",
+        "ExpiryDate": "2024-12-03 14:06:19.072642",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "5+ years in Python",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "JobLocations": [
+            {
                 "Id": "1005",
-                "StressAddressDetail": "1762 Velez Canyon, West Edward, South Dakota",
+                "StressAddressDetail": "34014 Ortiz Place, New Jenniferbury, Indiana",
                 "JobPostId": "1005",
-                "LocationId": "6"
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1005",
+                "SkillSetId": "2",
+                "JobPostId": "1005"
             }
         ]
     },
     {
         "Id": "1006",
-        "JobTitle": "UI/UX Designer",
-        "JobDescription": "Set find general job front system two. Mention amount policy low place.",
-        "Salary": "71891",
-        "PostingDate": "2024-11-03 02:19:03.676443",
-        "ExpiryDate": "2024-12-03 02:19:03.676450",
+        "JobTitle": "Cybersecurity Analyst",
+        "JobDescription": "Third life identify west view air. Method difficult performance while operation. Call future compare message since why hair.",
+        "Salary": "141321",
+        "PostingDate": "2024-11-03 14:06:19.073310",
+        "ExpiryDate": "2024-12-03 14:06:19.073321",
         "ExperienceRequired": "5",
-        "QualificationRequired": "2+ years in JavaScript",
+        "QualificationRequired": "2+ years in SQL",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -143,24 +172,30 @@
         "JobLocations": [
             {
                 "Id": "1006",
-                "StressAddressDetail": "484 Spence Lakes Suite 037, Lake Rhonda, Kentucky",
+                "StressAddressDetail": "3519 Campbell Isle Suite 053, Lake Ronald, Michigan",
                 "JobPostId": "1006",
-                "LocationId": "2"
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1006",
+                "SkillSetId": "3",
+                "JobPostId": "1006"
             }
         ]
     },
     {
         "Id": "1007",
-        "JobTitle": "Project Manager",
-        "JobDescription": "Across fast many whose. Enjoy movement quite sport describe although exist enjoy. Recently ten somebody that still speech anything.",
-        "Salary": "80218",
-        "PostingDate": "2024-11-03 02:19:03.676651",
-        "ExpiryDate": "2024-12-03 02:19:03.676659",
+        "JobTitle": "UI/UX Designer",
+        "JobDescription": "From free success some usually look sister. Animal group former start see party. School something magazine throughout summer quickly. Us record president manage million pressure paper.",
+        "Salary": "69428",
+        "PostingDate": "2024-11-03 14:06:19.073930",
+        "ExpiryDate": "2024-12-03 14:06:19.073940",
         "ExperienceRequired": "4",
-        "QualificationRequired": "5+ years in C++",
+        "QualificationRequired": "2+ years in Docker",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "2",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -168,24 +203,30 @@
         "JobLocations": [
             {
                 "Id": "1007",
-                "StressAddressDetail": "092 Karen Mountain, Port Jaredfurt, Iowa",
+                "StressAddressDetail": "23112 Williamson Stream Suite 981, Lake John, Oklahoma",
                 "JobPostId": "1007",
-                "LocationId": "1"
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1007",
+                "SkillSetId": "1",
+                "JobPostId": "1007"
             }
         ]
     },
     {
         "Id": "1008",
-        "JobTitle": "QA Engineer",
-        "JobDescription": "Quality program picture business city military. Here which summer however probably person theory.",
-        "Salary": "95261",
-        "PostingDate": "2024-11-03 02:19:03.676826",
-        "ExpiryDate": "2024-12-03 02:19:03.676834",
-        "ExperienceRequired": "2",
-        "QualificationRequired": "3+ years in Python",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Care final answer teach.",
+        "Salary": "112038",
+        "PostingDate": "2024-11-03 14:06:19.074137",
+        "ExpiryDate": "2024-12-03 14:06:19.074144",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "4+ years in JavaScript",
         "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "2",
+        "JobPostReviewStatus": "0",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -193,49 +234,61 @@
         "JobLocations": [
             {
                 "Id": "1008",
-                "StressAddressDetail": "36180 Gaines Knolls, Johnmouth, Washington",
+                "StressAddressDetail": "10668 Anna Springs, Lake Anthonyfort, North Carolina",
                 "JobPostId": "1008",
                 "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1008",
+                "SkillSetId": "1",
+                "JobPostId": "1008"
             }
         ]
     },
     {
         "Id": "1009",
-        "JobTitle": "QA Engineer",
-        "JobDescription": "Happy carry television research born worker. Share plan interesting begin consider out.",
-        "Salary": "147266",
-        "PostingDate": "2024-11-03 02:19:03.677014",
-        "ExpiryDate": "2024-12-03 02:19:03.677022",
-        "ExperienceRequired": "1",
-        "QualificationRequired": "5+ years in Kubernetes",
+        "JobTitle": "UI/UX Designer",
+        "JobDescription": "Always among authority team clear them drive professor. Community note exactly approach kind play.",
+        "Salary": "116494",
+        "PostingDate": "2024-11-03 14:06:19.074353",
+        "ExpiryDate": "2024-12-03 14:06:19.074362",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "2+ years in Docker",
         "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "3",
+        "JobPostReviewStatus": "0",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
-        "JobTypeId": "2",
+        "JobTypeId": "1",
         "JobLocations": [
             {
                 "Id": "1009",
-                "StressAddressDetail": "93980 Jackson Circles, Batesport, California",
+                "StressAddressDetail": "421 Ruiz Ville Suite 189, West Dawn, Massachusetts",
                 "JobPostId": "1009",
-                "LocationId": "5"
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1009",
+                "SkillSetId": "2",
+                "JobPostId": "1009"
             }
         ]
     },
     {
         "Id": "1010",
         "JobTitle": "IT Support Specialist",
-        "JobDescription": "Spend worry approach those evidence. Apply society agreement claim fire. Effect collection wish country. Opportunity cost music song hundred.",
-        "Salary": "122804",
-        "PostingDate": "2024-11-03 02:19:03.677252",
-        "ExpiryDate": "2024-12-03 02:19:03.677260",
-        "ExperienceRequired": "4",
-        "QualificationRequired": "5+ years in Docker",
+        "JobDescription": "Song stuff take remember. Event rich by end financial house sort. Education exactly step right sport network.",
+        "Salary": "93153",
+        "PostingDate": "2024-11-03 14:06:19.075233",
+        "ExpiryDate": "2024-12-03 14:06:19.075252",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "2+ years in Java",
         "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "3",
+        "JobPostReviewStatus": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -243,224 +296,278 @@
         "JobLocations": [
             {
                 "Id": "1010",
-                "StressAddressDetail": "3651 Antonio Inlet, Toddchester, Alabama",
+                "StressAddressDetail": "0176 Harris Hill, West Ricky, Alabama",
                 "JobPostId": "1010",
-                "LocationId": "4"
+                "LocationId": "2"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1010",
+                "SkillSetId": "3",
+                "JobPostId": "1010"
             }
         ]
     },
     {
         "Id": "1011",
-        "JobTitle": "IT Support Specialist",
-        "JobDescription": "Good unit too party. Future report approach scene computer thought another.",
-        "Salary": "139437",
-        "PostingDate": "2024-11-03 02:19:03.677424",
-        "ExpiryDate": "2024-12-03 02:19:03.677431",
-        "ExperienceRequired": "2",
-        "QualificationRequired": "2+ years in Java",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "3",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "3",
-        "JobLocations": [
-            {
-                "Id": "1011",
-                "StressAddressDetail": "9878 Caldwell Camp, Davidland, Georgia",
-                "JobPostId": "1011",
-                "LocationId": "6"
-            }
-        ]
-    },
-    {
-        "Id": "1012",
         "JobTitle": "Software Engineer",
-        "JobDescription": "Hospital different fund pass need teach. Other least term keep pick activity.",
-        "Salary": "77251",
-        "PostingDate": "2024-11-03 02:19:03.677615",
-        "ExpiryDate": "2024-12-03 02:19:03.677622",
-        "ExperienceRequired": "4",
-        "QualificationRequired": "4+ years in C++",
+        "JobDescription": "Increase bill detail no help thing. Food among seat right hour as employee. Break fear poor career speech effect.",
+        "Salary": "93335",
+        "PostingDate": "2024-11-03 14:06:19.075470",
+        "ExpiryDate": "2024-12-03 14:06:19.075478",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "3+ years in Docker",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "3",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
         "JobTypeId": "2",
         "JobLocations": [
             {
+                "Id": "1011",
+                "StressAddressDetail": "55265 Chris Burgs, Adamland, Mississippi",
+                "JobPostId": "1011",
+                "LocationId": "2"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1011",
+                "SkillSetId": "1",
+                "JobPostId": "1011"
+            }
+        ]
+    },
+    {
+        "Id": "1012",
+        "JobTitle": "Data Scientist",
+        "JobDescription": "Board end kitchen Democrat sing space pattern. Market between when score.",
+        "Salary": "76137",
+        "PostingDate": "2024-11-03 14:06:19.075651",
+        "ExpiryDate": "2024-12-03 14:06:19.075659",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "3+ years in JavaScript",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "1",
+        "JobLocations": [
+            {
                 "Id": "1012",
-                "StressAddressDetail": "1912 Bryan Plains Apt. 127, Lindseyhaven, Minnesota",
+                "StressAddressDetail": "464 James Springs, Chrismouth, Hawaii",
                 "JobPostId": "1012",
-                "LocationId": "6"
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1012",
+                "SkillSetId": "2",
+                "JobPostId": "1012"
             }
         ]
     },
     {
         "Id": "1013",
-        "JobTitle": "Software Engineer",
-        "JobDescription": "Mind Congress thing politics once now. Scene instead lay film production else yet star. State who debate value decision price. Whole be listen yet move medical rule free.",
-        "Salary": "71803",
-        "PostingDate": "2024-11-03 02:19:03.677806",
-        "ExpiryDate": "2024-12-03 02:19:03.677813",
-        "ExperienceRequired": "2",
-        "QualificationRequired": "2+ years in JavaScript",
+        "JobTitle": "Project Manager",
+        "JobDescription": "Argue modern include and attorney school. Wear between quality before door economic half.",
+        "Salary": "141095",
+        "PostingDate": "2024-11-03 14:06:19.075853",
+        "ExpiryDate": "2024-12-03 14:06:19.075862",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "3+ years in SQL",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "3",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
-        "JobTypeId": "1",
+        "JobTypeId": "2",
         "JobLocations": [
             {
                 "Id": "1013",
-                "StressAddressDetail": "562 Richardson Causeway Apt. 287, Howemouth, North Carolina",
+                "StressAddressDetail": "91586 Dana Motorway Suite 562, East Christianland, South Carolina",
                 "JobPostId": "1013",
-                "LocationId": "4"
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1013",
+                "SkillSetId": "1",
+                "JobPostId": "1013"
             }
         ]
     },
     {
         "Id": "1014",
-        "JobTitle": "Full Stack Developer",
-        "JobDescription": "Letter sister stay measure million. Live voice discover different likely. Week check discussion cup member.",
-        "Salary": "142366",
-        "PostingDate": "2024-11-03 02:19:03.678028",
-        "ExpiryDate": "2024-12-03 02:19:03.678035",
-        "ExperienceRequired": "3",
-        "QualificationRequired": "4+ years in AWS",
+        "JobTitle": "Software Engineer",
+        "JobDescription": "All body guy system into our. Political something teacher learn money vote fund.",
+        "Salary": "105246",
+        "PostingDate": "2024-11-03 14:06:19.076041",
+        "ExpiryDate": "2024-12-03 14:06:19.076049",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "5+ years in Kubernetes",
         "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "1",
+        "JobPostReviewStatus": "0",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
-        "JobTypeId": "3",
+        "JobTypeId": "2",
         "JobLocations": [
             {
                 "Id": "1014",
-                "StressAddressDetail": "1579 Matthew Burg Apt. 004, North Denise, West Virginia",
+                "StressAddressDetail": "502 Derek Forest Apt. 705, Hornbury, Washington",
                 "JobPostId": "1014",
-                "LocationId": "5"
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1014",
+                "SkillSetId": "3",
+                "JobPostId": "1014"
             }
         ]
     },
     {
         "Id": "1015",
-        "JobTitle": "Data Scientist",
-        "JobDescription": "Our herself bad.",
-        "Salary": "141684",
-        "PostingDate": "2024-11-03 02:19:03.678205",
-        "ExpiryDate": "2024-12-03 02:19:03.678213",
-        "ExperienceRequired": "3",
-        "QualificationRequired": "4+ years in Azure",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Born identify listen something. Federal lead cultural kid former daughter.",
+        "Salary": "109373",
+        "PostingDate": "2024-11-03 14:06:19.076410",
+        "ExpiryDate": "2024-12-03 14:06:19.076420",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "5+ years in JavaScript",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "1",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "1",
-        "JobLocations": [
-            {
-                "Id": "1015",
-                "StressAddressDetail": "225 Lopez Turnpike, Staceyville, South Carolina",
-                "JobPostId": "1015",
-                "LocationId": "6"
-            }
-        ]
-    },
-    {
-        "Id": "1016",
-        "JobTitle": "DevOps Engineer",
-        "JobDescription": "Along appear example result room thank. Institution out find huge. Happy manage position front.",
-        "Salary": "131291",
-        "PostingDate": "2024-11-03 02:19:03.678400",
-        "ExpiryDate": "2024-12-03 02:19:03.678407",
-        "ExperienceRequired": "2",
-        "QualificationRequired": "2+ years in C++",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "2",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "1",
-        "JobLocations": [
-            {
-                "Id": "1016",
-                "StressAddressDetail": "81938 Mathew Drives Apt. 415, North Curtis, Maine",
-                "JobPostId": "1016",
-                "LocationId": "2"
-            }
-        ]
-    },
-    {
-        "Id": "1017",
-        "JobTitle": "DevOps Engineer",
-        "JobDescription": "Down natural kid place factor become trouble. Charge human whatever term professional wrong note.",
-        "Salary": "132326",
-        "PostingDate": "2024-11-03 02:19:03.678577",
-        "ExpiryDate": "2024-12-03 02:19:03.678584",
-        "ExperienceRequired": "3",
-        "QualificationRequired": "5+ years in Docker",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "3",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
         "JobTypeId": "3",
         "JobLocations": [
             {
+                "Id": "1015",
+                "StressAddressDetail": "51307 Cochran Route, Henryshire, Maryland",
+                "JobPostId": "1015",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1015",
+                "SkillSetId": "2",
+                "JobPostId": "1015"
+            }
+        ]
+    },
+    {
+        "Id": "1016",
+        "JobTitle": "QA Engineer",
+        "JobDescription": "Force control game religious black picture. Item drop tend light.",
+        "Salary": "148855",
+        "PostingDate": "2024-11-03 14:06:19.076634",
+        "ExpiryDate": "2024-12-03 14:06:19.076651",
+        "ExperienceRequired": "3",
+        "QualificationRequired": "3+ years in Azure",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "JobLocations": [
+            {
+                "Id": "1016",
+                "StressAddressDetail": "964 Rachel Mountain, North Joseburgh, Wyoming",
+                "JobPostId": "1016",
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1016",
+                "SkillSetId": "3",
+                "JobPostId": "1016"
+            }
+        ]
+    },
+    {
+        "Id": "1017",
+        "JobTitle": "Cloud Architect",
+        "JobDescription": "Upon enter how appear fine total. Something read middle financial coach believe. Live speak quite let.",
+        "Salary": "134400",
+        "PostingDate": "2024-11-03 14:06:19.076854",
+        "ExpiryDate": "2024-12-03 14:06:19.076863",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "3+ years in Azure",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "JobLocations": [
+            {
                 "Id": "1017",
-                "StressAddressDetail": "13834 Lyons Circles Suite 612, Jackfort, New York",
+                "StressAddressDetail": "180 Ronald Hills, Kimberlyton, Colorado",
                 "JobPostId": "1017",
-                "LocationId": "5"
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1017",
+                "SkillSetId": "3",
+                "JobPostId": "1017"
             }
         ]
     },
     {
         "Id": "1018",
-        "JobTitle": "Full Stack Developer",
-        "JobDescription": "Direction recognize threat. Style night leg race Congress produce part.",
-        "Salary": "143068",
-        "PostingDate": "2024-11-03 02:19:03.678823",
-        "ExpiryDate": "2024-12-03 02:19:03.678833",
-        "ExperienceRequired": "1",
-        "QualificationRequired": "3+ years in SQL",
+        "JobTitle": "Data Scientist",
+        "JobDescription": "Environmental hospital effort Republican soldier arm. Under party stand.",
+        "Salary": "80189",
+        "PostingDate": "2024-11-03 14:06:19.077031",
+        "ExpiryDate": "2024-12-03 14:06:19.077039",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "4+ years in Python",
         "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "1",
+        "JobPostReviewStatus": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
-        "JobTypeId": "1",
+        "JobTypeId": "3",
         "JobLocations": [
             {
                 "Id": "1018",
-                "StressAddressDetail": "441 David Pike Suite 033, South Tina, Florida",
+                "StressAddressDetail": "14614 Brian Haven Apt. 516, North Terryburgh, Maryland",
                 "JobPostId": "1018",
-                "LocationId": "4"
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1018",
+                "SkillSetId": "3",
+                "JobPostId": "1018"
             }
         ]
     },
     {
         "Id": "1019",
-        "JobTitle": "Software Engineer",
-        "JobDescription": "Let experience continue trial line style. Sometimes want product fill of professor half.",
-        "Salary": "87126",
-        "PostingDate": "2024-11-03 02:19:03.679026",
-        "ExpiryDate": "2024-12-03 02:19:03.679035",
-        "ExperienceRequired": "3",
-        "QualificationRequired": "2+ years in Azure",
+        "JobTitle": "Project Manager",
+        "JobDescription": "Direction pretty morning across. True reflect attorney after century. Maintain four need especially.",
+        "Salary": "140535",
+        "PostingDate": "2024-11-03 14:06:19.077223",
+        "ExpiryDate": "2024-12-03 14:06:19.077231",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "5+ years in Python",
         "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "2",
+        "JobPostReviewStatus": "0",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -468,49 +575,61 @@
         "JobLocations": [
             {
                 "Id": "1019",
-                "StressAddressDetail": "76190 Justin Key Apt. 296, North Scottbury, Rhode Island",
+                "StressAddressDetail": "84637 Julie Lodge Apt. 359, Dawnview, Indiana",
                 "JobPostId": "1019",
-                "LocationId": "5"
+                "LocationId": "2"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1019",
+                "SkillSetId": "1",
+                "JobPostId": "1019"
             }
         ]
     },
     {
         "Id": "1020",
-        "JobTitle": "Full Stack Developer",
-        "JobDescription": "Effort clear role season remember national black. Notice population three for good himself voice.",
-        "Salary": "55026",
-        "PostingDate": "2024-11-03 02:19:03.679225",
-        "ExpiryDate": "2024-12-03 02:19:03.679233",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Imagine effect tax accept. Let stuff cause really on new election series. Shake thousand hit speak bed.",
+        "Salary": "91110",
+        "PostingDate": "2024-11-03 14:06:19.077766",
+        "ExpiryDate": "2024-12-03 14:06:19.077775",
         "ExperienceRequired": "1",
-        "QualificationRequired": "4+ years in NoSQL",
+        "QualificationRequired": "3+ years in C++",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "3",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
-        "JobTypeId": "2",
+        "JobTypeId": "1",
         "JobLocations": [
             {
                 "Id": "1020",
-                "StressAddressDetail": "422 Carmen Manor Suite 525, Lake Janetland, Florida",
+                "StressAddressDetail": "97725 Brendan Garden, West Johnside, Nebraska",
                 "JobPostId": "1020",
-                "LocationId": "4"
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1020",
+                "SkillSetId": "2",
+                "JobPostId": "1020"
             }
         ]
     },
     {
         "Id": "1021",
-        "JobTitle": "DevOps Engineer",
-        "JobDescription": "Hope more through believe defense. Hour still direction station.",
-        "Salary": "114972",
-        "PostingDate": "2024-11-03 02:19:03.679404",
-        "ExpiryDate": "2024-12-03 02:19:03.679411",
-        "ExperienceRequired": "3",
-        "QualificationRequired": "4+ years in JavaScript",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "Page window likely this shake. Response region discuss painting effect. Poor lot purpose book perhaps. Others toward possible follow growth contain whatever.",
+        "Salary": "131861",
+        "PostingDate": "2024-11-03 14:06:19.077969",
+        "ExpiryDate": "2024-12-03 14:06:19.077977",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "5+ years in Docker",
         "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "3",
+        "JobPostReviewStatus": "0",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -518,124 +637,154 @@
         "JobLocations": [
             {
                 "Id": "1021",
-                "StressAddressDetail": "53032 Christy Road, Patelmouth, Wyoming",
+                "StressAddressDetail": "20959 Sheryl Causeway Apt. 179, Barnettfort, Maine",
                 "JobPostId": "1021",
-                "LocationId": "5"
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1021",
+                "SkillSetId": "1",
+                "JobPostId": "1021"
             }
         ]
     },
     {
         "Id": "1022",
-        "JobTitle": "Project Manager",
-        "JobDescription": "View next role analysis enough democratic task. Institution those carry security American.",
-        "Salary": "134294",
-        "PostingDate": "2024-11-03 02:19:03.679600",
-        "ExpiryDate": "2024-12-03 02:19:03.679607",
-        "ExperienceRequired": "2",
+        "JobTitle": "Data Scientist",
+        "JobDescription": "Product break condition approach address six law. Ok finally course beautiful strong positive sea compare. Wonder reflect explain professor while someone.",
+        "Salary": "68117",
+        "PostingDate": "2024-11-03 14:06:19.078638",
+        "ExpiryDate": "2024-12-03 14:06:19.078648",
+        "ExperienceRequired": "4",
         "QualificationRequired": "2+ years in NoSQL",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "2",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "2",
-        "JobLocations": [
-            {
-                "Id": "1022",
-                "StressAddressDetail": "64005 Decker Canyon, New Kenneth, Utah",
-                "JobPostId": "1022",
-                "LocationId": "2"
-            }
-        ]
-    },
-    {
-        "Id": "1023",
-        "JobTitle": "Full Stack Developer",
-        "JobDescription": "Turn agent rate see community trial. Read kind own including. Sometimes check skill that risk.",
-        "Salary": "128937",
-        "PostingDate": "2024-11-03 02:19:03.679810",
-        "ExpiryDate": "2024-12-03 02:19:03.679818",
-        "ExperienceRequired": "3",
-        "QualificationRequired": "2+ years in NoSQL",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "3",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
         "JobTypeId": "1",
         "JobLocations": [
             {
-                "Id": "1023",
-                "StressAddressDetail": "46765 Linda Islands, Port Desireechester, Nebraska",
-                "JobPostId": "1023",
+                "Id": "1022",
+                "StressAddressDetail": "5332 Danielle Terrace Suite 404, West Beverlyport, Alabama",
+                "JobPostId": "1022",
                 "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1022",
+                "SkillSetId": "3",
+                "JobPostId": "1022"
+            }
+        ]
+    },
+    {
+        "Id": "1023",
+        "JobTitle": "Cloud Architect",
+        "JobDescription": "Truth campaign media through ability anyone. List bill less student point effect want head. Everybody product take than seven player.",
+        "Salary": "147566",
+        "PostingDate": "2024-11-03 14:06:19.078844",
+        "ExpiryDate": "2024-12-03 14:06:19.078851",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "4+ years in C++",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "JobLocations": [
+            {
+                "Id": "1023",
+                "StressAddressDetail": "0596 Ortega Groves Suite 315, Wilsonmouth, Alaska",
+                "JobPostId": "1023",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1023",
+                "SkillSetId": "3",
+                "JobPostId": "1023"
             }
         ]
     },
     {
         "Id": "1024",
-        "JobTitle": "Software Engineer",
-        "JobDescription": "People significant lot if long. Create that dark statement main music.",
-        "Salary": "132013",
-        "PostingDate": "2024-11-03 02:19:03.679987",
-        "ExpiryDate": "2024-12-03 02:19:03.679994",
-        "ExperienceRequired": "2",
-        "QualificationRequired": "3+ years in JavaScript",
+        "JobTitle": "Project Manager",
+        "JobDescription": "Role financial democratic term style world enough.",
+        "Salary": "56571",
+        "PostingDate": "2024-11-03 14:06:19.079083",
+        "ExpiryDate": "2024-12-03 14:06:19.079094",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "4+ years in JavaScript",
         "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "1",
+        "JobPostReviewStatus": "0",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
-        "JobTypeId": "3",
+        "JobTypeId": "2",
         "JobLocations": [
             {
                 "Id": "1024",
-                "StressAddressDetail": "434 White Walk Suite 255, Johnhaven, West Virginia",
+                "StressAddressDetail": "43848 Collin Crest Apt. 591, Travisshire, New Mexico",
                 "JobPostId": "1024",
-                "LocationId": "1"
+                "LocationId": "2"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1024",
+                "SkillSetId": "1",
+                "JobPostId": "1024"
             }
         ]
     },
     {
         "Id": "1025",
-        "JobTitle": "Cybersecurity Analyst",
-        "JobDescription": "Perhaps him generation it six course not model.",
-        "Salary": "111985",
-        "PostingDate": "2024-11-03 02:19:03.680189",
-        "ExpiryDate": "2024-12-03 02:19:03.680197",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "Also both social in sing. Main letter statement teacher tree station. Everybody edge brother may. Father hope benefit as box according.",
+        "Salary": "129395",
+        "PostingDate": "2024-11-03 14:06:19.079700",
+        "ExpiryDate": "2024-12-03 14:06:19.079709",
         "ExperienceRequired": "1",
-        "QualificationRequired": "5+ years in NoSQL",
+        "QualificationRequired": "4+ years in Azure",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "2",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
-        "JobTypeId": "3",
+        "JobTypeId": "1",
         "JobLocations": [
             {
                 "Id": "1025",
-                "StressAddressDetail": "7619 Brooks Neck, Jasontown, Wyoming",
+                "StressAddressDetail": "749 Robert View, Laurenberg, Colorado",
                 "JobPostId": "1025",
-                "LocationId": "2"
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1025",
+                "SkillSetId": "3",
+                "JobPostId": "1025"
             }
         ]
     },
     {
         "Id": "1026",
-        "JobTitle": "Cloud Architect",
-        "JobDescription": "Week carry lot ever these. Prepare media people visit program just.",
-        "Salary": "106610",
-        "PostingDate": "2024-11-03 02:19:03.680377",
-        "ExpiryDate": "2024-12-03 02:19:03.680384",
-        "ExperienceRequired": "2",
-        "QualificationRequired": "2+ years in JavaScript",
+        "JobTitle": "Data Scientist",
+        "JobDescription": "Camera within full stop air trip. Top worker quickly letter floor reality.",
+        "Salary": "139237",
+        "PostingDate": "2024-11-03 14:06:19.079885",
+        "ExpiryDate": "2024-12-03 14:06:19.079893",
+        "ExperienceRequired": "3",
+        "QualificationRequired": "4+ years in Kubernetes",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "2",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -643,24 +792,30 @@
         "JobLocations": [
             {
                 "Id": "1026",
-                "StressAddressDetail": "56065 Natalie Valleys, Barnesstad, Oregon",
+                "StressAddressDetail": "566 Brittany Trace Apt. 849, Port Kelly, Alaska",
                 "JobPostId": "1026",
                 "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1026",
+                "SkillSetId": "2",
+                "JobPostId": "1026"
             }
         ]
     },
     {
         "Id": "1027",
-        "JobTitle": "Cloud Architect",
-        "JobDescription": "Tv task reach trial. Either usually practice result take yet adult set. Rate hard build state information magazine traditional. Miss event imagine cut finish type always.",
-        "Salary": "131843",
-        "PostingDate": "2024-11-03 02:19:03.680589",
-        "ExpiryDate": "2024-12-03 02:19:03.680598",
-        "ExperienceRequired": "3",
-        "QualificationRequired": "2+ years in Kubernetes",
+        "JobTitle": "Cybersecurity Analyst",
+        "JobDescription": "Bag between street hand today direction see. Writer husband girl activity degree community.",
+        "Salary": "90713",
+        "PostingDate": "2024-11-03 14:06:19.080100",
+        "ExpiryDate": "2024-12-03 14:06:19.080109",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "3+ years in Docker",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -668,149 +823,185 @@
         "JobLocations": [
             {
                 "Id": "1027",
-                "StressAddressDetail": "70324 Coleman Prairie Suite 979, Allenburgh, Oregon",
+                "StressAddressDetail": "354 Jill Roads, Thomasside, Nebraska",
                 "JobPostId": "1027",
-                "LocationId": "2"
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1027",
+                "SkillSetId": "2",
+                "JobPostId": "1027"
             }
         ]
     },
     {
         "Id": "1028",
-        "JobTitle": "Software Engineer",
-        "JobDescription": "Late specific piece simple sense catch personal. Within face natural lose environment camera.",
-        "Salary": "110052",
-        "PostingDate": "2024-11-03 02:19:03.680805",
-        "ExpiryDate": "2024-12-03 02:19:03.680813",
-        "ExperienceRequired": "5",
-        "QualificationRequired": "3+ years in Docker",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "1",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "1",
-        "JobLocations": [
-            {
-                "Id": "1028",
-                "StressAddressDetail": "16366 Sherry Roads Suite 339, New Steven, California",
-                "JobPostId": "1028",
-                "LocationId": "3"
-            }
-        ]
-    },
-    {
-        "Id": "1029",
-        "JobTitle": "UI/UX Designer",
-        "JobDescription": "Well why soldier Mr enter election. Part very position.",
-        "Salary": "119210",
-        "PostingDate": "2024-11-03 02:19:03.680981",
-        "ExpiryDate": "2024-12-03 02:19:03.680988",
-        "ExperienceRequired": "2",
-        "QualificationRequired": "4+ years in Azure",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "3",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "2",
-        "JobLocations": [
-            {
-                "Id": "1029",
-                "StressAddressDetail": "72797 Eric Isle, Deannahaven, Ohio",
-                "JobPostId": "1029",
-                "LocationId": "5"
-            }
-        ]
-    },
-    {
-        "Id": "1030",
         "JobTitle": "Data Scientist",
-        "JobDescription": "Serious box hold.",
-        "Salary": "132083",
-        "PostingDate": "2024-11-03 02:19:03.681143",
-        "ExpiryDate": "2024-12-03 02:19:03.681149",
-        "ExperienceRequired": "3",
-        "QualificationRequired": "4+ years in Azure",
+        "JobDescription": "Poor team message cultural more. Someone election explain family well.",
+        "Salary": "146923",
+        "PostingDate": "2024-11-03 14:06:19.080277",
+        "ExpiryDate": "2024-12-03 14:06:19.080284",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "3+ years in SQL",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "3",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "2",
-        "JobLocations": [
-            {
-                "Id": "1030",
-                "StressAddressDetail": "905 Tracy Parkway Apt. 670, Elizabethview, Massachusetts",
-                "JobPostId": "1030",
-                "LocationId": "3"
-            }
-        ]
-    },
-    {
-        "Id": "1031",
-        "JobTitle": "Software Engineer",
-        "JobDescription": "Price important carry media poor. Central production summer. Because support positive. Hotel to people gas toward or.",
-        "Salary": "85588",
-        "PostingDate": "2024-11-03 02:19:03.681332",
-        "ExpiryDate": "2024-12-03 02:19:03.681339",
-        "ExperienceRequired": "4",
-        "QualificationRequired": "3+ years in NoSQL",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
         "JobTypeId": "3",
         "JobLocations": [
             {
-                "Id": "1031",
-                "StressAddressDetail": "08643 Burns Fall, Erinmouth, Pennsylvania",
-                "JobPostId": "1031",
-                "LocationId": "3"
+                "Id": "1028",
+                "StressAddressDetail": "770 Xavier Station Apt. 507, West Michelebury, Tennessee",
+                "JobPostId": "1028",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1028",
+                "SkillSetId": "2",
+                "JobPostId": "1028"
             }
         ]
     },
     {
-        "Id": "1032",
-        "JobTitle": "Full Stack Developer",
-        "JobDescription": "Price thank attention better little leg. Quickly season message beyond ago article.",
-        "Salary": "51923",
-        "PostingDate": "2024-11-03 02:19:03.681519",
-        "ExpiryDate": "2024-12-03 02:19:03.681526",
-        "ExperienceRequired": "3",
-        "QualificationRequired": "4+ years in Kubernetes",
+        "Id": "1029",
+        "JobTitle": "Software Engineer",
+        "JobDescription": "Opportunity explain along rich home maintain site. Responsibility machine professor job.",
+        "Salary": "54006",
+        "PostingDate": "2024-11-03 14:06:19.080483",
+        "ExpiryDate": "2024-12-03 14:06:19.080492",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "3+ years in NoSQL",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "2",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
         "JobTypeId": "1",
         "JobLocations": [
             {
-                "Id": "1032",
-                "StressAddressDetail": "9658 Owens Tunnel, Andersonchester, Illinois",
-                "JobPostId": "1032",
+                "Id": "1029",
+                "StressAddressDetail": "737 Moore Passage, Williamsshire, Rhode Island",
+                "JobPostId": "1029",
                 "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1029",
+                "SkillSetId": "3",
+                "JobPostId": "1029"
+            }
+        ]
+    },
+    {
+        "Id": "1030",
+        "JobTitle": "Software Engineer",
+        "JobDescription": "Skill area ball will. Fund management arrive herself week. Find may employee outside itself read.",
+        "Salary": "61876",
+        "PostingDate": "2024-11-03 14:06:19.080718",
+        "ExpiryDate": "2024-12-03 14:06:19.080725",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "4+ years in C++",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "JobLocations": [
+            {
+                "Id": "1030",
+                "StressAddressDetail": "0017 Williams Motorway, Lake James, Florida",
+                "JobPostId": "1030",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1030",
+                "SkillSetId": "3",
+                "JobPostId": "1030"
+            }
+        ]
+    },
+    {
+        "Id": "1031",
+        "JobTitle": "Project Manager",
+        "JobDescription": "Start couple those serve fund. Raise health account mention attorney leave edge material.",
+        "Salary": "138382",
+        "PostingDate": "2024-11-03 14:06:19.080912",
+        "ExpiryDate": "2024-12-03 14:06:19.080928",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "5+ years in AWS",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "1",
+        "JobLocations": [
+            {
+                "Id": "1031",
+                "StressAddressDetail": "35887 Brown Mission Suite 061, Port Paul, New Jersey",
+                "JobPostId": "1031",
+                "LocationId": "2"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1031",
+                "SkillSetId": "3",
+                "JobPostId": "1031"
+            }
+        ]
+    },
+    {
+        "Id": "1032",
+        "JobTitle": "Software Engineer",
+        "JobDescription": "Church south activity deal. Sit despite address catch cut there show. Event just garden your close order score.",
+        "Salary": "143815",
+        "PostingDate": "2024-11-03 14:06:19.081142",
+        "ExpiryDate": "2024-12-03 14:06:19.081150",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "2+ years in Azure",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "JobLocations": [
+            {
+                "Id": "1032",
+                "StressAddressDetail": "0944 Tara Parkways Suite 414, East Travisburgh, Tennessee",
+                "JobPostId": "1032",
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1032",
+                "SkillSetId": "3",
+                "JobPostId": "1032"
             }
         ]
     },
     {
         "Id": "1033",
-        "JobTitle": "Cloud Architect",
-        "JobDescription": "Large tend clearly loss. Candidate crime listen throw feeling high contain.",
-        "Salary": "79169",
-        "PostingDate": "2024-11-03 02:19:03.681732",
-        "ExpiryDate": "2024-12-03 02:19:03.681740",
-        "ExperienceRequired": "5",
-        "QualificationRequired": "2+ years in AWS",
+        "JobTitle": "Full Stack Developer",
+        "JobDescription": "Company really there truth include our. Start trouble understand including court white public suffer.",
+        "Salary": "78633",
+        "PostingDate": "2024-11-03 14:06:19.081330",
+        "ExpiryDate": "2024-12-03 14:06:19.081338",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "5+ years in SQL",
         "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "1",
+        "JobPostReviewStatus": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -818,24 +1009,30 @@
         "JobLocations": [
             {
                 "Id": "1033",
-                "StressAddressDetail": "596 Daniel Route, North Jorge, Louisiana",
+                "StressAddressDetail": "8682 Brown Mountain Apt. 476, Pennyhaven, Oklahoma",
                 "JobPostId": "1033",
-                "LocationId": "6"
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1033",
+                "SkillSetId": "2",
+                "JobPostId": "1033"
             }
         ]
     },
     {
         "Id": "1034",
-        "JobTitle": "Data Scientist",
-        "JobDescription": "Pretty door strategy ready. Crime often join Mr already interview law. Woman bad either cover. Four as significant animal.",
-        "Salary": "131658",
-        "PostingDate": "2024-11-03 02:19:03.681914",
-        "ExpiryDate": "2024-12-03 02:19:03.681921",
-        "ExperienceRequired": "4",
-        "QualificationRequired": "4+ years in NoSQL",
+        "JobTitle": "QA Engineer",
+        "JobDescription": "Generation serve level poor notice poor challenge rule. Environmental though woman.",
+        "Salary": "126271",
+        "PostingDate": "2024-11-03 14:06:19.081557",
+        "ExpiryDate": "2024-12-03 14:06:19.081566",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "3+ years in Docker",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "2",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -843,99 +1040,123 @@
         "JobLocations": [
             {
                 "Id": "1034",
-                "StressAddressDetail": "5370 Hernandez Views Apt. 604, Lake Roseborough, South Carolina",
+                "StressAddressDetail": "92952 Webb Locks, West Robert, Kansas",
                 "JobPostId": "1034",
-                "LocationId": "4"
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1034",
+                "SkillSetId": "2",
+                "JobPostId": "1034"
             }
         ]
     },
     {
         "Id": "1035",
-        "JobTitle": "Software Engineer",
-        "JobDescription": "Water probably eight job with anything. American little security reflect against gas.",
-        "Salary": "63341",
-        "PostingDate": "2024-11-03 02:19:03.682113",
-        "ExpiryDate": "2024-12-03 02:19:03.682120",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "None body painting stay. Your choice Republican authority score person prove.",
+        "Salary": "80885",
+        "PostingDate": "2024-11-03 14:06:19.081758",
+        "ExpiryDate": "2024-12-03 14:06:19.081766",
         "ExperienceRequired": "3",
-        "QualificationRequired": "4+ years in Azure",
+        "QualificationRequired": "3+ years in Azure",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "JobLocations": [
+            {
+                "Id": "1035",
+                "StressAddressDetail": "5651 Wendy Alley Suite 622, Hamiltonburgh, Oregon",
+                "JobPostId": "1035",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1035",
+                "SkillSetId": "3",
+                "JobPostId": "1035"
+            }
+        ]
+    },
+    {
+        "Id": "1036",
+        "JobTitle": "Project Manager",
+        "JobDescription": "Visit heavy until material. Into season follow author far fine never.",
+        "Salary": "129937",
+        "PostingDate": "2024-11-03 14:06:19.082025",
+        "ExpiryDate": "2024-12-03 14:06:19.082036",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "5+ years in NoSQL",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "JobLocations": [
+            {
+                "Id": "1036",
+                "StressAddressDetail": "68405 Gonzalez Island Apt. 164, Pagebury, Connecticut",
+                "JobPostId": "1036",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1036",
+                "SkillSetId": "3",
+                "JobPostId": "1036"
+            }
+        ]
+    },
+    {
+        "Id": "1037",
+        "JobTitle": "Full Stack Developer",
+        "JobDescription": "Share wall officer know word. Discuss decide then one positive discuss.",
+        "Salary": "124537",
+        "PostingDate": "2024-11-03 14:06:19.082532",
+        "ExpiryDate": "2024-12-03 14:06:19.082543",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "2+ years in Docker",
+        "ImageURL": "https://picsum.photos/200/300",
+        "JobPostReviewStatus": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
         "JobTypeId": "1",
         "JobLocations": [
             {
-                "Id": "1035",
-                "StressAddressDetail": "52017 Adrian Well, South Nicholas, New York",
-                "JobPostId": "1035",
+                "Id": "1037",
+                "StressAddressDetail": "97816 Curtis Shore, Simmonsfurt, Iowa",
+                "JobPostId": "1037",
                 "LocationId": "3"
             }
-        ]
-    },
-    {
-        "Id": "1036",
-        "JobTitle": "Software Engineer",
-        "JobDescription": "Reveal sometimes employee fast down create discover. With four use plan. Attack contain likely let worker finally. Group drive everybody pass poor vote.",
-        "Salary": "124072",
-        "PostingDate": "2024-11-03 02:19:03.682298",
-        "ExpiryDate": "2024-12-03 02:19:03.682305",
-        "ExperienceRequired": "2",
-        "QualificationRequired": "5+ years in Azure",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "2",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "2",
-        "JobLocations": [
-            {
-                "Id": "1036",
-                "StressAddressDetail": "52715 Edward Springs, Allenside, Tennessee",
-                "JobPostId": "1036",
-                "LocationId": "5"
-            }
-        ]
-    },
-    {
-        "Id": "1037",
-        "JobTitle": "Software Engineer",
-        "JobDescription": "Big site you beautiful Democrat me. Art challenge stand manager speak situation thought tree.",
-        "Salary": "130678",
-        "PostingDate": "2024-11-03 02:19:03.682467",
-        "ExpiryDate": "2024-12-03 02:19:03.682474",
-        "ExperienceRequired": "3",
-        "QualificationRequired": "4+ years in SQL",
-        "ImageURL": "https://picsum.photos/200/300",
-        "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "3",
-        "IsActive": "true",
-        "UserId": "3",
-        "CompanyId": "1",
-        "JobTypeId": "2",
-        "JobLocations": [
+        ],
+        "JobSkillSets": [
             {
                 "Id": "1037",
-                "StressAddressDetail": "80742 Clements Tunnel Suite 015, Jacquelineport, Alabama",
-                "JobPostId": "1037",
-                "LocationId": "4"
+                "SkillSetId": "2",
+                "JobPostId": "1037"
             }
         ]
     },
     {
         "Id": "1038",
-        "JobTitle": "Data Scientist",
-        "JobDescription": "Five into month employee though far worry. Approach discover certain experience make century want. Think state product wish box human remain answer.",
-        "Salary": "125231",
-        "PostingDate": "2024-11-03 02:19:03.682694",
-        "ExpiryDate": "2024-12-03 02:19:03.682702",
+        "JobTitle": "Cybersecurity Analyst",
+        "JobDescription": "Brother community surface site agree modern without. Guess fight late less behavior major thousand. Speak certain government current if note.",
+        "Salary": "82562",
+        "PostingDate": "2024-11-03 14:06:19.082771",
+        "ExpiryDate": "2024-12-03 14:06:19.082779",
         "ExperienceRequired": "1",
-        "QualificationRequired": "5+ years in C++",
+        "QualificationRequired": "2+ years in Docker",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -943,49 +1164,61 @@
         "JobLocations": [
             {
                 "Id": "1038",
-                "StressAddressDetail": "222 Jeffrey Locks Apt. 122, New Carlastad, Illinois",
+                "StressAddressDetail": "592 Justin Orchard Suite 123, Lawsonmouth, North Carolina",
                 "JobPostId": "1038",
-                "LocationId": "5"
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1038",
+                "SkillSetId": "3",
+                "JobPostId": "1038"
             }
         ]
     },
     {
         "Id": "1039",
-        "JobTitle": "DevOps Engineer",
-        "JobDescription": "Effect executive reflect better. Happen energy bed something every when high.",
-        "Salary": "58645",
-        "PostingDate": "2024-11-03 02:19:03.682874",
-        "ExpiryDate": "2024-12-03 02:19:03.682881",
-        "ExperienceRequired": "5",
-        "QualificationRequired": "2+ years in SQL",
+        "JobTitle": "Project Manager",
+        "JobDescription": "Right maybe process care high those. President visit very commercial contain life success.",
+        "Salary": "138107",
+        "PostingDate": "2024-11-03 14:06:19.083004",
+        "ExpiryDate": "2024-12-03 14:06:19.083013",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "4+ years in Docker",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "0",
-        "SkillLevelRequired": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
-        "JobTypeId": "3",
+        "JobTypeId": "2",
         "JobLocations": [
             {
                 "Id": "1039",
-                "StressAddressDetail": "4689 Wesley Rapids, Port Jacobtown, Arizona",
+                "StressAddressDetail": "88768 Navarro Underpass Apt. 260, Johnville, Idaho",
                 "JobPostId": "1039",
-                "LocationId": "2"
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1039",
+                "SkillSetId": "2",
+                "JobPostId": "1039"
             }
         ]
     },
     {
         "Id": "1040",
-        "JobTitle": "DevOps Engineer",
-        "JobDescription": "Benefit character loss either spring media conference four. Might kid before TV itself board.",
-        "Salary": "58029",
-        "PostingDate": "2024-11-03 02:19:03.683045",
-        "ExpiryDate": "2024-12-03 02:19:03.683051",
-        "ExperienceRequired": "5",
-        "QualificationRequired": "4+ years in Python",
+        "JobTitle": "UI/UX Designer",
+        "JobDescription": "Different tree white health do view. War current less field arrive government. Herself population who reflect relate themselves quickly.",
+        "Salary": "110516",
+        "PostingDate": "2024-11-03 14:06:19.083216",
+        "ExpiryDate": "2024-12-03 14:06:19.083224",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "5+ years in Azure",
         "ImageURL": "https://picsum.photos/200/300",
         "JobPostReviewStatus": "1",
-        "SkillLevelRequired": "1",
         "IsActive": "true",
         "UserId": "3",
         "CompanyId": "1",
@@ -993,9 +1226,16 @@
         "JobLocations": [
             {
                 "Id": "1040",
-                "StressAddressDetail": "44165 Ortega Skyway, Port Mirandatown, Connecticut",
+                "StressAddressDetail": "3336 Charles Fords, Moorechester, Iowa",
                 "JobPostId": "1040",
-                "LocationId": "4"
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1040",
+                "SkillSetId": "2",
+                "JobPostId": "1040"
             }
         ]
     }
