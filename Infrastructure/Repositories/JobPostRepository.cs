@@ -74,7 +74,7 @@ namespace Infrastructure.Repositories
                     var result = await query.ToListAsync();
                     return result ?? [];
                 }
-                return [];
+                return query.ToList();
             }
             catch (Exception ex)
             {

@@ -38,7 +38,7 @@ builder.Services.AddFluentValidationAutoValidation();
 //config api 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseNpgsql(configuration!.ConnectionStrings.LocalDockerConnection);
+    options.UseNpgsql(configuration!.ConnectionStrings.DefaultConnection);
     options.ConfigureWarnings(warnings =>
             warnings.Ignore(CoreEventId.NavigationBaseIncludeIgnored));
 });
