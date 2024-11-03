@@ -29,6 +29,11 @@ namespace Infrastructure.Repositories
                     query = query.Where(x => x.JobType.Name.ToLower().Contains(request.JobType.ToLower()));
                 }
 
+                if (!string.IsNullOrEmpty(request.JobTitle))
+                {
+                    query = query.Where(x => x.JobTitle.ToLower().Contains(request.JobTitle.ToLower()));
+                }
+
                 if (!string.IsNullOrEmpty(request.Location))
                 {
                     query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
