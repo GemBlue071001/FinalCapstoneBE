@@ -321,10 +321,7 @@ namespace Application.Services
             await _unitOfWork.JobPosts.AddRangeAsync(jobs);
             await _unitOfWork.SaveChangeAsync();
 
-            var tests = await _unitOfWork.JobPosts.GetAllAsync(s => true);
-            var response = _mapper.Map<List<JobPostResponse>>(tests);
-
-            return new ApiResponse().SetOk(response);
+            return new ApiResponse().SetOk();
         }
     }
 }
