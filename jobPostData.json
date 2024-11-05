@@ -1,0 +1,1282 @@
+[
+    {
+        "Id": "1001",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Provide technical support to users and resolve software-related issues.",
+        "Salary": "91596",
+        "PostingDate": "2024-11-03 15:32:04.417934",
+        "ExpiryDate": "2024-12-03 15:32:04.417958",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "5+ years in AWS",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Retirement Plans: Secure your future with retirement savings plans.</br>Chance to Shape the Future of Technology: Be part of groundbreaking innovations and drive technological advancements.</br>Ergonomic Workspaces: Enjoy a comfortable and healthy work environment.</br>Remote Work Options: Work from the comfort of your home or any location that suits you.</br>Performance Bonuses: Reward your hard work and achievements with additional compensation.",
+        "JobLocations": [
+            {
+                "Id": "1001",
+                "StressAddressDetail": "925 Larson Meadow Apt. 235, Port Benjaminburgh, Mississippi",
+                "JobPostId": "1001",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1001",
+                "SkillSetId": "3",
+                "JobPostId": "1001"
+            }
+        ]
+    },
+    {
+        "Id": "1002",
+        "JobTitle": "Cybersecurity Analyst",
+        "JobDescription": "Troubleshoot and resolve software defects and performance issues.",
+        "Salary": "135974",
+        "PostingDate": "2024-11-03 15:32:04.418301",
+        "ExpiryDate": "2024-12-03 15:32:04.418322",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "4+ years in Docker",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Employee Assistance Programs: Access confidential counseling and support services.</br>Performance Bonuses: Reward your hard work and achievements with additional compensation.</br>Free Meals and Snacks: Fuel your workday with complimentary food and drinks.</br>Hackathons and Tech Talks: Participate in innovative challenges and learn from industry experts.</br>Opportunities to Work on High-Profile Projects: Work on challenging and impactful projects that can advance your career.",
+        "JobLocations": [
+            {
+                "Id": "1002",
+                "StressAddressDetail": "4217 Brittany Union, Taylorbury, Wyoming",
+                "JobPostId": "1002",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1002",
+                "SkillSetId": "2",
+                "JobPostId": "1002"
+            }
+        ]
+    },
+    {
+        "Id": "1003",
+        "JobTitle": "Data Scientist",
+        "JobDescription": "Implement security measures to protect software applications from vulnerabilities and attacks.",
+        "Salary": "84436",
+        "PostingDate": "2024-11-03 15:32:04.418505",
+        "ExpiryDate": "2024-12-03 15:32:04.418514",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "4+ years in JavaScript",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Casual Dress Code: Express your individuality with a relaxed dress code.</br>Global Opportunities: Collaborate with teams around the world and gain international experience.</br>On-site Gym and Fitness Classes: Stay fit and healthy with on-site fitness facilities and classes.</br>Chance to Shape the Future of Technology: Be part of groundbreaking innovations and drive technological advancements.</br>Cutting-Edge Technology: Work with the latest technologies and tools to build innovative software solutions.",
+        "JobLocations": [
+            {
+                "Id": "1003",
+                "StressAddressDetail": "67485 Jesse Island, Clementsfort, Pennsylvania",
+                "JobPostId": "1003",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1003",
+                "SkillSetId": "1",
+                "JobPostId": "1003"
+            }
+        ]
+    },
+    {
+        "Id": "1004",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Collaborate with cross-functional teams to understand user needs and translate them into technical solutions.",
+        "Salary": "67423",
+        "PostingDate": "2024-11-03 15:32:04.418670",
+        "ExpiryDate": "2024-12-03 15:32:04.418678",
+        "ExperienceRequired": "3",
+        "QualificationRequired": "4+ years in C++",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Compressed Workweeks: Work fewer days per week with longer hours.</br>Flexible Scheduling: Customize your work schedule to fit your lifestyle.</br>Casual Dress Code: Express your individuality with a relaxed dress code.</br>Positive and Inclusive Work Environment: Work in a supportive and welcoming atmosphere.</br>Opportunities to Travel for Work: Explore new places and cultures while    working on exciting projects.",
+        "JobLocations": [
+            {
+                "Id": "1004",
+                "StressAddressDetail": "3129 Kevin Mills, Adamport, South Dakota",
+                "JobPostId": "1004",
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1004",
+                "SkillSetId": "1",
+                "JobPostId": "1004"
+            }
+        ]
+    },
+    {
+        "Id": "1005",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Participate in code reviews and provide feedback to improve code quality.",
+        "Salary": "57165",
+        "PostingDate": "2024-11-03 15:32:04.418806",
+        "ExpiryDate": "2024-12-03 15:32:04.418813",
+        "ExperienceRequired": "3",
+        "QualificationRequired": "3+ years in JavaScript",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Competitive Salary and Benefits: Enjoy a lucrative compensation package including health insurance, retirement plans, and performance bonuses.</br>Career Advancement Opportunities: Advance your career through promotions, leadership roles, and specialized tracks.</br>On-site Gym and Fitness Classes: Stay fit and healthy with on-site fitness facilities and classes.</br>Parental Leave: Support work-life balance with paid parental leave.</br>State-of-the-Art Equipment: Work with the latest technology and tools to boost productivity.",
+        "JobLocations": [
+            {
+                "Id": "1005",
+                "StressAddressDetail": "0995 Fernandez Trail Apt. 415, South Nicole, Pennsylvania",
+                "JobPostId": "1005",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1005",
+                "SkillSetId": "1",
+                "JobPostId": "1005"
+            }
+        ]
+    },
+    {
+        "Id": "1006",
+        "JobTitle": "Data Scientist",
+        "JobDescription": "Provide technical support to users and resolve software-related issues.",
+        "Salary": "124095",
+        "PostingDate": "2024-11-03 15:32:04.418970",
+        "ExpiryDate": "2024-12-03 15:32:04.418977",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "2+ years in Python",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Exposure to Diverse Technologies and Methodologies: Expand your skillset and stay up-to-date with the latest trends.</br>Paid Time Off: Enjoy generous vacation, sick leave, and holiday pay.</br>Ergonomic Workspaces: Enjoy a comfortable and healthy work environment.</br>Impactful Work: Contribute to projects that have a real-world impact on businesses and individuals.</br>Career Advancement Opportunities: Advance your career through promotions, leadership roles, and specialized tracks.",
+        "JobLocations": [
+            {
+                "Id": "1006",
+                "StressAddressDetail": "2106 John Ville Suite 693, Deborahview, Texas",
+                "JobPostId": "1006",
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1006",
+                "SkillSetId": "1",
+                "JobPostId": "1006"
+            }
+        ]
+    },
+    {
+        "Id": "1007",
+        "JobTitle": "Cloud Architect",
+        "JobDescription": "Develop and maintain software applications to meet business requirements.",
+        "Salary": "52782",
+        "PostingDate": "2024-11-03 15:32:04.419109",
+        "ExpiryDate": "2024-12-03 15:32:04.419116",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "5+ years in C++",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "1",
+        "Benefits": "Paid Time Off: Enjoy generous vacation, sick leave, and holiday pay.</br>Parental Leave: Support work-life balance with paid parental leave.</br>Collaborative and Supportive Culture: Collaborate with talented engineers and industry experts in a positive and inclusive work environment.</br>Career Advancement Opportunities: Advance your career through promotions, leadership roles, and specialized tracks.</br>Opportunities to Travel for Work: Explore new places and cultures while    working on exciting projects.",
+        "JobLocations": [
+            {
+                "Id": "1007",
+                "StressAddressDetail": "931 Brennan Mountains Apt. 226, Lake Brittanyside, Kentucky",
+                "JobPostId": "1007",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1007",
+                "SkillSetId": "2",
+                "JobPostId": "1007"
+            }
+        ]
+    },
+    {
+        "Id": "1008",
+        "JobTitle": "Cloud Architect",
+        "JobDescription": "Design, code, test, and debug software programs.",
+        "Salary": "136126",
+        "PostingDate": "2024-11-03 15:32:04.419271",
+        "ExpiryDate": "2024-12-03 15:32:04.419278",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "5+ years in Python",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Recognition and Rewards for Achievements: Celebrate your successes with recognition and rewards.</br>Retirement Plans: Secure your future with retirement savings plans.</br>Casual Dress Code: Express your individuality with a relaxed dress code.</br>Employee Assistance Programs: Access confidential counseling and support services.</br>Opportunities to Travel for Work: Explore new places and cultures while    working on exciting projects.",
+        "JobLocations": [
+            {
+                "Id": "1008",
+                "StressAddressDetail": "0982 Christina Mountain Suite 577, Jensenside, Colorado",
+                "JobPostId": "1008",
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1008",
+                "SkillSetId": "1",
+                "JobPostId": "1008"
+            }
+        ]
+    },
+    {
+        "Id": "1009",
+        "JobTitle": "Cybersecurity Analyst",
+        "JobDescription": "Collaborate with cross-functional teams to understand user needs and translate them into technical solutions.",
+        "Salary": "85269",
+        "PostingDate": "2024-11-03 15:32:04.419429",
+        "ExpiryDate": "2024-12-03 15:32:04.419436",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "3+ years in JavaScript",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Opportunities to Work on High-Profile Projects: Work on challenging and impactful projects that can advance your career.</br>Competitive Salary and Benefits: Enjoy a lucrative compensation package including health insurance, retirement plans, and performance bonuses.</br>On-site Gym and Fitness Classes: Stay fit and healthy with on-site fitness facilities and classes.</br>Collaboration with Industry Leaders: Network with top industry professionals and learn from their expertise.</br>Innovative Projects: Be part of groundbreaking projects that push the boundaries of technology.",
+        "JobLocations": [
+            {
+                "Id": "1009",
+                "StressAddressDetail": "8678 Penny Skyway, Devinstad, Alaska",
+                "JobPostId": "1009",
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1009",
+                "SkillSetId": "3",
+                "JobPostId": "1009"
+            }
+        ]
+    },
+    {
+        "Id": "1010",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "Stay up-to-date with the latest software development technologies and best practices.",
+        "Salary": "137774",
+        "PostingDate": "2024-11-03 15:32:04.419558",
+        "ExpiryDate": "2024-12-03 15:32:04.419565",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "5+ years in NoSQL",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "1",
+        "Benefits": "Collaborative and Supportive Culture: Collaborate with talented engineers and industry experts in a positive and inclusive work environment.</br>Chance to Shape the Future of Technology: Be part of groundbreaking innovations and drive technological advancements.</br>Retirement Plans: Secure your future with retirement savings plans.</br>Health Insurance: Comprehensive health coverage to protect your well-being.</br>Impactful Work: Contribute to projects that have a real-world impact on businesses and individuals.",
+        "JobLocations": [
+            {
+                "Id": "1010",
+                "StressAddressDetail": "396 Eric Club Suite 164, South Vanessa, Oregon",
+                "JobPostId": "1010",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1010",
+                "SkillSetId": "1",
+                "JobPostId": "1010"
+            }
+        ]
+    },
+    {
+        "Id": "1011",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Participate in code reviews and provide feedback to improve code quality.",
+        "Salary": "149397",
+        "PostingDate": "2024-11-03 15:32:04.419768",
+        "ExpiryDate": "2024-12-03 15:32:04.419781",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "2+ years in Docker",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Chance to Shape the Future of Technology: Be part of groundbreaking innovations and drive technological advancements.</br>Job Security and Stability: Enjoy a secure and stable career path.</br>Opportunity to Work on Open-Source Projects: Contribute to open-source projects and collaborate with the global developer community.</br>Retirement Plans: Secure your future with retirement savings plans.</br>Compressed Workweeks: Work fewer days per week with longer hours.",
+        "JobLocations": [
+            {
+                "Id": "1011",
+                "StressAddressDetail": "42575 Richard Dam Suite 270, West Charles, Idaho",
+                "JobPostId": "1011",
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1011",
+                "SkillSetId": "1",
+                "JobPostId": "1011"
+            }
+        ]
+    },
+    {
+        "Id": "1012",
+        "JobTitle": "QA Engineer",
+        "JobDescription": "Collaborate with cross-functional teams to understand user needs and translate them into technical solutions.",
+        "Salary": "127125",
+        "PostingDate": "2024-11-03 15:32:04.419995",
+        "ExpiryDate": "2024-12-03 15:32:04.420007",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "5+ years in C++",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Opportunity to Work on Open-Source Projects: Contribute to open-source projects and collaborate with the global developer community.</br>Opportunities to Travel for Work: Explore new places and cultures while    working on exciting projects.</br>Social Events and Team Building Activities: Strengthen team bonds and have fun with team-building events.</br>Cutting-Edge Technology: Work with the latest technologies and tools to build innovative software solutions.</br>Collaboration with Industry Leaders: Network with top industry professionals and learn from their expertise.",
+        "JobLocations": [
+            {
+                "Id": "1012",
+                "StressAddressDetail": "230 Fletcher Plain, Whitneyshire, Oregon",
+                "JobPostId": "1012",
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1012",
+                "SkillSetId": "2",
+                "JobPostId": "1012"
+            }
+        ]
+    },
+    {
+        "Id": "1013",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Provide technical support to users and resolve software-related issues.",
+        "Salary": "69826",
+        "PostingDate": "2024-11-03 15:32:04.420182",
+        "ExpiryDate": "2024-12-03 15:32:04.420190",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "2+ years in JavaScript",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Retirement Plans: Secure your future with retirement savings plans.</br>Flexible Scheduling: Customize your work schedule to fit your lifestyle.</br>Positive and Inclusive Work Environment: Work in a supportive and welcoming atmosphere.</br>Collaborative and Supportive Culture: Collaborate with talented engineers and industry experts in a positive and inclusive work environment.</br>Work-Life Balance: Prioritize your well-being with generous time off, wellness programs, and flexible work arrangements.",
+        "JobLocations": [
+            {
+                "Id": "1013",
+                "StressAddressDetail": "695 Michael Springs, East Michael, Texas",
+                "JobPostId": "1013",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1013",
+                "SkillSetId": "1",
+                "JobPostId": "1013"
+            }
+        ]
+    },
+    {
+        "Id": "1014",
+        "JobTitle": "Software Engineer",
+        "JobDescription": "Troubleshoot and resolve software defects and performance issues.",
+        "Salary": "132240",
+        "PostingDate": "2024-11-03 15:32:04.420311",
+        "ExpiryDate": "2024-12-03 15:32:04.420322",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "5+ years in NoSQL",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Collaboration with Industry Leaders: Network with top industry professionals and learn from their expertise.</br>Positive and Inclusive Work Environment: Work in a supportive and welcoming atmosphere.</br>Competitive Salary and Benefits: Enjoy a lucrative compensation package including health insurance, retirement plans, and performance bonuses.</br>Opportunities to Travel for Work: Explore new places and cultures while    working on exciting projects.</br>State-of-the-Art Equipment: Work with the latest technology and tools to boost productivity.",
+        "JobLocations": [
+            {
+                "Id": "1014",
+                "StressAddressDetail": "701 Romero Ville Apt. 406, North Vanessa, West Virginia",
+                "JobPostId": "1014",
+                "LocationId": "2"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1014",
+                "SkillSetId": "1",
+                "JobPostId": "1014"
+            }
+        ]
+    },
+    {
+        "Id": "1015",
+        "JobTitle": "Cybersecurity Analyst",
+        "JobDescription": "Provide technical support to users and resolve software-related issues.",
+        "Salary": "59768",
+        "PostingDate": "2024-11-03 15:32:04.420511",
+        "ExpiryDate": "2024-12-03 15:32:04.420519",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "2+ years in JavaScript",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Chance to Shape the Future of Technology: Be part of groundbreaking innovations and drive technological advancements.</br>Continuous Learning and Development: Stay ahead of the curve with access to training programs, conferences, and certifications to enhance your skills.</br>Opportunities to Travel for Work: Explore new places and cultures while    working on exciting projects.</br>Exposure to Diverse Technologies and Methodologies: Expand your skillset and stay up-to-date with the latest trends.</br>Career Advancement Opportunities: Advance your career through promotions, leadership roles, and specialized tracks.",
+        "JobLocations": [
+            {
+                "Id": "1015",
+                "StressAddressDetail": "38349 Bell Isle Suite 559, North Juantown, North Dakota",
+                "JobPostId": "1015",
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1015",
+                "SkillSetId": "2",
+                "JobPostId": "1015"
+            }
+        ]
+    },
+    {
+        "Id": "1016",
+        "JobTitle": "Cybersecurity Analyst",
+        "JobDescription": "Stay up-to-date with the latest software development technologies and best practices.",
+        "Salary": "100842",
+        "PostingDate": "2024-11-03 15:32:04.420675",
+        "ExpiryDate": "2024-12-03 15:32:04.420682",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "4+ years in Java",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Health Insurance: Comprehensive health coverage to protect your well-being.</br>Free Meals and Snacks: Fuel your workday with complimentary food and drinks.</br>Global Opportunities: Collaborate with teams around the world and gain international experience.</br>State-of-the-Art Equipment: Work with the latest technology and tools to boost productivity.</br>Career Advancement Opportunities: Advance your career through promotions, leadership roles, and specialized tracks.",
+        "JobLocations": [
+            {
+                "Id": "1016",
+                "StressAddressDetail": "67498 David Landing Suite 133, Lake Gregory, New Hampshire",
+                "JobPostId": "1016",
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1016",
+                "SkillSetId": "1",
+                "JobPostId": "1016"
+            }
+        ]
+    },
+    {
+        "Id": "1017",
+        "JobTitle": "Cloud Architect",
+        "JobDescription": "Stay up-to-date with the latest software development technologies and best practices.",
+        "Salary": "56780",
+        "PostingDate": "2024-11-03 15:32:04.420811",
+        "ExpiryDate": "2024-12-03 15:32:04.420817",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "5+ years in SQL",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Tuition Reimbursement: Further your education with tuition assistance for relevant courses.</br>Retirement Plans: Secure your future with retirement savings plans.</br>State-of-the-Art Equipment: Work with the latest technology and tools to boost productivity.</br>Cutting-Edge Technology: Work with the latest technologies and tools to build innovative software solutions.</br>Casual Dress Code: Express your individuality with a relaxed dress code.",
+        "JobLocations": [
+            {
+                "Id": "1017",
+                "StressAddressDetail": "735 Cynthia Drive Apt. 361, New Alexport, South Dakota",
+                "JobPostId": "1017",
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1017",
+                "SkillSetId": "1",
+                "JobPostId": "1017"
+            }
+        ]
+    },
+    {
+        "Id": "1018",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "Provide technical support to users and resolve software-related issues.",
+        "Salary": "133693",
+        "PostingDate": "2024-11-03 15:32:04.420944",
+        "ExpiryDate": "2024-12-03 15:32:04.420950",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "4+ years in Docker",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Free Meals and Snacks: Fuel your workday with complimentary food and drinks.</br>Professional Development Budget: Invest in your career with funds for training, certifications, and conferences.</br>Compressed Workweeks: Work fewer days per week with longer hours.</br>Opportunities to Work on High-Profile Projects: Work on challenging and impactful projects that can advance your career.</br>Cutting-Edge Technology: Work with the latest technologies and tools to build innovative software solutions.",
+        "JobLocations": [
+            {
+                "Id": "1018",
+                "StressAddressDetail": "99272 Wheeler Lock, New Timothyfort, Nevada",
+                "JobPostId": "1018",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1018",
+                "SkillSetId": "1",
+                "JobPostId": "1018"
+            }
+        ]
+    },
+    {
+        "Id": "1019",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "Analyze system requirements and recommend solutions to improve efficiency and scalability.",
+        "Salary": "113985",
+        "PostingDate": "2024-11-03 15:32:04.421092",
+        "ExpiryDate": "2024-12-03 15:32:04.421098",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "3+ years in C++",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Remote Work Options: Work from the comfort of your home or any location that suits you.</br>Opportunities to Work on High-Profile Projects: Work on challenging and impactful projects that can advance your career.</br>Chance to Shape the Future of Technology: Be part of groundbreaking innovations and drive technological advancements.</br>Performance Bonuses: Reward your hard work and achievements with additional compensation.</br>Free Meals and Snacks: Fuel your workday with complimentary food and drinks.",
+        "JobLocations": [
+            {
+                "Id": "1019",
+                "StressAddressDetail": "66167 Barry Trail Apt. 005, North Donaldfort, Wyoming",
+                "JobPostId": "1019",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1019",
+                "SkillSetId": "3",
+                "JobPostId": "1019"
+            }
+        ]
+    },
+    {
+        "Id": "1020",
+        "JobTitle": "Cloud Architect",
+        "JobDescription": "Troubleshoot and resolve software defects and performance issues.",
+        "Salary": "91233",
+        "PostingDate": "2024-11-03 15:32:04.421224",
+        "ExpiryDate": "2024-12-03 15:32:04.421231",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "3+ years in NoSQL",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Compressed Workweeks: Work fewer days per week with longer hours.</br>Collaboration with Industry Leaders: Network with top industry professionals and learn from their expertise.</br>Parental Leave: Support work-life balance with paid parental leave.</br>Exposure to Diverse Technologies and Methodologies: Expand your skillset and stay up-to-date with the latest trends.</br>Job Security and Stability: Enjoy a secure and stable career path.",
+        "JobLocations": [
+            {
+                "Id": "1020",
+                "StressAddressDetail": "837 Andrew Alley Suite 311, East Kellystad, Colorado",
+                "JobPostId": "1020",
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1020",
+                "SkillSetId": "3",
+                "JobPostId": "1020"
+            }
+        ]
+    },
+    {
+        "Id": "1021",
+        "JobTitle": "Data Scientist",
+        "JobDescription": "Analyze system requirements and recommend solutions to improve efficiency and scalability.",
+        "Salary": "56616",
+        "PostingDate": "2024-11-03 15:32:04.421354",
+        "ExpiryDate": "2024-12-03 15:32:04.421361",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "3+ years in SQL",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "1",
+        "Benefits": "Impactful Work: Contribute to projects that have a real-world impact on businesses and individuals.</br>Health Insurance: Comprehensive health coverage to protect your well-being.</br>Competitive Salary and Benefits: Enjoy a lucrative compensation package including health insurance, retirement plans, and performance bonuses.</br>Free Meals and Snacks: Fuel your workday with complimentary food and drinks.</br>Performance Bonuses: Reward your hard work and achievements with additional compensation.",
+        "JobLocations": [
+            {
+                "Id": "1021",
+                "StressAddressDetail": "73942 Joseph Club Apt. 348, Banksbury, California",
+                "JobPostId": "1021",
+                "LocationId": "2"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1021",
+                "SkillSetId": "2",
+                "JobPostId": "1021"
+            }
+        ]
+    },
+    {
+        "Id": "1022",
+        "JobTitle": "Full Stack Developer",
+        "JobDescription": "Analyze system requirements and recommend solutions to improve efficiency and scalability.",
+        "Salary": "105120",
+        "PostingDate": "2024-11-03 15:32:04.421504",
+        "ExpiryDate": "2024-12-03 15:32:04.421510",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "4+ years in JavaScript",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Volunteer Opportunities: Give back to the community and make a positive impact.</br>Competitive Salary and Benefits: Enjoy a lucrative compensation package including health insurance, retirement plans, and performance bonuses.</br>Continuous Learning and Development: Stay ahead of the curve with access to training programs, conferences, and certifications to enhance your skills.</br>Recognition and Rewards for Achievements: Celebrate your successes with recognition and rewards.</br>Innovative Projects: Be part of groundbreaking projects that push the boundaries of technology.",
+        "JobLocations": [
+            {
+                "Id": "1022",
+                "StressAddressDetail": "1267 Ramsey Lodge, South John, West Virginia",
+                "JobPostId": "1022",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1022",
+                "SkillSetId": "1",
+                "JobPostId": "1022"
+            }
+        ]
+    },
+    {
+        "Id": "1023",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Stay up-to-date with the latest software development technologies and best practices.",
+        "Salary": "107986",
+        "PostingDate": "2024-11-03 15:32:04.421646",
+        "ExpiryDate": "2024-12-03 15:32:04.421652",
+        "ExperienceRequired": "3",
+        "QualificationRequired": "3+ years in Azure",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "1",
+        "Benefits": "Compressed Workweeks: Work fewer days per week with longer hours.</br>Remote Work Options: Work from the comfort of your home or any location that suits you.</br>Mentorship Programs: Learn from experienced professionals and grow your skills.</br>Casual Dress Code: Express your individuality with a relaxed dress code.</br>Parental Leave: Support work-life balance with paid parental leave.",
+        "JobLocations": [
+            {
+                "Id": "1023",
+                "StressAddressDetail": "50869 Clark Meadow Apt. 244, Johnsonmouth, Nebraska",
+                "JobPostId": "1023",
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1023",
+                "SkillSetId": "3",
+                "JobPostId": "1023"
+            }
+        ]
+    },
+    {
+        "Id": "1024",
+        "JobTitle": "Software Engineer",
+        "JobDescription": "Participate in code reviews and provide feedback to improve code quality.",
+        "Salary": "100690",
+        "PostingDate": "2024-11-03 15:32:04.421816",
+        "ExpiryDate": "2024-12-03 15:32:04.421822",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "3+ years in NoSQL",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Paid Time Off: Enjoy generous vacation, sick leave, and holiday pay.</br>Opportunity to Work on Open-Source Projects: Contribute to open-source projects and collaborate with the global developer community.</br>Retirement Plans: Secure your future with retirement savings plans.</br>Employee Assistance Programs: Access confidential counseling and support services.</br>Social Events and Team Building Activities: Strengthen team bonds and have fun with team-building events.",
+        "JobLocations": [
+            {
+                "Id": "1024",
+                "StressAddressDetail": "678 Duncan Estates Apt. 548, Danielbury, Arizona",
+                "JobPostId": "1024",
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1024",
+                "SkillSetId": "1",
+                "JobPostId": "1024"
+            }
+        ]
+    },
+    {
+        "Id": "1025",
+        "JobTitle": "Cybersecurity Analyst",
+        "JobDescription": "Analyze system requirements and recommend solutions to improve efficiency and scalability.",
+        "Salary": "85536",
+        "PostingDate": "2024-11-03 15:32:04.421965",
+        "ExpiryDate": "2024-12-03 15:32:04.421972",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "4+ years in C++",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "1",
+        "Benefits": "Cutting-Edge Technology: Work with the latest technologies and tools to build innovative software solutions.</br>Career Advancement Opportunities: Advance your career through promotions, leadership roles, and specialized tracks.</br>Continuous Learning and Development: Stay ahead of the curve with access to training programs, conferences, and certifications to enhance your skills.</br>Remote Work Options: Work from the comfort of your home or any location that suits you.</br>Global Opportunities: Collaborate with teams around the world and gain international experience.",
+        "JobLocations": [
+            {
+                "Id": "1025",
+                "StressAddressDetail": "7453 Stewart Ferry, Pricechester, Wisconsin",
+                "JobPostId": "1025",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1025",
+                "SkillSetId": "2",
+                "JobPostId": "1025"
+            }
+        ]
+    },
+    {
+        "Id": "1026",
+        "JobTitle": "Software Engineer",
+        "JobDescription": "Implement security measures to protect software applications from vulnerabilities and attacks.",
+        "Salary": "135119",
+        "PostingDate": "2024-11-03 15:32:04.422126",
+        "ExpiryDate": "2024-12-03 15:32:04.422133",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "2+ years in AWS",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Exposure to Diverse Technologies and Methodologies: Expand your skillset and stay up-to-date with the latest trends.</br>Social Events and Team Building Activities: Strengthen team bonds and have fun with team-building events.</br>On-site Gym and Fitness Classes: Stay fit and healthy with on-site fitness facilities and classes.</br>Career Advancement Opportunities: Advance your career through promotions, leadership roles, and specialized tracks.</br>Hackathons and Tech Talks: Participate in innovative challenges and learn from industry experts.",
+        "JobLocations": [
+            {
+                "Id": "1026",
+                "StressAddressDetail": "45506 Daniel Brook Apt. 470, Allisonland, New Hampshire",
+                "JobPostId": "1026",
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1026",
+                "SkillSetId": "2",
+                "JobPostId": "1026"
+            }
+        ]
+    },
+    {
+        "Id": "1027",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Design, code, test, and debug software programs.",
+        "Salary": "138615",
+        "PostingDate": "2024-11-03 15:32:04.422259",
+        "ExpiryDate": "2024-12-03 15:32:04.422266",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "3+ years in Docker",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Job Security and Stability: Enjoy a secure and stable career path.</br>Casual Dress Code: Express your individuality with a relaxed dress code.</br>Competitive Salary and Benefits: Enjoy a lucrative compensation package including health insurance, retirement plans, and performance bonuses.</br>Chance to Shape the Future of Technology: Be part of groundbreaking innovations and drive technological advancements.</br>Retirement Plans: Secure your future with retirement savings plans.",
+        "JobLocations": [
+            {
+                "Id": "1027",
+                "StressAddressDetail": "01507 Thompson Ranch Apt. 773, West Taraport, Idaho",
+                "JobPostId": "1027",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1027",
+                "SkillSetId": "2",
+                "JobPostId": "1027"
+            }
+        ]
+    },
+    {
+        "Id": "1028",
+        "JobTitle": "Cybersecurity Analyst",
+        "JobDescription": "Stay up-to-date with the latest software development technologies and best practices.",
+        "Salary": "96078",
+        "PostingDate": "2024-11-03 15:32:04.422417",
+        "ExpiryDate": "2024-12-03 15:32:04.422424",
+        "ExperienceRequired": "3",
+        "QualificationRequired": "3+ years in Python",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Parental Leave: Support work-life balance with paid parental leave.</br>Employee Assistance Programs: Access confidential counseling and support services.</br>Continuous Learning and Development: Stay ahead of the curve with access to training programs, conferences, and certifications to enhance your skills.</br>Ergonomic Workspaces: Enjoy a comfortable and healthy work environment.</br>Work-Life Balance: Prioritize your well-being with generous time off, wellness programs, and flexible work arrangements.",
+        "JobLocations": [
+            {
+                "Id": "1028",
+                "StressAddressDetail": "5627 April Crescent, Johnsonhaven, Maryland",
+                "JobPostId": "1028",
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1028",
+                "SkillSetId": "3",
+                "JobPostId": "1028"
+            }
+        ]
+    },
+    {
+        "Id": "1029",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Provide technical support to users and resolve software-related issues.",
+        "Salary": "125019",
+        "PostingDate": "2024-11-03 15:32:04.422560",
+        "ExpiryDate": "2024-12-03 15:32:04.422567",
+        "ExperienceRequired": "2",
+        "QualificationRequired": "3+ years in Kubernetes",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Work-Life Balance: Prioritize your well-being with generous time off, wellness programs, and flexible work arrangements.</br>Collaboration with Industry Leaders: Network with top industry professionals and learn from their expertise.</br>Volunteer Opportunities: Give back to the community and make a positive impact.</br>Global Opportunities: Collaborate with teams around the world and gain international experience.</br>Employee Assistance Programs: Access confidential counseling and support services.",
+        "JobLocations": [
+            {
+                "Id": "1029",
+                "StressAddressDetail": "57661 Crawford Loaf, New Michaelburgh, Oklahoma",
+                "JobPostId": "1029",
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1029",
+                "SkillSetId": "3",
+                "JobPostId": "1029"
+            }
+        ]
+    },
+    {
+        "Id": "1030",
+        "JobTitle": "UI/UX Designer",
+        "JobDescription": "Write clear and concise documentation for software development projects.",
+        "Salary": "59944",
+        "PostingDate": "2024-11-03 15:32:04.422706",
+        "ExpiryDate": "2024-12-03 15:32:04.422713",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "3+ years in Azure",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Recognition and Rewards for Achievements: Celebrate your successes with recognition and rewards.</br>Hackathons and Tech Talks: Participate in innovative challenges and learn from industry experts.</br>Retirement Plans: Secure your future with retirement savings plans.</br>Flexible Work Arrangements: Balance your work and personal life with flexible work hours, remote work options, and unlimited vacation policies.</br>Remote Work Options: Work from the comfort of your home or any location that suits you.",
+        "JobLocations": [
+            {
+                "Id": "1030",
+                "StressAddressDetail": "4648 Brian Ford Apt. 557, Port Pamelamouth, Massachusetts",
+                "JobPostId": "1030",
+                "LocationId": "2"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1030",
+                "SkillSetId": "3",
+                "JobPostId": "1030"
+            }
+        ]
+    },
+    {
+        "Id": "1031",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "Stay up-to-date with the latest software development technologies and best practices.",
+        "Salary": "149516",
+        "PostingDate": "2024-11-03 15:32:04.422841",
+        "ExpiryDate": "2024-12-03 15:32:04.422848",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "5+ years in Kubernetes",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "1",
+        "Benefits": "Volunteer Opportunities: Give back to the community and make a positive impact.</br>Cutting-Edge Technology: Work with the latest technologies and tools to build innovative software solutions.</br>Innovative Projects: Be part of groundbreaking projects that push the boundaries of technology.</br>Retirement Plans: Secure your future with retirement savings plans.</br>Professional Development Budget: Invest in your career with funds for training, certifications, and conferences.",
+        "JobLocations": [
+            {
+                "Id": "1031",
+                "StressAddressDetail": "418 Michael Ports, Richardshire, Maryland",
+                "JobPostId": "1031",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1031",
+                "SkillSetId": "2",
+                "JobPostId": "1031"
+            }
+        ]
+    },
+    {
+        "Id": "1032",
+        "JobTitle": "Full Stack Developer",
+        "JobDescription": "Write clear and concise documentation for software development projects.",
+        "Salary": "83161",
+        "PostingDate": "2024-11-03 15:32:04.422964",
+        "ExpiryDate": "2024-12-03 15:32:04.422971",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "3+ years in C++",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Retirement Plans: Secure your future with retirement savings plans.</br>Innovative Projects: Be part of groundbreaking projects that push the boundaries of technology.</br>Flexible Work Arrangements: Balance your work and personal life with flexible work hours, remote work options, and unlimited vacation policies.</br>Free Meals and Snacks: Fuel your workday with complimentary food and drinks.</br>Positive and Inclusive Work Environment: Work in a supportive and welcoming atmosphere.",
+        "JobLocations": [
+            {
+                "Id": "1032",
+                "StressAddressDetail": "652 Richard Cape, Port Roytown, Maryland",
+                "JobPostId": "1032",
+                "LocationId": "5"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1032",
+                "SkillSetId": "3",
+                "JobPostId": "1032"
+            }
+        ]
+    },
+    {
+        "Id": "1033",
+        "JobTitle": "Cloud Architect",
+        "JobDescription": "Analyze system requirements and recommend solutions to improve efficiency and scalability.",
+        "Salary": "141387",
+        "PostingDate": "2024-11-03 15:32:04.423088",
+        "ExpiryDate": "2024-12-03 15:32:04.423094",
+        "ExperienceRequired": "3",
+        "QualificationRequired": "3+ years in Docker",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Flexible Work Arrangements: Balance your work and personal life with flexible work hours, remote work options, and unlimited vacation policies.</br>State-of-the-Art Equipment: Work with the latest technology and tools to boost productivity.</br>Hackathons and Tech Talks: Participate in innovative challenges and learn from industry experts.</br>Social Events and Team Building Activities: Strengthen team bonds and have fun with team-building events.</br>Compressed Workweeks: Work fewer days per week with longer hours.",
+        "JobLocations": [
+            {
+                "Id": "1033",
+                "StressAddressDetail": "5983 Austin Ways, West Sean, Florida",
+                "JobPostId": "1033",
+                "LocationId": "3"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1033",
+                "SkillSetId": "3",
+                "JobPostId": "1033"
+            }
+        ]
+    },
+    {
+        "Id": "1034",
+        "JobTitle": "DevOps Engineer",
+        "JobDescription": "Troubleshoot and resolve software defects and performance issues.",
+        "Salary": "67993",
+        "PostingDate": "2024-11-03 15:32:04.423212",
+        "ExpiryDate": "2024-12-03 15:32:04.423219",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "4+ years in Java",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Social Events and Team Building Activities: Strengthen team bonds and have fun with team-building events.</br>Recognition and Rewards for Achievements: Celebrate your successes with recognition and rewards.</br>Opportunities to Travel for Work: Explore new places and cultures while    working on exciting projects.</br>Volunteer Opportunities: Give back to the community and make a positive impact.</br>Professional Development Budget: Invest in your career with funds for training, certifications, and conferences.",
+        "JobLocations": [
+            {
+                "Id": "1034",
+                "StressAddressDetail": "4156 Spencer Point, Johnsonfort, Iowa",
+                "JobPostId": "1034",
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1034",
+                "SkillSetId": "2",
+                "JobPostId": "1034"
+            }
+        ]
+    },
+    {
+        "Id": "1035",
+        "JobTitle": "Project Manager",
+        "JobDescription": "Collaborate with cross-functional teams to understand user needs and translate them into technical solutions.",
+        "Salary": "112835",
+        "PostingDate": "2024-11-03 15:32:04.423375",
+        "ExpiryDate": "2024-12-03 15:32:04.423382",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "5+ years in Azure",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "1",
+        "Benefits": "Free Meals and Snacks: Fuel your workday with complimentary food and drinks.</br>Compressed Workweeks: Work fewer days per week with longer hours.</br>Flexible Work Arrangements: Balance your work and personal life with flexible work hours, remote work options, and unlimited vacation policies.</br>Tuition Reimbursement: Further your education with tuition assistance for relevant courses.</br>Parental Leave: Support work-life balance with paid parental leave.",
+        "JobLocations": [
+            {
+                "Id": "1035",
+                "StressAddressDetail": "404 Davidson Coves Apt. 366, West Melody, Nevada",
+                "JobPostId": "1035",
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1035",
+                "SkillSetId": "1",
+                "JobPostId": "1035"
+            }
+        ]
+    },
+    {
+        "Id": "1036",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "Implement security measures to protect software applications from vulnerabilities and attacks.",
+        "Salary": "58727",
+        "PostingDate": "2024-11-03 15:32:04.423525",
+        "ExpiryDate": "2024-12-03 15:32:04.423532",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "3+ years in Python",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Compressed Workweeks: Work fewer days per week with longer hours.</br>Competitive Salary and Benefits: Enjoy a lucrative compensation package including health insurance, retirement plans, and performance bonuses.</br>Flexible Scheduling: Customize your work schedule to fit your lifestyle.</br>Remote Work Options: Work from the comfort of your home or any location that suits you.</br>Opportunities to Travel for Work: Explore new places and cultures while    working on exciting projects.",
+        "JobLocations": [
+            {
+                "Id": "1036",
+                "StressAddressDetail": "88277 Bobby Corners, Christineside, Ohio",
+                "JobPostId": "1036",
+                "LocationId": "1"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1036",
+                "SkillSetId": "3",
+                "JobPostId": "1036"
+            }
+        ]
+    },
+    {
+        "Id": "1037",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "Design, code, test, and debug software programs.",
+        "Salary": "106988",
+        "PostingDate": "2024-11-03 15:32:04.423668",
+        "ExpiryDate": "2024-12-03 15:32:04.423675",
+        "ExperienceRequired": "4",
+        "QualificationRequired": "5+ years in Java",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "3",
+        "Benefits": "Employee Assistance Programs: Access confidential counseling and support services.</br>Continuous Learning and Development: Stay ahead of the curve with access to training programs, conferences, and certifications to enhance your skills.</br>Health Insurance: Comprehensive health coverage to protect your well-being.</br>Competitive Salary and Benefits: Enjoy a lucrative compensation package including health insurance, retirement plans, and performance bonuses.</br>Free Meals and Snacks: Fuel your workday with complimentary food and drinks.",
+        "JobLocations": [
+            {
+                "Id": "1037",
+                "StressAddressDetail": "572 Jacob Run Apt. 423, Elizabethmouth, Minnesota",
+                "JobPostId": "1037",
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1037",
+                "SkillSetId": "2",
+                "JobPostId": "1037"
+            }
+        ]
+    },
+    {
+        "Id": "1038",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "Analyze system requirements and recommend solutions to improve efficiency and scalability.",
+        "Salary": "136086",
+        "PostingDate": "2024-11-03 15:32:04.423800",
+        "ExpiryDate": "2024-12-03 15:32:04.423807",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "2+ years in Azure",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "1",
+        "Benefits": "Retirement Plans: Secure your future with retirement savings plans.</br>Parental Leave: Support work-life balance with paid parental leave.</br>Social Events and Team Building Activities: Strengthen team bonds and have fun with team-building events.</br>Job Security and Stability: Enjoy a secure and stable career path.</br>Remote Work Options: Work from the comfort of your home or any location that suits you.",
+        "JobLocations": [
+            {
+                "Id": "1038",
+                "StressAddressDetail": "885 Brittany Falls Apt. 444, South Tamaraland, Kentucky",
+                "JobPostId": "1038",
+                "LocationId": "2"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1038",
+                "SkillSetId": "3",
+                "JobPostId": "1038"
+            }
+        ]
+    },
+    {
+        "Id": "1039",
+        "JobTitle": "IT Support Specialist",
+        "JobDescription": "Write clear and concise documentation for software development projects.",
+        "Salary": "132262",
+        "PostingDate": "2024-11-03 15:32:04.423933",
+        "ExpiryDate": "2024-12-03 15:32:04.423940",
+        "ExperienceRequired": "5",
+        "QualificationRequired": "2+ years in Azure",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "1",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Social Events and Team Building Activities: Strengthen team bonds and have fun with team-building events.</br>Hackathons and Tech Talks: Participate in innovative challenges and learn from industry experts.</br>Paid Time Off: Enjoy generous vacation, sick leave, and holiday pay.</br>Opportunity to Work on Open-Source Projects: Contribute to open-source projects and collaborate with the global developer community.</br>Flexible Scheduling: Customize your work schedule to fit your lifestyle.",
+        "JobLocations": [
+            {
+                "Id": "1039",
+                "StressAddressDetail": "7940 Kathleen Ville Suite 241, West Mariostad, Arizona",
+                "JobPostId": "1039",
+                "LocationId": "6"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1039",
+                "SkillSetId": "3",
+                "JobPostId": "1039"
+            }
+        ]
+    },
+    {
+        "Id": "1040",
+        "JobTitle": "Cloud Architect",
+        "JobDescription": "Stay up-to-date with the latest software development technologies and best practices.",
+        "Salary": "146306",
+        "PostingDate": "2024-11-03 15:32:04.424065",
+        "ExpiryDate": "2024-12-03 15:32:04.424071",
+        "ExperienceRequired": "1",
+        "QualificationRequired": "5+ years in Kubernetes",
+        "ImageURL": "https://i.pinimg.com/736x/3d/72/98/3d7298d86eca5f461c969581c1a9af31.jpg",
+        "JobPostReviewStatus": "0",
+        "IsActive": "true",
+        "UserId": "3",
+        "CompanyId": "1",
+        "JobTypeId": "2",
+        "Benefits": "Casual Dress Code: Express your individuality with a relaxed dress code.</br>Opportunities to Travel for Work: Explore new places and cultures while    working on exciting projects.</br>Employee Assistance Programs: Access confidential counseling and support services.</br>Tuition Reimbursement: Further your education with tuition assistance for relevant courses.</br>Flexible Work Arrangements: Balance your work and personal life with flexible work hours, remote work options, and unlimited vacation policies.",
+        "JobLocations": [
+            {
+                "Id": "1040",
+                "StressAddressDetail": "625 Heather Rapids, North Amber, Wisconsin",
+                "JobPostId": "1040",
+                "LocationId": "4"
+            }
+        ],
+        "JobSkillSets": [
+            {
+                "Id": "1040",
+                "SkillSetId": "2",
+                "JobPostId": "1040"
+            }
+        ]
+    }
+]

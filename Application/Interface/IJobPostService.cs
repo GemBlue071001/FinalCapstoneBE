@@ -15,5 +15,6 @@ namespace Application.Interface
         Task<ApiResponse> UpdateStatusJobPost(int id, JobPostReviewStatus status);
         Task<ApiResponse> UpdateJobPost(int id, JobPostRequest request);
         Task<ApiResponse> GetAllJobPostPending();
+        Task<ApiResponse> SeedsData();
     }
 }
