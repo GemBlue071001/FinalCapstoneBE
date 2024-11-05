@@ -87,5 +87,11 @@ namespace API.Controllers
             var resposne = await _service.GetAllJobPostPending();
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
+        [HttpPost("seeds")]
+        public async Task<IActionResult> SeedsData()
+        {
+            var response = await _service.SeedsData();
+            return Ok(response);
+        }
     }
 }
