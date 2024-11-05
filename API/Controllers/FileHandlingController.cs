@@ -23,7 +23,7 @@ namespace API.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
-        [HttpPost("Analyz")]
+        [HttpPost("Analyze")]
         public async Task<IActionResult> UploadCVToAnalyze(IFormFile file)
         {
             var response = await _service.UploadCVToAnalyze(file);
