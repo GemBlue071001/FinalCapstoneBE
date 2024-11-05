@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace Application.Interface
 {
-    public interface IExcelFileHandling
+    public interface IFileHandlingService
     {
         Task<ApiResponse> ImportExcel(IFormFile file);
+        Task<ApiResponse> UploadCVToAnalyze(IFormFile file);
     }
 }

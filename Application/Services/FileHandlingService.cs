@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class ExcelFileHandling: IExcelFileHandling
+    public class FileHandlingService : IFileHandlingService
     {
-        public ExcelFileHandling()
+        public FileHandlingService()
         {
-            
+
         }
         public async Task<ApiResponse> ImportExcel(IFormFile file)
         {
@@ -27,7 +27,7 @@ namespace Application.Services
             List<JobPost> jobPosts = new List<JobPost>();
             using (var stream = new MemoryStream())
             {
-                 await file.CopyToAsync(stream);
+                await file.CopyToAsync(stream);
                 using (var workbook = new XLWorkbook(stream))
                 {
                     var worksheet = workbook.Worksheet(1); // First worksheet
@@ -51,6 +51,22 @@ namespace Application.Services
             }
             return apiResponse.SetOk("Success");
 
+        }
+
+        public async Task<ApiResponse> UploadCVToAnalyze(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return new ApiResponse().SetBadRequest("File is empty");
+            }
+
+            if (file.ContentType != "application/pdf" && !file.FileName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+            {
+                return new ApiResponse().SetBadRequest("File must be a PDF");
+            }
+
+
+            return new ApiResponse().SetOk("Success");
         }
     }
 }
