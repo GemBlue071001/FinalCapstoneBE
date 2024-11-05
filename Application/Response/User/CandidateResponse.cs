@@ -1,4 +1,5 @@
-﻿using Application.Response.JobPostActivityComment;
+﻿using Application.Response.AnalyzedResult;
+using Application.Response.JobPostActivityComment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,6 @@ namespace Application.Response.User
         public int? JobPostActivityId { get; set; }
         public string Status { get; set; } = string.Empty;
         public List<JobPostActivityCommentResponse> JobPostActivityComments { get; set; } = new List<JobPostActivityCommentResponse>();
+        public AnalyzedResultResponse AnalyzedResult { get; set; } = new AnalyzedResultResponse();
     }
 }
