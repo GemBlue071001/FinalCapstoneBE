@@ -8,11 +8,11 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExcelFileHandlingController : ControllerBase
+    public class FileHandlingController : ControllerBase
     {
-        private readonly IExcelFileHandling _service;
+        private readonly IFileHandlingService _service;
 
-        public ExcelFileHandlingController(IExcelFileHandling service)
+        public FileHandlingController(IFileHandlingService service)
         {
             _service = service;
         }
@@ -20,6 +20,13 @@ namespace API.Controllers
         public async Task<IActionResult> AddNewCVAsync(IFormFile file)
         {
             var response = await _service.ImportExcel(file);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpPost("Analyze")]
+        public async Task<IActionResult> UploadCVToAnalyze(IFormFile file)
+        {
+            var response = await _service.UploadCVToAnalyze(file);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }

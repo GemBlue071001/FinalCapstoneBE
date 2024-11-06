@@ -11,6 +11,7 @@ using Application.MyBackgroundJob;
 using Application.Response.JobPostActivityComment;
 using Application.Extensions;
 using Newtonsoft.Json;
+using Application.Response.AnalyzedResult;
 
 namespace Application.Services
 {
@@ -184,7 +185,44 @@ namespace Application.Services
                     CommentDate = x.CommentDate,
                     CommentText = x.CommentText,
                     Rating = x.Rating,
-                }).ToList()
+                }).ToList(),
+                AnalyzedResult = new AnalyzedResultResponse
+                {
+                    Success = true,
+                    ProcessingTime = 0.15,
+                    DeviceUsed = "cpu",
+                    MatchDetails = new MatchDetails
+                    {
+                        JobId = 4,
+                        JobTitle = "test",
+                        CandidateName = "Example Name",
+                        CandidateEmail = "example@gmail.com",
+                        Scores = new Scores
+                        {
+                            OverallMatch = 52.52,
+                            SkillMatch = 100.0,
+                            ExperienceMatch = 0.0,
+                            ContentSimilarity = 41.73
+                        },
+                        SkillAnalysis = new SkillAnalysis
+                        {
+                            MatchingSkills = new List<string> { "javascript", "python" },
+                            MissingSkills = new List<string>(),
+                            AdditionalSkills = new List<string> { "communication", "git", "problem solving", "react", "vs code" }
+                        },
+                        ExperienceAnalysis = new ExperienceAnalysis
+                        {
+                            RequiredYears = 2.0,
+                            CandidateYears = 0.0,
+                            MeetsRequirement = false
+                        },
+                        Recommendation = new Recommendation
+                        {
+                            Category = "Moderate Match",
+                            Action = "Consider for Interview"
+                        }
+                    }
+                }
             }).ToList();
 
             // Return the mapped CandidateResponse list

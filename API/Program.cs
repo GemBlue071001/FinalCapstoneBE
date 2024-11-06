@@ -123,7 +123,7 @@ builder.Services.AddScoped<IFollowCompanyService, FollowCompanyService>();
 builder.Services.AddScoped<IEventTriggerService, EventTriggerService>();
 builder.Services.AddScoped<IFollowJobPostService, FollowJobPostService>();
 builder.Services.AddScoped<IJobPostActivityCommentService, JobPostActivityCommentService>();
-builder.Services.AddScoped<IExcelFileHandling, ExcelFileHandling>();
+builder.Services.AddScoped<IFileHandlingService, FileHandlingService>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
 
