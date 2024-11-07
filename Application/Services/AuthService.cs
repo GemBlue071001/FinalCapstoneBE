@@ -293,6 +293,8 @@ namespace Application.Services
                 new Claim(ClaimTypes.Role, user.Role.ToString()),
                 new Claim( "Email" , user.Email!),
                 new Claim("UserId", user.Id.ToString()),
+                new Claim("IsPremium", user.IsPremium.ToString()),
+                new Claim("PremiumExpireDate", user.PremiumExpireDate.ToString()),
             };
 
             if (user.CompanyId != null)
