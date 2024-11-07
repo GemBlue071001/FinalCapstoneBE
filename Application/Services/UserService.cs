@@ -129,7 +129,7 @@ namespace Application.Services
                 await _unitOfWork.SeekerSkillSets.AddAsync(seekerSkillSet);
                 await _unitOfWork.SaveChangeAsync();
 
-                return new ApiResponse().SetOk("Add success !");
+                return new ApiResponse().SetOk(seekerSkillSet.Id);
             }
             catch (Exception ex)
             {

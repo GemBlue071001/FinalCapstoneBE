@@ -47,7 +47,9 @@ namespace Application.MyMapper
             CreateMap<UserAccount, UserProfileResponse>()
                             .ForMember(
                               dest => dest.SkillSets,
-                              opt => opt.MapFrom(src => src.SeekerSkillSets != null ? src.SeekerSkillSets.Select(x => new SkillSetResponse
+                              opt => opt.MapFrom(src => src.SeekerSkillSets != null ? src.SeekerSkillSets
+                              .Where(x => x.SkillSet != null)
+                              .Select(x => new SkillSetResponse
                               {
                                   Id = x.SkillSet.Id,
                                   Name = x.SkillSet.Name,
