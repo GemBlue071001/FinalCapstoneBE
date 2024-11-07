@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Response;
 using Application.Response.Payment;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -47,7 +48,19 @@ namespace Application.Services
 
             var paymentUrl =
                 pay.CreateRequestUrl(_configuration["Vnpay:BaseUrl"], _configuration["Vnpay:HashSecret"]);
-
+            var claim = _claimService.GetUserClaim();
+            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == claim.Id);
+            if (user.IsPremium == true)
+            {
+                user.PremiumExpireDate = user.PremiumExpireDate.HasValue
+                    ? user.PremiumExpireDate.Value.AddYears(1)
+                    : DateTime.Now.AddYears(1);
+            }
+            else
+            {
+                user.IsPremium = true;
+                user.PremiumExpireDate = DateTime.Now.AddYears(1);
+            }
             return response.SetOk(paymentUrl);
         }
         public async Task<ApiResponse> PaymentExecute(IQueryCollection collections)
