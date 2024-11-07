@@ -2,6 +2,7 @@
 using Application.Request.SkillSet;
 using Application.Services;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,8 @@ namespace API.Controllers
         {
             _service = service;
         }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreatePaymentUrl(PaymentInformation model)
             {
