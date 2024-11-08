@@ -61,6 +61,7 @@ namespace Application.Services
                 user.IsPremium = true;
                 user.PremiumExpireDate = DateTime.Now.AddYears(1);
             }
+            await _unitOfWork.SaveChangeAsync();
             return response.SetOk(paymentUrl);
         }
         public async Task<ApiResponse> PaymentExecute(IQueryCollection collections)
