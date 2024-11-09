@@ -73,10 +73,15 @@ namespace Application.Services
                 jobPost.CreatedDate = DateTime.UtcNow;
                 jobPost.PostingDate = DateTime.UtcNow;
                 jobPost.JobPostReviewStatus = JobPostReviewStatus.Pending;
+
+                // Generate a vector for the job post
+                jobPost.Vector = GenerateVector(jobPost);
+
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
 
-                // Gọi Hangfire để xử lý việc gửi email sau khi job post được tạo thành công
+
+                // Call Hangfire to send emails after job post creation
                 BackgroundJob.Enqueue<EmailJob>(emailJob => emailJob.SendEmailsToFollowers(jobPostRequest.CompanyId, jobPost.JobTitle));
 
                 return new ApiResponse().SetOk(jobPost.Id);
@@ -163,7 +168,7 @@ namespace Application.Services
                 x => x.JobPostId == jobPostId,
                 x => x.Include(x => x.UserAccount)
                       .Include(x => x.CV)
-                      .Include(x=>x.JobPostActivityComments!)
+                      .Include(x => x.JobPostActivityComments!)
             );
 
             // Map JobPostActivity to CandidateResponse
@@ -179,9 +184,9 @@ namespace Application.Services
                 CVPath = x.CV?.Url ?? string.Empty, // Assuming CV has a property 'Path'
                 JobPostActivityId = x.Id,
                 Status = x.Status.ToString(),
-                JobPostActivityComments = x.JobPostActivityComments!.Select(x=> new JobPostActivityCommentResponse
+                JobPostActivityComments = x.JobPostActivityComments!.Select(x => new JobPostActivityCommentResponse
                 {
-                    Id=x.Id,
+                    Id = x.Id,
                     CommentDate = x.CommentDate,
                     CommentText = x.CommentText,
                     Rating = x.Rating,
@@ -264,9 +269,10 @@ namespace Application.Services
 
         public async Task<ApiResponse> UpdateStatusJobPost(int id, JobPostReviewStatus status)
         {
-            var post = await _unitOfWork.JobPosts.GetAsync(post => post.Id ==  id);
+            var post = await _unitOfWork.JobPosts.GetAsync(post => post.Id == id);
 
-            if (post == null) {
+            if (post == null)
+            {
                 return new ApiResponse().SetNotFound();
             }
 
@@ -278,7 +284,7 @@ namespace Application.Services
         public async Task<ApiResponse> UpdateJobPost(int id, JobPostRequest request)
         {
             var jobPost = await _unitOfWork.JobPosts.GetAsync(post => post.Id == id, x => x.Include(p => p.JobSkillSets));
-            
+
             if (jobPost == null)
             {
                 return new ApiResponse().SetNotFound();
@@ -297,10 +303,10 @@ namespace Application.Services
             //replace all skill set
             var validSkillIds = new List<int>();
 
-            foreach(var newId in request.SkillSetIds)
+            foreach (var newId in request.SkillSetIds)
             {
                 var skillSet = await _unitOfWork.SkillSets.GetAsync(s => s.Id == newId);
-                if(skillSet != null)
+                if (skillSet != null)
                 {
                     validSkillIds.Add(skillSet.Id);
                 }
@@ -320,7 +326,7 @@ namespace Application.Services
             }
 
             //re-submit rejected post
-            if (jobPost.JobPostReviewStatus == JobPostReviewStatus.Rejected) 
+            if (jobPost.JobPostReviewStatus == JobPostReviewStatus.Rejected)
             {
                 jobPost.JobPostReviewStatus = JobPostReviewStatus.Pending;
             }
@@ -361,5 +367,23 @@ namespace Application.Services
 
             return new ApiResponse().SetOk();
         }
+
+        private float[] GenerateVector(JobPost jobPost)
+        {
+            // Combine job post details into a single string
+            string combinedText = $"{jobPost.JobTitle} {jobPost.JobDescription} {jobPost.Benefits} Experience: {jobPost.ExperienceRequired} years";
+
+            // Add skill set names to the combined text
+            //if (jobPost.JobSkillSets != null && jobPost.JobSkillSets.Any())
+            //{
+            //    string skillSetNames = string.Join(" ", jobPost.JobSkillSets.Select(js => js.SkillSet.Name));
+            //    combinedText += $" {skillSetNames}";
+            //}
+
+            // Placeholder logic to convert the combined text into a vector
+            // Replace this with an actual model or service call for generating embeddings
+            return combinedText.Split(' ').Select(word => (float)word.Length).ToArray();
+        }
+
     }
 }

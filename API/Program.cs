@@ -39,10 +39,12 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(configuration!.ConnectionStrings.DefaultConnection);
+    //options.UseNpgsql(configuration!.ConnectionStrings.LocalDockerConnection);
     options.ConfigureWarnings(warnings =>
             warnings.Ignore(CoreEventId.NavigationBaseIncludeIgnored));
 });
 
+//builder.Services.AddHangfire(config => config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration!.ConnectionStrings.LocalDockerConnection)));
 builder.Services.AddHangfire(config => config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration!.ConnectionStrings.DefaultConnection)));
 
 

@@ -82,8 +82,9 @@ namespace Application.Services
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("", companyName));
+                message.From.Add(new MailboxAddress(companyName, "HighTech@gmail.com"));
                 message.To.Add(new MailboxAddress("", recievedUser));
+                message.Subject = $"{companyName} recruitment";
 
                 var bodyBuilder = new BodyBuilder();
                 bodyBuilder.HtmlBody = emailContent; // Use the modified emailContent with the placeholders replaced

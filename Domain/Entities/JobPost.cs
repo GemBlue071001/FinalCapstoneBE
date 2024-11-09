@@ -19,6 +19,8 @@
         public string? Benefits { get; set; }
         public bool IsActive { get; set; }
 
+        public float[]? Vector { get; set; }
+
         //Navigation Property
         public UserAccount UserAccount { get; set; }
         public JobType  JobType { get; set; }
