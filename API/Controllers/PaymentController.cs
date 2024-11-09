@@ -21,15 +21,29 @@ namespace API.Controllers
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreatePaymentUrl(PaymentInformation model)
-            {
+        {
             var response = await _service.CreatePaymentUrl(model, HttpContext);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+
+
         [HttpGet("callback")]
         public async Task<IActionResult> PaymentCallback()
         {
             var response = await _service.PaymentExecute(Request.Query);
-            return response.IsSuccess ? Ok(response) : BadRequest(response);
+
+            // Redirect the user directly to the front-end with status
+            if (response.IsSuccess)
+            {
+                // Extract the redirect URL from the response and pass it as a query parameter to the FE
+                var redirectUrl = "http://localhost:5173/it-jobs?status=success";
+                return Redirect(redirectUrl);
+            }
+            else
+            {
+                var redirectUrl = "http://localhost:5173/it-jobs?status=failure";
+                return Redirect(redirectUrl);
+            }
         }
     }
 }

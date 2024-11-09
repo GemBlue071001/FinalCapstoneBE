@@ -31,7 +31,12 @@ namespace Application.Services
             var timeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneById);
             var tick = DateTime.Now.Ticks.ToString();
             var pay = new VnPayLibrary();
-            var urlCallBack = _configuration["PaymentCallBack:ReturnUrl"];
+
+            // Get user claim to include user ID in the callback URL
+            var claim = _claimService.GetUserClaim();
+
+            // Include the user ID as a query parameter in the callback URL
+            var urlCallBack = $"{_configuration["PaymentCallBack:ReturnUrl"]}?userId={claim.Id}";
 
             pay.AddRequestData("vnp_Version", _configuration["Vnpay:Version"]);
             pay.AddRequestData("vnp_Command", _configuration["Vnpay:Command"]);
@@ -46,31 +51,61 @@ namespace Application.Services
             pay.AddRequestData("vnp_ReturnUrl", urlCallBack);
             pay.AddRequestData("vnp_TxnRef", tick);
 
-            var paymentUrl =
-                pay.CreateRequestUrl(_configuration["Vnpay:BaseUrl"], _configuration["Vnpay:HashSecret"]);
-            var claim = _claimService.GetUserClaim();
-            var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == claim.Id);
-            if (user.IsPremium == true)
-            {
-                user.PremiumExpireDate = user.PremiumExpireDate.HasValue
-                    ? user.PremiumExpireDate.Value.AddYears(1)
-                    : DateTime.Now.AddYears(1);
-            }
-            else
-            {
-                user.IsPremium = true;
-                user.PremiumExpireDate = DateTime.Now.AddYears(1);
-            }
-            await _unitOfWork.SaveChangeAsync();
+            var paymentUrl = pay.CreateRequestUrl(_configuration["Vnpay:BaseUrl"], _configuration["Vnpay:HashSecret"]);
             return response.SetOk(paymentUrl);
         }
+
         public async Task<ApiResponse> PaymentExecute(IQueryCollection collections)
         {
             ApiResponse apiResponse = new ApiResponse();
             var pay = new VnPayLibrary();
             var response = pay.GetFullResponseData(collections, _configuration["Vnpay:HashSecret"]);
 
-            return apiResponse.SetOk(response);
+            // Extract userId from query parameters
+            if (collections.TryGetValue("userId", out var userIdValue) && int.TryParse(userIdValue, out int userId))
+            {
+                // Check the response code to ensure the payment was successful
+                if (response.Success)
+                {
+                    // Payment was successful
+                    var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == userId);
+
+                    if (user != null)
+                    {
+                        if (user.IsPremium)
+                        {
+                            user.PremiumExpireDate = user.PremiumExpireDate.HasValue
+                                ? user.PremiumExpireDate.Value.AddYears(1)
+                                : DateTime.Now.AddYears(1);
+                        }
+                        else
+                        {
+                            user.IsPremium = true;
+                            user.PremiumExpireDate = DateTime.Now.AddYears(1);
+                        }
+
+                        await _unitOfWork.SaveChangeAsync();
+                        var redirectUrl = "http://localhost:5173/it-jobs?status=success";
+                        return apiResponse.SetOk(redirectUrl);
+                    }
+                    else
+                    {
+                        return apiResponse.SetBadRequest("User not found");
+                    }
+                }
+                else
+                {
+                    // Payment failed
+                    var redirectUrl = "http://localhost:5173/it-jobs?status=failure";
+                    return apiResponse.SetOk(redirectUrl);
+                }
+            }
+            else
+            {
+                return apiResponse.SetBadRequest("Invalid or missing userId");
+            }
         }
+
+
     }
 }

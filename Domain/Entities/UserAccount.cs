@@ -18,7 +18,7 @@ namespace Domain.Entities
         public string? PhoneNumber { get; set; }
         public bool? IsEmailVerified { get; set; } = false;
         public Role Role { get; set; }
-        public bool? IsPremium { get; set; }
+        public bool IsPremium { get; set; }
         public DateTime? PremiumExpireDate { get; set; }
 
         //Navigation Property
