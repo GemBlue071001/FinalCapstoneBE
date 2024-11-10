@@ -24,9 +24,9 @@ namespace API.Controllers
         }
 
         [HttpPost("Analyze")]
-        public async Task<IActionResult> UploadCVToAnalyze(IFormFile file)
+        public async Task<IActionResult> UploadCVToAnalyze(IFormFile file, int jobId)
         {
-            var response = await _service.UploadCVToAnalyze(file);
+            var response = await _service.UploadCVToAnalyze(file, jobId);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }

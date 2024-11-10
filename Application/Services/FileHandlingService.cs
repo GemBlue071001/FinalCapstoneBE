@@ -1,21 +1,24 @@
 ﻿using Application.Interface;
+using Application.MyMapper;
+using Application.Request.CV;
 using Application.Response;
+using Application.Response.AnalyzedResult;
+using Application.Response.JobPost;
 using ClosedXML.Excel;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
     public class FileHandlingService : IFileHandlingService
     {
-        public FileHandlingService()
+        private IJobPostService _jobPostService;
+        public FileHandlingService(IJobPostService jobPostService)
         {
-
+            _jobPostService = jobPostService;
         }
         public async Task<ApiResponse> ImportExcel(IFormFile file)
         {
@@ -53,7 +56,7 @@ namespace Application.Services
 
         }
 
-        public async Task<ApiResponse> UploadCVToAnalyze(IFormFile file)
+        public async Task<ApiResponse> UploadCVToAnalyze(IFormFile file, int jobId)
         {
             if (file == null || file.Length == 0)
             {
@@ -65,8 +68,129 @@ namespace Application.Services
                 return new ApiResponse().SetBadRequest("File must be a PDF");
             }
 
+            using (var httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(180) })
+            {
+                var requestContent = new MultipartFormDataContent();
+                var fileContent = new StreamContent(file.OpenReadStream());
+                fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/pdf");
+                requestContent.Add(fileContent, "file", file.FileName);
 
-            return new ApiResponse().SetOk("Success");
+                try
+                {
+                    var response = await httpClient.PostAsync("https://3cb9-112-197-86-134.ngrok-free.app/upload_and_process", requestContent);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return new ApiResponse().SetBadRequest($"Error from API: {response.ReasonPhrase}");
+                    }
+
+                    var responseData = await response.Content.ReadAsStringAsync();
+                    var analysisResult = JsonConvert.DeserializeObject<CVAnalysisResponse>(responseData);
+
+                    // Map the response to the UploadCVJsonRequest
+                    var cvMapper = new CVMapper();
+                    var mappedRequest = cvMapper.MapToCVJsonRequest(analysisResult);
+
+                    // Send the mapped request to the second API
+                    var secondApiResponse = await SendMappedRequestToSecondAPI(mappedRequest);
+
+                    var jobpostResponse = await _jobPostService.GetJobPostById(jobId);
+
+                    var jobPostApiUploadResponse = await UploadJobPost((JobPostResponse)jobpostResponse.Result);
+                    var result = await AnalyzeMatch();
+
+                    return new ApiResponse().SetOk(result);
+                }
+                catch (HttpRequestException ex)
+                {
+                    return new ApiResponse().SetBadRequest($"HTTP request error: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    return new ApiResponse().SetBadRequest($"Unexpected error: {ex.Message}");
+                }
+            }
         }
+
+        private async Task<string> SendMappedRequestToSecondAPI(UploadCVJsonRequest request)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                string jsonRequestBody = JsonConvert.SerializeObject(request);
+                var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PostAsync("http://localhost:8000/upload_cv", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"Error from 1st API: {response.ReasonPhrase}");
+                }
+
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        private async Task<string> UploadJobPost(JobPostResponse request)
+        {
+            // Map request to ensure it matches the structure of the successful JSON
+            var mappedRequest = new
+            {
+                id = request.Id,
+                jobTitle = request.JobTitle,
+                jobDescription = request.JobDescription,
+                salary = (int)request.Salary, // Ensure salary is an integer
+                postingDate = request.PostingDate.ToString("o"), // Format as ISO 8601
+                expiryDate = request.ExpiryDate.ToString("o"), // Format as ISO 8601
+                experienceRequired = request.ExperienceRequired,
+                qualificationRequired = request.QualificationRequired,
+                benefits = request.Benefits,
+                imageURL = request.ImageURL,
+                isActive = request.IsActive,
+                companyId = request.CompanyId,
+                companyName = request.CompanyName,
+                websiteCompanyURL = request.WebsiteCompanyURL,
+                jobType = new
+                {
+                    id = request.JobType.Id,
+                    name = request.JobType.Name,
+                    description = request.JobType.Description
+                },
+                jobLocationCities = request.JobLocationCities ?? new List<string>(),
+                jobLocationAddressDetail = request.JobLocationAddressDetail ?? new List<string>(),
+                skillSets = request.SkillSets ?? new List<string>()
+            };
+
+            using (var httpClient = new HttpClient())
+            {
+                string jsonRequestBody = JsonConvert.SerializeObject(mappedRequest);
+                var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PostAsync("http://localhost:8000/upload_job", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"Error from second API: {response.ReasonPhrase}");
+                }
+
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        private async Task<string> AnalyzeMatch()
+        {
+            using (var httpClient = new HttpClient())
+            {
+
+                var response = await httpClient.PostAsync("http://localhost:8000/analyze_match", null);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"Error from 3rd API: {response.ReasonPhrase}");
+                }
+
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
     }
 }

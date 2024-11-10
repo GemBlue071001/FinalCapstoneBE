@@ -66,8 +66,8 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("test")]
-        public async Task<IActionResult> Test(UserRegisterRequest user)
+        [HttpGet("test")]
+        public async Task<IActionResult> Test()
         {
             return Ok("result");            
         }
