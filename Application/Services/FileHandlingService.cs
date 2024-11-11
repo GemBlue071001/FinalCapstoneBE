@@ -80,7 +80,7 @@ namespace Application.Services
                     };
 
                     // Step 4: Send the POST request to the API endpoint
-                    var response = await httpClient.PostAsync("https://3cb9-112-197-86-134.ngrok-free.app/upload_and_process", formData);
+                    var response = await httpClient.PostAsync("https://c566-112-197-86-134.ngrok-free.app/upload_and_process", formData);
 
                     // Ensure the response is successful
                     if (!response.IsSuccessStatusCode)
@@ -133,7 +133,7 @@ namespace Application.Services
                     };
 
                     // Step 4: Send the POST request to the API endpoint
-                    var response = await httpClient.PostAsync("https://3cb9-112-197-86-134.ngrok-free.app/upload_and_process", formData);
+                    var response = await httpClient.PostAsync("https://c566-112-197-86-134.ngrok-free.app/upload_and_process", formData);
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -179,7 +179,7 @@ namespace Application.Services
                 string jsonRequestBody = JsonConvert.SerializeObject(request);
                 var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync("http://localhost:8000/upload_cv", content);
+                var response = await httpClient.PostAsync("https://c566-112-197-86-134.ngrok-free.app/upload_cv", content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -225,7 +225,7 @@ namespace Application.Services
                 string jsonRequestBody = JsonConvert.SerializeObject(mappedRequest);
                 var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync("http://localhost:8000/upload_job", content);
+                var response = await httpClient.PostAsync("https://c566-112-197-86-134.ngrok-free.app/upload_job", content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -241,7 +241,7 @@ namespace Application.Services
             using (var httpClient = new HttpClient())
             {
 
-                var response = await httpClient.PostAsync("http://localhost:8000/analyze_match", null);
+                var response = await httpClient.PostAsync("https://c566-112-197-86-134.ngrok-free.app/analyze_match", null);
 
                 if (!response.IsSuccessStatusCode)
                 {
