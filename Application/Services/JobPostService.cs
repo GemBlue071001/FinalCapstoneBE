@@ -163,7 +163,7 @@ namespace Application.Services
 
         public async Task<ApiResponse> GetJobSeekerByJobPost(int jobPostId)
         {
-            // Fetch JobPostActivities including the related UserAccount
+            // Fetch JobPostActivities including related UserAccount and AnalyzedResult column
             var jobPostAct = await _unitOfWork.JobPostActivities.GetAllAsync(
                 x => x.JobPostId == jobPostId,
                 x => x.Include(x => x.UserAccount)
@@ -171,66 +171,52 @@ namespace Application.Services
                       .Include(x => x.JobPostActivityComments!)
             );
 
-            // Map JobPostActivity to CandidateResponse
-            var candidateResponses = jobPostAct.Select(x => new CandidateResponse
+            var candidateResponses = jobPostAct.Select(x =>
             {
-                Id = x.UserAccount.Id,
-                //UserName = x.UserAccount.UserName,
-                FirstName = x.UserAccount.FirstName,
-                LastName = x.UserAccount.LastName,
-                Email = x.UserAccount.Email,
-                PhoneNumber = x.UserAccount.PhoneNumber,
-                CVId = x.CvId,
-                CVPath = x.CV?.Url ?? string.Empty, // Assuming CV has a property 'Path'
-                JobPostActivityId = x.Id,
-                Status = x.Status.ToString(),
-                JobPostActivityComments = x.JobPostActivityComments!.Select(x => new JobPostActivityCommentResponse
+                // Deserialize AnalyzedResult JSON column data
+                AnalyzedResultResponse analyzedResult;
+                if (string.IsNullOrEmpty(x.AnalyzedResult))
                 {
-                    Id = x.Id,
-                    CommentDate = x.CommentDate,
-                    CommentText = x.CommentText,
-                    Rating = x.Rating,
-                }).ToList(),
-                AnalyzedResult = new AnalyzedResultResponse
+                    // If AnalyzedResult is null or empty, initialize with a default empty object
+                    analyzedResult = new AnalyzedResultResponse();
+                }
+                else
                 {
-                    Success = true,
-                    ProcessingTime = 0.15,
-                    DeviceUsed = "cpu",
-                    MatchDetails = new MatchDetails
+                    // Deserialize the JSON string into the AnalyzedResultResponse object
+                    try
                     {
-                        JobId = 4,
-                        JobTitle = "test",
-                        CandidateName = "Example Name",
-                        CandidateEmail = "example@gmail.com",
-                        Scores = new Scores
-                        {
-                            OverallMatch = 52.52,
-                            SkillMatch = 100.0,
-                            ExperienceMatch = 0.0,
-                            ContentSimilarity = 41.73
-                        },
-                        SkillAnalysis = new SkillAnalysis
-                        {
-                            MatchingSkills = new List<string> { "javascript", "python" },
-                            MissingSkills = new List<string>(),
-                            AdditionalSkills = new List<string> { "communication", "git", "problem solving", "react", "vs code" }
-                        },
-                        ExperienceAnalysis = new ExperienceAnalysis
-                        {
-                            RequiredYears = 2.0,
-                            CandidateYears = 0.0,
-                            MeetsRequirement = false
-                        },
-                        Recommendation = new Recommendation
-                        {
-                            Category = "Moderate Match",
-                            Action = "Consider for Interview"
-                        }
+                        analyzedResult = JsonConvert.DeserializeObject<AnalyzedResultResponse>(x.AnalyzedResult);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the error for debugging and initialize with default empty object
+                        Console.WriteLine("Deserialization error: " + ex.Message);
+                        analyzedResult = new AnalyzedResultResponse();
                     }
                 }
+
+                return new CandidateResponse
+                {
+                    Id = x.UserAccount.Id,
+                    FirstName = x.UserAccount.FirstName,
+                    LastName = x.UserAccount.LastName,
+                    Email = x.UserAccount.Email,
+                    PhoneNumber = x.UserAccount.PhoneNumber,
+                    CVId = x.CvId,
+                    CVPath = x.CV?.Url ?? string.Empty,
+                    JobPostActivityId = x.Id,
+                    Status = x.Status.ToString(),
+                    JobPostActivityComments = x.JobPostActivityComments!.Select(comment => new JobPostActivityCommentResponse
+                    {
+                        Id = comment.Id,
+                        CommentDate = comment.CommentDate,
+                        CommentText = comment.CommentText,
+                        Rating = comment.Rating,
+                    }).ToList(),
+                    AnalyzedResult = analyzedResult // Assign the deserialized or default object
+                };
             }).ToList();
 
-            // Return the mapped CandidateResponse list
             return new ApiResponse().SetOk(candidateResponses);
         }
 
