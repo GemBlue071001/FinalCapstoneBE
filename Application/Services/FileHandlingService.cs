@@ -5,8 +5,10 @@ using Application.Response;
 using Application.Response.AnalyzedResult;
 using Application.Response.JobPost;
 using ClosedXML.Excel;
+using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
@@ -18,11 +20,13 @@ namespace Application.Services
         private IJobPostService _jobPostService;
         private IClaimService _claimService;
         private IUnitOfWork _unitOfWork;
-        public FileHandlingService(IJobPostService jobPostService, IClaimService claimService, IUnitOfWork unitOfWork)
+        private readonly ApiSettings _apiSettings;
+        public FileHandlingService(IJobPostService jobPostService, IClaimService claimService, IUnitOfWork unitOfWork, IOptions<AppSettings> appSettings)
         {
             _jobPostService = jobPostService;
             _claimService = claimService;
             _unitOfWork = unitOfWork;
+            _apiSettings = appSettings.Value.ApiSettings;
         }
         public async Task<ApiResponse> ImportExcel(IFormFile file)
         {
@@ -80,7 +84,7 @@ namespace Application.Services
                     };
 
                     // Step 4: Send the POST request to the API endpoint
-                    var response = await httpClient.PostAsync("https://c566-112-197-86-134.ngrok-free.app/upload_and_process", formData);
+                    var response = await httpClient.PostAsync(_apiSettings.UpLoadAndProcess, formData);
 
                     // Ensure the response is successful
                     if (!response.IsSuccessStatusCode)
@@ -110,7 +114,7 @@ namespace Application.Services
             //    return new ApiResponse().SetBadRequest("File must be a PDF");
             //}
 
-            using (var httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(300) })
+            using (var httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(180) })
             {
                 //var requestContent = new MultipartFormDataContent();
                 //var fileContent = new StreamContent(file.OpenReadStream());
@@ -133,7 +137,7 @@ namespace Application.Services
                     };
 
                     // Step 4: Send the POST request to the API endpoint
-                    var response = await httpClient.PostAsync("https://c566-112-197-86-134.ngrok-free.app/upload_and_process", formData);
+                    var response = await httpClient.PostAsync(_apiSettings.UpLoadAndProcess, formData);
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -179,7 +183,7 @@ namespace Application.Services
                 string jsonRequestBody = JsonConvert.SerializeObject(request);
                 var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync("https://c566-112-197-86-134.ngrok-free.app/upload_cv", content);
+                var response = await httpClient.PostAsync(_apiSettings.UpLoadCv, content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -225,7 +229,7 @@ namespace Application.Services
                 string jsonRequestBody = JsonConvert.SerializeObject(mappedRequest);
                 var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync("https://c566-112-197-86-134.ngrok-free.app/upload_job", content);
+                var response = await httpClient.PostAsync(_apiSettings.UpLoadJob, content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -241,7 +245,7 @@ namespace Application.Services
             using (var httpClient = new HttpClient())
             {
 
-                var response = await httpClient.PostAsync("https://c566-112-197-86-134.ngrok-free.app/analyze_match", null);
+                var response = await httpClient.PostAsync(_apiSettings.AnalyzeMatch, null);
 
                 if (!response.IsSuccessStatusCode)
                 {

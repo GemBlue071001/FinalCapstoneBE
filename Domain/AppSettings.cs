@@ -6,6 +6,7 @@
         public Logging Logging { get; set; }
         public string AllowedHosts { get; set; }
         public SecretToken SecretToken { get; set; }
+        public ApiSettings ApiSettings { get; set; }
     }
     public class ConnectionStrings
     {
@@ -28,4 +29,13 @@
     {
         public string Value { get; set; }
     }
+    public class ApiSettings
+    {
+        public string UpLoadAndProcess { get; set; }
+        public string UpLoadCv { get; set; }
+        public string UpLoadJob { get; set; }
+        public string AnalyzeMatch { get; set; }
+
+    }
+
 }

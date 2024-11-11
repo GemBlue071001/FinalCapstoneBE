@@ -27,6 +27,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 var configuration = builder.Configuration.Get<AppSettings>();
+builder.Services.Configure<AppSettings>(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
