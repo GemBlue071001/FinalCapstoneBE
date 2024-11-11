@@ -11,6 +11,7 @@ namespace Application.Interface
     public interface IFileHandlingService
     {
         Task<ApiResponse> ImportExcel(IFormFile file);
-        Task<ApiResponse> UploadCVToAnalyze(IFormFile file, int jobId);
+        Task<ApiResponse> UploadCVToAnalyze(string firebasePdfUrl, int jobId);
+        Task<string> UploadPdfFromFirebase(string firebasePdfUrl);
     }
 }

@@ -16,9 +16,13 @@ namespace Application.Services
     public class FileHandlingService : IFileHandlingService
     {
         private IJobPostService _jobPostService;
-        public FileHandlingService(IJobPostService jobPostService)
+        private IClaimService _claimService;
+        private IUnitOfWork _unitOfWork;
+        public FileHandlingService(IJobPostService jobPostService, IClaimService claimService, IUnitOfWork unitOfWork)
         {
             _jobPostService = jobPostService;
+            _claimService = claimService;
+            _unitOfWork = unitOfWork;
         }
         public async Task<ApiResponse> ImportExcel(IFormFile file)
         {
@@ -56,28 +60,80 @@ namespace Application.Services
 
         }
 
-        public async Task<ApiResponse> UploadCVToAnalyze(IFormFile file, int jobId)
+        public async Task<string> UploadPdfFromFirebase(string firebasePdfUrl)
         {
-            if (file == null || file.Length == 0)
+            using (var httpClient = new HttpClient())
             {
-                return new ApiResponse().SetBadRequest("File is empty");
-            }
+                try
+                {
+                    // Step 1: Download the PDF from Firebase
+                    var fileStream = await httpClient.GetStreamAsync(firebasePdfUrl);
 
-            if (file.ContentType != "application/pdf" && !file.FileName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-            {
-                return new ApiResponse().SetBadRequest("File must be a PDF");
+                    // Step 2: Create StreamContent from the downloaded PDF
+                    var streamContent = new StreamContent(fileStream);
+                    streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+
+                    // Step 3: Create FormData and append the file and jobId
+                    var formData = new MultipartFormDataContent
+                    {
+                        { streamContent, "file", "document.pdf" },
+                    };
+
+                    // Step 4: Send the POST request to the API endpoint
+                    var response = await httpClient.PostAsync("https://3cb9-112-197-86-134.ngrok-free.app/upload_and_process", formData);
+
+                    // Ensure the response is successful
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new HttpRequestException($"Error from API: {response.ReasonPhrase}");
+                    }
+
+                    // Return the response content
+                    return await response.Content.ReadAsStringAsync();
+                }
+                catch (Exception ex)
+                {
+                    return $"Error: {ex.Message}";
+                }
             }
+        }
+
+        public async Task<ApiResponse> UploadCVToAnalyze(string firebasePdfUrl, int jobId)
+        {
+            //if (file == null || file.Length == 0)
+            //{
+            //    return new ApiResponse().SetBadRequest("File is empty");
+            //}
+
+            //if (file.ContentType != "application/pdf" && !file.FileName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    return new ApiResponse().SetBadRequest("File must be a PDF");
+            //}
 
             using (var httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(180) })
             {
-                var requestContent = new MultipartFormDataContent();
-                var fileContent = new StreamContent(file.OpenReadStream());
-                fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/pdf");
-                requestContent.Add(fileContent, "file", file.FileName);
+                //var requestContent = new MultipartFormDataContent();
+                //var fileContent = new StreamContent(file.OpenReadStream());
+                //fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/pdf");
+                //requestContent.Add(fileContent, "file", file.FileName);
 
                 try
                 {
-                    var response = await httpClient.PostAsync("https://3cb9-112-197-86-134.ngrok-free.app/upload_and_process", requestContent);
+                    var userClaim = _claimService.GetUserClaim();
+                    var fileStream = await httpClient.GetStreamAsync(firebasePdfUrl);
+
+                    // Step 2: Create StreamContent from the downloaded PDF
+                    var streamContent = new StreamContent(fileStream);
+                    streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+
+                    // Step 3: Create FormData and append the file and jobId
+                    var formData = new MultipartFormDataContent
+                    {
+                        { streamContent, "file", "document.pdf" },
+                    };
+
+                    // Step 4: Send the POST request to the API endpoint
+                    var response = await httpClient.PostAsync("https://3cb9-112-197-86-134.ngrok-free.app/upload_and_process", formData);
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -85,21 +141,25 @@ namespace Application.Services
                     }
 
                     var responseData = await response.Content.ReadAsStringAsync();
-                    //var analysisResult = JsonConvert.DeserializeObject<CVAnalysisResponse>(responseData);
+                    var analysisResult = JsonConvert.DeserializeObject<CVAnalysisResponse>(responseData);
 
-                    //// Map the response to the UploadCVJsonRequest
-                    //var cvMapper = new CVMapper();
-                    //var mappedRequest = cvMapper.MapToCVJsonRequest(analysisResult);
+                    // Map the response to the UploadCVJsonRequest
+                    var cvMapper = new CVMapper();
+                    var mappedRequest = cvMapper.MapToCVJsonRequest(analysisResult);
 
-                    //// Send the mapped request to the second API
-                    //var secondApiResponse = await SendMappedRequestToSecondAPI(mappedRequest);
+                    // Send the mapped request to the second API
+                    var secondApiResponse = await SendMappedRequestToSecondAPI(mappedRequest);
 
-                    //var jobpostResponse = await _jobPostService.GetJobPostById(jobId);
+                    var jobpostResponse = await _jobPostService.GetJobPostById(jobId);
 
-                    //var jobPostApiUploadResponse = await UploadJobPost((JobPostResponse)jobpostResponse.Result);
-                    //var result = await AnalyzeMatch();
+                    var jobPostApiUploadResponse = await UploadJobPost((JobPostResponse)jobpostResponse.Result);
+                    var result = await AnalyzeMatch();
 
-                    return new ApiResponse().SetOk(responseData);
+                    var applicant = await _unitOfWork.JobPostActivities.GetAsync(x => x.UserId == userClaim.Id && x.JobPostId==jobId);
+                    applicant.AnalyzedResult = result;
+                    await _unitOfWork.SaveChangeAsync();
+
+                    return new ApiResponse().SetOk(result);
                 }
                 catch (HttpRequestException ex)
                 {
