@@ -85,21 +85,21 @@ namespace Application.Services
                     }
 
                     var responseData = await response.Content.ReadAsStringAsync();
-                    var analysisResult = JsonConvert.DeserializeObject<CVAnalysisResponse>(responseData);
+                    //var analysisResult = JsonConvert.DeserializeObject<CVAnalysisResponse>(responseData);
 
-                    // Map the response to the UploadCVJsonRequest
-                    var cvMapper = new CVMapper();
-                    var mappedRequest = cvMapper.MapToCVJsonRequest(analysisResult);
+                    //// Map the response to the UploadCVJsonRequest
+                    //var cvMapper = new CVMapper();
+                    //var mappedRequest = cvMapper.MapToCVJsonRequest(analysisResult);
 
-                    // Send the mapped request to the second API
-                    var secondApiResponse = await SendMappedRequestToSecondAPI(mappedRequest);
+                    //// Send the mapped request to the second API
+                    //var secondApiResponse = await SendMappedRequestToSecondAPI(mappedRequest);
 
-                    var jobpostResponse = await _jobPostService.GetJobPostById(jobId);
+                    //var jobpostResponse = await _jobPostService.GetJobPostById(jobId);
 
-                    var jobPostApiUploadResponse = await UploadJobPost((JobPostResponse)jobpostResponse.Result);
-                    var result = await AnalyzeMatch();
+                    //var jobPostApiUploadResponse = await UploadJobPost((JobPostResponse)jobpostResponse.Result);
+                    //var result = await AnalyzeMatch();
 
-                    return new ApiResponse().SetOk(result);
+                    return new ApiResponse().SetOk(responseData);
                 }
                 catch (HttpRequestException ex)
                 {
