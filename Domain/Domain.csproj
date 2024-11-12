@@ -9,6 +9,9 @@
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.104.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="Npgsql" Version="8.0.5" />
+    <PackageReference Include="Pgvector" Version="0.3.0" />
+    <PackageReference Include="Pgvector.EntityFrameworkCore" Version="0.2.1" />
   </ItemGroup>
 
 </Project>

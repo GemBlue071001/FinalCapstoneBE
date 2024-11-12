@@ -1,4 +1,8 @@
-﻿namespace Domain.Entities
+﻿using NpgsqlTypes;
+using Pgvector;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain.Entities
 {
     public class JobPost: Base
     {
@@ -19,7 +23,9 @@
         public string? Benefits { get; set; }
         public bool IsActive { get; set; }
 
-        public float[]? Vector { get; set; }
+        [Column(TypeName = "vector(500)")]
+        public Vector? Embedding { get; set; }
+        //public float[]? Vector { get; set; }
 
         //Navigation Property
         public UserAccount UserAccount { get; set; }

@@ -1,4 +1,4 @@
-﻿using Application.Repositories;
+﻿using Pgvector.EntityFrameworkCore;
 using Domain.Entities;
 using Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +11,11 @@ namespace Infrastructure
         {
 
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseNpgsql("Host=dpg-csf3vvm8ii6s739bdh00-a.singapore-postgres.render.com; Port=5432; Database=job_search_db_4keh; Username=trinhtam; Password=rje5hsgWd1Qi4QFZFdIaGtDM7LLkVzk7;Include Error Detail=True;TrustServerCertificate=True", o => o.UseVector());
+        }
+
 
         public DbSet<UserAccount> Users { get; set; }
         public DbSet<JobPost> JobPosts { get; set; }
@@ -37,6 +42,8 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.HasPostgresExtension("vector");
             modelBuilder.ApplyConfiguration(new UserConfig());
             modelBuilder.ApplyConfiguration(new BusinessStreamConfig());
             modelBuilder.ApplyConfiguration(new CompanyConfig());

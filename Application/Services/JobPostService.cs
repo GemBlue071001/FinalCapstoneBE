@@ -75,7 +75,6 @@ namespace Application.Services
                 jobPost.JobPostReviewStatus = JobPostReviewStatus.Pending;
 
                 // Generate a vector for the job post
-                jobPost.Vector = GenerateVector(jobPost);
 
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
@@ -352,23 +351,6 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
 
             return new ApiResponse().SetOk();
-        }
-
-        private float[] GenerateVector(JobPost jobPost)
-        {
-            // Combine job post details into a single string
-            string combinedText = $"{jobPost.JobTitle} {jobPost.JobDescription} {jobPost.Benefits} Experience: {jobPost.ExperienceRequired} years";
-
-            // Add skill set names to the combined text
-            //if (jobPost.JobSkillSets != null && jobPost.JobSkillSets.Any())
-            //{
-            //    string skillSetNames = string.Join(" ", jobPost.JobSkillSets.Select(js => js.SkillSet.Name));
-            //    combinedText += $" {skillSetNames}";
-            //}
-
-            // Placeholder logic to convert the combined text into a vector
-            // Replace this with an actual model or service call for generating embeddings
-            return combinedText.Split(' ').Select(word => (float)word.Length).ToArray();
         }
 
     }

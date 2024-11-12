@@ -1,12 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
@@ -34,10 +28,12 @@ namespace Infrastructure.Configuration
                 .WithMany(o => o.JobPosts)
                 .HasForeignKey(o => o.JobTypeId);
 
-            //builder.HasOne(o => o.JobLocation)
-            //    .WithMany(o => o.JobPosts)
-            //    .HasForeignKey(o => o.JobLocationId);
-
+            // Định nghĩa chỉ mục HNSW cho trường Embedding
+            builder.HasIndex(j => j.Embedding)
+                .HasMethod("hnsw")
+                .HasOperators("vector_l2_ops")
+                .HasStorageParameter("m", 16)
+                .HasStorageParameter("ef_construction", 64);
         }
     }
 }
