@@ -102,5 +102,12 @@ namespace API.Controllers
             await _service.ReadAllNotification(userId);
             return Ok();
         }
+
+        [HttpGet("top100")]
+        public async Task<IActionResult> GetTop100()
+        {
+            var top100 = await _service.GetTop100();
+            return Ok(top100.Result);
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace Application.Interface
         Task<List<Notification>> GetNotifications(int useId, bool isRead);
         Task<bool> ReadNotification(int id);
         Task ReadAllNotification(int userId);
+        Task<ApiResponse> GetTop100();
     }
 }

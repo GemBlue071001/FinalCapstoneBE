@@ -176,5 +176,12 @@ namespace Application.Services
                 await _unitOfWork.SaveChangeAsync();
             }
         }
+
+        public async Task<ApiResponse> GetTop100()
+        {
+            var top100 = await _unitOfWork.JobPostActivities.SelectTop100MatchApplications();
+            var result = top100.Select(x => x.Id).ToList();
+            return new ApiResponse().SetOk(result);
+        }
     }
 }
