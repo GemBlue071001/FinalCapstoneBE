@@ -278,10 +278,10 @@ namespace Application.Services
             jobPost.JobTitle = request.JobTitle;
             jobPost.JobDescription = request.JobDescription;
             jobPost.Salary = request.Salary;
+            jobPost.ExpiryDate = request.ExpiryDate;
             jobPost.ExperienceRequired = request.ExperienceRequired;
             jobPost.QualificationRequired = request.QualificationRequired;
             jobPost.Benefits = request.Benefits;
-            //jobPost.SkillLevelRequired = request.SkillLevelRequired;
             jobPost.JobTypeId = request.JobTypeId;
             jobPost.ImageURL = request.ImageURL;
 
