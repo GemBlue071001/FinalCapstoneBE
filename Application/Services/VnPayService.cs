@@ -114,13 +114,12 @@ namespace Application.Services
                     else
                     {
                         // Payment failed
-                        var redirectUrl = "http://localhost:5173/it-jobs?status=failure";
-                        return apiResponse.SetOk(redirectUrl);
+                        return apiResponse.SetOk("VN Pay api respone fail");
                     }
                 }
                 else
                 {
-                    return apiResponse.SetBadRequest("Invalid or missing userId");
+                    return apiResponse.SetBadRequest("Invalid or missing userId From call back url");
                 }
             }
             catch (Exception ex)
