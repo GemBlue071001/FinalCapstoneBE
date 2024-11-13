@@ -13,5 +13,6 @@ namespace Application.Interface
     {
         Task<ApiResponse> CreatePaymentUrl(PaymentInformation model, HttpContext context);
         Task<ApiResponse> PaymentExecute(IQueryCollection collections);
+        //Task<ApiResponse> Save();
     }
 }

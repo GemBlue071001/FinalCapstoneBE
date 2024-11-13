@@ -1,6 +1,7 @@
 ﻿using Application;
 using Application.Repositories;
 using Application.Repository;
+using Domain.Entities;
 using Infrastructure.Repositories;
 
 namespace Infrastructure
@@ -27,6 +28,8 @@ namespace Infrastructure
         public IEmailVerificationRepository EmailVerifications { get; }
         public IFollowJobRepository FollowJobs { get; }
         public IJobPostActivityCommentRepository JobPostActivityComments { get; }
+        public ISubscriptionRepository Subscriptions { get; }
+        
 
         public UnitOfWork(AppDbContext context)
         {
@@ -50,6 +53,7 @@ namespace Infrastructure
             EmailVerifications = new EmailVerificationRepository(context);
             FollowJobs = new FollowJobRepository(context);
             JobPostActivityComments = new JobPostActivityCommentRepository(context);
+            Subscriptions = new SubscriptionRepository(context);
         }
 
         public async Task SaveChangeAsync()

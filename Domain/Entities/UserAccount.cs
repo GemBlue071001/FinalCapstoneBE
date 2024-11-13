@@ -36,6 +36,7 @@ namespace Domain.Entities
         public List<FollowJob>? FollowJobs { get; set; }
         public List<Notification>? Notifications { get; set; }
         public List<EmailVerification>? EmailVerifications { get; set; }
+        public List<Subscription>? Subscriptions { get; set; }
 
     }
 

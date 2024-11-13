@@ -13,9 +13,9 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<Subscription> builder)
         {
-            builder.HasOne(o => o.UserAccount)
-               .WithMany(o => o.Subscriptions)
-               .HasForeignKey(o => o.UserId);
+            //builder.HasOne(o => o.UserAccount)
+            //   .WithMany(o => o.Subscriptions)
+            //   .HasForeignKey(o => o.UserId);
         }
     }
 }

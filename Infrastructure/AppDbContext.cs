@@ -38,6 +38,7 @@ namespace Infrastructure
         public DbSet<EmailVerification> EmailVerifications { get; set; }
         public DbSet<FollowJob> FollowJobs { get; set; }
         public DbSet<JobPostActivityComment> JobPostActivityComments { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -66,6 +67,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new EmailVerificationsConfig());
             modelBuilder.ApplyConfiguration(new FollowJobConfig());
             modelBuilder.ApplyConfiguration(new JobPostActivityCommentConfig());
+            modelBuilder.ApplyConfiguration(new SubscriptionConfig());
         }
 
     }
