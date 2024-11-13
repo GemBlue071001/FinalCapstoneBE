@@ -24,6 +24,7 @@ namespace Application
         public IEmailVerificationRepository EmailVerifications { get; }
         public IFollowJobRepository FollowJobs { get; }
         public IJobPostActivityCommentRepository JobPostActivityComments { get; }
+        public ISubscriptionRepository Subscriptions { get; }
         public Task SaveChangeAsync();
     }
 }

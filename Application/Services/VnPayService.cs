@@ -36,7 +36,7 @@ namespace Application.Services
             var claim = _claimService.GetUserClaim();
 
             // Include the user ID as a query parameter in the callback URL
-            var urlCallBack = $"{_configuration["PaymentCallBack:ReturnUrl"]}?userId={claim.Id}";
+            var urlCallBack = $"{_configuration["PaymentCallBack:ReturnUrl"]}?userId={claim.Id}&amount={model.Amount}";
 
             pay.AddRequestData("vnp_Version", _configuration["Vnpay:Version"]);
             pay.AddRequestData("vnp_Command", _configuration["Vnpay:Command"]);
@@ -57,52 +57,76 @@ namespace Application.Services
 
         public async Task<ApiResponse> PaymentExecute(IQueryCollection collections)
         {
-            ApiResponse apiResponse = new ApiResponse();
-            var pay = new VnPayLibrary();
-            var response = pay.GetFullResponseData(collections, _configuration["Vnpay:HashSecret"]);
-
-            // Extract userId from query parameters
-            if (collections.TryGetValue("userId", out var userIdValue) && int.TryParse(userIdValue, out int userId))
+            try
             {
-                // Check the response code to ensure the payment was successful
-                if (response.Success)
-                {
-                    // Payment was successful
-                    var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == userId);
+                ApiResponse apiResponse = new ApiResponse();
+                var pay = new VnPayLibrary();
+                var response = pay.GetFullResponseData(collections, _configuration["Vnpay:HashSecret"]);
 
-                    if (user != null)
+                // Extract userId from query parameters
+                if (collections.TryGetValue("userId", out var userIdValue) && int.TryParse(userIdValue, out int userId))
+                {
+                    // Check the response code to ensure the payment was successful
+                    if (response.Success)
                     {
-                        if (user.IsPremium)
+                        // Payment was successful
+                        var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == userId);
+
+                        if (user != null)
                         {
-                            user.PremiumExpireDate = user.PremiumExpireDate.HasValue
-                                ? user.PremiumExpireDate.Value.AddYears(1)
-                                : DateTime.Now.AddYears(1);
+                            if (user.IsPremium)
+                            {
+                                user.PremiumExpireDate = user.PremiumExpireDate.HasValue
+                                    ? user.PremiumExpireDate.Value.AddYears(1)
+                                    : DateTime.Now.AddYears(1);
+                            }
+                            else
+                            {
+                                user.IsPremium = true;
+                                user.PremiumExpireDate = DateTime.Now.AddYears(1);
+                            }
+                            if (collections.TryGetValue("amount", out var amountValue) && int.TryParse(amountValue, out int amount))
+                            {
+                                var sub = new Subscription
+                                {
+                                    UserId = userId,
+                                    PaymentAmount = amount,
+                                    SubscriptionDate = DateTime.Now,
+                                    ExpiredDate = (DateTime)user.PremiumExpireDate,
+                                };
+
+                                await _unitOfWork.Subscriptions.AddAsync(sub);
+                            }
+                            else
+                            {
+                                return apiResponse.SetBadRequest("parse error");
+                            }
+
+                            await _unitOfWork.SaveChangeAsync();
+                            var redirectUrl = "http://localhost:5173/it-jobs?status=success";
+                            return apiResponse.SetOk(redirectUrl);
                         }
                         else
                         {
-                            user.IsPremium = true;
-                            user.PremiumExpireDate = DateTime.Now.AddYears(1);
+                            return apiResponse.SetBadRequest("User not found");
                         }
-
-                        await _unitOfWork.SaveChangeAsync();
-                        var redirectUrl = "http://localhost:5173/it-jobs?status=success";
-                        return apiResponse.SetOk(redirectUrl);
                     }
                     else
                     {
-                        return apiResponse.SetBadRequest("User not found");
+                        // Payment failed
+                        var redirectUrl = "http://localhost:5173/it-jobs?status=failure";
+                        return apiResponse.SetOk(redirectUrl);
                     }
                 }
                 else
                 {
-                    // Payment failed
-                    var redirectUrl = "http://localhost:5173/it-jobs?status=failure";
-                    return apiResponse.SetOk(redirectUrl);
+                    return apiResponse.SetBadRequest("Invalid or missing userId");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return apiResponse.SetBadRequest("Invalid or missing userId");
+
+                throw;
             }
         }
 
