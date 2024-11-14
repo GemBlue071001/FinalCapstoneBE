@@ -114,7 +114,7 @@ namespace Application.Services
             //    return new ApiResponse().SetBadRequest("File must be a PDF");
             //}
 
-            using (var httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(180) })
+            using (var httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(360) })
             {
                 //var requestContent = new MultipartFormDataContent();
                 //var fileContent = new StreamContent(file.OpenReadStream());
