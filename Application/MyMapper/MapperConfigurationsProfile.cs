@@ -28,6 +28,7 @@ using Application.Response.JobPostActivityComment;
 using Application.Response.JobType;
 using Application.Response.SeekerProfile;
 using Application.Response.SkillSet;
+using Application.Response.Subscription;
 using Application.Response.User;
 using AutoMapper;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
@@ -141,6 +142,8 @@ namespace Application.MyMapper
             CreateMap<JobPostActivityCommentRequest, JobPostActivityComment>();
             CreateMap<JobPostActivityComment, JobPostActivityCommentResponse>();
             CreateMap<UpdateJobPostActivityCommentRequest, JobPostActivityComment>();
+            //
+            CreateMap<Subscription, SubscriptionResponse>();
 
         }
     }

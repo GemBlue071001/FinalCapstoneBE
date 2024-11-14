@@ -128,6 +128,7 @@ builder.Services.AddScoped<IFollowJobPostService, FollowJobPostService>();
 builder.Services.AddScoped<IJobPostActivityCommentService, JobPostActivityCommentService>();
 builder.Services.AddScoped<IFileHandlingService, FileHandlingService>();
 builder.Services.AddScoped<IVnPayService, VnPayService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
 
