@@ -12,11 +12,11 @@ namespace Application.Response.UserJobAlertCriteria
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string JobTitle { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public decimal? MinSalary { get; set; } = null;
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public decimal MinSalary { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public decimal? MaxSalary { get; set; } = null;
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public decimal MaxSalary { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public LocationResponse Location { get; set; }
