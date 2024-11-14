@@ -150,6 +150,7 @@ namespace Application.MyMapper
 
             CreateMap<UserJobAlertCriteriaRequest, UserJobAlertCriteria>();
             CreateMap<UserJobAlertCriteria, UserJobAlertCriteriaResponse>();
+                            
 
             CreateMap<Location, LocationResponse>();
             CreateMap<UserJobAlertCriteria, UserJobAlertCriteriaResponse>();

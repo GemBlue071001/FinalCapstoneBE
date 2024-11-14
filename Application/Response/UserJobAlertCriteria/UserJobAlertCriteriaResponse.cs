@@ -8,9 +8,14 @@ namespace Application.Response.UserJobAlertCriteria
     public class UserJobAlertCriteriaResponse
     {
         public int Id { get; set; }
+        public string _jobTitle;
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string JobTitle { get; set; }
+        public string JobTile
+        {
+            get => string.IsNullOrEmpty(_jobTitle) ? null : _jobTitle;
+            set => _jobTitle = value;
+        }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal MinSalary { get; set; }

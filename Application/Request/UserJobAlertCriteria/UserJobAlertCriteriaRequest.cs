@@ -8,7 +8,7 @@ namespace Application.Request.UserJobAlertCriteria
 {
     public class UserJobAlertCriteriaRequest
     {
-        public string JobTitle { get; set; } = string.Empty;
+        public string JobTile { get; set; } = string.Empty;
         public decimal MinSalary { get; set; }
         public decimal MaxSalary { get; set; }
         public int? LocationId { get; set; }
