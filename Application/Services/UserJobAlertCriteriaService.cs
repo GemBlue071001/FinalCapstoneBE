@@ -4,6 +4,7 @@ using Application.Response;
 using Application.Response.UserJobAlertCriteria;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +65,10 @@ namespace Application.Services
         {
             try
             {
-                var criteriaList = await _unitOfWork.UserJobAlertCriterias.GetAllAsync(c => c.UserId == userId);
+                var criteriaList = await _unitOfWork.UserJobAlertCriterias.GetAllAsync(c => c.UserId == userId, 
+                                                                                       x => x.Include(x => x.SkillSet!)
+                                                                                              .Include(x=>x.JobType!)
+                                                                                              .Include(x => x.Location!));
                 var response = _mapper.Map<List<UserJobAlertCriteriaResponse>>(criteriaList);
 
                 return new ApiResponse().SetOk(response);

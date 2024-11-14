@@ -27,6 +27,7 @@ using Application.Response.JobPost;
 using Application.Response.JobPostActivity;
 using Application.Response.JobPostActivityComment;
 using Application.Response.JobType;
+using Application.Response.Location;
 using Application.Response.SeekerProfile;
 using Application.Response.SkillSet;
 using Application.Response.Subscription;
@@ -148,6 +149,9 @@ namespace Application.MyMapper
             CreateMap<Subscription, SubscriptionResponse>();
 
             CreateMap<UserJobAlertCriteriaRequest, UserJobAlertCriteria>();
+            CreateMap<UserJobAlertCriteria, UserJobAlertCriteriaResponse>();
+
+            CreateMap<Location, LocationResponse>();
             CreateMap<UserJobAlertCriteria, UserJobAlertCriteriaResponse>();
 
         }
