@@ -51,6 +51,12 @@ namespace Application.Services
                 {
                     return new ApiResponse().SetBadRequest("User not found");
                 }
+                if (user.PremiumExpireDate < DateTime.Now)
+                {
+                    user.IsPremium = false;
+                    await _unitOfWork.SaveChangeAsync();
+                    return new ApiResponse().SetBadRequest("User must be Premium to post");
+                }
                 var skillSets = await _unitOfWork.SkillSets.GetAllAsync(u => jobPostRequest.SkillSetIds.Contains(u.Id));
                 if (jobPostRequest.SkillSetIds.Count != skillSets.Count)
                 {
