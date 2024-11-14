@@ -16,6 +16,7 @@ namespace Domain.Entities
         //Navigation Property
         public List<SeekerSkillSet> SeekerSkillSets { get; set; }
         public List<JobSkillSet> JobSkillSets { get; set; }
+        public List<UserJobAlertCriteria> UserJobAlertCriterias { get; set; } = new List<UserJobAlertCriteria>();
 
     }
 }

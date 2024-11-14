@@ -13,5 +13,6 @@ namespace Domain.Entities
         public string Description { get; set; }
         //Navigation Property
         public List<JobPost> JobPosts { get; set; }
+        public List<UserJobAlertCriteria> UserJobAlertCriterias { get; set; } = new List<UserJobAlertCriteria>();
     }
 }
