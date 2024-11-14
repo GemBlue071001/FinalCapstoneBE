@@ -28,6 +28,7 @@ namespace Infrastructure
         public IFollowJobRepository FollowJobs { get; }
         public IJobPostActivityCommentRepository JobPostActivityComments { get; }
         public ISubscriptionRepository Subscriptions { get; }
+        public IUserJobAlertCriteriaRepository UserJobAlertCriterias { get; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -52,6 +53,7 @@ namespace Infrastructure
             FollowJobs = new FollowJobRepository(context);
             JobPostActivityComments = new JobPostActivityCommentRepository(context);
             Subscriptions = new SubscriptionRepository(context);
+            UserJobAlertCriterias = new UserJobAlertCriteriaRepository(context);
         }
 
         public async Task SaveChangeAsync()

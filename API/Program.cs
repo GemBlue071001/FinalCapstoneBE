@@ -5,6 +5,7 @@ using Application.Interface;
 using Application.MyMapper;
 using Application.Services;
 using Application.SignalRHub.Model;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Domain;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -129,6 +130,8 @@ builder.Services.AddScoped<IJobPostActivityCommentService, JobPostActivityCommen
 builder.Services.AddScoped<IFileHandlingService, FileHandlingService>();
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+builder.Services.AddScoped<IUserJobAlertCriteriaService, UserJobAlertCriteriaService>();
+
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
 

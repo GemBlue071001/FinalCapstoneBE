@@ -15,6 +15,7 @@ using Application.Request.JobType;
 using Application.Request.SeekerProfile;
 using Application.Request.SkillSet;
 using Application.Request.User;
+using Application.Request.UserJobAlertCriteria;
 using Application.Response;
 using Application.Response.BusinessStream;
 using Application.Response.Company;
@@ -30,6 +31,7 @@ using Application.Response.SeekerProfile;
 using Application.Response.SkillSet;
 using Application.Response.Subscription;
 using Application.Response.User;
+using Application.Response.UserJobAlertCriteria;
 using AutoMapper;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Domain.Entities;
@@ -144,6 +146,9 @@ namespace Application.MyMapper
             CreateMap<UpdateJobPostActivityCommentRequest, JobPostActivityComment>();
             //
             CreateMap<Subscription, SubscriptionResponse>();
+
+            CreateMap<UserJobAlertCriteriaRequest, UserJobAlertCriteria>();
+            CreateMap<UserJobAlertCriteria, UserJobAlertCriteriaResponse>();
 
         }
     }
