@@ -47,7 +47,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 //builder.Services.AddHangfire(config => config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration!.ConnectionStrings.LocalDockerConnection)));
-builder.Services.AddHangfire(config => config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration!.ConnectionStrings.DefaultConnection)));
+builder.Services.AddHangfire(config => config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration!.ConnectionStrings.LocalDockerConnection)));
 
 
 builder.Services.AddHangfireServer();
