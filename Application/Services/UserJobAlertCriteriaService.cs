@@ -15,13 +15,15 @@ namespace Application.Services
 {
     public class UserJobAlertCriteriaService : IUserJobAlertCriteriaService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        public readonly IUnitOfWork _unitOfWork;
+        public readonly IMapper _mapper;
+        public readonly IEmailService _emailService;
 
-        public UserJobAlertCriteriaService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserJobAlertCriteriaService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _emailService = emailService;
         }
         public async Task<ApiResponse> AddNewAlertCriteriaAsync(UserJobAlertCriteriaRequest criteriaRequest)
         {
@@ -65,9 +67,9 @@ namespace Application.Services
         {
             try
             {
-                var criteriaList = await _unitOfWork.UserJobAlertCriterias.GetAllAsync(c => c.UserId == userId, 
+                var criteriaList = await _unitOfWork.UserJobAlertCriterias.GetAllAsync(c => c.UserId == userId,
                                                                                        x => x.Include(x => x.SkillSet!)
-                                                                                              .Include(x=>x.JobType!)
+                                                                                              .Include(x => x.JobType!)
                                                                                               .Include(x => x.Location!));
                 var response = _mapper.Map<List<UserJobAlertCriteriaResponse>>(criteriaList);
 
@@ -76,6 +78,21 @@ namespace Application.Services
             catch (Exception ex)
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
+            }
+        }
+
+        public async Task ProcessMatchingJob()
+        {
+            try
+            {
+                var matchingJobs = await _unitOfWork.UserJobAlertCriterias.GetMatchingJobsForAllUsersAsync();
+                await _emailService.SendValidationEmail("trinhtam2001@gmail.com", "hello job");
+
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

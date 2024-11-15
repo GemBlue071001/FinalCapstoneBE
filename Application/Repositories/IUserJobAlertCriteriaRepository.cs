@@ -10,5 +10,6 @@ namespace Application.Repositories
 {
     public interface IUserJobAlertCriteriaRepository : IGenericRepository<UserJobAlertCriteria>
     {
+        public Task<Dictionary<int, List<JobPost>>> GetMatchingJobsForAllUsersAsync();
     }
 }

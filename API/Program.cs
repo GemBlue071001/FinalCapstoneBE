@@ -50,8 +50,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddHangfire(config => config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration!.ConnectionStrings.LocalDockerConnection)));
 
 
-builder.Services.AddHangfireServer();
 
+builder.Services.AddHangfireServer();
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -140,12 +140,22 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
+using (var scope = app.Services.CreateScope())
+{
+    var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+    recurringJobManager.AddOrUpdate<UserJobAlertCriteriaService>(
+        "fetch-matching-jobs",
+        job => job.ProcessMatchingJob(),
+        //job => job.SendValidationEmail("trinhtam2001@gmail.com", "hello job"),
+        "*/10 * * * * *" // Runs every 10 seconds
+    );
+}
+
+
+
 app.UseSwagger();
 app.UseSwaggerUI();
-//}
+
 app.UseCors(p => p.SetIsOriginAllowed(origin => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 app.UseMiddleware<ValidationMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
