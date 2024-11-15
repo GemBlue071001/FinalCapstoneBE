@@ -8,6 +8,6 @@ namespace Application.Interface
         Task<ApiResponse> AddNewAlertCriteriaAsync(UserJobAlertCriteriaRequest criteriaRequest);
         Task<ApiResponse> GetAllAlertCriteriaAsync(int userId);
         Task<ApiResponse> DeleteAlertCriteriaByIdAsync(int id);
-        public Task ProcessMatchingJob();
+        public Task<ApiResponse> ProcessMatchingJob();
     }
 }

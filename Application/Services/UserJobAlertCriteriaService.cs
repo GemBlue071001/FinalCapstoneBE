@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.UserJobAlertCriteria;
 using Application.Response;
+using Application.Response.CV;
 using Application.Response.UserJobAlertCriteria;
 using AutoMapper;
 using Domain.Entities;
@@ -81,17 +82,18 @@ namespace Application.Services
             }
         }
 
-        public async Task ProcessMatchingJob()
+        public async Task<ApiResponse> ProcessMatchingJob()
         {
             try
             {
                 var matchingJobs = await _unitOfWork.UserJobAlertCriterias.GetMatchingJobsForAllUsersAsync();
                 await _emailService.SendValidationEmail("trinhtam2001@gmail.com", "hello job");
 
+                return new ApiResponse().SetOk();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                return new ApiResponse().SetBadRequest(ex.Message);
                 throw;
             }
         }

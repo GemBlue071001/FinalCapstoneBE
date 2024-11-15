@@ -26,6 +26,14 @@ namespace API.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [HttpGet]
+        [Route("matching-criterial")]
+        public async Task<IActionResult> Match()
+        {
+            var response = await _service.ProcessMatchingJob();
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
         // Get all job alert criteria for a specific user
         //[Authorize]
         [HttpGet]

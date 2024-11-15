@@ -22,9 +22,9 @@ namespace Infrastructure.Repositories
             try
             {
                 List<UserJobAlertCriteria> allCriteria = await _context.UserJobAlertCriterias
-                                                        .Include(x => x.Location)
-                                                        .Include(x => x.SkillSet)
-                                                        .Include(x => x.JobType)
+                                                        //.Include(x => x.Location)
+                                                        //.Include(x => x.SkillSet)
+                                                        //.Include(x => x.JobType)
                                                         .ToListAsync();
 
                 var result = new Dictionary<int, List<JobPost>>();

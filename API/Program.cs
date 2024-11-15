@@ -5,6 +5,7 @@ using Application.Interface;
 using Application.MyMapper;
 using Application.Services;
 using Application.SignalRHub.Model;
+using Application.Worker;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Domain;
 using FluentValidation;
@@ -108,7 +109,7 @@ builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 
 builder.Services.AddSingleton(configuration!);
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClaimService, ClaimService>();
@@ -131,6 +132,7 @@ builder.Services.AddScoped<IFileHandlingService, FileHandlingService>();
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IUserJobAlertCriteriaService, UserJobAlertCriteriaService>();
+builder.Services.AddHostedService<JobAlertWorker>();
 
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
@@ -140,16 +142,16 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
-    recurringJobManager.AddOrUpdate<UserJobAlertCriteriaService>(
-        "fetch-matching-jobs",
-        job => job.ProcessMatchingJob(),
-        //job => job.SendValidationEmail("trinhtam2001@gmail.com", "hello job"),
-        "*/10 * * * * *" // Runs every 10 seconds
-    );
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+//    recurringJobManager.AddOrUpdate<IUserJobAlertCriteriaService>(
+//        "fetch-matching-jobs",
+//        job => job.ProcessMatchingJob(),
+//        //job => job.SendValidationEmail("trinhtam2001@gmail.com", "hello job"),
+//        "*/10 * * * * *" // Runs every 10 seconds
+//    );
+//}
 
 
 
