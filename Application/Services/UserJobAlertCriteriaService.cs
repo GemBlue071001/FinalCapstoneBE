@@ -124,7 +124,7 @@ namespace Application.Services
                     .Replace("${Name}", user?.FirstName + " " + user?.LastName)
                     .Replace("${Jobs}", jobsHtml);
 
-                if (!string.IsNullOrEmpty(user?.Email))
+                if (!string.IsNullOrEmpty(user?.Email) && jobs.Count > 0)
                 {
                     await _emailService.SendValidationEmail(user.Email, content);
                 }
