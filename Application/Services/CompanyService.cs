@@ -38,7 +38,7 @@ namespace Application.Services
                 {
                     return new ApiResponse().SetBadRequest("Can not found Business Stream Id " + companyRequest.BusinessStreamId);
                 }
-                company.BusinessStreamId = businessStream.Id;   
+                company.BusinessStreamId = businessStream.Id;
                 await _unitOfWork.Companys.AddAsync(company);
                 await _unitOfWork.SaveChangeAsync();
                 return new ApiResponse().SetOk(company.Id);
@@ -77,7 +77,7 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts).ThenInclude(x=>x.JobSkillSets).ThenInclude(x=>x.SkillSet));
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts).ThenInclude(x => x.JobSkillSets).ThenInclude(x => x.SkillSet));
                 var companyResponse = _mapper.Map<CompanyResponse>(company);
 
                 return new ApiResponse().SetOk(companyResponse);
@@ -109,6 +109,33 @@ namespace Application.Services
             catch (Exception ex)
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
+            }
+        }
+        public async Task<ApiResponse> GetCompanyByNameAsync(string companyName)
+        {
+            ApiResponse apiResponse = new ApiResponse();
+            try
+            {
+                var company = await _unitOfWork.Companys.GetAsync(c => c.CompanyName != null &&
+                                                                   c.CompanyName.ToLower() == companyName.ToLower()
+                                                                , x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
+                if (company == null)
+                {
+                    return apiResponse.SetBadRequest("Can not found companyName: " + companyName);
+                }
+                var companyResponse = _mapper.Map<CompanyResponse>(company);
+
+                return new ApiResponse().SetOk(companyResponse);
+            }
+            catch (JsonException jsonEx)
+            {
+                // Log chi tiết lỗi JSON để kiểm tra
+                return new ApiResponse().SetBadRequest($"JSON Error: {jsonEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ khác
+                return new ApiResponse().SetBadRequest($"Error: {ex.Message} - InnerException: {ex.InnerException?.Message}");
             }
         }
 

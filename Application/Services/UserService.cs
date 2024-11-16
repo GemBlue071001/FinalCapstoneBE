@@ -147,7 +147,7 @@ namespace Application.Services
                     return new ApiResponse().SetBadRequest("User Skill Set Not Found !");
                 }
 
-                    await _unitOfWork.SeekerSkillSets.RemoveByIdAsync(userSkillSet.Id);
+                await _unitOfWork.SeekerSkillSets.RemoveByIdAsync(userSkillSet.Id);
                 await _unitOfWork.SaveChangeAsync();
 
                 return new ApiResponse().SetOk("Remove success !");
@@ -168,6 +168,18 @@ namespace Application.Services
         {
             var regex = new Regex(@"^-?\d+$");
             return regex.IsMatch(phoneNum);
+        }
+        public async Task<ApiResponse> GetAllJobSeekerRoleAsync()
+        {
+            ApiResponse response = new ApiResponse();
+            var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker, x => x.Include(x => x.EducationDetails!)
+                                                                                     .Include(x => x.ExperienceDetails!)
+                                                                                     .Include(x => x.SeekerSkillSets!)
+                                                                                        .ThenInclude(x => x.SkillSet));
+
+            var userReponse = _mapper.Map<List<UserProfileResponse>>(users);
+
+            return response.SetOk(userReponse);
         }
     }
 }

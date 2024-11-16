@@ -66,6 +66,12 @@ namespace API.Controllers
             var result = await _service.RemoveSkillSetToUser(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+        [HttpGet("JobSeekerRole")]
+        public async Task<IActionResult> GetAllJobSeekerRoleAsync()
+        {
+            var result = await _service.GetAllJobSeekerRoleAsync();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
 
     }
 }
