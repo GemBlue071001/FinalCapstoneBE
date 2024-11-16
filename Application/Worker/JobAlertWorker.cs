@@ -34,7 +34,7 @@ namespace Application.Worker
                 }
 
                 // Delay for the desired interval (e.g., 10 seconds)
-                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+                await Task.Delay(TimeSpan.FromDays(1), stoppingToken);
             }
         }
     }
