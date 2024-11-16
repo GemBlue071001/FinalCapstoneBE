@@ -1,12 +1,6 @@
 ﻿using Application.Repositories;
-using DocumentFormat.OpenXml.InkML;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
@@ -36,6 +30,8 @@ namespace Infrastructure.Repositories
                                 .Include(j => j.Company)
                                 .Include(j => j.JobLocations)
                                 .Include(j => j.JobSkillSets)
+                                .ThenInclude(js => js.SkillSet)
+                                .Include(j => j.UserAccount)
                                 .AsQueryable();
 
                     if (!string.IsNullOrEmpty(criteria.JobTile))

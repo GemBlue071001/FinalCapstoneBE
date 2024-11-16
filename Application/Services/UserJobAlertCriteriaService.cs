@@ -1,16 +1,11 @@
-﻿using Application.Interface;
+﻿using Application.EmailTemplates;
+using Application.Interface;
 using Application.Request.UserJobAlertCriteria;
 using Application.Response;
-using Application.Response.CV;
 using Application.Response.UserJobAlertCriteria;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -87,7 +82,9 @@ namespace Application.Services
             try
             {
                 var matchingJobs = await _unitOfWork.UserJobAlertCriterias.GetMatchingJobsForAllUsersAsync();
-                await _emailService.SendValidationEmail("trinhtam2001@gmail.com", "hello job");
+                if (matchingJobs != null && matchingJobs.Count > 0) {
+                    await SendMatchingJobsEmail(matchingJobs);
+                }
 
                 return new ApiResponse().SetOk();
             }
@@ -95,6 +92,42 @@ namespace Application.Services
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
                 throw;
+            }
+        }
+
+        private async Task SendMatchingJobsEmail(Dictionary<int, List<JobPost>> matchingJobs)
+        {
+            foreach (var matchingJob in matchingJobs)
+            {
+                var user = matchingJob.Value?.ToList().FirstOrDefault()?.UserAccount;
+                var jobs = matchingJob.Value ?? [];
+                var content = MatchingJobsEmailTemplate.MatchingJobs;
+                var jobsHtml = "";
+
+                foreach (var job in jobs)
+                {
+                    var skillSets = job.JobSkillSets.Select(s => s?.SkillSet?.Name).ToList();
+                    string skillSetsName = skillSets.Count > 0 ? string.Join(", ", skillSets) : "N/A";
+
+                    string jobItem = MatchingJobsEmailTemplate.MathchingJob
+                        .Replace("${JobTitle}", job.JobTitle)
+                        .Replace("${CompanyName}", job.Company.CompanyName)
+                        .Replace("${JobSkillSets}", skillSetsName)
+                        .Replace("${ExpiredDate}", job.ExpiryDate.ToShortDateString())
+                        .Replace("${Address}", job.JobLocations.FirstOrDefault()?.StressAddressDetail)
+                        .Replace("${ImageURL}", job.ImageURL);
+
+                    jobsHtml += jobItem;
+                }
+
+                content = content
+                    .Replace("${Name}", user?.FirstName + " " + user?.LastName)
+                    .Replace("${Jobs}", jobsHtml);
+
+                if (!string.IsNullOrEmpty(user?.Email))
+                {
+                    await _emailService.SendValidationEmail(user.Email, content);
+                }
             }
         }
     }
