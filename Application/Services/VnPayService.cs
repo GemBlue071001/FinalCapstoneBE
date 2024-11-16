@@ -1,4 +1,5 @@
 ﻿using Application.Interface;
+using Application.Request.Payment;
 using Application.Response;
 using Application.Response.Payment;
 using DocumentFormat.OpenXml.Office2010.Excel;
@@ -24,7 +25,7 @@ namespace Application.Services
             _unitOfWork = unitOfWork;
             _claimService = claimService;
         }
-        public async Task<ApiResponse> CreatePaymentUrl(PaymentInformation model, HttpContext context)
+        public async Task<ApiResponse> CreatePaymentUrl(PaymentRequest request, HttpContext context)
         {
             ApiResponse response = new ApiResponse();
             var timeZoneById = TimeZoneInfo.FindSystemTimeZoneById(_configuration["TimeZoneId"]);
@@ -34,6 +35,27 @@ namespace Application.Services
 
             // Get user claim to include user ID in the callback URL
             var claim = _claimService.GetUserClaim();
+            var model = new PaymentInformation();
+            if (request.OrderType == 1)
+            {
+                model.Name = "Basic Supcription";
+                model.Amount = 6000000;
+                model.OrderDescription = "Basic Supcription";
+                model.OrderType = "Basic";
+            }
+            else if (request.OrderType == 2)
+            {
+
+                model.Name = "Pro Supcription";
+                model.Amount = 10000000;
+                model.OrderDescription = "Pro Supcription";
+                model.OrderType = "Pro";
+            } 
+            else
+            {
+                return response.SetBadRequest("Invalid OrderType ! Value must be 1 or 2");
+            }
+
 
             // Include the user ID as a query parameter in the callback URL
             var urlCallBack = $"{_configuration["PaymentCallBack:ReturnUrl"]}?userId={claim.Id}&amount={model.Amount}";

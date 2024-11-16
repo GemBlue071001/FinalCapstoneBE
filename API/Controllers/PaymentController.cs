@@ -1,4 +1,5 @@
 ﻿using Application.Interface;
+using Application.Request.Payment;
 using Application.Request.SkillSet;
 using Application.Services;
 using Domain.Entities;
@@ -20,7 +21,7 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CreatePaymentUrl(PaymentInformation model)
+        public async Task<IActionResult> CreatePaymentUrl(PaymentRequest model)
         {
             var response = await _service.CreatePaymentUrl(model, HttpContext);
             return response.IsSuccess ? Ok(response) : BadRequest(response);

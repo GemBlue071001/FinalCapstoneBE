@@ -1,4 +1,5 @@
-﻿using Application.Response;
+﻿using Application.Request.Payment;
+using Application.Response;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -11,7 +12,7 @@ namespace Application.Interface
 {
     public interface IVnPayService
     {
-        Task<ApiResponse> CreatePaymentUrl(PaymentInformation model, HttpContext context);
+        Task<ApiResponse> CreatePaymentUrl(PaymentRequest model, HttpContext context);
         Task<ApiResponse> PaymentExecute(IQueryCollection collections);
     }
 }
