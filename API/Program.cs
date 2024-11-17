@@ -1,5 +1,5 @@
 using API.Middleware;
-using API.Validation;
+using API.Validation.Authenticaction;
 using Application;
 using Application.Interface;
 using Application.MyMapper;
@@ -136,6 +136,10 @@ builder.Services.AddHostedService<JobAlertWorker>();
 
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<ChangePasswordValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<NewEmailValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CompanyRegisterRequestValidator>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

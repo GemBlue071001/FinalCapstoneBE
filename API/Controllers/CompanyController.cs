@@ -19,6 +19,21 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewCompanyAsync(CompanyRequest companyRequest)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    isSuccess = false,
+                    errorMessage = string.Join("; ", errors),
+                    result = (object)null
+                });
+            }
             var response = await _service.AddNewCompanyAsync(companyRequest);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }

@@ -53,7 +53,21 @@ namespace API.Controllers
         [HttpPut("Email")]
         public async Task<IActionResult> UpdateEmailVerification(UpdateEmailVerification request)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
 
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    isSuccess = false,
+                    errorMessage = string.Join("; ", errors),
+                    result = (object)null
+                });
+            }
             var result = await _service.UpdateEmailAsync(request.UserId, request.NewEmail);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
@@ -62,6 +76,22 @@ namespace API.Controllers
         [HttpPost("UpdatePassword")]
         public async Task<IActionResult> UpdatePassword(ChangePasswordRequest request)
         {
+
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    isSuccess = false,
+                    errorMessage = string.Join("; ", errors),
+                    result = (object)null
+                });
+            }
             var result = await _service.ChangePassword(request.CurrentPassword, request.NewPassword , request.ConfirmPassword);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
@@ -82,6 +112,22 @@ namespace API.Controllers
         [HttpPost("register-for-employee")]
         public async Task<IActionResult> UpdatePassword(CompanyRegisterRequest request)
         {
+
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    isSuccess = false,
+                    errorMessage = string.Join("; ", errors),
+                    result = (object)null
+                });
+            }
             var result = await _service.GenerateCodeToAddCompanyAsync(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
