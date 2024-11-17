@@ -23,7 +23,7 @@ namespace Domain.Entities
         public string? Benefits { get; set; }
         public bool IsActive { get; set; }
 
-        [Column(TypeName = "vector(500)")]
+        [Column(TypeName = "vector(384)")]
         public Vector? Embedding { get; set; }
         //public float[]? Vector { get; set; }
 
