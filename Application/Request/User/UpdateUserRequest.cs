@@ -13,5 +13,6 @@ namespace Application.Request.User
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
+        public bool IsLookingForJob { get; set; }
     }
 }

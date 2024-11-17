@@ -172,7 +172,7 @@ namespace Application.Services
         public async Task<ApiResponse> GetAllJobSeekerRoleAsync()
         {
             ApiResponse response = new ApiResponse();
-            var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker, x => x.Include(x => x.EducationDetails!)
+            var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker && u.IsLookingForJob, x => x.Include(x => x.EducationDetails!)
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.SeekerSkillSets!)
                                                                                         .ThenInclude(x => x.SkillSet));

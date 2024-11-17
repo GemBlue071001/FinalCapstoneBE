@@ -20,6 +20,7 @@ namespace Domain.Entities
         public Role Role { get; set; }
         public bool IsPremium { get; set; }
         public DateTime? PremiumExpireDate { get; set; }
+        public bool IsLookingForJob { get; set; }
 
         //Navigation Property
         public Company? Company { get; set; }

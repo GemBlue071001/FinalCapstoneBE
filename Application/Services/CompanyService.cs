@@ -117,7 +117,7 @@ namespace Application.Services
             try
             {
                 var company = await _unitOfWork.Companys.GetAsync(c => c.CompanyName != null &&
-                                                                   c.CompanyName.ToLower() == companyName.ToLower()
+                                                                   c.CompanyName.ToLower().Contains(companyName.ToLower())
                                                                 , x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
                 if (company == null)
                 {

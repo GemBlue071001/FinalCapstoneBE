@@ -13,6 +13,7 @@ namespace Application.Response.User
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         public int?  CompanyId { get; set; }
+        public bool IsLookingForJob { get; set; }
         public List<EducationDetailResponse> EducationDetails { get; set; } = new List<EducationDetailResponse>();
         public List<ExperienceDetailResponse> ExperienceDetails { get; set; } = new List<ExperienceDetailResponse>();
         public List<CVResponse> Cvs { get; set; } = new List<CVResponse>();
