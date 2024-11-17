@@ -10,5 +10,6 @@ namespace Application.Repositories
 {
     public interface ICompanyRepository: IGenericRepository<Company>
     {
+        Task<List<Company>> GetCompany();
     }
 }

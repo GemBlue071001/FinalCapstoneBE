@@ -2,6 +2,7 @@
 using Application.Request.JobPost;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Pgvector;
 
 namespace Infrastructure.Repositories
 {
@@ -10,6 +11,43 @@ namespace Infrastructure.Repositories
         public JobPostRepository(AppDbContext context) : base(context)
         {
         }
+
+        public async Task<List<JobPost>> GetJobPostsAsync()
+        {
+            IQueryable<JobPost> query = _context.JobPosts
+                    .Include(jp => jp.JobType)
+                    .Include(jp => jp.JobLocations)
+                        .ThenInclude(x => x.Location)
+                    .Include(jp => jp.Company)
+                    .Include(jp => jp.JobSkillSets)
+                        .ThenInclude(jssk => jssk.SkillSet)
+                    .Select(x=> new JobPost
+                        {
+                            Benefits = x.Benefits,
+                            CompanyId = x.CompanyId,
+                            ExperienceRequired = x.ExperienceRequired,
+                            Company = x.Company,
+                            FollowJobs = x.FollowJobs,
+                            ImageURL = x.ImageURL,
+                            Id = x.Id,
+                            JobDescription = x.JobDescription,
+                            JobLocations = x.JobLocations,
+                            JobPostActivitys = x.JobPostActivitys,
+                            JobSkillSets = x.JobSkillSets,
+                            JobPostReviewStatus = x.JobPostReviewStatus,
+                            JobTitle = x.JobTitle,
+                            IsDeleted = x.IsDeleted,
+                            QualificationRequired = x.QualificationRequired,
+                            ExpiryDate = x.ExpiryDate,
+                            JobType = x.JobType,
+                            JobTypeId = x.JobTypeId,
+                            PostingDate = x.PostingDate,
+                            JobLocationId = x.JobLocationId,
+                            Salary = x.Salary,
+                        });
+            return await query.ToListAsync();
+        }
+
 
         public async Task<List<JobPost>> SearchJobPosts(SearchJobPostRequest request)
         {
@@ -21,7 +59,31 @@ namespace Infrastructure.Repositories
                         .ThenInclude(x => x.Location)
                     .Include(jp => jp.Company)
                     .Include(jp => jp.JobSkillSets)
-                        .ThenInclude(jssk => jssk.SkillSet);
+                        .ThenInclude(jssk => jssk.SkillSet)
+                        .Select(x => new JobPost
+                        {
+                            Benefits = x.Benefits,
+                            CompanyId = x.CompanyId,
+                            ExperienceRequired = x.ExperienceRequired,
+                            Company = x.Company,
+                            FollowJobs = x.FollowJobs,
+                            ImageURL = x.ImageURL,
+                            Id = x.Id,
+                            JobDescription = x.JobDescription,
+                            JobLocations = x.JobLocations,
+                            JobPostActivitys = x.JobPostActivitys,
+                            JobSkillSets = x.JobSkillSets,
+                            JobPostReviewStatus = x.JobPostReviewStatus,
+                            JobTitle = x.JobTitle,
+                            IsDeleted = x.IsDeleted,
+                            QualificationRequired = x.QualificationRequired,
+                            ExpiryDate = x.ExpiryDate,
+                            JobType = x.JobType,
+                            JobTypeId = x.JobTypeId,
+                            PostingDate = x.PostingDate,
+                            JobLocationId = x.JobLocationId,
+                            Salary = x.Salary,
+                        });
 
                 // Existing single-value string checks
                 if (!string.IsNullOrEmpty(request.JobType))

@@ -1,4 +1,5 @@
 ﻿using Application.Response.JobType;
+using Pgvector;
 
 namespace Application.Response.JobPost
 {
@@ -15,6 +16,7 @@ namespace Application.Response.JobPost
         public string Benefits { get; set; }
         public string? ImageURL { get; set; }
         public bool IsActive { get; set; }
+        public Vector? Embedding { get; set; }
         //public UserResponse User { get; set; }
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }

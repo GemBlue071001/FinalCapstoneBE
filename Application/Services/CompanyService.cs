@@ -55,7 +55,8 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var companies = await _unitOfWork.Companys.GetAllAsync(null, x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
+                //var companies = await _unitOfWork.Companys.GetAllAsync(null, x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
+                var companies = await _unitOfWork.Companys.GetCompany();
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(companies);
 
                 return new ApiResponse().SetOk(companyResponse);
