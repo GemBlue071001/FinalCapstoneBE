@@ -1,6 +1,8 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Pgvector;
 
 namespace Infrastructure.Configuration
 {
@@ -8,6 +10,8 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<JobPost> builder)
         {
+
+
             builder.HasOne(o => o.UserAccount)
                 .WithMany(o => o.JobPosts)
                 .HasForeignKey(o => o.UserId);
@@ -34,6 +38,16 @@ namespace Infrastructure.Configuration
                 .HasOperators("vector_l2_ops")
                 .HasStorageParameter("m", 16)
                 .HasStorageParameter("ef_construction", 64);
+
+            var vectorConverter = new ValueConverter<Vector, float[]>(
+            v => v.ToArray(),        // Convert Vector to float[]
+            v => new Vector(v)       // Convert float[] back to Vector
+        );
+
+
+            builder
+            .Property(j => j.Embedding)
+            .HasColumnType("vector(384)");
         }
     }
 }

@@ -7,5 +7,6 @@ namespace Application.Repositories
     public interface IJobPostRepository : IGenericRepository<JobPost>
     {
         Task<List<JobPost>> SearchJobPosts(SearchJobPostRequest request);
+        Task<List<JobPost>> GetJobPostsAsync();
     }
 }

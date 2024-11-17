@@ -2,6 +2,8 @@
 using Domain.Entities;
 using Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Pgvector;
 
 namespace Infrastructure
 {
@@ -42,8 +44,14 @@ namespace Infrastructure
         public DbSet<UserJobAlertCriteria> UserJobAlertCriterias { get; set; }
 
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            var vectorConverter = new ValueConverter<Vector, float[]>(
+                v => v.ToArray(), // Convert Vector to float[]
+                v => new Vector(v) // Convert float[] back to Vector
+            );
 
             modelBuilder.HasPostgresExtension("vector");
             modelBuilder.ApplyConfiguration(new UserConfig());
