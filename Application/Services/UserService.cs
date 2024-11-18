@@ -33,7 +33,8 @@ namespace Application.Services
             var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id, x => x.Include(x => x.EducationDetails!)
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.SeekerSkillSets!)
-                                                                                        .ThenInclude(x => x.SkillSet));
+                                                                                        .ThenInclude(x => x.SkillSet)
+                                                                                     .Include(x => x.CVs!));
             if (user == null)
                 return response.SetNotFound("User not found");
 
@@ -175,7 +176,8 @@ namespace Application.Services
             var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker && u.IsLookingForJob, x => x.Include(x => x.EducationDetails!)
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.SeekerSkillSets!)
-                                                                                        .ThenInclude(x => x.SkillSet));
+                                                                                        .ThenInclude(x => x.SkillSet)
+                                                                                     .Include(x => x.CVs!));
 
             var userReponse = _mapper.Map<List<UserProfileResponse>>(users);
 
