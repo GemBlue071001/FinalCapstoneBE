@@ -153,13 +153,13 @@ namespace Application.Services
                 /* var company = await _unitOfWork.Companys.GetAsync(c => c.CompanyName != null &&
                                                                     c.CompanyName.ToLower().Contains(companyName.ToLower())
                                                                  , x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));*/
-                var company = await _unitOfWork.Companys.GetCompanyByNameAsync(companyName);
+                var company = await _unitOfWork.Companys.GetCompanyByNameAsync(companyName, pageIndex, pageSize);
                /* if (company == null)
                 {
                     return apiResponse.SetBadRequest("Can not found companyName: " + companyName);
                 }*/
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(company);
-                var result = companyResponse.ToPaginationResponse(pageIndex, pageSize);
+                var result = companyResponse.ToPaginationResponse(pageIndex, pageSize, false);
 
                 return new ApiResponse().SetOk(result);
             }

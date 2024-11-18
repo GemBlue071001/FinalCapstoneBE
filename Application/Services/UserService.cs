@@ -178,10 +178,12 @@ namespace Application.Services
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.SeekerSkillSets!)
                                                                                         .ThenInclude(x => x.SkillSet)
-                                                                                     .Include(x => x.CVs!));
+                                                                                     .Include(x => x.CVs!),
+                                                                                     pageIndex: pageIndex,
+                                                                                     pageSize: pageSize);
 
             var userReponse = _mapper.Map<List<UserProfileResponse>>(users);
-            var result = userReponse.ToPaginationResponse(pageIndex, pageSize);
+            var result = userReponse.ToPaginationResponse(pageIndex, pageSize, false);
 
             return response.SetOk(result);
         }
