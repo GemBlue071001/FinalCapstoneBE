@@ -1,4 +1,5 @@
-﻿using Application.Interface;
+﻿using Application.Extensions;
+using Application.Interface;
 using Application.Request.Company;
 using Application.Request.JobLocation;
 using Application.Response;
@@ -144,7 +145,7 @@ namespace Application.Services
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
-        public async Task<ApiResponse> GetCompanyByNameAsync(string companyName)
+        public async Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
@@ -158,8 +159,9 @@ namespace Application.Services
                     return apiResponse.SetBadRequest("Can not found companyName: " + companyName);
                 }*/
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(company);
+                var result = companyResponse.ToPaginationResponse(pageIndex, pageSize);
 
-                return new ApiResponse().SetOk(companyResponse);
+                return new ApiResponse().SetOk(result);
             }
             catch (JsonException jsonEx)
             {

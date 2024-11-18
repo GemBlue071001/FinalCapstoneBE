@@ -67,9 +67,9 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
         [HttpGet("JobSeekerRole")]
-        public async Task<IActionResult> GetAllJobSeekerRoleAsync()
+        public async Task<IActionResult> GetAllJobSeekerRoleAsync([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 5)
         {
-            var result = await _service.GetAllJobSeekerRoleAsync();
+            var result = await _service.GetAllJobSeekerRoleAsync(pageIndex, pageSize);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

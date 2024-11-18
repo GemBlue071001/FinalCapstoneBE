@@ -58,9 +58,9 @@ namespace API.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
         [HttpGet("company-name")]
-        public async Task<IActionResult> GetCompanyByNameAsync(string companyName)
+        public async Task<IActionResult> GetCompanyByNameAsync([FromQuery] string companyName, [FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 5)
         {
-            var response = await _service.GetCompanyByNameAsync(companyName);
+            var response = await _service.GetCompanyByNameAsync(companyName, pageIndex, pageSize);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }
