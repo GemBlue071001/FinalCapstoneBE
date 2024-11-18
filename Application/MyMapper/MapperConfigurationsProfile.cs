@@ -130,6 +130,7 @@ namespace Application.MyMapper
                             .ForMember(
                                     dest => dest.JobTitle,
                                     opt => opt.MapFrom(src => src.JobPost.JobTitle));
+            CreateMap<JobPostActivityUserRequest, JobPostActivity>();
 
 
             //CV

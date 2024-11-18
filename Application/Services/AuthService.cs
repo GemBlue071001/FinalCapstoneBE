@@ -25,11 +25,30 @@ namespace Application.Services
             _claimService = claimService;
             _emailService = emailService;
         }
+        public async Task ResetUserIdSequenceAsync()
+        {
+            // Lấy tên của sequence liên kết với cột Id trong bảng Users
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"Users\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
+
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Lấy giá trị Id lớn nhất hiện có trong bảng Users
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"Users\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Cập nhật sequence để bắt đầu từ giá trị lớn nhất hiện tại
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
+
 
         public async Task<ApiResponse> RegisterAsync(UserRegisterRequest userRequest)
         {
             ApiResponse response = new ApiResponse();
 
+            await ResetUserIdSequenceAsync();
             var checkPassword = CheckUserPassword(userRequest);
             if (!checkPassword)
             {
