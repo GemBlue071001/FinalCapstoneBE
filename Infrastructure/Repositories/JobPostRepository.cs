@@ -21,30 +21,30 @@ namespace Infrastructure.Repositories
                     .Include(jp => jp.Company)
                     .Include(jp => jp.JobSkillSets)
                         .ThenInclude(jssk => jssk.SkillSet)
-                    .Select(x=> new JobPost
-                        {
-                            Benefits = x.Benefits,
-                            CompanyId = x.CompanyId,
-                            ExperienceRequired = x.ExperienceRequired,
-                            Company = x.Company,
-                            FollowJobs = x.FollowJobs,
-                            ImageURL = x.ImageURL,
-                            Id = x.Id,
-                            JobDescription = x.JobDescription,
-                            JobLocations = x.JobLocations,
-                            JobPostActivitys = x.JobPostActivitys,
-                            JobSkillSets = x.JobSkillSets,
-                            JobPostReviewStatus = x.JobPostReviewStatus,
-                            JobTitle = x.JobTitle,
-                            IsDeleted = x.IsDeleted,
-                            QualificationRequired = x.QualificationRequired,
-                            ExpiryDate = x.ExpiryDate,
-                            JobType = x.JobType,
-                            JobTypeId = x.JobTypeId,
-                            PostingDate = x.PostingDate,
-                            JobLocationId = x.JobLocationId,
-                            Salary = x.Salary,
-                        });
+                    .Select(x => new JobPost
+                    {
+                        Benefits = x.Benefits,
+                        CompanyId = x.CompanyId,
+                        ExperienceRequired = x.ExperienceRequired,
+                        Company = x.Company,
+                        FollowJobs = x.FollowJobs,
+                        ImageURL = x.ImageURL,
+                        Id = x.Id,
+                        JobDescription = x.JobDescription,
+                        JobLocations = x.JobLocations,
+                        JobPostActivitys = x.JobPostActivitys,
+                        JobSkillSets = x.JobSkillSets,
+                        JobPostReviewStatus = x.JobPostReviewStatus,
+                        JobTitle = x.JobTitle,
+                        IsDeleted = x.IsDeleted,
+                        QualificationRequired = x.QualificationRequired,
+                        ExpiryDate = x.ExpiryDate,
+                        JobType = x.JobType,
+                        JobTypeId = x.JobTypeId,
+                        PostingDate = x.PostingDate,
+                        JobLocationId = x.JobLocationId,
+                        Salary = x.Salary,
+                    });
             return await query.ToListAsync();
         }
 
@@ -174,6 +174,42 @@ namespace Infrastructure.Repositories
             {
                 throw;
             }
+        }
+        public async Task<JobPost> GetJobPostsByIdAsync(int jobPostId)
+        {
+            IQueryable<JobPost> query = _context.JobPosts
+                   .Include(x => x.Company)
+                  .Include(x => x.JobLocations)
+                  .ThenInclude(x => x.Location)
+                 .Include(x => x.JobType)
+                  .Include(x => x.JobSkillSets)
+                   .ThenInclude(x => x.SkillSet)
+                        .Where(jp => jp.Id == jobPostId)
+                    .Select(x => new JobPost
+                    {
+                        Benefits = x.Benefits,
+                        CompanyId = x.CompanyId,
+                        ExperienceRequired = x.ExperienceRequired,
+                        Company = x.Company,
+                        FollowJobs = x.FollowJobs,
+                        ImageURL = x.ImageURL,
+                        Id = x.Id,
+                        JobDescription = x.JobDescription,
+                        JobLocations = x.JobLocations,
+                        JobPostActivitys = x.JobPostActivitys,
+                        JobSkillSets = x.JobSkillSets,
+                        JobPostReviewStatus = x.JobPostReviewStatus,
+                        JobTitle = x.JobTitle,
+                        IsDeleted = x.IsDeleted,
+                        QualificationRequired = x.QualificationRequired,
+                        ExpiryDate = x.ExpiryDate,
+                        JobType = x.JobType,
+                        JobTypeId = x.JobTypeId,
+                        PostingDate = x.PostingDate,
+                        JobLocationId = x.JobLocationId,
+                        Salary = x.Salary,
+                    });
+            return await query.FirstOrDefaultAsync();
         }
 
     }

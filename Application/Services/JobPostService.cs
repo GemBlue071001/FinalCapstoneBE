@@ -228,12 +228,13 @@ namespace Application.Services
             ApiResponse response = new ApiResponse();
             try
             {
-                var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == jobPostId, x => x.Include(x => x.Company)
-                                                                                                .Include(x => x.JobLocations)
-                                                                                                    .ThenInclude(x => x.Location)
-                                                                                                .Include(x => x.JobType)
-                                                                                                .Include(x => x.JobSkillSets)
-                                                                                                    .ThenInclude(x => x.SkillSet));
+                /* var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == jobPostId, x => x.Include(x => x.Company)
+                                                                                                 .Include(x => x.JobLocations)
+                                                                                                     .ThenInclude(x => x.Location)
+                                                                                                 .Include(x => x.JobType)
+                                                                                                 .Include(x => x.JobSkillSets)
+                                                                                                     .ThenInclude(x => x.SkillSet));*/
+                var jobPost = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPostId);
                 if (jobPost == null)
                 {
                     return response.SetBadRequest("Can not found jobPost Id" + jobPostId);
