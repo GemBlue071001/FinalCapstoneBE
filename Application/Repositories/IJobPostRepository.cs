@@ -9,5 +9,6 @@ namespace Application.Repositories
         Task<List<JobPost>> SearchJobPosts(SearchJobPostRequest request);
         Task<List<JobPost>> GetJobPostsAsync();
         Task<JobPost> GetJobPostsByIdAsync(int jobPostId);
+        Task<List<JobPost>> GetAllJobPostPending();
     }
 }

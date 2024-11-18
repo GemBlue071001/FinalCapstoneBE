@@ -237,7 +237,7 @@ namespace Application.Services
                 var jobPost = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPostId);
                 if (jobPost == null)
                 {
-                    return response.SetBadRequest("Can not found jobPost Id" + jobPostId);
+                    return response.SetBadRequest("Can not found jobPost Id: " + jobPostId);
                 }
                 var jobPostResponse = _mapper.Map<JobPostResponse>(jobPost);
                 return response.SetOk(jobPostResponse);
@@ -327,12 +327,13 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x => x.JobPostReviewStatus == JobPostReviewStatus.Pending, x => x.Include(x => x.Company)
-                                                                                  .Include(x => x.JobLocations)
-                                                                                        .ThenInclude(x => x.Location)
-                                                                                  .Include(x => x.JobType)
-                                                                                  .Include(x => x.JobSkillSets)
-                                                                                        .ThenInclude(x => x.SkillSet));
+                /* var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x => x.JobPostReviewStatus == JobPostReviewStatus.Pending, x => x.Include(x => x.Company)
+                                                                                   .Include(x => x.JobLocations)
+                                                                                         .ThenInclude(x => x.Location)
+                                                                                   .Include(x => x.JobType)
+                                                                                   .Include(x => x.JobSkillSets)
+                                                                                         .ThenInclude(x => x.SkillSet));*/
+                var jobPosts = await _unitOfWork.JobPosts.GetAllJobPostPending();
                 var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);
                 return new ApiResponse().SetOk(jobPostsResponse);
             }

@@ -109,5 +109,19 @@ namespace API.Controllers
             var top100 = await _service.GetTop100();
             return Ok(top100.Result);
         }
+        [HttpPost("Add-User-To-JobPostActivity")]
+        public async Task<IActionResult> AddNewJobPostActivityAndUserAsync(JobPostActivityUserRequest request)
+        {
+            var response = await _service.AddNewJobPostActivityAndUserAsync(request);
+            if (response.IsSuccess && response.Result is not null)
+            {
+                var template = response.Result as JobPostActivityMessageTemplate;
+                if (template != null)
+                {
+                    await _eventTriggerService.TriggerSendMessageToGroupEvent($"{template.CompanyId}", SignalMessage.GET_NOTIFY_EMPLOYER);
+                }
+            }
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
     }
 }

@@ -183,5 +183,54 @@ namespace Application.Services
             var result = top100.Select(x => x.Id).ToList();
             return new ApiResponse().SetOk(result);
         }
+        public async Task<ApiResponse> AddNewJobPostActivityAndUserAsync(JobPostActivityUserRequest request)
+        {
+            //var claim = _claimService.GetUserClaim();
+            var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == request.JobPostId);
+            if (jobPost == null)
+            {
+                return new ApiResponse().SetBadRequest("Job Post not found.");
+            }
+            if (DateTime.UtcNow > jobPost.ExpiryDate)
+            {
+                return new ApiResponse().SetBadRequest("Job Post Exprire");
+            }
+            var jobPostActivityModel = await _unitOfWork.JobPostActivities.GetAsync(x => x.JobPostId == request.JobPostId && request.UserId == x.UserId);
+            if (jobPostActivityModel != null)
+            {
+                return new ApiResponse().SetBadRequest("User have already apply.");
+            }
+            var userCvs = await _unitOfWork.CVs.GetAllAsync(cv => cv.UserId == request.UserId);
+            if (userCvs == null || !userCvs.Any())
+            {
+                return new ApiResponse().SetBadRequest("User must have at least one CV to apply.");
+            }
+            var userCv = userCvs.FirstOrDefault(cv => cv.Id == request.CvId);
+            if (userCv == null)
+            {
+                return new ApiResponse().SetBadRequest("Invalid CV provided.");
+            }
+            var jobPostActivity = _mapper.Map<JobPostActivity>(request);
+            jobPostActivity.UserId = request.UserId;
+            jobPostActivity.ApplicationDate = DateTime.UtcNow;
+            jobPostActivity.Status = JobPostActivityStatus.InterviewStage;
+            await _unitOfWork.JobPostActivities.AddAsync(jobPostActivity);
+            await _unitOfWork.SaveChangeAsync();
+
+            var notification = new Notification
+            {
+                JobPostActivityId = jobPostActivity.Id,
+                Title = "New Application Created",
+                Description = "Status: " + jobPostActivity.Status.ToString(),
+                CreatedDate = DateTime.UtcNow,
+                ReceiverId = jobPost.CompanyId ?? 0,
+            };
+
+            await _unitOfWork.Notifcations.AddAsync(notification);
+
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ApiResponse().SetOk(new JobPostActivityMessageTemplate { CompanyId = jobPost.CompanyId ?? 0, JobPostActivityId = jobPostActivity.Id });
+        }
     }
 }

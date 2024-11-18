@@ -122,14 +122,15 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var company = await _unitOfWork.Companys.GetAsync(c => c.CompanyName != null &&
-                                                                   c.CompanyName.ToLower().Contains(companyName.ToLower())
-                                                                , x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
-                if (company == null)
+                /* var company = await _unitOfWork.Companys.GetAsync(c => c.CompanyName != null &&
+                                                                    c.CompanyName.ToLower().Contains(companyName.ToLower())
+                                                                 , x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));*/
+                var company = await _unitOfWork.Companys.GetCompanyByNameAsync(companyName);
+               /* if (company == null)
                 {
                     return apiResponse.SetBadRequest("Can not found companyName: " + companyName);
-                }
-                var companyResponse = _mapper.Map<CompanyResponse>(company);
+                }*/
+                var companyResponse = _mapper.Map<List<CompanyResponse>>(company);
 
                 return new ApiResponse().SetOk(companyResponse);
             }

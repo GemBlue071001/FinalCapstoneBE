@@ -12,5 +12,6 @@ namespace Application.Interface
         Task<bool> ReadNotification(int id);
         Task ReadAllNotification(int userId);
         Task<ApiResponse> GetTop100();
+        Task<ApiResponse> AddNewJobPostActivityAndUserAsync(JobPostActivityUserRequest request);
     }
 }
