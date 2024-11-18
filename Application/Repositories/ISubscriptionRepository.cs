@@ -10,5 +10,6 @@ namespace Application.Repositories
 {
     public interface ISubscriptionRepository: IGenericRepository<Subscription>
     {
+        Task<Subscription?> GetSubscriptionByUserIdAsync(int userId);
     }
 }

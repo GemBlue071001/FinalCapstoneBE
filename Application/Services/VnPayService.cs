@@ -35,6 +35,12 @@ namespace Application.Services
 
             // Get user claim to include user ID in the callback URL
             var claim = _claimService.GetUserClaim();
+            var userId = claim.Id;
+            var existingSubscription = await _unitOfWork.Subscriptions.GetSubscriptionByUserIdAsync(userId);
+            if (existingSubscription != null && existingSubscription.ExpiredDate > timeNow)
+            {
+                return response.SetBadRequest("You already have an active subscription.");
+            }
             var model = new PaymentInformation();
             if (request.OrderType == 1)
             {
