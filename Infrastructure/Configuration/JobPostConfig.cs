@@ -32,22 +32,22 @@ namespace Infrastructure.Configuration
                 .WithMany(o => o.JobPosts)
                 .HasForeignKey(o => o.JobTypeId);
 
-            // Định nghĩa chỉ mục HNSW cho trường Embedding
-            builder.HasIndex(j => j.Embedding)
-                .HasMethod("hnsw")
-                .HasOperators("vector_l2_ops")
-                .HasStorageParameter("m", 16)
-                .HasStorageParameter("ef_construction", 64);
+            //// Định nghĩa chỉ mục HNSW cho trường Embedding
+            //builder.HasIndex(j => j.Embedding)
+            //    .HasMethod("hnsw")
+            //    .HasOperators("vector_l2_ops")
+            //    .HasStorageParameter("m", 16)
+            //    .HasStorageParameter("ef_construction", 64);
 
-            var vectorConverter = new ValueConverter<Vector, float[]>(
-            v => v.ToArray(),        // Convert Vector to float[]
-            v => new Vector(v)       // Convert float[] back to Vector
-        );
+        //    var vectorConverter = new ValueConverter<Vector, float[]>(
+        //    v => v.ToArray(),        // Convert Vector to float[]
+        //    v => new Vector(v)       // Convert float[] back to Vector
+        //);
 
 
-            builder
-            .Property(j => j.Embedding)
-            .HasColumnType("vector(384)");
+            //builder
+            //.Property(j => j.Embedding)
+            //.HasColumnType("vector(384)");
         }
     }
 }
