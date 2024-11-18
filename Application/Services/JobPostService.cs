@@ -34,6 +34,7 @@ namespace Application.Services
         {
             try
             {
+                await ResetJobPostIdSequenceAsync();
                 var jobPost = _mapper.Map<JobPost>(jobPostRequest);
                 var company = await _unitOfWork.Companys.GetAsync(c => c.Id == jobPostRequest.CompanyId);
                 if (company == null)
@@ -356,6 +357,24 @@ namespace Application.Services
 
             return new ApiResponse().SetOk();
         }
+        public async Task ResetJobPostIdSequenceAsync()
+        {
+            // Get the sequence name for the JobPosts.Id column
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"JobPosts\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
+
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Get the current maximum ID in the JobPosts table
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"JobPosts\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Update the sequence to start from the max ID
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
+
 
     }
 }

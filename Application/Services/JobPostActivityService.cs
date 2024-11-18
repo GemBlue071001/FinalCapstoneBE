@@ -23,7 +23,7 @@ namespace Application.Services
         public async Task<ApiResponse> AddNewJobPostActivityAsync(JobPostActivityRequest request)
         {
             var claim = _claimService.GetUserClaim();
-            var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == request.JobPostId);
+            var jobPost = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(request.JobPostId);
             if (jobPost == null)
             {
                 return new ApiResponse().SetBadRequest("Job Post not found.");
@@ -186,7 +186,7 @@ namespace Application.Services
         public async Task<ApiResponse> AddNewJobPostActivityAndUserAsync(JobPostActivityUserRequest request)
         {
             //var claim = _claimService.GetUserClaim();
-            var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == request.JobPostId);
+            var jobPost = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(request.JobPostId);
             if (jobPost == null)
             {
                 return new ApiResponse().SetBadRequest("Job Post not found.");
