@@ -15,5 +15,6 @@ namespace Application.Interface
         Task<ApiResponse> GetAllCompanyAsync();
         Task<ApiResponse> GetCompanyDetailAsync(int companyId);
         Task<ApiResponse> GetCompanyByNameAsync(string companyName);
+        Task ResetCompanyIdSequenceAsync();
     }
 }

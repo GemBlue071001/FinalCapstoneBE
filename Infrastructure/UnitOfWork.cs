@@ -2,6 +2,7 @@
 using Application.Repositories;
 using Application.Repository;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
@@ -69,5 +70,55 @@ namespace Infrastructure
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<T> ExecuteScalarAsync<T>(string sql)
+        {
+            using (var command = _context.Database.GetDbConnection().CreateCommand())
+            {
+                try
+                {
+                    if (command.Connection!.State != System.Data.ConnectionState.Open)
+                    {
+                        await command.Connection.OpenAsync();
+                    }
+
+                    command.CommandText = sql;
+                    var result = await command.ExecuteScalarAsync();
+                    return (T)Convert.ChangeType(result, typeof(T));
+                }
+                finally
+                {
+                    if (command.Connection!.State == System.Data.ConnectionState.Open)
+                    {
+                        await command.Connection.CloseAsync();
+                    }
+                }
+            }
+        }
+
+        public async Task ExecuteRawSqlAsync(string sql)
+        {
+            using (var command = _context.Database.GetDbConnection().CreateCommand())
+            {
+                try
+                {
+                    if (command.Connection.State != System.Data.ConnectionState.Open)
+                    {
+                        await command.Connection.OpenAsync();
+                    }
+
+                    command.CommandText = sql;
+                    await command.ExecuteNonQueryAsync();
+                }
+                finally
+                {
+                    if (command.Connection.State == System.Data.ConnectionState.Open)
+                    {
+                        await command.Connection.CloseAsync();
+                    }
+                }
+            }
+        }
+
     }
 }

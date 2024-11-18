@@ -27,5 +27,7 @@ namespace Application
         public ISubscriptionRepository Subscriptions { get; }
         public IUserJobAlertCriteriaRepository UserJobAlertCriterias { get; }
         public Task SaveChangeAsync();
+        Task<T> ExecuteScalarAsync<T>(string sql);
+        Task ExecuteRawSqlAsync(string sql);
     }
 }

@@ -26,29 +26,56 @@ namespace Application.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+
+        public async Task ResetCompanyIdSequenceAsync()
+        {
+            // Get the sequence name for the Companys.Id column
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"Companys\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
+
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Get the current maximum ID in the Companys table
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"Companys\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Update the sequence to start from the max ID
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
+
+
         public async Task<ApiResponse> AddNewCompanyAsync(CompanyRequest companyRequest)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
             {
+                // Reset the sequence to avoid conflicts
+                await ResetCompanyIdSequenceAsync();
+
                 var company = _mapper.Map<Company>(companyRequest);
-                //company.BusinessStreamId = 1;
+
                 var businessStream = await _unitOfWork.BusinessStreams.GetAsync(x => x.Id == companyRequest.BusinessStreamId);
                 if (businessStream == null)
                 {
-                    return new ApiResponse().SetBadRequest("Can not found Business Stream Id " + companyRequest.BusinessStreamId);
+                    return new ApiResponse().SetBadRequest("Cannot find Business Stream Id " + companyRequest.BusinessStreamId);
                 }
+
                 company.BusinessStreamId = businessStream.Id;
+
                 await _unitOfWork.Companys.AddAsync(company);
                 await _unitOfWork.SaveChangeAsync();
+
                 return new ApiResponse().SetOk(company.Id);
             }
             catch (Exception ex)
             {
-                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException: {ex.InnerException?.Message}");
             }
-
         }
+
 
         public async Task<ApiResponse> GetAllCompanyAsync()
         {
