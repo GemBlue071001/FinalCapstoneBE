@@ -156,10 +156,10 @@ namespace Application.Services
 
                     // Map the response to the UploadCVJsonRequest
                     var cvMapper = new CVMapper();
-                    var mappedRequest = cvMapper.MapToCVJsonRequest(analysisResult);
+                    var cvData = cvMapper.MapToCVJsonRequest(analysisResult);
 
                     // Send the mapped request to the second API
-                    var secondApiResponse = await SendMappedRequestToSecondAPI(mappedRequest);
+                    var secondApiResponse = await UploadCVAsync(cvData);
 
                     var jobpostResponse = await _jobPostService.GetJobPostById(jobId);
 
@@ -182,7 +182,7 @@ namespace Application.Services
             }
         }
 
-        private async Task<string> SendMappedRequestToSecondAPI(UploadCVJsonRequest request)
+        private async Task<string> UploadCVAsync(UploadCVJsonRequest request)
         {
             using (var httpClient = new HttpClient())
             {
