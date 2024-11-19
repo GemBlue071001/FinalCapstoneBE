@@ -1,4 +1,5 @@
-﻿using Application.Interface;
+﻿using Application.Extensions;
+using Application.Interface;
 using Application.Request.User;
 using Application.Response;
 using Application.Response.JobPostActivity;
@@ -170,18 +171,21 @@ namespace Application.Services
             var regex = new Regex(@"^-?\d+$");
             return regex.IsMatch(phoneNum);
         }
-        public async Task<ApiResponse> GetAllJobSeekerRoleAsync()
+        public async Task<ApiResponse> GetAllJobSeekerRoleAsync(int pageIndex, int pageSize)
         {
             ApiResponse response = new ApiResponse();
             var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker && u.IsLookingForJob, x => x.Include(x => x.EducationDetails!)
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.SeekerSkillSets!)
                                                                                         .ThenInclude(x => x.SkillSet)
-                                                                                     .Include(x => x.CVs!));
+                                                                                     .Include(x => x.CVs!),
+                                                                                     pageIndex: pageIndex,
+                                                                                     pageSize: pageSize);
 
             var userReponse = _mapper.Map<List<UserProfileResponse>>(users);
+            var result = userReponse.ToPaginationResponse(pageIndex, pageSize, false);
 
-            return response.SetOk(userReponse);
+            return response.SetOk(result);
         }
     }
 }

@@ -105,7 +105,7 @@ namespace Infrastructure.Repositories
 
             return await query.FirstOrDefaultAsync(); // Executes a single query to load all data
         }
-        public async Task<List<Company>> GetCompanyByNameAsync(string companyName)
+        public async Task<List<Company>> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize)
         {
             IQueryable<Company> query = _context.Companys
                 .Include(x => x.BusinessStream) // Include the BusinessStream
@@ -143,14 +143,14 @@ namespace Infrastructure.Repositories
                         PostingDate = jp.PostingDate,
                         JobLocationId = jp.JobLocationId,
                         Salary = jp.Salary,
-                    }).ToList() // Materialize the JobPosts projection
+                    })
+                    .ToList() // Materialize the JobPosts projection
                 });
 
-            return await query.ToListAsync(); // Executes the query and returns the results as a list
+            return await query
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync(); // Executes the query and returns the results as a list
         }
-
-
-
-
     }
 }

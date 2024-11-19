@@ -1,5 +1,7 @@
 ﻿using Application.CustomExceptions;
 using Application.Repository;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -23,7 +25,9 @@ namespace Infrastructure.Repositories
 
         public async Task<int> CountAsync() => await _db.CountAsync();
         public async Task<List<T>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>>? filter, 
-                                               Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
+                                               Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, 
+                                               int pageIndex = 1, 
+                                               int pageSize = 5)
         {
             IQueryable<T> query = _db;
 
@@ -39,7 +43,10 @@ namespace Infrastructure.Repositories
             {
                 query = include(query);
             }
-            return await query.ToListAsync();
+            return await query
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<List<T>> GetAllAsync(System.Linq.Expressions.Expression<Func<T, bool>>? filter)

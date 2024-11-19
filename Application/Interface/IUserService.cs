@@ -11,6 +11,6 @@ namespace Application.Interface
         Task<ApiResponse> GetUserProfileAsync(int id);
         Task<ApiResponse> AddSkillSetToUser(SeekerSkillSetRequest request);
         Task<ApiResponse> RemoveSkillSetToUser(SeekerSkillSetRequest request);
-        Task<ApiResponse> GetAllJobSeekerRoleAsync();
+        Task<ApiResponse> GetAllJobSeekerRoleAsync(int pageIndex, int pageSize);
     }
 }

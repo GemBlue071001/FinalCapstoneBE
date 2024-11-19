@@ -14,7 +14,7 @@ namespace Application.Interface
         Task<ApiResponse> DeleteCompanyByIdAsync(int id);
         Task<ApiResponse> GetAllCompanyAsync();
         Task<ApiResponse> GetCompanyDetailAsync(int companyId);
-        Task<ApiResponse> GetCompanyByNameAsync(string companyName);
+        Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize);
         Task ResetCompanyIdSequenceAsync();
     }
 }
