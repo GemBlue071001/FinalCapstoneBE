@@ -51,6 +51,13 @@ namespace API.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [HttpGet("/CompanyName/{name}")]
+        public async Task<IActionResult> GetCompanyDetaiByNamelAsync(string name)
+        {
+            var response = await _service.GetCompanyDetailByNameAsync(name);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteCompanyByIdAsync(int id)
         {

@@ -126,6 +126,31 @@ namespace Application.Services
             }
         }
 
+        public async Task<ApiResponse> GetCompanyDetailByNameAsync(string companyName)
+        {
+            ApiResponse apiResponse = new ApiResponse();
+            try
+            {
+                //var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts).ThenInclude(x => x.JobSkillSets).ThenInclude(x => x.SkillSet));
+                var company = await _unitOfWork.Companys.GetAsync(x=>x.CompanyName.ToLower().Equals(companyName.ToLower()));
+                if (company is null)
+                {
+                    return new ApiResponse().SetBadRequest("Can not found company Id " + companyName);
+                }
+                var companyResponse = _mapper.Map<CompanyResponse>(company);
+
+                return new ApiResponse().SetOk(companyResponse);
+            }
+            catch (JsonException jsonEx)
+            {
+                return new ApiResponse().SetBadRequest($"JSON Error: {jsonEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"Error: {ex.Message} - InnerException: {ex.InnerException?.Message}");
+            }
+        }
+
         public async Task<ApiResponse> DeleteCompanyByIdAsync(int id)
         {
             ApiResponse apiResponse = new ApiResponse();
