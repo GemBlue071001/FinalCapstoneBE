@@ -10,5 +10,6 @@ namespace Application.Repositories
         Task<List<JobPost>> GetJobPostsAsync();
         Task<JobPost> GetJobPostsByIdAsync(int jobPostId);
         Task<List<JobPost>> GetAllJobPostPending();
+        Task<List<JobPost>> GetJobPostsByListIdAsync(List<int> jobPostIds);
     }
 }

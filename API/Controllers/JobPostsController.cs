@@ -93,5 +93,11 @@ namespace API.Controllers
             var response = await _service.SeedsData();
             return Ok(response);
         }
+        [HttpPost("SearchJobsQuery")]
+        public async Task<IActionResult> SearchJobIdsAsync(string query)
+        {
+            var response = await _service.SearchJobIdsAsync(query);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
     }
 }

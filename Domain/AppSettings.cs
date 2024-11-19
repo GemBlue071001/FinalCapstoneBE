@@ -35,6 +35,7 @@
         public string UpLoadCv { get; set; }
         public string UpLoadJob { get; set; }
         public string AnalyzeMatch { get; set; }
+        public string JobsSearch { get; set; }
 
     }
 

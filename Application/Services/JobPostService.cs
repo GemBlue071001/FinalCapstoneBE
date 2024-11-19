@@ -12,6 +12,9 @@ using Application.Response.JobPostActivityComment;
 using Application.Extensions;
 using Newtonsoft.Json;
 using Application.Response.AnalyzedResult;
+using System.Text;
+using Domain;
+using Microsoft.Extensions.Options;
 
 namespace Application.Services
 {
@@ -21,12 +24,14 @@ namespace Application.Services
 
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
+        private readonly ApiSettings _apiSettings;
 
-        public JobPostService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService)
+        public JobPostService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService, IOptions<AppSettings> appSettings)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _emailService = emailService;
+            _apiSettings = appSettings.Value.ApiSettings;
         }
 
 
@@ -345,7 +350,7 @@ namespace Application.Services
         }
 
         public async Task<ApiResponse> SeedsData()
-        {
+        {   
             string currentDirectory = Directory.GetCurrentDirectory();
             string parentDirectory = Directory.GetParent(currentDirectory).FullName;
 
@@ -359,6 +364,7 @@ namespace Application.Services
         }
         public async Task ResetJobPostIdSequenceAsync()
         {
+            ApiResponse apiResponse = new ApiResponse();
             // Get the sequence name for the JobPosts.Id column
             string sequenceSql = "SELECT pg_get_serial_sequence('\"JobPosts\"', 'Id')";
             string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
@@ -374,7 +380,68 @@ namespace Application.Services
                 await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
             }
         }
+        public async Task<ApiResponse> SearchJobIdsAsync(string query)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                ApiResponse apiResponse = new ApiResponse();
+                // Chuẩn bị body của request
+                var searchRequest = new { query = query };
+                string searchJsonRequestBody = JsonConvert.SerializeObject(searchRequest);
+                var searchContent = new StringContent(searchJsonRequestBody, Encoding.UTF8, "application/json");
+
+                // Gửi yêu cầu tới API
+                var searchResponse = await httpClient.PostAsync(_apiSettings.JobsSearch, searchContent);
+
+                // Xử lý lỗi nếu API trả về lỗi
+                if (!searchResponse.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"Error from Job Search API: {searchResponse.ReasonPhrase}");
+                }
+
+                // Đọc và parse kết quả trả về
+                var searchResponseContent = await searchResponse.Content.ReadAsStringAsync();
+                var searchResponseJson = JsonConvert.DeserializeObject<dynamic>(searchResponseContent);
+
+                // Lấy danh sách IDs
+                List<int> ids =((IEnumerable<dynamic>)searchResponseJson.ids).Select(id => (int)id).ToList();
+
+                var jobPosts = await FetchJobPostsByIdsAsync(ids);
+
+                return apiResponse.SetOk(jobPosts);
+            }
+        }
+        public async Task<List<JobPostResponse>> FetchJobPostsByIdsAsync(List<int> ids)
+        {
+            if (ids == null || ids.Count == 0)
+            {
+                return new List<JobPostResponse>();
+            }
+
+            // Lấy dữ liệu từ database dựa trên danh sách IDs
+            /* var jobPosts = await _unitOfWork.JobPosts.GetAsync(
+                 x => ids.Contains(x.Id), // Filter theo IDs
+                 x => x.Include(x => x.Company)
+                       .Include(x => x.JobLocations)
+                           .ThenInclude(x => x.Location)
+                       .Include(x => x.JobType)
+                       .Include(x => x.JobSkillSets)
+                           .ThenInclude(x => x.SkillSet)
+             );*/
+            var jobPosts = await _unitOfWork.JobPosts.GetJobPostsByListIdAsync(ids);
+            // Nếu không tìm thấy job posts
+            if (jobPosts == null)
+            {
+                return new List<JobPostResponse>();
+            }
+
+            // Map dữ liệu sang DTO
+            return _mapper.Map<List<JobPostResponse>>(jobPosts);
+        }
+
+        
+    
 
 
-    }
+}
 }

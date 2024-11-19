@@ -1,5 +1,6 @@
 ﻿using Application.Request.JobPost;
 using Application.Response;
+using Application.Response.JobPost;
 using Domain.Entities;
 
 namespace Application.Interface
@@ -17,5 +18,9 @@ namespace Application.Interface
         Task<ApiResponse> GetAllJobPostPending();
         Task<ApiResponse> SeedsData();
         Task ResetJobPostIdSequenceAsync();
+        Task<ApiResponse> SearchJobIdsAsync(string query);
+        Task<List<JobPostResponse>> FetchJobPostsByIdsAsync(List<int> ids);
+
+
     }
 }
