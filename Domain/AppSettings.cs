@@ -31,6 +31,7 @@
     }
     public class ApiSettings
     {
+        public string RootServerUrl { get; set; }
         public string UpLoadAndProcess { get; set; }
         public string UpLoadCv { get; set; }
         public string UpLoadJob { get; set; }

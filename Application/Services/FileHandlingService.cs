@@ -9,6 +9,7 @@ using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
@@ -84,7 +85,7 @@ namespace Application.Services
                     };
 
                     // Step 4: Send the POST request to the API endpoint
-                    var response = await httpClient.PostAsync(_apiSettings.UpLoadAndProcess, formData);
+                    var response = await httpClient.PostAsync($"{_apiSettings.RootServerUrl}{_apiSettings.UpLoadAndProcess}", formData);
 
                     // Ensure the response is successful
                     if (!response.IsSuccessStatusCode)
@@ -124,6 +125,12 @@ namespace Application.Services
                 try
                 {
                     var userClaim = _claimService.GetUserClaim();
+                    var applicant = await _unitOfWork.JobPostActivities.GetAsync(x => x.UserId == userClaim.Id && x.JobPostId == jobId);
+                    if (!string.IsNullOrEmpty(applicant.AnalyzedResult) )
+                    {
+                        return new ApiResponse().SetOk(applicant.AnalyzedResult);
+                    }
+
                     var fileStream = await httpClient.GetStreamAsync(firebasePdfUrl);
 
                     // Step 2: Create StreamContent from the downloaded PDF
@@ -137,7 +144,7 @@ namespace Application.Services
                     };
 
                     // Step 4: Send the POST request to the API endpoint
-                    var response = await httpClient.PostAsync(_apiSettings.UpLoadAndProcess, formData);
+                    var response = await httpClient.PostAsync($"{_apiSettings.RootServerUrl}{_apiSettings.UpLoadAndProcess}", formData);
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -159,7 +166,6 @@ namespace Application.Services
                     var jobPostApiUploadResponse = await UploadJobPost((JobPostResponse)jobpostResponse.Result);
                     var result = await AnalyzeMatch();
 
-                    var applicant = await _unitOfWork.JobPostActivities.GetAsync(x => x.UserId == userClaim.Id && x.JobPostId==jobId);
                     applicant.AnalyzedResult = result;
                     await _unitOfWork.SaveChangeAsync();
 
@@ -183,7 +189,7 @@ namespace Application.Services
                 string jsonRequestBody = JsonConvert.SerializeObject(request);
                 var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync(_apiSettings.UpLoadCv, content);
+                var response = await httpClient.PostAsync($"{_apiSettings.RootServerUrl}{_apiSettings.UpLoadCv}", content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -229,7 +235,7 @@ namespace Application.Services
                 string jsonRequestBody = JsonConvert.SerializeObject(mappedRequest);
                 var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync(_apiSettings.UpLoadJob, content);
+                var response = await httpClient.PostAsync($"{_apiSettings.RootServerUrl}{_apiSettings.UpLoadJob}", content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -245,7 +251,7 @@ namespace Application.Services
             using (var httpClient = new HttpClient())
             {
 
-                var response = await httpClient.PostAsync(_apiSettings.AnalyzeMatch, null);
+                var response = await httpClient.PostAsync($"{_apiSettings.RootServerUrl}{_apiSettings.AnalyzeMatch}", null);
 
                 if (!response.IsSuccessStatusCode)
                 {
