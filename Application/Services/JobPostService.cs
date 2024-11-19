@@ -15,6 +15,7 @@ using Application.Response.AnalyzedResult;
 using System.Text;
 using Domain;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace Application.Services
 {
@@ -91,15 +92,42 @@ namespace Application.Services
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
                 await _unitOfWork.SaveChangeAsync();
 
+                var jobPostToEmbed = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPost.Id);
+
+                var jobPostResponse = _mapper.Map<JobPostResponse>(jobPostToEmbed);
+                var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
 
                 // Call Hangfire to send emails after job post creation
                 BackgroundJob.Enqueue<EmailJob>(emailJob => emailJob.SendEmailsToFollowers(jobPostRequest.CompanyId, jobPost.JobTitle));
 
-                return new ApiResponse().SetOk(jobPost.Id);
+                return new ApiResponse().SetOk(new
+                {
+                    JobPost = jobPost.Id,
+                    EmbeddingResponse = embeddingResponse
+                });
             }
             catch (Exception ex)
             {
                 return new ApiResponse().SetBadRequest(ex.Message);
+            }
+        }
+        private async Task<string> GetJobPostEmbeddingAsync(JobPostResponse jobPostResponse)
+        {
+            // Prepare the data for embedding based on the jobPost object
+          
+            // Call the embedding API (assuming it's an HTTP endpoint)
+            using (var client = new HttpClient())
+            {
+                var response = await client.PostAsJsonAsync(_apiSettings.Embed, jobPostResponse);
+                if (response.IsSuccessStatusCode)
+                {
+                    var embeddingResult = await response.Content.ReadAsStringAsync();
+                    return embeddingResult; // Return the embedding result
+                }
+                else
+                {
+                    return "Embedding failed"; // Handle the error accordingly
+                }
             }
         }
 

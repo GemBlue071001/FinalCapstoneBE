@@ -36,6 +36,7 @@
         public string UpLoadJob { get; set; }
         public string AnalyzeMatch { get; set; }
         public string JobsSearch { get; set; }
+        public string Embed { get; set; }
 
     }
 
