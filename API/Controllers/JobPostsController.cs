@@ -94,9 +94,9 @@ namespace API.Controllers
             return Ok(response);
         }
         [HttpPost("SearchJobsQuery")]
-        public async Task<IActionResult> SearchJobIdsAsync(string query)
+        public async Task<IActionResult> SearchJobIdsAsync(SearchJobIdsQueryRequest searchJobIdsQueryRequest)
         {
-            var response = await _service.SearchJobIdsAsync(query);
+            var response = await _service.SearchJobIdsAsync(searchJobIdsQueryRequest.Query);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }
