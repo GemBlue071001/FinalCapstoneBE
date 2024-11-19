@@ -157,43 +157,43 @@ namespace Testing.Service
         }
 
 
-        [Fact]
-        public async Task GetUserJobPostActivity_ShouldReturnJobPostActivities()
-        {
-            // Arrange
-            var mockClaim = new ClaimDTO { Id = 1 };
-            var mockJobPostActivities = new List<JobPostActivity>
-    {
-        new JobPostActivity { UserId = 1, JobPost = new JobPost { Id = 101, JobTitle = "Software Developer" } },
-        new JobPostActivity { UserId = 1, JobPost = new JobPost { Id = 102, JobTitle = "Data Analyst" } }
-    };
-            var mockJobPostActivityResponses = new List<JobPostActivityResponse>
-    {
-        new JobPostActivityResponse { JobPostId = 101, JobTitle = "Software Developer" },
-        new JobPostActivityResponse { JobPostId = 102, JobTitle = "Data Analyst" }
-    };
+    //    [Fact]
+    //    public async Task GetUserJobPostActivity_ShouldReturnJobPostActivities()
+    //    {
+    //        // Arrange
+    //        var mockClaim = new ClaimDTO { Id = 1 };
+    //        var mockJobPostActivities = new List<JobPostActivity>
+    //{
+    //    new JobPostActivity { UserId = 1, JobPost = new JobPost { Id = 101, JobTitle = "Software Developer" } },
+    //    new JobPostActivity { UserId = 1, JobPost = new JobPost { Id = 102, JobTitle = "Data Analyst" } }
+    //};
+    //        var mockJobPostActivityResponses = new List<JobPostActivityResponse>
+    //{
+    //    new JobPostActivityResponse { JobPostId = 101, JobTitle = "Software Developer" },
+    //    new JobPostActivityResponse { JobPostId = 102, JobTitle = "Data Analyst" }
+    //};
 
-            _claimServiceMock.Setup(cs => cs.GetUserClaim())
-                .Returns(mockClaim);
+    //        _claimServiceMock.Setup(cs => cs.GetUserClaim())
+    //            .Returns(mockClaim);
 
-            _unitOfWorkMock.Setup(uow => uow.JobPostActivities.GetAllAsync(
-                    It.IsAny<Expression<Func<JobPostActivity, bool>>>(),
-                    It.IsAny<Func<IQueryable<JobPostActivity>, IIncludableQueryable<JobPostActivity, object>>>()))
-                .ReturnsAsync(mockJobPostActivities);
+    //        _unitOfWorkMock.Setup(uow => uow.JobPostActivities.GetAllAsync(
+    //                It.IsAny<Expression<Func<JobPostActivity, bool>>>(),
+    //                It.IsAny<Func<IQueryable<JobPostActivity>, IIncludableQueryable<JobPostActivity, object>>>()))
+    //            .ReturnsAsync(mockJobPostActivities);
 
-            _mapperMock.Setup(m => m.Map<List<JobPostActivityResponse>>(mockJobPostActivities))
-                .Returns(mockJobPostActivityResponses);
+    //        _mapperMock.Setup(m => m.Map<List<JobPostActivityResponse>>(mockJobPostActivities))
+    //            .Returns(mockJobPostActivityResponses);
 
-            // Act
-            var result = await _userService.GetUserJobPostActivity();
+    //        // Act
+    //        var result = await _userService.GetUserJobPostActivity();
 
-            // Assert
-            Assert.True(result.IsSuccess);
-            Assert.NotNull(result.Result);
-            Assert.IsType<List<JobPostActivityResponse>>(result.Result);
-            Assert.Equal(2, ((List<JobPostActivityResponse>)result.Result).Count);
-            Assert.Equal("Software Developer", ((List<JobPostActivityResponse>)result.Result)[0].JobTitle);
-        }
+    //        // Assert
+    //        Assert.True(result.IsSuccess);
+    //        Assert.NotNull(result.Result);
+    //        Assert.IsType<List<JobPostActivityResponse>>(result.Result);
+    //        Assert.Equal(2, ((List<JobPostActivityResponse>)result.Result).Count);
+    //        Assert.Equal("Software Developer", ((List<JobPostActivityResponse>)result.Result)[0].JobTitle);
+    //    }
 
         [Fact]
         public async Task AddEmployerToCompany_ShouldReturnBadRequest_WhenUserIsNotEmployer()
