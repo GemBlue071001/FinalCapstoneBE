@@ -354,6 +354,10 @@ namespace Application.Services
             }
 
             await _unitOfWork.SaveChangeAsync();
+            var jobPostToEmbed = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPost.Id);
+
+            var jobPostResponse = _mapper.Map<JobPostResponse>(jobPostToEmbed);
+            var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
             return new ApiResponse().SetOk();
         }
         public async Task<ApiResponse> GetAllJobPostPending()
