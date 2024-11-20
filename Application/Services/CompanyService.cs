@@ -179,12 +179,14 @@ namespace Application.Services
                                                                     c.CompanyName.ToLower().Contains(companyName.ToLower())
                                                                  , x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));*/
                 var company = await _unitOfWork.Companys.GetCompanyByNameAsync(companyName, pageIndex, pageSize);
+                var totalCount = await _unitOfWork.Companys.CountTotalPaging(companyName);
                /* if (company == null)
                 {
                     return apiResponse.SetBadRequest("Can not found companyName: " + companyName);
                 }*/
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(company);
                 var result = companyResponse.ToPaginationResponse(pageIndex, pageSize, false);
+                result.TotalCount = totalCount;
 
                 return new ApiResponse().SetOk(result);
             }

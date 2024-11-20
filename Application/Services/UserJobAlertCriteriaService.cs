@@ -86,7 +86,7 @@ namespace Application.Services
                     await SendMatchingJobsEmail(matchingJobs);
                 }
 
-                return new ApiResponse().SetOk();
+                return new ApiResponse().SetOk(matchingJobs);
             }
             catch (Exception ex)
             {

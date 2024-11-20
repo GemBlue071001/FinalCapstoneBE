@@ -2,6 +2,7 @@
 using Application.Request.JobPost;
 using DocumentFormat.OpenXml.InkML;
 using Domain.Entities;
+using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using Pgvector;
 
@@ -60,122 +61,102 @@ namespace Infrastructure.Repositories
                         .ThenInclude(x => x.Location)
                     .Include(jp => jp.Company)
                     .Include(jp => jp.JobSkillSets)
-                        .ThenInclude(jssk => jssk.SkillSet)
-                        .Select(x => new JobPost
-                        {
-                            Benefits = x.Benefits,
-                            CompanyId = x.CompanyId,
-                            ExperienceRequired = x.ExperienceRequired,
-                            Company = x.Company,
-                            FollowJobs = x.FollowJobs,
-                            ImageURL = x.ImageURL,
-                            Id = x.Id,
-                            JobDescription = x.JobDescription,
-                            JobLocations = x.JobLocations,
-                            JobPostActivitys = x.JobPostActivitys,
-                            JobSkillSets = x.JobSkillSets,
-                            JobPostReviewStatus = x.JobPostReviewStatus,
-                            JobTitle = x.JobTitle,
-                            IsDeleted = x.IsDeleted,
-                            QualificationRequired = x.QualificationRequired,
-                            ExpiryDate = x.ExpiryDate,
-                            JobType = x.JobType,
-                            JobTypeId = x.JobTypeId,
-                            PostingDate = x.PostingDate,
-                            JobLocationId = x.JobLocationId,
-                            Salary = x.Salary,
-                        });
+                        .ThenInclude(jssk => jssk.SkillSet);
 
-                // Existing single-value string checks
+                // Initialize an empty predicate for OR logic (false by default)
+                var predicate = PredicateBuilder.New<JobPost>(false);
+
+                // Add OR conditions for single-value string properties
                 if (!string.IsNullOrEmpty(request.JobType))
                 {
-                    query = query.Where(x => x.JobType.Name.ToLower().Contains(request.JobType.ToLower()));
+                    predicate = predicate.Or(x => x.JobType.Name.ToLower().Contains(request.JobType.ToLower()));
                 }
 
                 if (!string.IsNullOrEmpty(request.JobTitle))
                 {
-                    query = query.Where(x => x.JobTitle.ToLower().Contains(request.JobTitle.ToLower()));
+                    predicate = predicate.Or(x => x.JobTitle.ToLower().Contains(request.JobTitle.ToLower()));
                 }
 
                 if (!string.IsNullOrEmpty(request.Location))
                 {
-                    query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
+                    predicate = predicate.Or(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
                 }
 
                 if (!string.IsNullOrEmpty(request.City))
                 {
-                    query = query.Where(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.City.ToLower())));
+                    predicate = predicate.Or(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.City.ToLower())));
                 }
 
                 if (!string.IsNullOrEmpty(request.CompanyName))
                 {
-                    query = query.Where(x => x.Company.CompanyName.ToLower().Contains(request.CompanyName.ToLower()));
+                    predicate = predicate.Or(x => x.Company.CompanyName.ToLower().Contains(request.CompanyName.ToLower()));
                 }
 
                 if (!string.IsNullOrEmpty(request.SkillSet))
                 {
-                    query = query.Where(x => x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.SkillSet.ToLower())));
+                    predicate = predicate.Or(x => x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.SkillSet.ToLower())));
                 }
 
-                // New array property checks
+                // Add OR conditions for array-based properties
                 if (request.JobTypes != null && request.JobTypes.Any())
                 {
-                    query = query.Where(x => request.JobTypes.Any(type => x.JobType.Name.ToLower().Contains(type.ToLower())));
+                    predicate = predicate.Or(x => request.JobTypes.Any(type => x.JobType.Name.ToLower().Contains(type.ToLower())));
                 }
 
                 if (request.JobTitles != null && request.JobTitles.Any())
                 {
-                    query = query.Where(x => request.JobTitles.Any(title => x.JobTitle.ToLower().Contains(title.ToLower())));
+                    predicate = predicate.Or(x => request.JobTitles.Any(title => x.JobTitle.ToLower().Contains(title.ToLower())));
                 }
 
                 if (request.Locations != null && request.Locations.Any())
                 {
-                    query = query.Where(x => x.JobLocations.Any(location => request.Locations.Any(loc => location.StressAddressDetail.ToLower().Contains(loc.ToLower()))));
+                    predicate = predicate.Or(x => x.JobLocations.Any(location => request.Locations.Any(loc => location.StressAddressDetail.ToLower().Contains(loc.ToLower()))));
                 }
 
                 if (request.Cities != null && request.Cities.Any())
                 {
-                    query = query.Where(x => x.JobLocations.Any(jl => request.Cities.Any(city => jl.Location.City.ToLower().Contains(city.ToLower()))));
+                    predicate = predicate.Or(x => x.JobLocations.Any(jl => request.Cities.Any(city => jl.Location.City.ToLower().Contains(city.ToLower()))));
                 }
 
                 if (request.CompanyNames != null && request.CompanyNames.Any())
                 {
-                    query = query.Where(x => request.CompanyNames.Any(company => x.Company.CompanyName.ToLower().Contains(company.ToLower())));
+                    predicate = predicate.Or(x => request.CompanyNames.Any(company => x.Company.CompanyName.ToLower().Contains(company.ToLower())));
                 }
 
                 if (request.SkillSets != null && request.SkillSets.Any())
                 {
-                    query = query.Where(x => x.JobSkillSets.Any(skill => request.SkillSets.Any(set => skill.SkillSet.Name.ToLower().Contains(set.ToLower()))));
+                    predicate = predicate.Or(x => x.JobSkillSets.Any(skill => request.SkillSets.Any(set => skill.SkillSet.Name.ToLower().Contains(set.ToLower()))));
                 }
 
-                // Existing code for salary and experience filters
+                // Add OR conditions for salary and experience filters
                 if (request.MinSalary != null && request.MinSalary > 0)
                 {
-                    query = query.Where(x => x.Salary >= request.MinSalary);
+                    predicate = predicate.Or(x => x.Salary >= request.MinSalary);
                 }
 
                 if (request.MaxSalary != null && request.MaxSalary > 0)
                 {
-                    query = query.Where(x => x.Salary <= request.MaxSalary);
+                    predicate = predicate.Or(x => x.Salary <= request.MaxSalary);
                 }
 
                 if (request.Experience != null)
                 {
-                    query = query.Where(x => request.Experience >= x.ExperienceRequired);
+                    predicate = predicate.Or(x => request.Experience >= x.ExperienceRequired);
                 }
 
-                if (query != null)
-                {
-                    var result = await query.ToListAsync();
-                    return result ?? new List<JobPost>();
-                }
-                return query.ToList();
+                // Apply the OR predicate to the query
+                query = query.Where(predicate);
+
+                var result = await query.ToListAsync();
+                return result ?? new List<JobPost>();
             }
             catch (Exception ex)
             {
                 throw;
             }
         }
+
+
         public async Task<JobPost> GetJobPostsByIdAsync(int jobPostId)
         {
             IQueryable<JobPost> query = _context.JobPosts
