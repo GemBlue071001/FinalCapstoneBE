@@ -190,6 +190,7 @@ namespace Application.Services
                 var result = companyResponse.ToPaginationResponse(pageIndex, pageSize, false);
                 result.TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
                 result.TotalCount = totalCount;
+                result.PageIndex = pageIndex;
 
                 return new ApiResponse().SetOk(result);
             }

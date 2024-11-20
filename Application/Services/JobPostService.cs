@@ -17,6 +17,8 @@ using Domain;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
 using DocumentFormat.OpenXml.Wordprocessing;
+using Org.BouncyCastle.Asn1.Ocsp;
+using Application.Response.Pagination;
 
 namespace Application.Services
 {
@@ -287,13 +289,19 @@ namespace Application.Services
         {
             var jobPosts = await _unitOfWork.JobPosts.SearchJobPosts(searchJobPostRequest);
             var total = await _unitOfWork.JobPosts.CountTotalPaging(searchJobPostRequest);
+            int totalPages = (int)Math.Ceiling(total / (double)searchJobPostRequest.PageSize);
             var result = _mapper.Map<List<JobPostResponse>>(jobPosts ?? []);
-            var res = result.ToPaginationResponse(searchJobPostRequest.PageIndex, searchJobPostRequest.PageSize);
 
-            res.TotalCount = total;
-            res.TotalPages = (int)Math.Ceiling(total / (double)searchJobPostRequest.PageSize);
+            var paging = new PaginationResponse<JobPostResponse>
+            {
+                PageIndex = searchJobPostRequest.PageIndex,
+                PageSize = searchJobPostRequest.PageSize,
+                TotalCount = total,
+                TotalPages = totalPages,
+                Items = result
+            };
 
-            return new ApiResponse().SetOk(res);
+            return new ApiResponse().SetOk(paging);
         }
 
         public async Task<ApiResponse> UpdateStatusJobPost(int id, JobPostReviewStatus status)

@@ -160,7 +160,7 @@ namespace Infrastructure.Repositories
                     .Take(request.PageSize)
                     .ToListAsync();
 
-                return result ?? new List<JobPost>();
+                return result ;
             }
             catch (Exception ex)
             {

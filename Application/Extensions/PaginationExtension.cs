@@ -6,13 +6,18 @@ namespace Application.Extensions
     {
         public static PaginationResponse<T> ToPaginationResponse<T>(this IEnumerable<T> items, int pageIndex, int pageSize, bool pagingItem = true)
         {
-            items ??= [];
+            items ??= Enumerable.Empty<T>();
 
             var totalCount = items.Count();
             var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            // Ensure pageIndex is within valid bounds
+            if (pageIndex < 1) pageIndex = 1;
+            if (pageIndex > totalPages) pageIndex = totalPages;
+
             var paginatedItems = items;
 
-            if (pagingItem)
+            if (pagingItem && totalCount > 0 && pageIndex <= totalPages)
             {
                 paginatedItems = items
                     .Skip((pageIndex - 1) * pageSize)
@@ -29,5 +34,6 @@ namespace Application.Extensions
                 Items = paginatedItems,
             };
         }
+
     }
 }
