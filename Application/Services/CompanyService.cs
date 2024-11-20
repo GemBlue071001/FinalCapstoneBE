@@ -2,10 +2,12 @@
 using Application.Interface;
 using Application.Request.Company;
 using Application.Request.JobLocation;
+using Application.Request.JobPost;
 using Application.Response;
 using Application.Response.Company;
 using Application.Response.JobLocation;
 using AutoMapper;
+using DocumentFormat.OpenXml.Vml;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -186,6 +188,7 @@ namespace Application.Services
                 }*/
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(company);
                 var result = companyResponse.ToPaginationResponse(pageIndex, pageSize, false);
+                result.TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
                 result.TotalCount = totalCount;
 
                 return new ApiResponse().SetOk(result);

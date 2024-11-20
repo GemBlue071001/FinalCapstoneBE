@@ -16,6 +16,7 @@ using System.Text;
 using Domain;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Application.Services
 {
@@ -285,8 +286,14 @@ namespace Application.Services
         public async Task<ApiResponse> SearchJobs(SearchJobPostRequest searchJobPostRequest)
         {
             var jobPosts = await _unitOfWork.JobPosts.SearchJobPosts(searchJobPostRequest);
+            var total = await _unitOfWork.JobPosts.CountTotalPaging(searchJobPostRequest);
             var result = _mapper.Map<List<JobPostResponse>>(jobPosts ?? []);
-            return new ApiResponse().SetOk(result.ToPaginationResponse(searchJobPostRequest.PageIndex, searchJobPostRequest.PageSize));
+            var res = result.ToPaginationResponse(searchJobPostRequest.PageIndex, searchJobPostRequest.PageSize);
+
+            res.TotalCount = total;
+            res.TotalPages = (int)Math.Ceiling(total / (double)searchJobPostRequest.PageSize);
+
+            return new ApiResponse().SetOk(res);
         }
 
         public async Task<ApiResponse> UpdateStatusJobPost(int id, JobPostReviewStatus status)

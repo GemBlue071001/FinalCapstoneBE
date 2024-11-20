@@ -11,5 +11,7 @@ namespace Application.Repositories
         Task<JobPost> GetJobPostsByIdAsync(int jobPostId);
         Task<List<JobPost>> GetAllJobPostPending();
         Task<List<JobPost>> GetJobPostsByListIdAsync(List<int> jobPostIds);
+        Task<int> CountTotalPaging(SearchJobPostRequest request);
+
     }
 }
