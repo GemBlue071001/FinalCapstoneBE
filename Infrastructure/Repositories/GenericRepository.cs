@@ -44,8 +44,8 @@ namespace Infrastructure.Repositories
                 query = include(query);
             }
             return await query
-                .Skip((pageIndex - 1) * pageSize)
-                .Take(pageSize)
+                //.Skip((pageIndex - 1) * pageSize)
+                //.Take(pageSize)
                 .ToListAsync();
         }
 
