@@ -28,7 +28,7 @@ namespace Application.Services
                 var criteria = _mapper.Map<UserJobAlertCriteria>(criteriaRequest);
                 await _unitOfWork.UserJobAlertCriterias.AddAsync(criteria);
                 await _unitOfWork.SaveChangeAsync();
-
+                await ProcessMatchingJob();
                 return new ApiResponse().SetOk();
             }
             catch (Exception ex)
@@ -99,7 +99,10 @@ namespace Application.Services
         {
             foreach (var matchingJob in matchingJobs)
             {
-                var user = matchingJob.Value?.ToList().FirstOrDefault()?.UserAccount;
+                //var user = matchingJob.Value?.ToList().FirstOrDefault()?.UserAccount;
+                var userId = matchingJob.Key;
+                var user = await _unitOfWork.UserAccounts.GetAsync(x=>x.Id == userId);
+
                 var jobs = matchingJob.Value ?? [];
                 var content = MatchingJobsEmailTemplate.MatchingJobs;
                 var jobsHtml = "";
