@@ -66,14 +66,14 @@ namespace Application.Services
         }
 
 
-        public async Task<ApiResponse> UploadCVToAnalyze(string firebasePdfUrl, int jobId, int cvId)
+        public async Task<ApiResponse> UploadCVToAnalyze(string firebasePdfUrl, int jobId, int cvId, int userId)
         {
             using (var httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(360) })
             {
                 try
                 {
                     var userClaim = _claimService.GetUserClaim();
-                    var applicant = await _unitOfWork.JobPostActivities.GetAsync(x => x.UserId == userClaim.Id && x.JobPostId == jobId);
+                    var applicant = await _unitOfWork.JobPostActivities.GetAsync(x => x.UserId == userId && x.JobPostId == jobId);
                     if (!string.IsNullOrEmpty(applicant.AnalyzedResult))
                     {
                         return new ApiResponse().SetOk(applicant.AnalyzedResult);
