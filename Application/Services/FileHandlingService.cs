@@ -65,105 +65,58 @@ namespace Application.Services
 
         }
 
-        public async Task<string> UploadPdfFromFirebase(string firebasePdfUrl)
+
+        public async Task<ApiResponse> UploadCVToAnalyze(string firebasePdfUrl, int jobId, int cvId)
         {
-            using (var httpClient = new HttpClient())
-            {
-                try
-                {
-                    // Step 1: Download the PDF from Firebase
-                    var fileStream = await httpClient.GetStreamAsync(firebasePdfUrl);
-
-                    // Step 2: Create StreamContent from the downloaded PDF
-                    var streamContent = new StreamContent(fileStream);
-                    streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
-
-                    // Step 3: Create FormData and append the file and jobId
-                    var formData = new MultipartFormDataContent
-                    {
-                        { streamContent, "file", "document.pdf" },
-                    };
-
-                    // Step 4: Send the POST request to the API endpoint
-                    var response = await httpClient.PostAsync($"{_apiSettings.RootServerUrl}{_apiSettings.UpLoadAndProcess}", formData);
-
-                    // Ensure the response is successful
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        throw new HttpRequestException($"Error from API: {response.ReasonPhrase}");
-                    }
-
-                    // Return the response content
-                    return await response.Content.ReadAsStringAsync();
-                }
-                catch (Exception ex)
-                {
-                    return $"Error: {ex.Message}";
-                }
-            }
-        }
-
-        public async Task<ApiResponse> UploadCVToAnalyze(string firebasePdfUrl, int jobId)
-        {
-            //if (file == null || file.Length == 0)
-            //{
-            //    return new ApiResponse().SetBadRequest("File is empty");
-            //}
-
-            //if (file.ContentType != "application/pdf" && !file.FileName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    return new ApiResponse().SetBadRequest("File must be a PDF");
-            //}
-
             using (var httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(360) })
             {
-                //var requestContent = new MultipartFormDataContent();
-                //var fileContent = new StreamContent(file.OpenReadStream());
-                //fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/pdf");
-                //requestContent.Add(fileContent, "file", file.FileName);
-
                 try
                 {
                     var userClaim = _claimService.GetUserClaim();
                     var applicant = await _unitOfWork.JobPostActivities.GetAsync(x => x.UserId == userClaim.Id && x.JobPostId == jobId);
-                    if (!string.IsNullOrEmpty(applicant.AnalyzedResult) )
+                    if (!string.IsNullOrEmpty(applicant.AnalyzedResult))
                     {
                         return new ApiResponse().SetOk(applicant.AnalyzedResult);
                     }
 
-                    var fileStream = await httpClient.GetStreamAsync(firebasePdfUrl);
+                    UploadCVJsonRequest cvData = new UploadCVJsonRequest();
+                    var cv = await _unitOfWork.CVs.GetAsync(x => x.Id == cvId);
 
-                    // Step 2: Create StreamContent from the downloaded PDF
-                    var streamContent = new StreamContent(fileStream);
-                    streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
 
-                    // Step 3: Create FormData and append the file and jobId
-                    var formData = new MultipartFormDataContent
+                    if (cv != null && !string.IsNullOrEmpty(cv.ExtractedInfo))
                     {
-                        { streamContent, "file", "document.pdf" },
-                    };
-
-                    // Step 4: Send the POST request to the API endpoint
-                    var response = await httpClient.PostAsync($"{_apiSettings.RootServerUrl}{_apiSettings.UpLoadAndProcess}", formData);
-
-                    if (!response.IsSuccessStatusCode)
+                        cvData = JsonConvert.DeserializeObject<UploadCVJsonRequest>(cv.ExtractedInfo);
+                    }
+                    else
                     {
-                        return new ApiResponse().SetBadRequest($"Error from API: {response.ReasonPhrase}");
+                        var fileStream = await httpClient.GetStreamAsync(firebasePdfUrl);
+                        var streamContent = new StreamContent(fileStream);
+                        streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+                        var formData = new MultipartFormDataContent
+                        {
+                            { streamContent, "file", "document.pdf" },
+                        };
+
+                        var response = await httpClient.PostAsync($"{_apiSettings.RootServerUrl}{_apiSettings.UpLoadAndProcess}", formData);
+
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return new ApiResponse().SetBadRequest($"Error from API: {response.ReasonPhrase}");
+                        }
+
+                        var responseData = await response.Content.ReadAsStringAsync();
+                        var analysisResult = JsonConvert.DeserializeObject<CVAnalysisResponse>(responseData);
+
+                        // Map the response to the UploadCVJsonRequest
+                        var cvMapper = new CVMapper();
+                        cvData = cvMapper.MapToCVJsonRequest(analysisResult);
                     }
 
-                    var responseData = await response.Content.ReadAsStringAsync();
-                    var analysisResult = JsonConvert.DeserializeObject<CVAnalysisResponse>(responseData);
-
-                    // Map the response to the UploadCVJsonRequest
-                    var cvMapper = new CVMapper();
-                    var cvData = cvMapper.MapToCVJsonRequest(analysisResult);
-
-                    // Send the mapped request to the second API
                     var secondApiResponse = await UploadCVAsync(cvData);
 
                     var jobpostResponse = await _jobPostService.GetJobPostById(jobId);
-
                     var jobPostApiUploadResponse = await UploadJobPost((JobPostResponse)jobpostResponse.Result);
+
                     var result = await AnalyzeMatch();
 
                     applicant.AnalyzedResult = result;

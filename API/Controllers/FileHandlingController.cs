@@ -26,17 +26,10 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPost("Analyze")]
-        public async Task<IActionResult> UploadCVToAnalyze(string filePath, int jobId)
+        public async Task<IActionResult> UploadCVToAnalyze(string filePath, int jobId, int cvId)
         {
-            var response = await _service.UploadCVToAnalyze(filePath, jobId);
+            var response = await _service.UploadCVToAnalyze(filePath, jobId, cvId);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
-        }
-
-        [HttpPost("Firebase")]
-        public async Task<IActionResult> UploadCVToAnalyze(string file)
-        {
-            var response = await _service.UploadPdfFromFirebase(file);
-            return  Ok(response);
         }
     }
 }
