@@ -1,10 +1,5 @@
 ﻿using Application.Request.CV;
 using Application.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Interface
 {
@@ -13,5 +8,6 @@ namespace Application.Interface
         Task<ApiResponse> AddNewCVAsync(CVRequest request);
         Task<ApiResponse> GetCVListAsync();
         Task<ApiResponse> DeletedCvByIdAsync(int id);
+        Task<string?> AnalyzeCVAsync(string fileUrl, int cvId);
     }
 }

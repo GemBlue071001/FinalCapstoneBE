@@ -1,20 +1,16 @@
 ﻿using Application.Interface;
+using Application.MyMapper;
 using Application.Request.CV;
-using Application.Request.EducationDetail;
 using Application.Response;
 using Application.Response.AnalyzedResult;
 using Application.Response.CV;
 using AutoMapper;
 using Domain;
 using Domain.Entities;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Net.Http.Headers;
 namespace Application.Services
 {
     public class CVService : ICVService
@@ -24,12 +20,15 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly IClaimService _claimService;
         private readonly ApiSettings _apiSettings;
-        public CVService(IUnitOfWork unitOfWork, IMapper mapper, IClaimService claimService, IOptions<AppSettings> appSettings)
+        private readonly IServiceProvider _serviceProvider;
+
+        public CVService(IUnitOfWork unitOfWork, IMapper mapper, IClaimService claimService, IOptions<AppSettings> appSettings, IServiceProvider serviceProvider)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _claimService = claimService;
             _apiSettings = appSettings.Value.ApiSettings;
+            _serviceProvider = serviceProvider;
         }
         public async Task<ApiResponse> AddNewCVAsync(CVRequest request)
         {
@@ -38,15 +37,31 @@ namespace Application.Services
                 var claim = _claimService.GetUserClaim();
                 var cv = _mapper.Map<CV>(request);
                 cv.UserId = claim.Id;
-                var extractedInfo = await AnalyzeCVAsync(request.Url);
-                if (string.IsNullOrEmpty(extractedInfo))
-                {
-                    return new ApiResponse().SetBadRequest("Failed to extract CV information.");
-                }
-                cv.ExtractedInfo = extractedInfo;
+                //cv.ExtractedInfo = extractedInfo;
                 await _unitOfWork.CVs.AddAsync(cv);
                 await _unitOfWork.SaveChangeAsync();
-                return new ApiResponse().SetOk("CV has been added and analyzed successfully!");
+
+                _ = Task.Run(async () =>
+                {
+                    using (var scope = _serviceProvider.CreateScope())
+                    {
+                        try
+                        {
+                            var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+                            var cvService = scope.ServiceProvider.GetRequiredService<ICVService>();
+
+                            // Use a new scope to analyze the CV
+                            await cvService.AnalyzeCVAsync(request.Url, cv.Id);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Log or handle the exception as needed
+                            Console.WriteLine($"Background task failed: {ex.Message}");
+                        }
+                    }
+                });
+
+                return new ApiResponse().SetOk("CV has been added successfully!");
             }
             catch (Exception ex)
             {
@@ -82,25 +97,45 @@ namespace Application.Services
             }
             
         }
-        private async Task<string> AnalyzeCVAsync(string fileUrl)
+        
+        
+        public async Task<string?> AnalyzeCVAsync(string fileUrl, int cvId)
         {
             using (var httpClient = new HttpClient())
             {
                 try
                 {
-                   
-                    var formData = new MultipartFormDataContent();
-                    formData.Add(new StringContent(fileUrl), "fileUrl");
+                    var fileStream = await httpClient.GetStreamAsync(fileUrl);
 
+                    // Step 2: Create StreamContent from the downloaded PDF
+                    var streamContent = new StreamContent(fileStream);
+                    streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+
+                    // Step 3: Create FormData and append the file and jobId
+                    var formData = new MultipartFormDataContent
+                    {
+                        { streamContent, "file", "document.pdf" },
+                    };
+
+                    // Step 4: Send the POST request to the API endpoint
                     var response = await httpClient.PostAsync($"{_apiSettings.RootServerUrl}{_apiSettings.UpLoadAndProcess}", formData);
 
                     if (!response.IsSuccessStatusCode)
                     {
-                        throw new HttpRequestException($"Error from Analyze API: {response.ReasonPhrase}");
+                        return null;
                     }
+
                     var responseData = await response.Content.ReadAsStringAsync();
                     var analysisResult = JsonConvert.DeserializeObject<CVAnalysisResponse>(responseData);
-                    return JsonConvert.SerializeObject(analysisResult);
+
+                    // Map the response to the UploadCVJsonRequest
+                    var cvMapper = new CVMapper();
+                    var cvData = cvMapper.MapToCVJsonRequest(analysisResult);
+                    var cv = await _unitOfWork.CVs.GetAsync(x => x.Id == cvId);
+                    cv.ExtractedInfo = JsonConvert.SerializeObject(cvData);
+                    await _unitOfWork.SaveChangeAsync();
+
+                    return cv.ExtractedInfo;
                 }
                 catch (Exception ex)
                 {
