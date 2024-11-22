@@ -19,6 +19,7 @@ using System.Net.Http.Json;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Application.Response.Pagination;
+using Application.Request.CV;
 
 namespace Application.Services
 {
@@ -251,7 +252,8 @@ namespace Application.Services
                         CommentText = comment.CommentText,
                         Rating = comment.Rating,
                     }).ToList(),
-                    AnalyzedResult = analyzedResult // Assign the deserialized or default object
+                    AnalyzedResult = analyzedResult,
+                    ExtractedCVInfo = JsonConvert.DeserializeObject<ExtractedCVData>(x.CV!.ExtractedInfo)
                 };
             }).ToList();
 

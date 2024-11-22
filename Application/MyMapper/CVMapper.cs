@@ -14,11 +14,11 @@ namespace Application.MyMapper
         {
             
         }
-        public UploadCVJsonRequest MapToCVJsonRequest(CVAnalysisResponse source)
+        public ExtractedCVData MapToCVJsonRequest(CVAnalysisResponse source)
         {
             if (source == null || source.data == null)
             {
-                return new UploadCVJsonRequest
+                return new ExtractedCVData
                 {
                     Data = new List<MappedData>(),
                     success = false
@@ -63,7 +63,7 @@ namespace Application.MyMapper
                 } : new MappedProfessional()
             };
 
-            return new UploadCVJsonRequest
+            return new ExtractedCVData
             {
                 Data = new List<MappedData> { mappedData },
                 success = true

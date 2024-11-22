@@ -1,6 +1,6 @@
 ﻿namespace Application.Request.CV
 {
-    public class UploadCVJsonRequest
+    public class ExtractedCVData
     {
         public List<MappedData> Data { get; set; }
         public bool success { get; set; }

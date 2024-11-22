@@ -79,13 +79,13 @@ namespace Application.Services
                         return new ApiResponse().SetOk(applicant.AnalyzedResult);
                     }
 
-                    UploadCVJsonRequest cvData = new UploadCVJsonRequest();
+                    ExtractedCVData cvData = new ExtractedCVData();
                     var cv = await _unitOfWork.CVs.GetAsync(x => x.Id == cvId);
 
 
                     if (cv != null && !string.IsNullOrEmpty(cv.ExtractedInfo))
                     {
-                        cvData = JsonConvert.DeserializeObject<UploadCVJsonRequest>(cv.ExtractedInfo);
+                        cvData = JsonConvert.DeserializeObject<ExtractedCVData>(cv.ExtractedInfo);
                     }
                     else
                     {
@@ -135,7 +135,7 @@ namespace Application.Services
             }
         }
 
-        private async Task<string> UploadCVAsync(UploadCVJsonRequest request)
+        private async Task<string> UploadCVAsync(ExtractedCVData request)
         {
             using (var httpClient = new HttpClient())
             {

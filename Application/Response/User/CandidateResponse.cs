@@ -1,4 +1,5 @@
-﻿using Application.Response.AnalyzedResult;
+﻿using Application.Request.CV;
+using Application.Response.AnalyzedResult;
 using Application.Response.JobPostActivityComment;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Application.Response.User
         public string? PhoneNumber { get; set; }
         public int? CVId { get; set; }
         public string CVPath { get; set; } = string.Empty;
+        public ExtractedCVData ExtractedCVInfo { get; set; }
         public int? JobPostActivityId { get; set; }
         public string Status { get; set; } = string.Empty;
         public List<JobPostActivityCommentResponse> JobPostActivityComments { get; set; } = new List<JobPostActivityCommentResponse>();
