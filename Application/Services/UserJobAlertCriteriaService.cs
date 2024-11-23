@@ -21,10 +21,29 @@ namespace Application.Services
             _mapper = mapper;
             _emailService = emailService;
         }
+        public async Task ResetUserJobAlertCriteriaIdSequenceAsync()
+        {
+            ApiResponse apiResponse = new ApiResponse();
+            // Get the sequence name for the UserJobAlertCriteria.Id column
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"UserJobAlertCriterias\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
+
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Get the current maximum ID in the UserJobAlertCriterias table
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"UserJobAlertCriterias\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Update the sequence to start from the max ID
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
         public async Task<ApiResponse> AddNewAlertCriteriaAsync(UserJobAlertCriteriaRequest criteriaRequest)
         {
             try
             {
+                await ResetUserJobAlertCriteriaIdSequenceAsync();
                 var criteria = _mapper.Map<UserJobAlertCriteria>(criteriaRequest);
                 await _unitOfWork.UserJobAlertCriterias.AddAsync(criteria);
                 await _unitOfWork.SaveChangeAsync();

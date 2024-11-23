@@ -20,11 +20,29 @@ namespace Application.Services
             _mapper = mapper;
             _claimService = claimService;
         }
+        public async Task ResetFollowJobIdSequenceAsync()
+        {
+            // Get the sequence name for the FollowJob.Id column
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"FollowJobs\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
+
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Get the current maximum ID in the FollowJobs table
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"FollowJobs\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Update the sequence to start from the max ID
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
         public async Task<ApiResponse> AddFollowJobPostAsync(FollowJobRequest followJobRequest)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
             {
+                await ResetFollowJobIdSequenceAsync();
                 var claim = _claimService.GetUserClaim();
                 var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == followJobRequest.JobPostId);
                 if (jobPost == null)

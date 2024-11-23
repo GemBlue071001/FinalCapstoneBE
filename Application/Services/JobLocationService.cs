@@ -18,11 +18,29 @@ namespace Application.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+        public async Task ResetJobLocationIdSequenceAsync()
+        {
+            // Get the sequence name for the JobLocation.Id column
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"JobLocations\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
+
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Get the current maximum ID in the JobLocations table
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"JobLocations\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Update the sequence to start from the max ID
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
         public async Task<ApiResponse> AddNewJobLocationAsync(JobLocationRequest jobLocationRequest)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
             {
+                await ResetJobLocationIdSequenceAsync();
                 var joblocation = _mapper.Map<JobLocation>(jobLocationRequest);
                 await _unitOfWork.JobLocations.AddAsync(joblocation);
                 await _unitOfWork.SaveChangeAsync();

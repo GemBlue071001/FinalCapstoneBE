@@ -19,9 +19,26 @@ namespace Application.Services
             _mapper = mapper;
             _claimService = claimService;
         }
+        public async Task ResetJobPostActivityIdSequenceAsync()
+        {
+            // Get the sequence name for the JobPostActivitie.Id column
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"JobPostActivities\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
 
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Get the current maximum ID in the JobPostActivities table
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"JobPostActivities\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Update the sequence to start from the max ID
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
         public async Task<ApiResponse> AddNewJobPostActivityAsync(JobPostActivityRequest request)
         {
+            await ResetJobPostActivityIdSequenceAsync();
             var claim = _claimService.GetUserClaim();
             var jobPost = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(request.JobPostId);
             if (jobPost == null)

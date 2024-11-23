@@ -25,10 +25,29 @@ namespace Application.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+        public async Task ResetSkillSetIdSequenceAsync()
+        {
+            ApiResponse apiResponse = new ApiResponse();
+            // Get the sequence name for the SkillSet.Id column
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"SkillSets\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
+
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Get the current maximum ID in the SkillSets table
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"SkillSets\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Update the sequence to start from the max ID
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
         public async Task<ApiResponse> AddNewSkillSet(SkillSetRequest skillSetRequest)
         {
             try
             {
+                await ResetSkillSetIdSequenceAsync();
                 var skillSet = _mapper.Map<SkillSet>(skillSetRequest);
                 await _unitOfWork.SkillSets.AddAsync(skillSet);
                 await _unitOfWork.SaveChangeAsync();

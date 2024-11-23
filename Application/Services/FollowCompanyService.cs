@@ -21,11 +21,29 @@ namespace Application.Services
             _mapper = mapper;
             _claimService = claimService;
         }
+        public async Task ResetFollowCompanySequenceAsync()
+        {
+            // Get the sequence name for the FollowCompany.Id column
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"FollowCompanys\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
+
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Get the current maximum ID in the FollowCompanys table
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"FollowCompanys\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Update the sequence to start from the max ID
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
         public async Task<ApiResponse> AddFollowCompanyAsync(FollowCompanyRequest followCompanyRequest)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
             {
+                await ResetFollowCompanySequenceAsync();
                 var claim = _claimService.GetUserClaim();
                 var company = await _unitOfWork.Companys.GetAsync(x => x.Id == followCompanyRequest.CompanyId);
                 if (company == null)

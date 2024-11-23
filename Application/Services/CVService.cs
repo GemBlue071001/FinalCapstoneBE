@@ -30,10 +30,29 @@ namespace Application.Services
             _apiSettings = appSettings.Value.ApiSettings;
             _serviceProvider = serviceProvider;
         }
+
+        public async Task ResetCvdSequenceAsync()
+        {
+            // Get the sequence name for the CVs.Id column
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"CVs\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
+
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Get the current maximum ID in the CVs table
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"CVs\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Update the sequence to start from the max ID
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
         public async Task<ApiResponse> AddNewCVAsync(CVRequest request)
         {
             try
             {
+                await ResetCvdSequenceAsync();
                 var claim = _claimService.GetUserClaim();
                 var cv = _mapper.Map<CV>(request);
                 cv.UserId = claim.Id;

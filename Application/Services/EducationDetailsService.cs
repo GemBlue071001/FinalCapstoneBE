@@ -20,11 +20,28 @@ namespace Application.Services
             _mapper = mapper;
             _claimService = claimService;
         }
+        public async Task ResetEducationDetaildSequenceAsync()
+        {
+            // Get the sequence name for the EducationDetail.Id column
+            string sequenceSql = "SELECT pg_get_serial_sequence('\"EducationDetails\"', 'Id')";
+            string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
 
+            if (!string.IsNullOrEmpty(sequenceName))
+            {
+                // Get the current maximum ID in the EducationDetails table
+                string maxIdSql = "SELECT COALESCE(MAX(\"Id\"), 0) FROM \"EducationDetails\"";
+                int maxId = await _unitOfWork.ExecuteScalarAsync<int>(maxIdSql);
+
+                // Update the sequence to start from the max ID
+                string resetSequenceSql = $"SELECT setval('{sequenceName}', {maxId})";
+                await _unitOfWork.ExecuteRawSqlAsync(resetSequenceSql);
+            }
+        }
         public async Task<ApiResponse> AddNewEducationDetailAsync(EducationDetailRequest request)
         {
             try
             {
+                await ResetEducationDetaildSequenceAsync();
                 var claim = _claimService.GetUserClaim();
                 var educationDetail = _mapper.Map<EducationDetail>(request);
                 educationDetail.UserId = claim.Id;
