@@ -26,9 +26,9 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPost("Analyze")]
-        public async Task<IActionResult> UploadCVToAnalyze(string filePath, int jobId, int cvId)
+        public async Task<IActionResult> UploadCVToAnalyze(string filePath, int jobId, int cvId,int userId )
         {
-            var response = await _service.UploadCVToAnalyze(filePath, jobId, cvId);
+            var response = await _service.UploadCVToAnalyze(filePath, jobId, cvId, userId);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }
