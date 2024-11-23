@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class JobPostActivity:Base
+    public class JobPostActivity : Base
     {
         public int Id { get; set; }
         public DateTime ApplicationDate { get; set; }
         public JobPostActivityStatus Status { get; set; }
         public double? Score { get; set; }
+        public string Url { get; set; }
+        public string ExactedInfo { get; set; }
+        public string CvName { get; set; }
 
         //Navigation Property
         public UserAccount UserAccount { get; set; }
@@ -27,10 +30,10 @@ namespace Domain.Entities
 
     public enum JobPostActivityStatus
     {
-        Applied=0,
-        Pending=1,
-        Rejected=2,
-        Passed=3,
+        Applied = 0,
+        Pending = 1,
+        Rejected = 2,
+        Passed = 3,
         CVScreeningPassed = 4,
         InterviewStage = 5,
     }

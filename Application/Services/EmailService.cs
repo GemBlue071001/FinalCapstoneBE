@@ -104,6 +104,7 @@ namespace Application.Services
                 return new ApiResponse().SetBadRequest($"Something went wrong: {ex.Message}");
             }
         }
+      
 
     }
 }

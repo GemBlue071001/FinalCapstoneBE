@@ -40,8 +40,8 @@ namespace Application.Services
         public async Task<ApiResponse> AddNewJobTypeAsync(JobTypeRequest jobTypeRequest)
         {
             try
-            {   
-                await ResetJobTypeIdSequenceAsync()
+            {
+                await ResetJobTypeIdSequenceAsync();
                 var jobType = _mapper.Map<JobType>(jobTypeRequest);
                 await _unitOfWork.JobTypes.AddAsync(jobType);
                 await _unitOfWork.SaveChangeAsync();

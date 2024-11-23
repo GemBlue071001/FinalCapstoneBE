@@ -4,6 +4,7 @@ using Application.Response;
 using Application.Response.JobPostActivity;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.Extensions.Hosting;
 
 namespace Application.Services
 {
@@ -12,12 +13,13 @@ namespace Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IClaimService _claimService;
-
-        public JobPostActivityService(IUnitOfWork unitOfWork, IMapper mapper, IClaimService claimService)
+        private readonly IEmailService _emailService;
+        public JobPostActivityService(IUnitOfWork unitOfWork, IMapper mapper, IClaimService claimService, IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _claimService = claimService;
+            _emailService= emailService;
         }
         public async Task ResetJobPostActivityIdSequenceAsync()
         {
@@ -68,6 +70,9 @@ namespace Application.Services
             jobPostActivity.UserId = claim.Id;
             jobPostActivity.ApplicationDate = DateTime.UtcNow;
             jobPostActivity.Status = JobPostActivityStatus.Pending;
+            jobPostActivity.CvName = userCv.Name;
+            jobPostActivity.ExactedInfo = userCv.ExtractedInfo;
+            jobPostActivity.Url = userCv.Url;
             await _unitOfWork.JobPostActivities.AddAsync(jobPostActivity);
             await _unitOfWork.SaveChangeAsync();
 
@@ -109,10 +114,14 @@ namespace Application.Services
             if (jobPostActivity.UserId is not null)
             {
                 var userAccount = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == jobPostActivity.UserId);
-
+                var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == jobPostActivity.JobPostId);
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == jobPost.CompanyId);
                 if (userAccount is not null)
                 {
                     notification.ReceiverId = userAccount.Id;
+                    string emailContent = $"Dear {userAccount.FirstName},<br/><br/>The status of your application for the {jobPost.JobTitle} position at {company.CompanyName} has been updated to: <strong>{jobPostActivity.Status}</strong>.<br/><br/>Thank you for using our services.<br/><br/>Best regards,<br/>Support Team.";
+
+                    var emailResponse = await _emailService.CustomSendEmail(userAccount.Email, emailContent, company.CompanyName);
                 }
             }
 
