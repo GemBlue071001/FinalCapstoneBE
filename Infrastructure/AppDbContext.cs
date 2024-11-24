@@ -15,7 +15,7 @@ namespace Infrastructure
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=18.136.123.243; Port=5431; Database=my_database; Username=my_user; Password=my_password;Include Error Detail=True;TrustServerCertificate=True", o => o.UseVector());
+            //optionsBuilder.UseNpgsql("Host=18.136.123.243; Port=5431; Database=my_database; Username=my_user; Password=my_password;Include Error Detail=True;TrustServerCertificate=True", o => o.UseVector());
         }
 
 
