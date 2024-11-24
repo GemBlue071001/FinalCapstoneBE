@@ -70,7 +70,7 @@ namespace Application.Services
             jobPostActivity.UserId = claim.Id;
             jobPostActivity.ApplicationDate = DateTime.UtcNow;
             jobPostActivity.Status = JobPostActivityStatus.Pending;
-            jobPostActivity.CvName = userCv.Name;
+            jobPostActivity.CvName = userCv.Name!;
             jobPostActivity.ExactedInfo = userCv.ExtractedInfo;
             jobPostActivity.Url = userCv.Url;
             await _unitOfWork.JobPostActivities.AddAsync(jobPostActivity);

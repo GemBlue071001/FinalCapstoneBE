@@ -242,7 +242,7 @@ namespace Application.Services
                     Email = x.UserAccount.Email,
                     PhoneNumber = x.UserAccount.PhoneNumber,
                     CVId = x.CvId,
-                    CVPath = x.CV?.Url ?? string.Empty,
+                    CVPath = x.Url ?? string.Empty,
                     JobPostActivityId = x.Id,
                     Status = x.Status.ToString(),
                     JobPostActivityComments = x.JobPostActivityComments!.Select(comment => new JobPostActivityCommentResponse
@@ -253,7 +253,7 @@ namespace Application.Services
                         Rating = comment.Rating,
                     }).ToList(),
                     AnalyzedResult = analyzedResult,
-                    ExtractedCVInfo = JsonConvert.DeserializeObject<ExtractedCVData>(x.CV!.ExtractedInfo)
+                    ExtractedCVInfo = JsonConvert.DeserializeObject<ExtractedCVData>(x.ExactedInfo)
                 };
             }).ToList();
 
