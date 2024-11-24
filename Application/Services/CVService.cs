@@ -60,25 +60,26 @@ namespace Application.Services
                 await _unitOfWork.CVs.AddAsync(cv);
                 await _unitOfWork.SaveChangeAsync();
 
-                _ = Task.Run(async () =>
-                {
-                    using (var scope = _serviceProvider.CreateScope())
-                    {
-                        try
-                        {
-                            var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
-                            var cvService = scope.ServiceProvider.GetRequiredService<ICVService>();
+                //_ = Task.Run(async () =>
+                //{
+                //    using (var scope = _serviceProvider.CreateScope())
+                //    {
+                //        try
+                //        {
+                //            var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+                //            var cvService = scope.ServiceProvider.GetRequiredService<ICVService>();
 
-                            // Use a new scope to analyze the CV
-                            await cvService.AnalyzeCVAsync(request.Url, cv.Id);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Log or handle the exception as needed
-                            Console.WriteLine($"Background task failed: {ex.Message}");
-                        }
-                    }
-                });
+                //            // Use a new scope to analyze the CV
+                //            await cvService.AnalyzeCVAsync(request.Url, cv.Id);
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            // Log or handle the exception as needed
+                //            Console.WriteLine($"Background task failed: {ex.Message}");
+                //        }
+                //    }
+                //});
+                await AnalyzeCVAsync(request.Url, cv.Id);
 
                 return new ApiResponse().SetOk("CV has been added successfully!");
             }
