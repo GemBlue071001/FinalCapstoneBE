@@ -14,7 +14,7 @@ namespace Domain.Entities
         public double? Score { get; set; }
         public string Url { get; set; }
         public string ExactedInfo { get; set; }
-        public string CvName { get; set; }
+        public string CvName { get; set; } 
 
         //Navigation Property
         public UserAccount UserAccount { get; set; }

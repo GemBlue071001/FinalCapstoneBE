@@ -243,6 +243,9 @@ namespace Application.Services
             jobPostActivity.UserId = request.UserId;
             jobPostActivity.ApplicationDate = DateTime.UtcNow;
             jobPostActivity.Status = JobPostActivityStatus.InterviewStage;
+            jobPostActivity.CvName = userCv.Name ?? string.Empty;
+            jobPostActivity.Url = userCv.Url;
+            jobPostActivity.ExactedInfo = userCv.ExtractedInfo;
             await _unitOfWork.JobPostActivities.AddAsync(jobPostActivity);
             await _unitOfWork.SaveChangeAsync();
 
