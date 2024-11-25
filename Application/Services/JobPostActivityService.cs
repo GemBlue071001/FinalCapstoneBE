@@ -71,6 +71,7 @@ namespace Application.Services
             }
             var jobPostActivity = _mapper.Map<JobPostActivity>(request);
             jobPostActivity.UserId = claim.Id;
+            jobPostActivity.CvId = null;
             jobPostActivity.ApplicationDate = DateTime.UtcNow;
             jobPostActivity.Status = JobPostActivityStatus.Pending;
             jobPostActivity.CvName = userCv.Name!;
