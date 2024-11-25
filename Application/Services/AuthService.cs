@@ -55,7 +55,12 @@ namespace Application.Services
                 response.SetBadRequest(message: "Confirm password is wrong !");
                 return response;
             }
-
+            var existingUser = await _unitOfWork.UserAccounts.GetAsync(x => x.Email == userRequest.Email);
+            if (existingUser != null)
+            {
+                response.SetBadRequest(message: "The email address is already registered.");
+                return response;
+            }
             // Create password hash and save user details
             var pass = CreatePasswordHash(userRequest.Password);
             UserAccount user = new UserAccount()
