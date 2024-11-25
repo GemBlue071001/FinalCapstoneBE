@@ -33,6 +33,9 @@ namespace Application.Services
 
         public async Task ResetCvdSequenceAsync()
         {
+            var x = await _unitOfWork.CVs.CountAsync();
+            if (x <= 0)
+                return;
             // Get the sequence name for the CVs.Id column
             string sequenceSql = "SELECT pg_get_serial_sequence('\"CVs\"', 'Id')";
             string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);

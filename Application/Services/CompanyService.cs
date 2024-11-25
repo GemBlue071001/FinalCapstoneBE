@@ -33,6 +33,9 @@ namespace Application.Services
 
         public async Task ResetCompanyIdSequenceAsync()
         {
+            var x = await _unitOfWork.Companys.CountAsync();
+            if (x <= 0)
+                return;
             // Get the sequence name for the Companys.Id column
             string sequenceSql = "SELECT pg_get_serial_sequence('\"Companys\"', 'Id')";
             string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);

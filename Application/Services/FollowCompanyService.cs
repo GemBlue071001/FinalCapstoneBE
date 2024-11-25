@@ -24,6 +24,9 @@ namespace Application.Services
         public async Task ResetFollowCompanySequenceAsync()
         {
             // Get the sequence name for the FollowCompany.Id column
+            var x = await _unitOfWork.FollowCompanies.CountAsync();
+            if (x <= 0)
+                return;
             string sequenceSql = "SELECT pg_get_serial_sequence('\"FollowCompanys\"', 'Id')";
             string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);
 

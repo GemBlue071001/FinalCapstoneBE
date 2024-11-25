@@ -23,6 +23,9 @@ namespace Application.Services
         }
         public async Task ResetExperienceDetaildSequenceAsync()
         {
+            var x = await _unitOfWork.ExperienceDetails.CountAsync();
+            if (x <= 0)
+                return;
             // Get the sequence name for the ExperienceDetail.Id column
             string sequenceSql = "SELECT pg_get_serial_sequence('\"ExperienceDetails\"', 'Id')";
             string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);

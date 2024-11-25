@@ -21,6 +21,9 @@ namespace Application.Services
         }
         public async Task ResetJobTypeIdSequenceAsync()
         {
+            var x = await _unitOfWork.JobTypes.CountAsync();
+            if (x <= 0)
+                return;
             ApiResponse apiResponse = new ApiResponse();
             // Get the sequence name for the JobType.Id column
             string sequenceSql = "SELECT pg_get_serial_sequence('\"JobTypes\"', 'Id')";

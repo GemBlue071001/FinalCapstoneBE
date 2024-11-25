@@ -27,6 +27,9 @@ namespace Application.Services
         }
         public async Task ResetSkillSetIdSequenceAsync()
         {
+            var x = await _unitOfWork.SkillSets.CountAsync();
+            if (x <= 0)
+                return;
             ApiResponse apiResponse = new ApiResponse();
             // Get the sequence name for the SkillSet.Id column
             string sequenceSql = "SELECT pg_get_serial_sequence('\"SkillSets\"', 'Id')";

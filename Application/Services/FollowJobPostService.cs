@@ -22,6 +22,9 @@ namespace Application.Services
         }
         public async Task ResetFollowJobIdSequenceAsync()
         {
+            var x = await _unitOfWork.FollowJobs.CountAsync();
+            if (x <= 0)
+                return;
             // Get the sequence name for the FollowJob.Id column
             string sequenceSql = "SELECT pg_get_serial_sequence('\"FollowJobs\"', 'Id')";
             string sequenceName = await _unitOfWork.ExecuteScalarAsync<string>(sequenceSql);

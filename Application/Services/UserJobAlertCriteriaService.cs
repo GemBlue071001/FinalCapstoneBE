@@ -23,6 +23,9 @@ namespace Application.Services
         }
         public async Task ResetUserJobAlertCriteriaIdSequenceAsync()
         {
+            var x = await _unitOfWork.UserJobAlertCriterias.CountAsync();
+            if (x <= 0) 
+                return;
             ApiResponse apiResponse = new ApiResponse();
             // Get the sequence name for the UserJobAlertCriteria.Id column
             string sequenceSql = "SELECT pg_get_serial_sequence('\"UserJobAlertCriterias\"', 'Id')";
