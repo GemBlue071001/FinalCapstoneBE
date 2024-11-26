@@ -132,7 +132,8 @@ builder.Services.AddScoped<IFileHandlingService, FileHandlingService>();
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IUserJobAlertCriteriaService, UserJobAlertCriteriaService>();
-//builder.Services.AddHostedService<JobAlertWorker>();
+//builder.Services.AddHostedService<JobAlertWorker>();\
+builder.Services.AddHostedService<EmailWorker>();
 
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterValidator>();

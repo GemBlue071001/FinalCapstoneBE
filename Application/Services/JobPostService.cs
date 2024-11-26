@@ -21,6 +21,7 @@ using Org.BouncyCastle.Asn1.Ocsp;
 using Application.Response.Pagination;
 using Application.Request.CV;
 using Application.Queues;
+using Hangfire.Storage.Monitoring;
 
 namespace Application.Services
 {
@@ -151,6 +152,7 @@ namespace Application.Services
 
                 // Fetch all users with job alert criteria
                 var userJobAlertCriterias = await _unitOfWork.UserJobAlertCriterias.GetAllAsync(null);
+                
 
                 foreach (var criteria in userJobAlertCriterias)
                 {
@@ -164,18 +166,19 @@ namespace Application.Services
                         var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == criteria.UserId);
                         if (user != null)
                         {
-                            var emailContent = $"Dear {user.FirstName},\n\n" +
-                                               $"We have a new job that matches your preferences:\n" +
-                                               $"Job Title: {jobPost.JobTitle}\n" +
-                                               $"Company: {jobPost.Company.CompanyName}\n" +
-                                               $"Salary: {jobPost.Salary}\n" +
-                                               $"Location: {string.Join(", ", jobPost.JobLocations.Select(l => l.Location!.City))}\n\n" +
-                                               $"Best regards,\nJob Portal Team";
+                            //var emailContent = $"Dear {user.FirstName},\n\n" +
+                            //                   $"We have a new job that matches your preferences:\n" +
+                            //                   $"Job Title: {jobPost.JobTitle}\n" +
+                            //                   $"Company: {jobPost.Company.CompanyName}\n" +
+                            //                   $"Salary: {jobPost.Salary}\n" +
+                            //                   $"Location: {string.Join(", ", jobPost.JobLocations.Select(l => l.Location!.City))}\n\n" +
+                            //                   $"Best regards,\nJob Portal Team";
+                            var emailContent = await _unitOfWork.EmailTemplates.GetAsync(x => x.Name.Equals("Job Opportunity Email"));
 
                             // Send email using EmailService
                             await _emailService.SendMail(
                                 user.Email!,
-                                emailContent,
+                                emailContent.EmailContent,
                                 user.FirstName!,
                                 jobPost.Company.CompanyName,
                                 jobPost.JobTitle
@@ -255,7 +258,7 @@ namespace Application.Services
                     return response.SetBadRequest($"Skill set id {jobPostSkillSetRequest.SkillSetId} is not found !!");
                 }
 
-                var jobpost = await _unitOfWork.SkillSets.GetAsync(x => x.Id == jobPostSkillSetRequest.JobPostId);
+                var jobpostSkillSet = await _unitOfWork.SkillSets.GetAsync(x => x.Id == jobPostSkillSetRequest.JobPostId);
                 if (skillSet == null)
                 {
                     return response.SetBadRequest($"Job post id {jobPostSkillSetRequest.JobPostId} is not found !!");
@@ -268,6 +271,13 @@ namespace Application.Services
                     JobPostId = jobPostSkillSetRequest.JobPostId
                 });
                 await _unitOfWork.SaveChangeAsync();
+
+                //EmailJobQueue.Enqueue(async (emailService, unitOfWork) =>
+                //{
+                //    var service = new JobPostService(unitOfWork, emailService); // Use appropriate constructor
+                //    await service.SendEmailsToMatchingUsersAsync(jobpostSkillSet);
+                //});
+
                 return response.SetOk("Add Skill Set To Job Post Success !!");
             }
             catch (Exception ex)
@@ -393,6 +403,8 @@ namespace Application.Services
 
             post.JobPostReviewStatus = status;
             await _unitOfWork.SaveChangeAsync();
+
+
             return new ApiResponse().SetOk(post);
         }
 
@@ -451,6 +463,12 @@ namespace Application.Services
 
             var jobPostResponse = _mapper.Map<JobPostResponse>(jobPostToEmbed);
             var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
+
+            //EmailJobQueue.Enqueue(async (emailService, unitOfWork) =>
+            //{
+            //    var service = new JobPostService(unitOfWork, emailService); // Use appropriate constructor
+            //    await service.SendEmailsToMatchingUsersAsync(jobpostSkillSet);
+            //});
             return new ApiResponse().SetOk();
         }
         public async Task<ApiResponse> GetAllJobPostPending()
@@ -458,12 +476,6 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                /* var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x => x.JobPostReviewStatus == JobPostReviewStatus.Pending, x => x.Include(x => x.Company)
-                                                                                   .Include(x => x.JobLocations)
-                                                                                         .ThenInclude(x => x.Location)
-                                                                                   .Include(x => x.JobType)
-                                                                                   .Include(x => x.JobSkillSets)
-                                                                                         .ThenInclude(x => x.SkillSet));*/
                 var jobPosts = await _unitOfWork.JobPosts.GetAllJobPostPending();
                 var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);
                 return new ApiResponse().SetOk(jobPostsResponse);
