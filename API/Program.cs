@@ -48,11 +48,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 //builder.Services.AddHangfire(config => config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration!.ConnectionStrings.LocalDockerConnection)));
-builder.Services.AddHangfire(config => config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration!.ConnectionStrings.LocalDockerConnection)));
+//builder.Services.AddHangfire(config => config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(configuration!.ConnectionStrings.LocalDockerConnection)));
 
 
 
-builder.Services.AddHangfireServer();
+//builder.Services.AddHangfireServer();
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -132,7 +132,7 @@ builder.Services.AddScoped<IFileHandlingService, FileHandlingService>();
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IUserJobAlertCriteriaService, UserJobAlertCriteriaService>();
-builder.Services.AddHostedService<JobAlertWorker>();
+//builder.Services.AddHostedService<JobAlertWorker>();
 
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
@@ -165,7 +165,7 @@ app.UseSwaggerUI();
 app.UseCors(p => p.SetIsOriginAllowed(origin => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 app.UseMiddleware<ValidationMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseHangfireDashboard("/dashboard");
+//app.UseHangfireDashboard("/dashboard");
 
 app.UseHttpsRedirection();
 

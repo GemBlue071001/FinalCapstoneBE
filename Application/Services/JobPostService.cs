@@ -20,13 +20,13 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Application.Response.Pagination;
 using Application.Request.CV;
+using Application.Queues;
 
 namespace Application.Services
 {
     public class JobPostService : IJobPostService
     {
         private readonly IUnitOfWork _unitOfWork;
-
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
         private readonly ApiSettings _apiSettings;
@@ -39,6 +39,11 @@ namespace Application.Services
             _apiSettings = appSettings.Value.ApiSettings;
         }
 
+        public JobPostService(IUnitOfWork unitOfWork, IEmailService emailService)
+        {
+            _unitOfWork = unitOfWork;
+            _emailService = emailService;
+        }
 
         public async Task<ApiResponse> AddNewJobPostAsync(JobPostRequest jobPostRequest)
         {
@@ -102,7 +107,12 @@ namespace Application.Services
                 var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
 
                 // Call Hangfire to send emails after job post creation
-                BackgroundJob.Enqueue<EmailJob>(emailJob => emailJob.SendEmailsToFollowers(jobPostRequest.CompanyId, jobPost.JobTitle));
+                //BackgroundJob.Enqueue<EmailJob>(emailJob => emailJob.SendEmailsToFollowers(jobPostRequest.CompanyId, jobPost.JobTitle));
+                EmailJobQueue.Enqueue(async (emailService, unitOfWork) =>
+                {
+                    var service = new JobPostService(unitOfWork, emailService); // Use appropriate constructor
+                    await service.SendEmailsToMatchingUsersAsync(jobPost);
+                });
 
                 return new ApiResponse().SetOk(new
                 {
@@ -115,6 +125,72 @@ namespace Application.Services
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
+
+        public async Task SendEmailsToMatchingUsersAsync(JobPost jobPost)
+        {
+            try
+            {
+
+                var company = await _unitOfWork.Companys.GetAsync(c => c.Id == jobPost.CompanyId);
+                if (company == null)
+                {
+                    throw new Exception("Company not found");
+                }
+
+                var followers = await _unitOfWork.FollowCompanies.GetAllAsync(f => f.CompanyId == jobPost.CompanyId, x => x.Include(x => x.UserAccount));
+                if (followers != null && followers.Count > 0)
+                {
+                    var followerEmails = followers.Select(f => f.UserAccount.Email).ToList();
+                    var emailContent = await _unitOfWork.EmailTemplates.GetAsync(x => x.Name.Equals("Job Opportunity Email"));
+
+                    foreach (var userEmail in followerEmails)
+                    {
+                        await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}", company.CompanyName, jobPost.JobTitle);
+                    }
+                }
+
+                // Fetch all users with job alert criteria
+                var userJobAlertCriterias = await _unitOfWork.UserJobAlertCriterias.GetAllAsync(null);
+
+                foreach (var criteria in userJobAlertCriterias)
+                {
+                    // Check if criteria match the job post
+                    if (
+                        (criteria.JobTypeId == null || jobPost.JobTypeId == criteria.JobTypeId) &&
+                        (criteria.SkillSetId == null || jobPost.JobSkillSets.Any(js => js.SkillSetId == criteria.SkillSetId)) &&
+                        (criteria.LocationId == null || jobPost.JobLocations.Any(jl => jl.LocationId == criteria.LocationId)))
+                    {
+                        // Construct email content
+                        var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == criteria.UserId);
+                        if (user != null)
+                        {
+                            var emailContent = $"Dear {user.FirstName},\n\n" +
+                                               $"We have a new job that matches your preferences:\n" +
+                                               $"Job Title: {jobPost.JobTitle}\n" +
+                                               $"Company: {jobPost.Company.CompanyName}\n" +
+                                               $"Salary: {jobPost.Salary}\n" +
+                                               $"Location: {string.Join(", ", jobPost.JobLocations.Select(l => l.Location!.City))}\n\n" +
+                                               $"Best regards,\nJob Portal Team";
+
+                            // Send email using EmailService
+                            await _emailService.SendMail(
+                                user.Email!,
+                                emailContent,
+                                user.FirstName!,
+                                jobPost.Company.CompanyName,
+                                jobPost.JobTitle
+                            );
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error sending job alert emails: {ex.Message}");
+            }
+        }
+
         private async Task<string> GetJobPostEmbeddingAsync(JobPostResponse jobPostResponse)
         {
             // Prepare the data for embedding based on the jobPost object

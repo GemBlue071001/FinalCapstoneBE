@@ -10,6 +10,8 @@ namespace Application.Services
         public const string EmailUserSystem = "trinhtam2001@gmail.com";
         public const string EmailPasswordSystem = "hqpr gldl ccku rute";
 
+
+
         public EmailService()
         {
 
