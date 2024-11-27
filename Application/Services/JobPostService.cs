@@ -471,12 +471,15 @@ namespace Application.Services
 
             var jobPostResponse = _mapper.Map<JobPostResponse>(jobPostToEmbed);
             var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
+            var jobPostAfterUpdate = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(id);
 
-            //EmailJobQueue.Enqueue(async (emailService, unitOfWork) =>
-            //{
-            //    var service = new JobPostService(unitOfWork, emailService); // Use appropriate constructor
-            //    await service.SendEmailsToMatchingUsersAsync(jobpostSkillSet);
-            //});
+
+            EmailJobQueue.Enqueue(async (emailService, unitOfWork) =>
+            {
+                var service = new JobPostService(unitOfWork, emailService); // Use appropriate constructor
+                await service.SendEmailsToMatchingUsersAsync(jobPostAfterUpdate);
+            });
+
             return new ApiResponse().SetOk();
         }
         public async Task<ApiResponse> GetAllJobPostPending()
