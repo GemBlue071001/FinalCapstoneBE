@@ -171,10 +171,14 @@ namespace Application.Services
             var regex = new Regex(@"^-?\d+$");
             return regex.IsMatch(phoneNum);
         }
-        public async Task<ApiResponse> GetAllJobSeekerRoleAsync(int pageIndex, int pageSize)
+        public async Task<ApiResponse> GetAllJobSeekerRoleAsync(int pageIndex, int pageSize, int jobPostId)
         {
             ApiResponse response = new ApiResponse();
-            var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker && u.IsLookingForJob, x => x.Include(x => x.EducationDetails!)
+            var jobpost = await _unitOfWork.JobPosts.GetAsync(x=>x.Id==jobPostId, x=>x.Include(x=>x.JobSkillSets)
+                                                                                        .ThenInclude(x=>x.SkillSet));
+            var skillSetIds = jobpost.JobSkillSets.Select(x=>x.SkillSetId).ToList();
+
+            var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker && u.IsLookingForJob && u.SeekerSkillSets!.Any(s =>  skillSetIds.Contains(s.SkillSetId)), x => x.Include(x => x.EducationDetails!)
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.SeekerSkillSets!)
                                                                                         .ThenInclude(x => x.SkillSet)
