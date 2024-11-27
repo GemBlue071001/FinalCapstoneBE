@@ -36,7 +36,7 @@ namespace Application.MyBackgroundJob
 
                 foreach (var userEmail in followerEmails)
                 {
-                    await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}", company.CompanyName, jobTitle);
+                    //await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}", company.CompanyName, jobTitle);
                 }
             }
         }

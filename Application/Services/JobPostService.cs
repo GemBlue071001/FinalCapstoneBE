@@ -132,6 +132,13 @@ namespace Application.Services
             try
             {
 
+                var jobSkillSets = await _unitOfWork.JobSkillSets.GetAllAsync(x => x.JobPostId == jobPost.Id);
+
+                var skillSetIds = jobSkillSets.Select(x => x.SkillSetId).ToList();
+
+                var skillSets = await _unitOfWork.SkillSets.GetAllAsync(x => skillSetIds.Contains(x.Id));
+                var skillSetNames = skillSets.Select(x => x.Name).ToList();
+                var skillSetString = string.Join("-", skillSetNames);
                 var company = await _unitOfWork.Companys.GetAsync(c => c.Id == jobPost.CompanyId);
                 if (company == null)
                 {
@@ -146,10 +153,10 @@ namespace Application.Services
 
                     foreach (var userEmail in followerEmails)
                     {
-                        await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}", company.CompanyName, jobPost.JobTitle);
+                        await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}", company.CompanyName, jobPost.JobTitle, skillSetString);
                     }
                 }
-
+               
                 // Fetch all users with job alert criteria
                 var userJobAlertCriterias = await _unitOfWork.UserJobAlertCriterias.GetAllAsync(null);
                 
@@ -181,7 +188,8 @@ namespace Application.Services
                                 emailContent.EmailContent,
                                 user.FirstName!,
                                 jobPost.Company.CompanyName,
-                                jobPost.JobTitle
+                                jobPost.JobTitle,
+                                skillSetString
                             );
                         }
                     }
