@@ -182,14 +182,15 @@ namespace Application.Services
                                                                                         .ThenInclude(x=>x.SkillSet));
             var skillSetIds = jobpost.JobSkillSets.Select(x=>x.SkillSetId).ToList();
 
-            var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker && u.IsLookingForJob && u.SeekerSkillSets!.Any(s =>  skillSetIds.Contains(s.SkillSetId)), x => x.Include(x => x.EducationDetails!)
+            var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker && u.IsLookingForJob && 
+                                                                   u.SeekerSkillSets!.Any(s =>  skillSetIds.Contains(s.SkillSetId)), x => x.Include(x => x.EducationDetails!)
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.SeekerSkillSets!)
                                                                                         .ThenInclude(x => x.SkillSet)
                                                                                      .Include(x => x.CVs!));
 
             var totalCount = users.Count();
-            var userPaging = users.Skip(pageIndex).Take(pageSize).ToList();
+            var userPaging = users.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             var userReponse = _mapper.Map<List<UserProfileResponse>>(userPaging);
             int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
             var paging = new PaginationResponse<UserProfileResponse>
