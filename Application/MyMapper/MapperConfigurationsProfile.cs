@@ -101,6 +101,7 @@ namespace Application.MyMapper
 
             //Company
             CreateMap<CompanyRequest, Company>();
+            CreateMap<UpdateCompanyRequest, Company>();
             CreateMap<Company, CompanyResponse>();
 
             //Education Detail

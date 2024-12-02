@@ -16,6 +16,7 @@ namespace API.Controllers
         {
             _service = service;
         }
+
         [HttpPost]
         public async Task<IActionResult> AddNewCompanyAsync(CompanyRequest companyRequest)
         {
@@ -37,6 +38,16 @@ namespace API.Controllers
             var response = await _service.AddNewCompanyAsync(companyRequest);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+
+        [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> UpdateCompanyAsync(UpdateCompanyRequest companyRequest)
+        {
+           
+            var response = await _service.UpdateCompanyAsync(companyRequest);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllCompanyAsync()
         {
