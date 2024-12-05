@@ -1,21 +1,11 @@
 ﻿using Application.Extensions;
 using Application.Interface;
 using Application.Request.Company;
-using Application.Request.JobLocation;
-using Application.Request.JobPost;
 using Application.Response;
 using Application.Response.Company;
-using Application.Response.JobLocation;
 using AutoMapper;
-using DocumentFormat.OpenXml.Vml;
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -24,10 +14,13 @@ namespace Application.Services
         private readonly IUnitOfWork _unitOfWork;
 
         private readonly IMapper _mapper;
-        public CompanyService(IUnitOfWork unitOfWork, IMapper mapper)
+        private IClaimService _claimService;
+
+        public CompanyService(IUnitOfWork unitOfWork, IMapper mapper, IClaimService claimService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _claimService = claimService;
         }
 
 
@@ -79,6 +72,33 @@ namespace Application.Services
             catch (Exception ex)
             {
                 return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException: {ex.InnerException?.Message}");
+            }
+        }
+
+
+        public async Task<ApiResponse> UpdateCompanyAsync(UpdateCompanyRequest request)
+        {
+            try
+            {
+                ApiResponse response = new ApiResponse();
+                var claim = _claimService.GetUserClaim();
+                var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == claim.Id);
+                if (user == null)
+                    return response.SetNotFound("User not found");
+
+                if (user.CompanyId != request.Id)
+                    return response.SetNotFound("User do not own this company !!");
+
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == user.CompanyId);
+
+                _mapper.Map(request, company);
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Update Success");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
             }
         }
 
@@ -175,6 +195,8 @@ namespace Application.Services
                 return new ApiResponse().SetBadRequest(ex.Message);
             }
         }
+
+
         public async Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize)
         {
             ApiResponse apiResponse = new ApiResponse();

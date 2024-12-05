@@ -1,12 +1,16 @@
 ﻿using Application.Extensions;
 using Application.Interface;
+using Application.Request.JobPost;
 using Application.Request.User;
 using Application.Response;
+using Application.Response.JobPost;
 using Application.Response.JobPostActivity;
+using Application.Response.Pagination;
 using Application.Response.User;
 using AutoMapper;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Vml;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
@@ -178,18 +182,28 @@ namespace Application.Services
                                                                                         .ThenInclude(x=>x.SkillSet));
             var skillSetIds = jobpost.JobSkillSets.Select(x=>x.SkillSetId).ToList();
 
-            var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker && u.IsLookingForJob && u.SeekerSkillSets!.Any(s =>  skillSetIds.Contains(s.SkillSetId)), x => x.Include(x => x.EducationDetails!)
+            var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker && u.IsLookingForJob && 
+                                                                   u.SeekerSkillSets!.Any(s =>  skillSetIds.Contains(s.SkillSetId)), x => x.Include(x => x.EducationDetails!)
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.SeekerSkillSets!)
                                                                                         .ThenInclude(x => x.SkillSet)
-                                                                                     .Include(x => x.CVs!),
-                                                                                     pageIndex: pageIndex,
-                                                                                     pageSize: pageSize);
+                                                                                     .Include(x => x.CVs!));
 
-            var userReponse = _mapper.Map<List<UserProfileResponse>>(users);
-            var result = userReponse.ToPaginationResponse(pageIndex, pageSize, false);
+            var totalCount = users.Count();
+            var userPaging = users.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            var userReponse = _mapper.Map<List<UserProfileResponse>>(userPaging);
+            int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+            var paging = new PaginationResponse<UserProfileResponse>
+            {
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                Items = userReponse
+            };
 
-            return response.SetOk(result);
+
+            return response.SetOk(paging);
         }
     }
 }

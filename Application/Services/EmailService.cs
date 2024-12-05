@@ -17,14 +17,15 @@ namespace Application.Services
 
         }
 
-        public async Task<ApiResponse> SendMail(string recievedUser, string emailContent, string userName, string company, string jobTitle)
+        public async Task<ApiResponse> SendMail(string recievedUser, string emailContent, string userName, string company, string jobTitle, string skillSets)
         {
             try
             {
                 // Replace placeholders with actual values
                 emailContent = emailContent.Replace("${Name}", userName)
                                            .Replace("${CompanyName}", company)
-                                           .Replace("${JobTitle}", jobTitle);
+                                           .Replace("${JobTitle}", jobTitle)
+                                           .Replace("${SkillSet}", skillSets);
 
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("HighTech", "HighTech@gmail.com"));
