@@ -1,4 +1,5 @@
 ﻿using Application.Request;
+using Application.Request.Benefit;
 using Application.Request.BusinessStream;
 
 using Application.Request.Company;
@@ -17,6 +18,7 @@ using Application.Request.SkillSet;
 using Application.Request.User;
 using Application.Request.UserJobAlertCriteria;
 using Application.Response;
+using Application.Response.Benefit;
 using Application.Response.BusinessStream;
 using Application.Response.Company;
 using Application.Response.CV;
@@ -59,7 +61,7 @@ namespace Application.MyMapper
                                   Name = x.SkillSet.Name,
                                   Description = x.SkillSet.Description,
                                   Shorthand = x.SkillSet.Shorthand
-                              }).ToList(): new List<SkillSetResponse>())
+                              }).ToList() : new List<SkillSetResponse>())
                             );
 
             //JobPost
@@ -152,10 +154,13 @@ namespace Application.MyMapper
 
             CreateMap<UserJobAlertCriteriaRequest, UserJobAlertCriteria>();
             CreateMap<UserJobAlertCriteria, UserJobAlertCriteriaResponse>();
-                            
+
 
             CreateMap<Location, LocationResponse>();
             CreateMap<UserJobAlertCriteria, UserJobAlertCriteriaResponse>();
+            //
+            CreateMap<BenefitRequest, Benefit>();
+            CreateMap<Benefit, BenefitResponse>();
 
         }
     }

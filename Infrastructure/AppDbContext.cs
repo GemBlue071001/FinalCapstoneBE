@@ -42,6 +42,9 @@ namespace Infrastructure
         public DbSet<JobPostActivityComment> JobPostActivityComments { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<UserJobAlertCriteria> UserJobAlertCriterias { get; set; }
+        public DbSet<Benefit> Benefits { get; set; }
+        public DbSet<JobPostBenefit> JobPostBenefits { get; set; }
+        public DbSet<SeekerBenefit> SeekerBenefits { get; set; }
 
 
 
@@ -78,6 +81,9 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new JobPostActivityCommentConfig());
             modelBuilder.ApplyConfiguration(new SubscriptionConfig());
             modelBuilder.ApplyConfiguration(new UserJobAlertCriteriaConfig());
+            modelBuilder.ApplyConfiguration(new BenefitConfig());
+            modelBuilder.ApplyConfiguration(new SeekerBenefitConfig());
+            modelBuilder.ApplyConfiguration(new JobPostBenefitConfig());
         }
 
     }

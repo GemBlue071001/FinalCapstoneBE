@@ -26,6 +26,9 @@ namespace Application
         public IJobPostActivityCommentRepository JobPostActivityComments { get; }
         public ISubscriptionRepository Subscriptions { get; }
         public IUserJobAlertCriteriaRepository UserJobAlertCriterias { get; }
+        public IBenefitRepository Benefits { get; }
+        public ISeekerBenefitRepository SeekerBenefits { get; }
+        public IJobPostBenefitRepository JobPostBenefits { get; }
         public Task SaveChangeAsync();
         Task<T> ExecuteScalarAsync<T>(string sql);
         Task ExecuteRawSqlAsync(string sql);

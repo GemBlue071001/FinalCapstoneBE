@@ -8,6 +8,7 @@ using Application.SignalRHub.Model;
 using Application.Worker;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Domain;
+using Domain.Entities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Hangfire;
@@ -132,6 +133,7 @@ builder.Services.AddScoped<IFileHandlingService, FileHandlingService>();
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IUserJobAlertCriteriaService, UserJobAlertCriteriaService>();
+builder.Services.AddScoped<IBenefitService, BenefitService>();
 //builder.Services.AddHostedService<JobAlertWorker>();\
 builder.Services.AddHostedService<EmailWorker>();
 
