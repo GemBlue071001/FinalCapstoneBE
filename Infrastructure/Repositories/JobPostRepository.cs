@@ -24,6 +24,8 @@ namespace Infrastructure.Repositories
                     .Include(jp => jp.Company)
                     .Include(jp => jp.JobSkillSets)
                         .ThenInclude(jssk => jssk.SkillSet)
+                         .Include(x => x.JobPostBenefits)
+                      .ThenInclude(x => x.Benefit)
                     .Select(x => new JobPost
                     {
                         Benefits = x.Benefits,
@@ -47,6 +49,7 @@ namespace Infrastructure.Repositories
                         PostingDate = x.PostingDate,
                         JobLocationId = x.JobLocationId,
                         Salary = x.Salary,
+                        JobPostBenefits = x.JobPostBenefits,
                     });
             return await query.ToListAsync();
         }
@@ -283,6 +286,8 @@ namespace Infrastructure.Repositories
                  .Include(x => x.JobType)
                  .Include(x => x.JobSkillSets)
                       .ThenInclude(x => x.SkillSet)
+                      .Include(x => x.JobPostBenefits)
+                      .ThenInclude(x => x.Benefit)
                         .Where(jp => jp.Id == jobPostId)
                     .Select(x => new JobPost
                     {
@@ -307,6 +312,8 @@ namespace Infrastructure.Repositories
                         PostingDate = x.PostingDate,
                         JobLocationId = x.JobLocationId,
                         Salary = x.Salary,
+                        JobPostBenefits = x.JobPostBenefits,
+
                     });
             return await query.FirstOrDefaultAsync();
         }
@@ -319,6 +326,8 @@ namespace Infrastructure.Repositories
                     .Include(x => x.JobType)
                     .Include(x => x.JobSkillSets)
                     .ThenInclude(x => x.SkillSet)
+                     .Include(x => x.JobPostBenefits)
+                      .ThenInclude(x => x.Benefit)
                      .Where(x => x.JobPostReviewStatus == JobPostReviewStatus.Pending)
                      .Select(x => new JobPost
                      {
@@ -343,6 +352,7 @@ namespace Infrastructure.Repositories
                          PostingDate = x.PostingDate,
                          JobLocationId = x.JobLocationId,
                          Salary = x.Salary,
+                         JobPostBenefits = x.JobPostBenefits,
                      });
             return await query.ToListAsync();
         }

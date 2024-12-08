@@ -90,7 +90,7 @@ namespace Application.Services
                     });
                 }
                 var benefits = await _unitOfWork.Benefits.GetAllAsync(u => jobPostRequest.BenefitIds.Contains(u.Id));
-                if (jobPostRequest.BenefitIds.Count != skillSets.Count)
+                if (jobPostRequest.BenefitIds.Count != benefits.Count)
                 {
                     return new ApiResponse().SetBadRequest("Benefit Id is invalid!");
                 }
@@ -248,7 +248,10 @@ namespace Application.Services
                                                                                         .ThenInclude(x => x.Location)
                                                                                   .Include(x => x.JobType)
                                                                                   .Include(x => x.JobSkillSets)
-                                                                                        .ThenInclude(x => x.SkillSet));
+                                                                                        .ThenInclude(x => x.SkillSet)
+                                                                                   .Include(x => x.JobPostBenefits)
+                                                                                        .ThenInclude(x => x.Benefit));
+
                 //var jobPosts = await _unitOfWork.JobPosts.GetJobPostsAsync();
 
                 var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);

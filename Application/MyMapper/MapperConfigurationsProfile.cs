@@ -97,7 +97,7 @@ namespace Application.MyMapper
                         .ForMember(
                                    dest => dest.BenefitObjects,
                                     opt => opt.MapFrom(src => src.JobPostBenefits
-                                   .Select(x => x.Benefit.Name)
+                                   .Select(x => x.Benefit)
                                    .ToList()));
 
             //CreateMap<UserAccount, CandidateResponse>()
