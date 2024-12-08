@@ -1,4 +1,5 @@
-﻿using Application.Response.JobType;
+﻿using Application.Response.Benefit;
+using Application.Response.JobType;
 using Application.Response.SkillSet;
 using Pgvector;
 
@@ -27,5 +28,6 @@ namespace Application.Response.JobPost
         public List<string> JobLocationAddressDetail { get; set; }
         public List<string> SkillSets { get; set; }
         public List<SkillSetResponse> SkillSetObjects { get; set; }
+        public List<BenefitResponse> BenefitObjects { get; set; }
     }
 }

@@ -62,7 +62,12 @@ namespace Application.MyMapper
                                   Description = x.SkillSet.Description,
                                   Shorthand = x.SkillSet.Shorthand
                               }).ToList() : new List<SkillSetResponse>())
-                            );
+                            )
+                            .ForMember(
+                                    dest => dest.Benefits,
+                                    opt => opt.MapFrom(src => src.SeekerBenefits
+                                   .Select(x => x.Benefit.Name)
+                                   .ToList()));
 
             //JobPost
             CreateMap<JobPostRequest, JobPost>();
@@ -88,7 +93,12 @@ namespace Application.MyMapper
                                    opt => opt.MapFrom(src => src.Company.Id))
                         .ForMember(
                                     dest => dest.WebsiteCompanyURL,
-                                    opt => opt.MapFrom(src => src.Company.WebsiteURL));
+                                    opt => opt.MapFrom(src => src.Company.WebsiteURL))
+                        .ForMember(
+                                   dest => dest.BenefitObjects,
+                                    opt => opt.MapFrom(src => src.JobPostBenefits
+                                   .Select(x => x.Benefit.Name)
+                                   .ToList()));
 
             //CreateMap<UserAccount, CandidateResponse>()
             //            .ForMember(dest => dest.CVPath,
@@ -168,7 +178,7 @@ namespace Application.MyMapper
             CreateMap<Benefit, BenefitResponse>();
 
             CreateMap<SeekerBenefitRequest, SeekerBenefit>();
-           
+
 
         }
     }
