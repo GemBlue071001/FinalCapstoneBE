@@ -73,6 +73,21 @@ namespace API.Controllers
             var result = await _service.GetAllJobSeekerRoleAsync(pageIndex, pageSize,jobPostId);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+        [Route("Benefit")]
+        [HttpPost]
+        public async Task<IActionResult> AddBenefitToUser(SeekerBenefitRequest request)
+        {
+            var result = await _service.AddBenefitToUser(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [Route("Benefit")]
+        [HttpDelete]
+        public async Task<IActionResult> RemoveBenefitToUser(SeekerBenefitRequest request)
+        {
+            var result = await _service.RemoveBenefitToUser(request);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
 
     }
 }

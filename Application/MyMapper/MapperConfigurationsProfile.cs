@@ -162,6 +162,9 @@ namespace Application.MyMapper
             CreateMap<BenefitRequest, Benefit>();
             CreateMap<Benefit, BenefitResponse>();
 
+            CreateMap<SeekerBenefitRequest, SeekerBenefit>();
+           
+
         }
     }
 }
