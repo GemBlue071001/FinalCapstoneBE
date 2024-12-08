@@ -89,6 +89,21 @@ namespace Application.Services
                         JobPost = jobPost
                     });
                 }
+                var benefits = await _unitOfWork.Benefits.GetAllAsync(u => jobPostRequest.BenefitIds.Contains(u.Id));
+                if (jobPostRequest.BenefitIds.Count != skillSets.Count)
+                {
+                    return new ApiResponse().SetBadRequest("Benefit Id is invalid!");
+                }
+                var listJobPostBenefit = new List<JobPostBenefit>();
+                foreach (var benefit in benefits)
+                {
+                    listJobPostBenefit.Add(new JobPostBenefit
+                    {
+                        BenefitId = benefit.Id,
+                        JobPost = jobPost
+                    });
+                }
+                jobPost.JobPostBenefits = listJobPostBenefit;
                 jobPost.JobSkillSets = listJobPostSkillSet;
                 jobPost.Company = company;
                 jobPost.JobType = jobType;
@@ -457,6 +472,29 @@ namespace Application.Services
                     IsDeleted = false,
                     JobPostId = id,
                     SkillSetId = skillId,
+                }).ToList());
+            }
+
+            var validBenefitIds = new List<int>();
+
+            foreach (var newId in request.BenefitIds)
+            {
+                var benefit = await _unitOfWork.Benefits.GetAsync(s => s.Id == newId);
+                if (benefit != null)
+                {
+                    validBenefitIds.Add(benefit.Id);
+                }
+            }
+            if (validBenefitIds.Count >= 0)
+            {
+                jobPost.JobPostBenefits?.Clear();
+
+                jobPost.JobPostBenefits?.AddRange(validBenefitIds.Select(benefitId => new JobPostBenefit
+                {
+                    CreatedDate = DateTime.Now,
+                    IsDeleted = false,
+                    JobPostId = id,
+                    BenefitId = benefitId,
                 }).ToList());
             }
 

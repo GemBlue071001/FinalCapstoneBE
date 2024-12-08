@@ -32,7 +32,7 @@ namespace Domain.Entities
                 var benefit = _mapper.Map<Benefit>(benefitRequest);
                 await _unitOfWork.Benefits.AddAsync(benefit);
                 await _unitOfWork.SaveChangeAsync();
-                return new ApiResponse().SetOk(benefit);
+                return new ApiResponse().SetOk("Add Success");
             }
             catch (Exception ex)
             {

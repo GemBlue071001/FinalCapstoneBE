@@ -16,6 +16,7 @@
         //public int JobLocationId { get; set; }
         public int UserId { get; set; }
         public List<int?> SkillSetIds { get; set; }
+        public List<int?> BenefitIds { get; set; }
 
     }
 }

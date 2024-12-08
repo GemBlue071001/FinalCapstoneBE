@@ -205,5 +205,53 @@ namespace Application.Services
 
             return response.SetOk(paging);
         }
+        public async Task<ApiResponse> AddBenefitToUser(SeekerBenefitRequest request)
+        {
+            try
+            {
+                var user = await _unitOfWork.UserAccounts.GetAsync(x => x.Id == request.UserId);
+                if (user == null)
+                {
+                    return new ApiResponse().SetBadRequest("User Not Found");
+                }
+
+                var benefit = await _unitOfWork.Benefits.GetAsync(x => x.Id == request.BenefitId);
+                if (benefit == null)
+                {
+                    return new ApiResponse().SetBadRequest("Benefit Not Found !");
+                }
+
+                var seekerBenefit = _mapper.Map<SeekerBenefit>(request);
+
+                await _unitOfWork.SeekerBenefits.AddAsync(seekerBenefit);
+                await _unitOfWork.SaveChangeAsync();
+
+                return new ApiResponse().SetOk(seekerBenefit.Id);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
+            }
+        }
+        public async Task<ApiResponse> RemoveBenefitToUser(SeekerBenefitRequest request)
+        {
+            try
+            {
+                var userBenefit = await _unitOfWork.SeekerBenefits.GetAsync(x => x.UserId == request.UserId && x.BenefitId == request.BenefitId);
+                if (userBenefit == null)
+                {
+                    return new ApiResponse().SetBadRequest("User Benefit Not Found !");
+                }
+
+                await _unitOfWork.SeekerSkillSets.RemoveByIdAsync(userBenefit.Id);
+                await _unitOfWork.SaveChangeAsync();
+
+                return new ApiResponse().SetOk("Remove success !");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
+            }
+        }
     }
 }
