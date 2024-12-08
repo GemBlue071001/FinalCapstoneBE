@@ -68,7 +68,7 @@ namespace Infrastructure.Repositories
                 {
                     query = query.Where(x => x.JobType.Name.ToLower().Contains(request.Keyword.ToLower()) ||
                                              x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.Keyword.ToLower())) ||
-                                             x.JobTitle.ToLower().Contains(request.Keyword!.ToLower())||
+                                             x.JobTitle.ToLower().Contains(request.Keyword!.ToLower()) ||
                                              x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.Keyword.ToLower())) ||
                                              x.Company.CompanyName.ToLower().Contains(request.Keyword.ToLower()) ||
                                              x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Keyword!.ToLower())));
@@ -150,9 +150,11 @@ namespace Infrastructure.Repositories
                 var result = await query
                     .Skip((request.PageIndex - 1) * request.PageSize)
                     .Take(request.PageSize)
+                    .OrderByDescending(x => x.ExpiryDate)
+                    .Where(x => x.ExpiryDate > DateTime.Now)
                     .ToListAsync();
 
-                return result ;
+                return result;
             }
             catch (Exception ex)
             {
@@ -172,35 +174,45 @@ namespace Infrastructure.Repositories
                     .Include(jp => jp.JobSkillSets)
                         .ThenInclude(jssk => jssk.SkillSet);
 
-                if (!string.IsNullOrEmpty(request.JobType))
+                if (!string.IsNullOrEmpty(request.Keyword))
                 {
-                    query = query.Where(x => x.JobType.Name.ToLower().Contains(request.JobType.ToLower()));
+                    query = query.Where(x => x.JobType.Name.ToLower().Contains(request.Keyword.ToLower()) ||
+                                             x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.Keyword.ToLower())) ||
+                                             x.JobTitle.ToLower().Contains(request.Keyword!.ToLower()) ||
+                                             x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.Keyword.ToLower())) ||
+                                             x.Company.CompanyName.ToLower().Contains(request.Keyword.ToLower()) ||
+                                             x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Keyword!.ToLower())));
                 }
 
-                if (!string.IsNullOrEmpty(request.JobTitle))
-                {
-                    query = query.Where(x => x.JobTitle.ToLower().Contains(request.JobTitle.ToLower()));
-                }
+                //if (!string.IsNullOrEmpty(request.JobType))
+                //{
+                //    query = query.Where(x => x.JobType.Name.ToLower().Contains(request.JobType.ToLower()));
+                //}
 
-                if (!string.IsNullOrEmpty(request.Location))
-                {
-                    query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
-                }
+                //if (!string.IsNullOrEmpty(request.JobTitle))
+                //{
+                //    query = query.Where(x => x.JobTitle.ToLower().Contains(request.JobTitle.ToLower()));
+                //}
 
-                if (!string.IsNullOrEmpty(request.City))
-                {
-                    query = query.Where(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.City.ToLower())));
-                }
+                //if (!string.IsNullOrEmpty(request.Location))
+                //{
+                //    query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
+                //}
 
-                if (!string.IsNullOrEmpty(request.CompanyName))
-                {
-                    query = query.Where(x => x.Company.CompanyName.ToLower().Contains(request.CompanyName.ToLower()));
-                }
+                //if (!string.IsNullOrEmpty(request.City))
+                //{
+                //    query = query.Where(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.City.ToLower())));
+                //}
 
-                if (!string.IsNullOrEmpty(request.SkillSet))
-                {
-                    query = query.Where(x => x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.SkillSet.ToLower())));
-                }
+                //if (!string.IsNullOrEmpty(request.CompanyName))
+                //{
+                //    query = query.Where(x => x.Company.CompanyName.ToLower().Contains(request.CompanyName.ToLower()));
+                //}
+
+                //if (!string.IsNullOrEmpty(request.SkillSet))
+                //{
+                //    query = query.Where(x => x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.SkillSet.ToLower())));
+                //}
 
                 // New array property checks
                 if (request.JobTypes != null && request.JobTypes.Any())
@@ -248,8 +260,10 @@ namespace Infrastructure.Repositories
                 {
                     query = query.Where(x => request.Experience >= x.ExperienceRequired);
                 }
-                
-                var result = await query.CountAsync();
+
+                var result = await query.OrderByDescending(x => x.ExpiryDate)
+                                        .Where(x => x.ExpiryDate > DateTime.Now)
+                                        .CountAsync();
 
                 return result;
             }
@@ -296,7 +310,7 @@ namespace Infrastructure.Repositories
                     });
             return await query.FirstOrDefaultAsync();
         }
-         public async Task<List<JobPost>> GetAllJobPostPending()
+        public async Task<List<JobPost>> GetAllJobPostPending()
         {
             IQueryable<JobPost> query = _context.JobPosts
                     .Include(x => x.Company)
@@ -307,29 +321,29 @@ namespace Infrastructure.Repositories
                     .ThenInclude(x => x.SkillSet)
                      .Where(x => x.JobPostReviewStatus == JobPostReviewStatus.Pending)
                      .Select(x => new JobPost
-                    {
-                        Benefits = x.Benefits,
-                        CompanyId = x.CompanyId,
-                        ExperienceRequired = x.ExperienceRequired,
-                        Company = x.Company,
-                        FollowJobs = x.FollowJobs,
-                        ImageURL = x.ImageURL,
-                        Id = x.Id,
-                        JobDescription = x.JobDescription,
-                        JobLocations = x.JobLocations,
-                        JobPostActivitys = x.JobPostActivitys,
-                        JobSkillSets = x.JobSkillSets,
-                        JobPostReviewStatus = x.JobPostReviewStatus,
-                        JobTitle = x.JobTitle,
-                        IsDeleted = x.IsDeleted,
-                        QualificationRequired = x.QualificationRequired,
-                        ExpiryDate = x.ExpiryDate,
-                        JobType = x.JobType,
-                        JobTypeId = x.JobTypeId,
-                        PostingDate = x.PostingDate,
-                        JobLocationId = x.JobLocationId,
-                        Salary = x.Salary,
-                    });
+                     {
+                         Benefits = x.Benefits,
+                         CompanyId = x.CompanyId,
+                         ExperienceRequired = x.ExperienceRequired,
+                         Company = x.Company,
+                         FollowJobs = x.FollowJobs,
+                         ImageURL = x.ImageURL,
+                         Id = x.Id,
+                         JobDescription = x.JobDescription,
+                         JobLocations = x.JobLocations,
+                         JobPostActivitys = x.JobPostActivitys,
+                         JobSkillSets = x.JobSkillSets,
+                         JobPostReviewStatus = x.JobPostReviewStatus,
+                         JobTitle = x.JobTitle,
+                         IsDeleted = x.IsDeleted,
+                         QualificationRequired = x.QualificationRequired,
+                         ExpiryDate = x.ExpiryDate,
+                         JobType = x.JobType,
+                         JobTypeId = x.JobTypeId,
+                         PostingDate = x.PostingDate,
+                         JobLocationId = x.JobLocationId,
+                         Salary = x.Salary,
+                     });
             return await query.ToListAsync();
         }
         public async Task<List<JobPost>> GetJobPostsByListIdAsync(List<int> jobPostIds)
@@ -369,5 +383,5 @@ namespace Infrastructure.Repositories
             return await query.ToListAsync();
         }
     }
-    
+
 }
