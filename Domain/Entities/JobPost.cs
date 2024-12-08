@@ -42,6 +42,7 @@ namespace Domain.Entities
         public List<JobSkillSet> JobSkillSets { get; set; }
         public List<JobPostActivity> JobPostActivitys { get; set; }
         public List<FollowJob> FollowJobs { get; set; }
+        public List<JobPostBenefit> JobPostBenefits { get; set; }
 
     }
 

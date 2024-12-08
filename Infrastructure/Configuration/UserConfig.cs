@@ -15,7 +15,7 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<UserAccount> builder)
         {
-            
+
 
             //builder.HasQueryFilter(x => !x.IsDeleted);
 
@@ -48,6 +48,10 @@ namespace Infrastructure.Configuration
             builder.HasMany(o => o.FollowCompanys)
                 .WithOne(o => o.UserAccount)
                 .HasForeignKey(o => o.UserId);
+
+            builder.HasMany(o => o.SeekerBenefits)
+               .WithOne(o => o.UserAccount)
+               .HasForeignKey(o => o.UserId);
 
 
 

@@ -30,6 +30,9 @@ namespace Infrastructure
         public IJobPostActivityCommentRepository JobPostActivityComments { get; }
         public ISubscriptionRepository Subscriptions { get; }
         public IUserJobAlertCriteriaRepository UserJobAlertCriterias { get; }
+        public IBenefitRepository Benefits { get; }
+        public ISeekerBenefitRepository SeekerBenefits { get; }
+        public IJobPostBenefitRepository JobPostBenefits { get; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -55,6 +58,9 @@ namespace Infrastructure
             JobPostActivityComments = new JobPostActivityCommentRepository(context);
             Subscriptions = new SubscriptionRepository(context);
             UserJobAlertCriterias = new UserJobAlertCriteriaRepository(context);
+            Benefits = new BenefitRepository(context);
+            SeekerBenefits = new SeekerBenefitRepository(context);
+            JobPostBenefits = new JobPostBenefitRepository(context);
         }
 
         public async Task SaveChangeAsync()

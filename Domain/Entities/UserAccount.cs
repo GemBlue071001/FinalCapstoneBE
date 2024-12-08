@@ -39,6 +39,7 @@ namespace Domain.Entities
         public List<EmailVerification>? EmailVerifications { get; set; }
         public List<Subscription>? Subscriptions { get; set; }
         public List<UserJobAlertCriteria> UserJobAlertCriterias { get; set; } = new List<UserJobAlertCriteria>();
+        public List<SeekerBenefit> SeekerBenefits { get; set; }
 
     }
 

@@ -31,6 +31,10 @@ namespace Infrastructure.Configuration
             builder.HasOne(o => o.JobType)
                 .WithMany(o => o.JobPosts)
                 .HasForeignKey(o => o.JobTypeId);
+            
+            builder.HasMany(o => o.JobPostBenefits)
+              .WithOne(o => o.JobPost)
+              .HasForeignKey(o => o.JobPostId);
 
             //// Định nghĩa chỉ mục HNSW cho trường Embedding
             //builder.HasIndex(j => j.Embedding)
@@ -39,10 +43,10 @@ namespace Infrastructure.Configuration
             //    .HasStorageParameter("m", 16)
             //    .HasStorageParameter("ef_construction", 64);
 
-        //    var vectorConverter = new ValueConverter<Vector, float[]>(
-        //    v => v.ToArray(),        // Convert Vector to float[]
-        //    v => new Vector(v)       // Convert float[] back to Vector
-        //);
+            //    var vectorConverter = new ValueConverter<Vector, float[]>(
+            //    v => v.ToArray(),        // Convert Vector to float[]
+            //    v => new Vector(v)       // Convert float[] back to Vector
+            //);
 
 
             //builder
