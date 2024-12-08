@@ -3,6 +3,7 @@
     public class SearchJobPostRequest
     {
         public string? CompanyName { get; set; }
+        public string? Keyword { get; set; }
         public string[]? CompanyNames { get; set; } // New array property
         public string? JobTitle { get; set; }
         public string[]? JobTitles { get; set; } // New array property

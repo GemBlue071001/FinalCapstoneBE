@@ -64,35 +64,40 @@ namespace Infrastructure.Repositories
                     .Include(jp => jp.JobSkillSets)
                         .ThenInclude(jssk => jssk.SkillSet);
 
-                if (!string.IsNullOrEmpty(request.JobType))
+                if (!string.IsNullOrEmpty(request.Keyword))
                 {
-                    query = query.Where(x => x.JobType.Name.ToLower().Contains(request.JobType.ToLower()));
+                    query = query.Where(x => x.JobType.Name.ToLower().Contains(request.Keyword.ToLower()) ||
+                                             x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.Keyword.ToLower())) ||
+                                             x.JobTitle.ToLower().Contains(request.Keyword!.ToLower())||
+                                             x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.Keyword.ToLower())) ||
+                                             x.Company.CompanyName.ToLower().Contains(request.Keyword.ToLower()) ||
+                                             x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Keyword!.ToLower())));
                 }
 
-                if (!string.IsNullOrEmpty(request.JobTitle))
-                {
-                    query = query.Where(x => x.JobTitle.ToLower().Contains(request.JobTitle.ToLower()));
-                }
+                //if (!string.IsNullOrEmpty(request.JobTitle))
+                //{
+                //    query = query.Where(x => x.JobTitle.ToLower().Contains(request.JobTitle.ToLower()));
+                //}
 
-                if (!string.IsNullOrEmpty(request.Location))
-                {
-                    query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
-                }
+                //if (!string.IsNullOrEmpty(request.Location))
+                //{
+                //    query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
+                //}
 
-                if (!string.IsNullOrEmpty(request.City))
-                {
-                    query = query.Where(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.City.ToLower())));
-                }
+                //if (!string.IsNullOrEmpty(request.City))
+                //{
+                //    query = query.Where(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.City.ToLower())));
+                //}
 
-                if (!string.IsNullOrEmpty(request.CompanyName))
-                {
-                    query = query.Where(x => x.Company.CompanyName.ToLower().Contains(request.CompanyName.ToLower()));
-                }
+                //if (!string.IsNullOrEmpty(request.CompanyName))
+                //{
+                //    query = query.Where(x => x.Company.CompanyName.ToLower().Contains(request.CompanyName.ToLower()));
+                //}
 
-                if (!string.IsNullOrEmpty(request.SkillSet))
-                {
-                    query = query.Where(x => x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.SkillSet.ToLower())));
-                }
+                //if (!string.IsNullOrEmpty(request.SkillSet))
+                //{
+                //    query = query.Where(x => x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.SkillSet.ToLower())));
+                //}
 
                 // New array property checks
                 if (request.JobTypes != null && request.JobTypes.Any())
