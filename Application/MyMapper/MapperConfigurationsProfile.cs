@@ -79,6 +79,11 @@ namespace Application.MyMapper
                                    .Select(x => x.SkillSet.Name)
                                    .ToList()))
                         .ForMember(
+                                   dest => dest.SkillSetObjects,
+                                    opt => opt.MapFrom(src => src.JobSkillSets
+                                   .Select(x => x.SkillSet)
+                                   .ToList()))
+                        .ForMember(
                                    dest => dest.CompanyId,
                                    opt => opt.MapFrom(src => src.Company.Id))
                         .ForMember(
