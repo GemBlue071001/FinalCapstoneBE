@@ -66,7 +66,7 @@ namespace Application.MyMapper
                             .ForMember(
                                     dest => dest.Benefits,
                                     opt => opt.MapFrom(src => src.SeekerBenefits
-                                   .Select(x => x.Benefit.Name)
+                                   .Select(x => x.Benefit)
                                    .ToList()));
 
             //JobPost

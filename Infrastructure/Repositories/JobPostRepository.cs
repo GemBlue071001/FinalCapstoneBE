@@ -65,7 +65,9 @@ namespace Infrastructure.Repositories
                         .ThenInclude(x => x.Location)
                     .Include(jp => jp.Company)
                     .Include(jp => jp.JobSkillSets)
-                        .ThenInclude(jssk => jssk.SkillSet);
+                        .ThenInclude(jssk => jssk.SkillSet)
+                    .Include(jp => jp.JobPostBenefits)
+                        .ThenInclude(jp => jp.Benefit);
 
                 if (!string.IsNullOrEmpty(request.Keyword))
                 {

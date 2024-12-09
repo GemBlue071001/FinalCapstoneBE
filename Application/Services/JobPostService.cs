@@ -436,7 +436,8 @@ namespace Application.Services
 
         public async Task<ApiResponse> UpdateJobPost(int id, JobPostRequest request)
         {
-            var jobPost = await _unitOfWork.JobPosts.GetAsync(post => post.Id == id, x => x.Include(p => p.JobSkillSets));
+            var jobPost = await _unitOfWork.JobPosts.GetAsync(post => post.Id == id, x => x.Include(p => p.JobSkillSets)
+                                                                                            .Include(x => x.JobPostBenefits));
 
             if (jobPost == null)
             {

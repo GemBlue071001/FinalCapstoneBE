@@ -39,6 +39,8 @@ namespace Application.Services
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.SeekerSkillSets!)
                                                                                         .ThenInclude(x => x.SkillSet)
+                                                                                     .Include(x => x.SeekerBenefits)
+                                                                                        .ThenInclude(x => x.Benefit)
                                                                                      .Include(x => x.CVs!));
             if (user == null)
                 return response.SetNotFound("User not found");

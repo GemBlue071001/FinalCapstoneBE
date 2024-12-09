@@ -20,6 +20,6 @@ namespace Application.Response.User
         public List<ExperienceDetailResponse> ExperienceDetails { get; set; } = new List<ExperienceDetailResponse>();
         public List<CVResponse> Cvs { get; set; } = new List<CVResponse>();
         public List<SkillSetResponse> SkillSets { get; set; } = new List<SkillSetResponse>();
-        public List<BenefitResponse> Benefits { get; set; } 
+        public List<BenefitResponse> Benefits { get; set; } = new List<BenefitResponse>();
     }
 }
