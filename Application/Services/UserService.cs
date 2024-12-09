@@ -245,7 +245,7 @@ namespace Application.Services
                     return new ApiResponse().SetBadRequest("User Benefit Not Found !");
                 }
 
-                await _unitOfWork.SeekerSkillSets.RemoveByIdAsync(userBenefit.Id);
+                await _unitOfWork.SeekerBenefits.RemoveByIdAsync(userBenefit.Id);
                 await _unitOfWork.SaveChangeAsync();
 
                 return new ApiResponse().SetOk("Remove success !");
