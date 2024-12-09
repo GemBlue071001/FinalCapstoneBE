@@ -181,7 +181,9 @@ namespace Application.Services
         {
             ApiResponse response = new ApiResponse();
             var jobpost = await _unitOfWork.JobPosts.GetAsync(x=>x.Id==jobPostId, x=>x.Include(x=>x.JobSkillSets)
-                                                                                        .ThenInclude(x=>x.SkillSet));
+                                                                                        .ThenInclude(x=>x.SkillSet)
+                                                                                       .Include(x => x.JobPostBenefits)
+                                                                                        .ThenInclude(x => x.Benefit));
             var skillSetIds = jobpost.JobSkillSets.Select(x=>x.SkillSetId).ToList();
 
             var users = await _unitOfWork.UserAccounts.GetAllAsync(u => u.Role == Role.JobSeeker && u.IsLookingForJob && 
@@ -189,6 +191,8 @@ namespace Application.Services
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.SeekerSkillSets!)
                                                                                         .ThenInclude(x => x.SkillSet)
+                                                                                     .Include(x => x.SeekerBenefits!)
+                                                                                        .ThenInclude(x => x.Benefit)
                                                                                      .Include(x => x.CVs!));
 
             var totalCount = users.Count();
