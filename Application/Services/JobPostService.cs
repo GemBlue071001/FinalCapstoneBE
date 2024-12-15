@@ -50,6 +50,16 @@ namespace Application.Services
         {
             try
             {
+                if (jobPostRequest.Salary < 0)
+                {
+                    return new ApiResponse().SetBadRequest("Invalid Salary input !");
+                }
+
+                if (jobPostRequest.ExpiryDate < DateTime.Now)
+                {
+                    return new ApiResponse().SetBadRequest("Invalid date !");
+                }
+
                 await ResetJobPostIdSequenceAsync();
                 var jobPost = _mapper.Map<JobPost>(jobPostRequest);
                 var company = await _unitOfWork.Companys.GetAsync(c => c.Id == jobPostRequest.CompanyId);
@@ -436,6 +446,16 @@ namespace Application.Services
 
         public async Task<ApiResponse> UpdateJobPost(int id, JobPostRequest request)
         {
+            if (request.Salary < 0)
+            {
+                return new ApiResponse().SetBadRequest("Invalid Salary input !");
+            }
+
+            if (request.ExpiryDate < DateTime.Now)
+            {
+                return new ApiResponse().SetBadRequest("Invalid date !");
+            }
+
             var jobPost = await _unitOfWork.JobPosts.GetAsync(post => post.Id == id, x => x.Include(p => p.JobSkillSets)
                                                                                             .Include(x => x.JobPostBenefits));
 

@@ -96,12 +96,6 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("test")]
-        public async Task<IActionResult> Test()
-        {
-            return Ok("result");            
-        }
-
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest user)
         {
