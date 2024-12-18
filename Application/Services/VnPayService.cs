@@ -91,6 +91,11 @@ namespace Application.Services
                 var pay = new VnPayLibrary();
                 var response = pay.GetFullResponseData(collections, _configuration["Vnpay:HashSecret"]);
 
+                if (!response.VnPayResponseCode.Equals("0"))
+                {
+                    return apiResponse.SetBadRequest("Payment Cancel!");
+                }
+
                 // Extract userId from query parameters
                 if (collections.TryGetValue("userId", out var userIdValue) && int.TryParse(userIdValue, out int userId))
                 {
