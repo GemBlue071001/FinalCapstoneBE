@@ -1,6 +1,7 @@
 ﻿using Application.Interface;
 using Application.Request.Company;
 using Application.Request.JobLocation;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -48,10 +49,10 @@ namespace API.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
-        [HttpGet("Approve")]
-        public async Task<IActionResult> GetAllCompanyAsync()
+        [HttpGet]
+        public async Task<IActionResult> GetAllCompanyAsync(CompanyStatus companyStatus=CompanyStatus.Approve)
         {
-            var response = await _service.GetAllCompanyAsync();
+            var response = await _service.GetAllCompanyAsync(companyStatus);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
         //[Authorize]

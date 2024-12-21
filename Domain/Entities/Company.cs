@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,8 +34,11 @@ namespace Domain.Entities
     }
     public enum CompanyStatus
     {
-        Pending,
-        Reject,
-        Approve,
+        [Display(Name = "Pending")]
+        Pending = 0,
+        [Display(Name = "Reject")]
+        Reject = 1,
+        [Display(Name = "Approve")]
+        Approve = 2
     }
 }

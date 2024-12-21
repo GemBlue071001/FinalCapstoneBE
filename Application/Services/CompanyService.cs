@@ -6,6 +6,7 @@ using Application.Response.Company;
 using AutoMapper;
 using Domain.Entities;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
 {
@@ -103,13 +104,14 @@ namespace Application.Services
         }
 
 
-        public async Task<ApiResponse> GetAllCompanyAsync()
+        public async Task<ApiResponse> GetAllCompanyAsync(CompanyStatus companyStatus)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                //var companies = await _unitOfWork.Companys.GetAllAsync(null, x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
-                var companies = await _unitOfWork.Companys.GetCompany();
+                var companies = await _unitOfWork.Companys.GetAllAsync(x=> x.CompanyStatus == companyStatus,
+                                                                            x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
+                //var companies = await _unitOfWork.Companys.GetCompany();
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(companies);
 
                 return new ApiResponse().SetOk(companyResponse);

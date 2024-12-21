@@ -1,5 +1,6 @@
 ﻿using Application.Request.Company;
 using Application.Response;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Application.Interface
     {
         Task<ApiResponse> AddNewCompanyAsync(CompanyRequest companyRequest);
         Task<ApiResponse> DeleteCompanyByIdAsync(int id);
-        Task<ApiResponse> GetAllCompanyAsync();
+        Task<ApiResponse> GetAllCompanyAsync(CompanyStatus companyStatus);
         Task<ApiResponse> GetCompanyDetailAsync(int companyId);
         Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize);
         Task ResetCompanyIdSequenceAsync();
