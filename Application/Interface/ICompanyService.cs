@@ -20,5 +20,6 @@ namespace Application.Interface
         Task<ApiResponse> GetCompanyDetailByNameAsync(string companyName);
         Task<ApiResponse> UpdateCompanyAsync(UpdateCompanyRequest request);
         Task<ApiResponse> GetAllPendingCompanyAsync();
+        Task<ApiResponse> UpdateCompanyStatus(UpdateCompanyStatusRequest request);
     }
 }

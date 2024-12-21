@@ -1,5 +1,6 @@
 ﻿using Application.Response.BusinessStream;
 using Application.Response.JobPost;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,9 @@ namespace Application.Response.Company
         public string Address { get; set; }
         public int NumberOfEmployees { get; set; }
         public string? ImageUrl { get; set; }
+        public CompanyStatus CompanyStatus { get; set; }
+        public string? Evidence { get; set; }
+        public string? TaxCode { get; set; }
         public BusinessStreamResponse BusinessStream { get; set; }
         public List <JobPostResponse> JobPosts { get; set; }
     }

@@ -18,6 +18,8 @@ namespace Application.Request.Company
         public int NumberOfEmployees { get; set; }
         public int BusinessStreamId { get; set; }
         public string? ImageUrl { get; set; }
+        public string? Evidence { get; set; }
+        public string? TaxCode { get; set; }
         //public List<int> JobPostsId { get; set; }
     }
 }
