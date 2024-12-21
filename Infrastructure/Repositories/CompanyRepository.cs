@@ -21,6 +21,7 @@ namespace Infrastructure.Repositories
         {
             IQueryable<Company> query = _context.Companys
                 .Include(x => x.BusinessStream) // Include the BusinessStream
+                .Where(c => c.CompanyStatus == CompanyStatus.Approve)
                 .Select(x => new Company
                 {
                     Address = x.Address,
@@ -54,7 +55,9 @@ namespace Infrastructure.Repositories
                         Salary = jp.Salary,
 
                         // Exclude Embedding field
-                    }).ToList() // Keep projection deferred, avoids immediate execution
+                    })
+                    
+                    .ToList() // Keep projection deferred, avoids immediate execution
                 });
 
             return await query.ToListAsync(); // Executes a single query to load all data
@@ -130,6 +133,51 @@ namespace Infrastructure.Repositories
 
             int totalCount = await query.CountAsync();
             return totalCount;
+        }
+        public async Task<List<Company>> GetAllCompanyPending()
+        {
+            IQueryable<Company> query = _context.Companys
+                .Include(x => x.BusinessStream) // Include the BusinessStream
+                .Where(c => c.CompanyStatus == CompanyStatus.Pending)
+                .Select(x => new Company
+                {
+                    Address = x.Address,
+                    BusinessStream = x.BusinessStream,
+                    Id = x.Id,
+                    WebsiteURL = x.WebsiteURL,
+                    CompanyName = x.CompanyName,
+                    City = x.City,
+                    Country = x.Country,
+                    EstablishedYear = x.EstablishedYear,
+                    ImageUrl = x.ImageUrl,
+                    NumberOfEmployees = x.NumberOfEmployees,
+                    CompanyDescription = x.CompanyDescription,
+                    BusinessStreamId = x.BusinessStreamId,
+                    JobPosts = x.JobPosts.Select(jp => new JobPost
+                    {
+                        Benefits = jp.Benefits,
+                        CompanyId = jp.CompanyId,
+                        ExperienceRequired = jp.ExperienceRequired,
+                        ImageURL = jp.ImageURL,
+                        Id = jp.Id,
+                        JobDescription = jp.JobDescription,
+                        JobPostReviewStatus = jp.JobPostReviewStatus,
+                        JobTitle = jp.JobTitle,
+                        IsDeleted = jp.IsDeleted,
+                        QualificationRequired = jp.QualificationRequired,
+                        ExpiryDate = jp.ExpiryDate,
+                        JobTypeId = jp.JobTypeId,
+                        PostingDate = jp.PostingDate,
+                        JobLocationId = jp.JobLocationId,
+                        Salary = jp.Salary,
+
+                       
+                    })
+                    
+                    .ToList() 
+                });
+
+            return await query.ToListAsync(); // Executes a single query to load all data
         }
 
 

@@ -48,7 +48,7 @@ namespace API.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
-        [HttpGet]
+        [HttpGet("Approve")]
         public async Task<IActionResult> GetAllCompanyAsync()
         {
             var response = await _service.GetAllCompanyAsync();
@@ -79,6 +79,12 @@ namespace API.Controllers
         public async Task<IActionResult> GetCompanyByNameAsync([FromQuery] string companyName, [FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 5)
         {
             var response = await _service.GetCompanyByNameAsync(companyName, pageIndex, pageSize);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+        [HttpGet("Pending")]
+        public async Task<IActionResult> GetAllPendingCompanyAsync()
+        {
+            var response = await _service.GetAllPendingCompanyAsync();
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }

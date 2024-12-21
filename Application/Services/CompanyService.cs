@@ -230,6 +230,29 @@ namespace Application.Services
                 return new ApiResponse().SetBadRequest($"Error: {ex.Message} - InnerException: {ex.InnerException?.Message}");
             }
         }
+        public async Task<ApiResponse> GetAllPendingCompanyAsync()
+        {
+            ApiResponse apiResponse = new ApiResponse();
+            try
+            {
+                //var companies = await _unitOfWork.Companys.GetAllAsync(null, x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
+                var companies = await _unitOfWork.Companys.GetAllCompanyPending();
+                var companyResponse = _mapper.Map<List<CompanyResponse>>(companies);
+
+                return new ApiResponse().SetOk(companyResponse);
+            }
+            catch (JsonException jsonEx)
+            {
+                // Log chi tiết lỗi JSON để kiểm tra
+                return new ApiResponse().SetBadRequest($"JSON Error: {jsonEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ khác
+                return new ApiResponse().SetBadRequest($"Error: {ex.Message} - InnerException: {ex.InnerException?.Message}");
+            }
+        }
+
 
 
     }

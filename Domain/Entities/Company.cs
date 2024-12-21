@@ -18,6 +18,9 @@ namespace Domain.Entities
         public string City { get; set; }
         public string Address { get; set; }
         public int NumberOfEmployees { get; set; }
+        public string? Evidence { get; set; }
+        public string? TaxCode { get; set; }
+        public CompanyStatus? CompanyStatus { get; set; }
 
         //Navigation Property
         public List<JobPost> JobPosts { get; set; }
@@ -27,5 +30,11 @@ namespace Domain.Entities
         public List<UserAccount>? UserAccounts { get; set; }
         public List<FollowCompany> FollowCompanys { get; set; }
         public List<EmailVerification>? EmailVerifications { get; set; }
+    }
+    public enum CompanyStatus
+    {
+        Pending,
+        Reject,
+        Approve,
     }
 }
