@@ -134,8 +134,8 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                //var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts).ThenInclude(x => x.JobSkillSets).ThenInclude(x => x.SkillSet));
-                var company = await _unitOfWork.Companys.GetCompanyByIdAsync(companyId);
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts).ThenInclude(x => x.JobSkillSets).ThenInclude(x => x.SkillSet));
+                //var company = await _unitOfWork.Companys.GetCompanyByIdAsync(companyId);
                 if(company is null)
                 {
                     return new ApiResponse().SetBadRequest("Can not found company Id " + companyId);
