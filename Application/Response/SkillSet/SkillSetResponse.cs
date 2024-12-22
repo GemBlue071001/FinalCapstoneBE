@@ -12,5 +12,6 @@ namespace Application.Response.SkillSet
         public string Name { get; set; }
         public string Shorthand { get; set; }
         public string Description { get; set; }
+        public string ProficiencyLevel { get; set; } = string.Empty;
     }
 }
