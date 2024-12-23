@@ -108,7 +108,7 @@ namespace Infrastructure.Repositories
 
             return await query.FirstOrDefaultAsync(); // Executes a single query to load all data
         }
-        public async Task<List<Company>> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize)
+        public async Task<List<Company>> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize, CompanyStatus companyStatus)
         {
             IQueryable<Company> query = _context.Companys
                 .Include(x => x.BusinessStream) // Include the BusinessStream
@@ -117,12 +117,13 @@ namespace Infrastructure.Repositories
                             (!string.IsNullOrEmpty(c.CompanyName) && c.CompanyName.ToLower().Contains(companyName.ToLower())));
 
             return await query
+                    .Where(c=> c.CompanyStatus == companyStatus)
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync(); // Executes the query and returns the results as a list
         }
 
-        public async Task<int> CountTotalPaging(string companyName)
+        public async Task<int> CountTotalPaging(string companyName, CompanyStatus companyStatus)
         {
 
             IQueryable<Company> query = _context.Companys
@@ -131,7 +132,9 @@ namespace Infrastructure.Repositories
                 .Where(c => string.IsNullOrEmpty(companyName) ||
                             (!string.IsNullOrEmpty(c.CompanyName) && c.CompanyName.ToLower().Contains(companyName.ToLower())));
 
-            int totalCount = await query.CountAsync();
+            int totalCount = await query
+                .Where(c => c.CompanyStatus == companyStatus)
+                .CountAsync();
             return totalCount;
         }
         public async Task<List<Company>> GetAllCompanyPending()

@@ -12,8 +12,8 @@ namespace Application.Repositories
     {
         Task<List<Company>> GetCompany();
         Task<Company> GetCompanyByIdAsync(int companyId);
-        Task<List<Company>> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize);
-        Task<int> CountTotalPaging(string companyName);
+        Task<List<Company>> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize, CompanyStatus companyStatus);
+        Task<int> CountTotalPaging(string companyName, CompanyStatus companyStatus);
         Task<List<Company>> GetAllCompanyPending();
     }
 }

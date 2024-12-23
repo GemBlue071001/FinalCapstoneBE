@@ -64,6 +64,7 @@ namespace Application.Services
                 }
 
                 company.BusinessStreamId = businessStream.Id;
+                company.CompanyStatus = CompanyStatus.Pending;
 
                 await _unitOfWork.Companys.AddAsync(company);
                 await _unitOfWork.SaveChangeAsync();
@@ -133,8 +134,8 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                //var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts).ThenInclude(x => x.JobSkillSets).ThenInclude(x => x.SkillSet));
-                var company = await _unitOfWork.Companys.GetCompanyByIdAsync(companyId);
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts).ThenInclude(x => x.JobSkillSets).ThenInclude(x => x.SkillSet));
+                //var company = await _unitOfWork.Companys.GetCompanyByIdAsync(companyId);
                 if(company is null)
                 {
                     return new ApiResponse().SetBadRequest("Can not found company Id " + companyId);
@@ -199,7 +200,7 @@ namespace Application.Services
         }
 
 
-        public async Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize)
+        public async Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize , CompanyStatus companyStatus)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
@@ -207,8 +208,8 @@ namespace Application.Services
                 /* var company = await _unitOfWork.Companys.GetAsync(c => c.CompanyName != null &&
                                                                     c.CompanyName.ToLower().Contains(companyName.ToLower())
                                                                  , x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));*/
-                var company = await _unitOfWork.Companys.GetCompanyByNameAsync(companyName, pageIndex, pageSize);
-                var totalCount = await _unitOfWork.Companys.CountTotalPaging(companyName);
+                var company = await _unitOfWork.Companys.GetCompanyByNameAsync(companyName, pageIndex, pageSize, companyStatus);
+                var totalCount = await _unitOfWork.Companys.CountTotalPaging(companyName, companyStatus);
                /* if (company == null)
                 {
                     return apiResponse.SetBadRequest("Can not found companyName: " + companyName);
@@ -252,6 +253,28 @@ namespace Application.Services
             {
                 // Xử lý ngoại lệ khác
                 return new ApiResponse().SetBadRequest($"Error: {ex.Message} - InnerException: {ex.InnerException?.Message}");
+            }
+        }
+        public async Task<ApiResponse> UpdateCompanyStatus(UpdateCompanyStatusRequest request)
+        {
+            try
+            {
+                ApiResponse response = new ApiResponse();
+                var company = await _unitOfWork.Companys.GetAsync(x=> x.Id == request.CompanyId);
+                if (company is null)
+                {
+                    return new ApiResponse().SetBadRequest("Can not found company Id " + request.CompanyId);
+                }
+                company.CompanyStatus = request.CompanyStatus;
+                
+               
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Update Success");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
             }
         }
 

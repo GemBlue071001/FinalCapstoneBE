@@ -60,6 +60,7 @@ namespace Application.MyMapper
                                   Id = x.SkillSet.Id,
                                   Name = x.SkillSet.Name,
                                   Description = x.SkillSet.Description,
+                                  ProficiencyLevel = x.ProficiencyLevel,
                                   Shorthand = x.SkillSet.Shorthand
                               }).ToList() : new List<SkillSetResponse>())
                             )
