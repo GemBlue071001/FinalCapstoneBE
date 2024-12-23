@@ -77,9 +77,12 @@ namespace API.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
         [HttpGet("company-name")]
-        public async Task<IActionResult> GetCompanyByNameAsync([FromQuery] string companyName, [FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 5)
+        public async Task<IActionResult> GetCompanyByNameAsync([FromQuery] string companyName, 
+                                                               [FromQuery] int pageIndex = 1, 
+                                                               [FromQuery] int pageSize = 5, 
+                                                               [FromQuery] CompanyStatus companyStatus = CompanyStatus.Approve)
         {
-            var response = await _service.GetCompanyByNameAsync(companyName, pageIndex, pageSize);
+            var response = await _service.GetCompanyByNameAsync(companyName, pageIndex, pageSize, companyStatus);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
         [HttpGet("Pending")]

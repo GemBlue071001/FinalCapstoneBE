@@ -15,7 +15,7 @@ namespace Application.Interface
         Task<ApiResponse> DeleteCompanyByIdAsync(int id);
         Task<ApiResponse> GetAllCompanyAsync(CompanyStatus companyStatus);
         Task<ApiResponse> GetCompanyDetailAsync(int companyId);
-        Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize);
+        Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize, CompanyStatus companyStatus);
         Task ResetCompanyIdSequenceAsync();
         Task<ApiResponse> GetCompanyDetailByNameAsync(string companyName);
         Task<ApiResponse> UpdateCompanyAsync(UpdateCompanyRequest request);

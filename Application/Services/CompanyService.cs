@@ -200,7 +200,7 @@ namespace Application.Services
         }
 
 
-        public async Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize)
+        public async Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize , CompanyStatus companyStatus)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
@@ -208,8 +208,8 @@ namespace Application.Services
                 /* var company = await _unitOfWork.Companys.GetAsync(c => c.CompanyName != null &&
                                                                     c.CompanyName.ToLower().Contains(companyName.ToLower())
                                                                  , x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));*/
-                var company = await _unitOfWork.Companys.GetCompanyByNameAsync(companyName, pageIndex, pageSize);
-                var totalCount = await _unitOfWork.Companys.CountTotalPaging(companyName);
+                var company = await _unitOfWork.Companys.GetCompanyByNameAsync(companyName, pageIndex, pageSize, companyStatus);
+                var totalCount = await _unitOfWork.Companys.CountTotalPaging(companyName, companyStatus);
                /* if (company == null)
                 {
                     return apiResponse.SetBadRequest("Can not found companyName: " + companyName);
