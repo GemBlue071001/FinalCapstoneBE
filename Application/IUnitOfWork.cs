@@ -29,6 +29,7 @@ namespace Application
         public IBenefitRepository Benefits { get; }
         public ISeekerBenefitRepository SeekerBenefits { get; }
         public IJobPostBenefitRepository JobPostBenefits { get; }
+        public IFeedBackRepository FeedBacks { get; }
         public Task SaveChangeAsync();
         Task<T> ExecuteScalarAsync<T>(string sql);
         Task ExecuteRawSqlAsync(string sql);

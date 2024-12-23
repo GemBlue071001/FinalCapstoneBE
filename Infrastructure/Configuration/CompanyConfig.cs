@@ -33,6 +33,9 @@ namespace Infrastructure.Configuration
                 .WithOne(o => o.Company)
                 .HasForeignKey(o => o.CompanyId);
 
+            builder.HasMany(o => o.FeedBacks)
+                .WithOne(o => o.Company)
+                .HasForeignKey(o => o.CompanyId);
 
             builder.HasData(new Company()
             {

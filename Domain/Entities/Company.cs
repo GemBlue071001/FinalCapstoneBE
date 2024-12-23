@@ -31,6 +31,7 @@ namespace Domain.Entities
         public List<UserAccount>? UserAccounts { get; set; }
         public List<FollowCompany> FollowCompanys { get; set; }
         public List<EmailVerification>? EmailVerifications { get; set; }
+        public List<FeedBack> FeedBacks { get; set; }
     }
     public enum CompanyStatus
     {

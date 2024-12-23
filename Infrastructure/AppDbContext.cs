@@ -45,6 +45,7 @@ namespace Infrastructure
         public DbSet<Benefit> Benefits { get; set; }
         public DbSet<JobPostBenefit> JobPostBenefits { get; set; }
         public DbSet<SeekerBenefit> SeekerBenefits { get; set; }
+        public DbSet<FeedBack> FeedBacks { get; set; }
 
 
 
@@ -84,6 +85,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new BenefitConfig());
             modelBuilder.ApplyConfiguration(new SeekerBenefitConfig());
             modelBuilder.ApplyConfiguration(new JobPostBenefitConfig());
+            modelBuilder.ApplyConfiguration(new FeedBackConfig());
         }
 
     }
