@@ -91,7 +91,7 @@ namespace Application.Services
                 var pay = new VnPayLibrary();
                 var response = pay.GetFullResponseData(collections, _configuration["Vnpay:HashSecret"]);
 
-                if (!response.VnPayResponseCode.Equals("0"))
+                if (!response.VnPayResponseCode.Equals("00"))
                 {
                     return apiResponse.SetBadRequest("Payment Cancel!");
                 }
