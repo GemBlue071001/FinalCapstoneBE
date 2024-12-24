@@ -14,5 +14,7 @@ namespace Application.Request.User
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         public bool IsLookingForJob { get; set; }
+
+        public string? CoverLetter { get; set; }
     }
 }

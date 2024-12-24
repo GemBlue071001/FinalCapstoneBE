@@ -31,10 +31,12 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
         private readonly ApiSettings _apiSettings;
+        private readonly IClaimService _service;
 
-        public JobPostService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService, IOptions<AppSettings> appSettings)
+        public JobPostService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService, IOptions<AppSettings> appSettings, IClaimService service)
         {
             _unitOfWork = unitOfWork;
+            _service= service;
             _mapper = mapper;
             _emailService = emailService;
             _apiSettings = appSettings.Value.ApiSettings;
@@ -50,6 +52,18 @@ namespace Application.Services
         {
             try
             {
+                //var claim = _service.GetUserClaim();
+                var account = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == jobPostRequest.UserId);
+                if (account.NumberOFPostLeft <= 0 || account.NumberOFPostLeft == null)
+                {
+                    return new ApiResponse().SetBadRequest("You cannot post!!!");
+                }
+
+                
+                account.NumberOFPostLeft -= 1;
+                await _unitOfWork.UserAccounts.AddAsync(account);
+                await _unitOfWork.SaveChangeAsync();
+
                 if (jobPostRequest.Salary < 0)
                 {
                     return new ApiResponse().SetBadRequest("Invalid Salary input !");
