@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Application.Response.Feedback
 {
-    public class Review
+    public class ReviewReponse
     {
         public int Id { get; set; }
         public int Rating { get; set; }
@@ -21,19 +21,7 @@ namespace Domain.Entities
         public string ExperienceContent { get; set; }
         public string SuggestionContent { get; set; }
         public bool Recommened { get; set; }
-        public ReviewStatus ReviewStatus { get; set; }
-        public string? ReasonToReject { get; set; }
-        public UserAccount UserAccount { get; set; }
-        public int? UserId { get; set; }
-        public Company Company { get; set; }
-        public int? CompanyId { get; set; }
 
-    }
-
-    public enum ReviewStatus
-    {
-        Pending,
-        Approve,
-        Reject
+        public string CompanyNName { get; set; }
     }
 }

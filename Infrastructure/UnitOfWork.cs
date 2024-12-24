@@ -1,6 +1,7 @@
 ﻿using Application;
 using Application.Repositories;
 using Application.Repository;
+using Application.Services;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +28,7 @@ namespace Infrastructure
         public IEmailTemplateRepository EmailTemplates { get; }
         public IEmailVerificationRepository EmailVerifications { get; }
         public IFollowJobRepository FollowJobs { get; }
+        public IReviewRepository Reviews { get; }
         public IJobPostActivityCommentRepository JobPostActivityComments { get; }
         public ISubscriptionRepository Subscriptions { get; }
         public IUserJobAlertCriteriaRepository UserJobAlertCriterias { get; }
@@ -50,6 +52,7 @@ namespace Infrastructure
             BusinessStreams = new BusinessStreamRepository(context);
             JobPostActivities = new JobPostActivityRepository(context);
             CVs = new CVRepository(context);
+            Reviews = new ReviewRepository(context);
             SeekerSkillSets = new SeekerSkillSetRepository(context);
             FollowCompanies = new FollowCompanyRepository(context);
             Notifcations = new NotificationRepository(context);

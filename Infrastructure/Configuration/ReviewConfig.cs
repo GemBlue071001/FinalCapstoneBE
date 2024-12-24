@@ -20,6 +20,10 @@ namespace Infrastructure.Configuration
             builder.HasOne(o => o.Company)
              .WithMany(o => o.Reviews)
              .HasForeignKey(o => o.CompanyId);
+
+            /*builder.HasMany(o => o.ReviewDetails)
+                .WithOne(o => o.Review)
+                .HasForeignKey(o => o.ReviewId);*/
         }
     }
 }

@@ -6,6 +6,7 @@ using Application.Request.Company;
 using Application.Request.CV;
 using Application.Request.EducationDetail;
 using Application.Request.ExperienceDetail;
+using Application.Request.Feedback;
 using Application.Request.FollowCompany;
 using Application.Request.FollowJob;
 using Application.Request.JobLocation;
@@ -22,6 +23,7 @@ using Application.Response.Benefit;
 using Application.Response.BusinessStream;
 using Application.Response.Company;
 using Application.Response.CV;
+using Application.Response.Feedback;
 using Application.Response.FollowCompany;
 using Application.Response.FollowJob;
 using Application.Response.JobLocation;
@@ -180,7 +182,10 @@ namespace Application.MyMapper
 
             CreateMap<SeekerBenefitRequest, SeekerBenefit>();
 
-
+            //Review
+            CreateMap<ReviewRequest, Review>();
+            CreateMap<Review, ReviewReponse>()
+                .ForMember(dest => dest.CompanyNName, opt => opt.MapFrom(src => src.Company.CompanyName));
         }
     }
 }

@@ -134,6 +134,7 @@ builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IUserJobAlertCriteriaService, UserJobAlertCriteriaService>();
 builder.Services.AddScoped<IBenefitService, BenefitService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 //builder.Services.AddHostedService<JobAlertWorker>();\
 builder.Services.AddHostedService<EmailWorker>();
 
