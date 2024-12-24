@@ -17,6 +17,7 @@ namespace API.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "Employer")]
         [HttpPost]
         public async Task<IActionResult> AddNewJobPostAsync(JobPostRequest request)
         {
