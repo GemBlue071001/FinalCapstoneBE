@@ -21,6 +21,8 @@ namespace Domain.Entities
         public bool IsPremium { get; set; }
         public DateTime? PremiumExpireDate { get; set; }
         public bool IsLookingForJob { get; set; }
+        public string? CoverLetter { get; set; }
+        public int? NumberOFPostLeft { get; set; }
 
         //Navigation Property
         public Company? Company { get; set; }

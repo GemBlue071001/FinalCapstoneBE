@@ -54,7 +54,7 @@ namespace Application.Services
 
                 model.Name = "Pro Supcription";
                 model.Amount = 10000000;
-                model.OrderDescription = "Pro Supcription";
+                model.OrderDescription = "Pro Supcription Have";
                 model.OrderType = "Pro";
             } 
             else

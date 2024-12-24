@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
-    public class JobPost: Base
+    public class JobPost : Base
     {
         public int Id { get; set; }
         public string JobTitle { get; set; }
         public string JobDescription { get; set; }
         public decimal Salary { get; set; }
+        public decimal? Minsalary { get; set; }
         //public string Currency { get; set; }
         //public string EmploymentType { get; set; }
         public DateTime PostingDate { get; set; }
@@ -32,7 +33,7 @@ namespace Domain.Entities
 
         //Navigation Property
         public UserAccount UserAccount { get; set; }
-        public JobType  JobType { get; set; }
+        public JobType JobType { get; set; }
         public Company Company { get; set; }
         public List<JobLocation> JobLocations { get; set; } = new List<JobLocation>();
         public int? UserId { get; set; }
