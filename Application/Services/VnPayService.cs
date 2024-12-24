@@ -46,7 +46,7 @@ namespace Application.Services
             {
                 model.Name = "Basic Supcription";
                 model.Amount = 6000000;
-                model.OrderDescription = "Basic Supcription";
+                model.OrderDescription = "Basic Supcription You will have 10 post";
                 model.OrderType = "Basic";
             }
             else if (request.OrderType == 2)
@@ -54,7 +54,7 @@ namespace Application.Services
 
                 model.Name = "Pro Supcription";
                 model.Amount = 10000000;
-                model.OrderDescription = "Pro Supcription Have";
+                model.OrderDescription = "Pro Supcription You will have 20 post";
                 model.OrderType = "Pro";
             } 
             else
@@ -107,7 +107,7 @@ namespace Application.Services
 
                         if (user != null)
                         {
-                            if (user.IsPremium)
+                            /*if (user.IsPremium)
                             {
                                 user.PremiumExpireDate = user.PremiumExpireDate.HasValue
                                     ? user.PremiumExpireDate.Value.AddYears(1)
@@ -117,15 +117,30 @@ namespace Application.Services
                             {
                                 user.IsPremium = true;
                                 user.PremiumExpireDate = DateTime.Now.AddYears(1);
-                            }
+                            }*/
                             if (collections.TryGetValue("amount", out var amountValue) && int.TryParse(amountValue, out int amount))
                             {
+                                if (amount == 6000000) 
+                                {
+                                    user.NumberOFPostLeft = (user.NumberOFPostLeft ?? 0) + 10;
+                                }
+                                else if (amount == 10000000) 
+                                {
+                                    user.NumberOFPostLeft = (user.NumberOFPostLeft ?? 0) + 20;
+                                    user.IsPremium = true;
+                                    user.PremiumExpireDate = DateTime.Now.AddYears(1);
+                                }
+                                else
+                                {
+                                    return apiResponse.SetBadRequest("Invalid payment amount.");
+                                }
+
                                 var sub = new Subscription
                                 {
                                     UserId = userId,
                                     PaymentAmount = amount,
                                     SubscriptionDate = DateTime.Now,
-                                    ExpiredDate = (DateTime)user.PremiumExpireDate,
+                                    //ExpiredDate = amount == 0 ? null : user.PremiumExpireDate,
                                 };
 
                                 await _unitOfWork.Subscriptions.AddAsync(sub);
