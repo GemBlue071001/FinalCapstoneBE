@@ -29,7 +29,7 @@ namespace Application
         public IBenefitRepository Benefits { get; }
         public ISeekerBenefitRepository SeekerBenefits { get; }
         public IJobPostBenefitRepository JobPostBenefits { get; }
-        public IFeedBackRepository FeedBacks { get; }
+        //public IFeedBackRepository FeedBacks { get; }
 
         public IReviewRepository Reviews { get; }
         public Task SaveChangeAsync();

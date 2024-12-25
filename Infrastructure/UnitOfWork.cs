@@ -35,7 +35,7 @@ namespace Infrastructure
         public IBenefitRepository Benefits { get; }
         public ISeekerBenefitRepository SeekerBenefits { get; }
         public IJobPostBenefitRepository JobPostBenefits { get; }
-        public IFeedBackRepository FeedBacks { get; }
+        //public IFeedBackRepository FeedBacks { get; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -65,7 +65,7 @@ namespace Infrastructure
             Benefits = new BenefitRepository(context);
             SeekerBenefits = new SeekerBenefitRepository(context);
             JobPostBenefits = new JobPostBenefitRepository(context);
-            FeedBacks = new FeedBackRepository(context);
+            //FeedBacks = new FeedBackRepository(context);
         }
 
         public async Task SaveChangeAsync()
