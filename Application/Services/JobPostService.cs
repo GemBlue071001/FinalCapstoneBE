@@ -64,6 +64,10 @@ namespace Application.Services
                 await _unitOfWork.UserAccounts.AddAsync(account);
                 await _unitOfWork.SaveChangeAsync();
 
+                if(jobPostRequest.Minsalary >= jobPostRequest.Salary)
+                {
+                    return new ApiResponse().SetBadRequest("Min Salary can not larger than Max Salary");
+                }
                 if (jobPostRequest.Salary < 0)
                 {
                     return new ApiResponse().SetBadRequest("Invalid Salary input !");
@@ -92,12 +96,12 @@ namespace Application.Services
                 {
                     return new ApiResponse().SetBadRequest("User not found");
                 }
-                if (user.PremiumExpireDate < DateTime.Now)
+                /*if (user.PremiumExpireDate < DateTime.Now)
                 {
                     user.IsPremium = false;
                     await _unitOfWork.SaveChangeAsync();
                     return new ApiResponse().SetBadRequest("User must be Premium to post");
-                }
+                }*/
                 var skillSets = await _unitOfWork.SkillSets.GetAllAsync(u => jobPostRequest.SkillSetIds.Contains(u.Id));
                 if (jobPostRequest.SkillSetIds.Count != skillSets.Count)
                 {

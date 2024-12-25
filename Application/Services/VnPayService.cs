@@ -36,11 +36,11 @@ namespace Application.Services
             // Get user claim to include user ID in the callback URL
             var claim = _claimService.GetUserClaim();
             var userId = claim.Id;
-            var existingSubscription = await _unitOfWork.Subscriptions.GetSubscriptionByUserIdAsync(userId);
+            /*var existingSubscription = await _unitOfWork.Subscriptions.GetSubscriptionByUserIdAsync(userId);
             if (existingSubscription != null && existingSubscription.ExpiredDate > timeNow)
             {
                 return response.SetBadRequest("You already have an active subscription.");
-            }
+            }*/
             var model = new PaymentInformation();
             if (request.OrderType == 1)
             {
@@ -122,13 +122,21 @@ namespace Application.Services
                             {
                                 if (amount == 6000000) 
                                 {
-                                    user.NumberOFPostLeft = (user.NumberOFPostLeft ?? 0) + 10;
+                                    if (user.NumberOFPostLeft == null)
+                                    {
+                                        user.NumberOFPostLeft = 0;
+                                    }
+
+                                    user.NumberOFPostLeft += 10;
                                 }
                                 else if (amount == 10000000) 
                                 {
-                                    user.NumberOFPostLeft = (user.NumberOFPostLeft ?? 0) + 20;
-                                    user.IsPremium = true;
-                                    user.PremiumExpireDate = DateTime.Now.AddYears(1);
+                                    if (user.NumberOFPostLeft == null)
+                                    {
+                                        user.NumberOFPostLeft = 0;
+                                    }
+
+                                    user.NumberOFPostLeft += 20;
                                 }
                                 else
                                 {

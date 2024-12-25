@@ -5,6 +5,7 @@
         public string JobTitle { get; set; }
         public string JobDescription { get; set; }
         public decimal Salary { get; set; }
+        public decimal Minsalary { get; set; }
         public DateTime ExpiryDate { get; set; }
         public int ExperienceRequired { get; set; }
         public string QualificationRequired { get; set; }
