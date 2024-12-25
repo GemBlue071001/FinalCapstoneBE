@@ -59,9 +59,8 @@ namespace Application.Services
                     return new ApiResponse().SetBadRequest("You cannot post!!!");
                 }
 
-                
                 account.NumberOFPostLeft -= 1;
-                await _unitOfWork.UserAccounts.AddAsync(account);
+
                 await _unitOfWork.SaveChangeAsync();
 
                 if(jobPostRequest.Minsalary >= jobPostRequest.Salary)

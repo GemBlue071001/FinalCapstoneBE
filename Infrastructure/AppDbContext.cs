@@ -45,7 +45,7 @@ namespace Infrastructure
         public DbSet<Benefit> Benefits { get; set; }
         public DbSet<JobPostBenefit> JobPostBenefits { get; set; }
         public DbSet<SeekerBenefit> SeekerBenefits { get; set; }
-        public DbSet<FeedBack> FeedBacks { get; set; }
+        //public DbSet<FeedBack> FeedBacks { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<UserService> UserServices { get; set; }
 
