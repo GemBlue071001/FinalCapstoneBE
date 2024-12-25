@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Service
+    public class Service : Base
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int NumberOfPost { get; set; }
+        //
+        public List<UserService> UserServices { get; set; }
     }
 }

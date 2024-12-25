@@ -43,6 +43,7 @@ namespace Domain.Entities
         public List<UserJobAlertCriteria> UserJobAlertCriterias { get; set; } = new List<UserJobAlertCriteria>();
         public List<SeekerBenefit> SeekerBenefits { get; set; }
         public List<FeedBack> FeedBacks { get; set; }
+        public List<UserService> UserServices { get; set; }
 
     }
 
