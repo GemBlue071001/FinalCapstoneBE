@@ -23,6 +23,7 @@ namespace Domain.Entities
         //public int? SkillLevelRequired { get; set; }
         public string? Benefits { get; set; }
         public bool IsActive { get; set; }
+        public bool? IsHot { get; set; }
 
         //[Column(TypeName = "vector(384)")]
         //public Vector? Embedding { get; set; }

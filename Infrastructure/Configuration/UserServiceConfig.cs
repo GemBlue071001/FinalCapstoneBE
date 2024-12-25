@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
-    public class UserServiceConfig : IEntityTypeConfiguration<UserService>
+    public class UserServiceConfig : IEntityTypeConfiguration<UserAccountService>
     {
-        public void Configure(EntityTypeBuilder<UserService> builder)
+        public void Configure(EntityTypeBuilder<UserAccountService> builder)
         {
             builder.HasOne(x => x.UserAccount)
                     .WithMany(x => x.UserServices)

@@ -13,6 +13,6 @@ namespace Domain.Entities
         public string Description { get; set; }
         public int NumberOfPost { get; set; }
         //
-        public List<UserService> UserServices { get; set; }
+        public List<UserAccountService> UserServices { get; set; }
     }
 }
