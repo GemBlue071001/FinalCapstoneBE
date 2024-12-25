@@ -9,6 +9,7 @@ namespace Domain.Entities
     public class UserAccountService : Base
     {
         public int Id { get; set; }
+        public int NumberOfPostLeft { get; set; }
         //
         public UserAccount UserAccount { get; set; }
         public int UserId { get; set; }
