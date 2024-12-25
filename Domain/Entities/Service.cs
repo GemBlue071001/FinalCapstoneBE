@@ -12,6 +12,7 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public int NumberOfPost { get; set; }
+        public decimal  Price { get; set; }
         //
         public List<UserAccountService> UserServices { get; set; }
     }
