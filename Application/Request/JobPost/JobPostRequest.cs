@@ -16,6 +16,7 @@
         public string? ImageURL { get; set; }
         //public int JobLocationId { get; set; }
         public int UserId { get; set; }
+        public int ServiceId { get; set; }
         public List<int?> SkillSetIds { get; set; }
         public List<int?> BenefitIds { get; set; }
 

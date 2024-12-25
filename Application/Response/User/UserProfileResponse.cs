@@ -2,6 +2,7 @@
 using Application.Response.Benefit;
 using Application.Response.CV;
 using Application.Response.SkillSet;
+using Application.Response.UserAccountService;
 using Domain.Entities;
 namespace Application.Response.User
 
@@ -23,5 +24,6 @@ namespace Application.Response.User
         public List<CVResponse> Cvs { get; set; } = new List<CVResponse>();
         public List<SkillSetResponse> SkillSets { get; set; } = new List<SkillSetResponse>();
         public List<BenefitResponse> Benefits { get; set; } = new List<BenefitResponse>();
+        public List<UserAccountServiceResponse> UserAccountServices { get; set; }
     }
 }

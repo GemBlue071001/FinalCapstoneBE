@@ -36,7 +36,7 @@ namespace Application.Services
         public JobPostService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService, IOptions<AppSettings> appSettings, IClaimService service)
         {
             _unitOfWork = unitOfWork;
-            _service= service;
+            _service = service;
             _mapper = mapper;
             _emailService = emailService;
             _apiSettings = appSettings.Value.ApiSettings;
@@ -52,18 +52,7 @@ namespace Application.Services
         {
             try
             {
-                //var claim = _service.GetUserClaim();
-                var account = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == jobPostRequest.UserId);
-                if (account.NumberOFPostLeft <= 0 || account.NumberOFPostLeft == null)
-                {
-                    return new ApiResponse().SetBadRequest("You cannot post!!!");
-                }
-
-                account.NumberOFPostLeft -= 1;
-
-                await _unitOfWork.SaveChangeAsync();
-
-                if(jobPostRequest.Minsalary >= jobPostRequest.Salary)
+                if (jobPostRequest.Minsalary >= jobPostRequest.Salary)
                 {
                     return new ApiResponse().SetBadRequest("Min Salary can not larger than Max Salary");
                 }
@@ -94,6 +83,21 @@ namespace Application.Services
                 if (user == null)
                 {
                     return new ApiResponse().SetBadRequest("User not found");
+                }
+                var service = await _unitOfWork.Services.GetAsync(x => x.Id == jobPostRequest.ServiceId);
+                if (service == null)
+                {
+                    return new ApiResponse().SetBadRequest($"Service id {jobPostRequest.ServiceId} not found");
+                }
+                var userService = await _unitOfWork.UserAccountServices.GetAsync(uas => uas.UserId == user.Id && uas.ServiceId == jobPostRequest.ServiceId && uas.NumberOfPostLeft > 0);
+
+                if (userService == null)
+                {
+                    return new ApiResponse().SetBadRequest("User does not have enough posts left to create a job post.");
+                }
+                if (userService.ServiceId != 1)
+                {
+                    jobPost.IsHot = true;
                 }
                 /*if (user.PremiumExpireDate < DateTime.Now)
                 {
@@ -142,6 +146,8 @@ namespace Application.Services
                 // Generate a vector for the job post
 
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
+
+                userService.NumberOfPostLeft -= 1;
                 await _unitOfWork.SaveChangeAsync();
 
                 var jobPostToEmbed = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPost.Id);
@@ -198,10 +204,10 @@ namespace Application.Services
                         await _emailService.SendMail(userEmail!, emailContent.EmailContent, $"{userEmail}", company.CompanyName, jobPost.JobTitle, skillSetString);
                     }
                 }
-               
+
                 // Fetch all users with job alert criteria
                 var userJobAlertCriterias = await _unitOfWork.UserJobAlertCriterias.GetAllAsync(null);
-                
+
 
                 foreach (var criteria in userJobAlertCriterias)
                 {
@@ -247,7 +253,7 @@ namespace Application.Services
         private async Task<string> GetJobPostEmbeddingAsync(JobPostResponse jobPostResponse)
         {
             // Prepare the data for embedding based on the jobPost object
-          
+
             // Call the embedding API (assuming it's an HTTP endpoint)
             using (var client = new HttpClient())
             {
@@ -566,7 +572,15 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var jobPosts = await _unitOfWork.JobPosts.GetAllJobPostPending();
+                //var jobPosts = await _unitOfWork.JobPosts.GetAllJobPostPending();
+                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x => x.JobPostReviewStatus == JobPostReviewStatus.Pending, x => x.Include(x => x.Company)
+                                                                            .Include(x => x.JobLocations)
+                                                                            .ThenInclude(x => x.Location)
+                                                                            .Include(x => x.JobType)
+                                                                            .Include(x => x.JobSkillSets)
+                                                                            .ThenInclude(x => x.SkillSet)
+                                                                            .Include(x => x.JobPostBenefits)
+                                                                            .ThenInclude(x => x.Benefit));
                 var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);
                 return new ApiResponse().SetOk(jobPostsResponse);
             }
@@ -577,7 +591,7 @@ namespace Application.Services
         }
 
         public async Task<ApiResponse> SeedsData()
-        {   
+        {
             string currentDirectory = Directory.GetCurrentDirectory();
             string parentDirectory = Directory.GetParent(currentDirectory).FullName;
 
@@ -634,7 +648,7 @@ namespace Application.Services
                 var searchResponseJson = JsonConvert.DeserializeObject<dynamic>(searchResponseContent);
 
                 // Lấy danh sách IDs
-                List<int> ids =((IEnumerable<dynamic>)searchResponseJson.ids).Select(id => (int)id).ToList();
+                List<int> ids = ((IEnumerable<dynamic>)searchResponseJson.ids).Select(id => (int)id).ToList();
 
                 var jobPosts = await FetchJobPostsByIdsAsync(ids);
 
@@ -669,9 +683,9 @@ namespace Application.Services
             return _mapper.Map<List<JobPostResponse>>(jobPosts);
         }
 
-        
-    
 
 
-}
+
+
+    }
 }
