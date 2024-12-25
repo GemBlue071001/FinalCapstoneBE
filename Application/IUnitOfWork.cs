@@ -32,6 +32,7 @@ namespace Application
         //public IFeedBackRepository FeedBacks { get; }
 
         public IReviewRepository Reviews { get; }
+        public IServiceRepository Services { get; }
         public Task SaveChangeAsync();
         Task<T> ExecuteScalarAsync<T>(string sql);
         Task ExecuteRawSqlAsync(string sql);

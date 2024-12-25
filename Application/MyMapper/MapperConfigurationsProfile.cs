@@ -15,6 +15,7 @@ using Application.Request.JobPostActivity;
 using Application.Request.JobPostActivityComment;
 using Application.Request.JobType;
 using Application.Request.SeekerProfile;
+using Application.Request.Service;
 using Application.Request.SkillSet;
 using Application.Request.User;
 using Application.Request.UserJobAlertCriteria;
@@ -33,6 +34,7 @@ using Application.Response.JobPostActivityComment;
 using Application.Response.JobType;
 using Application.Response.Location;
 using Application.Response.SeekerProfile;
+using Application.Response.Service;
 using Application.Response.SkillSet;
 using Application.Response.Subscription;
 using Application.Response.User;
@@ -186,6 +188,11 @@ namespace Application.MyMapper
             CreateMap<ReviewRequest, Review>();
             CreateMap<Review, ReviewReponse>()
                 .ForMember(dest => dest.CompanyNName, opt => opt.MapFrom(src => src.Company.CompanyName));
+
+            //Service
+            CreateMap<ServiceRequest, Service>();
+            CreateMap<Service, ServiceResponse>();
+            
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Infrastructure
         public IUserAccountServiceRepository UserServices { get; }
 
         //public IFeedBackRepository FeedBacks { get; }
-        public IServiceRepository Services { get; set; }
+        public IServiceRepository Services { get; }
 
         public UnitOfWork(AppDbContext context)
         {
