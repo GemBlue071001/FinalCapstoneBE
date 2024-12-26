@@ -15,5 +15,6 @@ namespace Domain.Entities
         public decimal Price { get; set; }
         //
         public List<UserAccountService> UserServices { get; set; }
+        public List<Subscription> Subscriptions { get; set; }
     }
 }

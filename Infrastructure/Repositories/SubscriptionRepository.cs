@@ -19,7 +19,7 @@ namespace Infrastructure.Repositories
            
             return await _context.Subscriptions
                 .Where(s => s.UserId == userId)
-                .OrderByDescending(s => s.ExpiredDate) 
+                //.OrderByDescending(s => s.ExpiredDate) 
                 .FirstOrDefaultAsync(); 
         }
     }

@@ -16,6 +16,10 @@ namespace Infrastructure.Configuration
             builder.HasOne(o => o.UserAccount)
                .WithMany(o => o.Subscriptions)
                .HasForeignKey(o => o.UserId);
+
+            builder.HasOne(o => o.Service)
+              .WithMany(o => o.Subscriptions)
+              .HasForeignKey(o => o.ServiceId);
         }
     }
 }
