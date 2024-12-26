@@ -137,15 +137,16 @@ namespace Application.Services
 
                                     await _unitOfWork.UserAccountServices.AddAsync(userAccountService);
                                 }
-                                /*var sub = new Subscription
+                                var sub = new Subscription
                                 {
                                     UserId = userId,
                                     PaymentAmount = amount,
                                     SubscriptionDate = DateTime.Now,
+                                    ServiceId = service.Id,
                                     //ExpiredDate = amount == 0 ? null : user.PremiumExpireDate,
-                                };*/
+                                };
 
-                                //await _unitOfWork.Subscriptions.AddAsync(sub);
+                                await _unitOfWork.Subscriptions.AddAsync(sub);
                             }
                             else
                             {

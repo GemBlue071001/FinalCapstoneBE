@@ -22,6 +22,7 @@ using Application.Response.Pagination;
 using Application.Request.CV;
 using Application.Queues;
 using Hangfire.Storage.Monitoring;
+using System.Linq;
 
 namespace Application.Services
 {
@@ -95,9 +96,14 @@ namespace Application.Services
                 {
                     return new ApiResponse().SetBadRequest("User does not have enough posts left to create a job post.");
                 }
-                if (userService.ServiceId != 1)
+
+                if (userService.Service.isHot.Value != false)
                 {
                     jobPost.IsHot = true;
+                }
+                else
+                {
+                    jobPost.IsHot = false;
                 }
                 /*if (user.PremiumExpireDate < DateTime.Now)
                 {
