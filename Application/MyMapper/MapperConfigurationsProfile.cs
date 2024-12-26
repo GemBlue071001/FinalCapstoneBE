@@ -145,6 +145,7 @@ namespace Application.MyMapper
             //Company
             CreateMap<CompanyRequest, Company>();
             CreateMap<UpdateCompanyRequest, Company>();
+            CreateMap<UpdateCompanyRejectRequest, Company>();
             CreateMap<Company, CompanyResponse>();
 
             //Education Detail
