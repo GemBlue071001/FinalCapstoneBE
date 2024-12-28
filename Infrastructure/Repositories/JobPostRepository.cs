@@ -150,6 +150,15 @@ namespace Infrastructure.Repositories
                 {
                     query = query.Where(x => request.Experience >= x.ExperienceRequired);
                 }
+                if (!string.IsNullOrEmpty(request.Benefit))
+                {
+                    query = query.Where(x => x.JobPostBenefits.Any(benefit => benefit.Benefit.Name.ToLower().Contains(request.Benefit.ToLower())));
+                }
+
+                if (request.Benefits != null && request.Benefits.Any())
+                {
+                    query = query.Where(x => x.JobPostBenefits.Any(benefit => request.Benefits.Any(b => benefit.Benefit.Name.ToLower().Contains(b.ToLower()))));
+                }
 
                 // Apply pagination
                 var result = await query
