@@ -18,6 +18,8 @@
         public int? Experience { get; set; }
         public string? JobType { get; set; }
         public string[]? JobTypes { get; set; } // New array property
+        public string? Benefit { get; set; }
+        public string[]? Benefits { get; set; }
         public int PageIndex { get; set; } = 1;
         public int PageSize { get; set; } = 5;
     }
