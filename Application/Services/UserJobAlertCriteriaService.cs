@@ -151,7 +151,7 @@ namespace Application.Services
 
                 if (!string.IsNullOrEmpty(user?.Email) && jobs.Count > 0)
                 {
-                    await _emailService.SendValidationEmail(user.Email, content);
+                    await _emailService.SendMatchingJobEmail(user.Email, content);
                 }
             }
         }
