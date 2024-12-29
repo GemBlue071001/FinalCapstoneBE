@@ -98,6 +98,14 @@ namespace API.Controllers
             var response = await _service.UpdateCompanyStatus(companyRequest);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+        [Authorize]
+        [HttpPut("Reject")]
+        public async Task<IActionResult> UpdateCompanyRejectAsync(UpdateCompanyRejectRequest companyRequest)
+        {
+
+            var response = await _service.UpdateCompanyRejectAsync(companyRequest);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
 
     }
 }

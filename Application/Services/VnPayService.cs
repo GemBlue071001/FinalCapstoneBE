@@ -41,26 +41,20 @@ namespace Application.Services
             {
                 return response.SetBadRequest("You already have an active subscription.");
             }*/
-            var model = new PaymentInformation();
-            if (request.OrderType == 1)
-            {
-                model.Name = "Basic Supcription";
-                model.Amount = 6000000;
-                model.OrderDescription = "Basic Supcription You will have 10 post";
-                model.OrderType = "Basic";
-            }
-            else if (request.OrderType == 2)
-            {
 
-                model.Name = "Pro Supcription";
-                model.Amount = 10000000;
-                model.OrderDescription = "Pro Supcription You will have 20 post";
-                model.OrderType = "Pro";
-            } 
-            else
+            var service = await _unitOfWork.Services.GetAsync(s => s.Id == request.OrderType);
+            if (service == null)
             {
-                return response.SetBadRequest("Invalid OrderType ! Value must be 1 or 2");
+                return response.SetBadRequest("Invalid Service Id!");
             }
+
+            var model = new PaymentInformation();
+
+            model.Name = service.Name;
+            model.Amount = (double)service.Price;
+            model.OrderDescription = service.Description;
+            model.OrderType = "Basic";
+
 
 
             // Include the user ID as a query parameter in the callback URL
@@ -120,34 +114,35 @@ namespace Application.Services
                             }*/
                             if (collections.TryGetValue("amount", out var amountValue) && int.TryParse(amountValue, out int amount))
                             {
-                                if (amount == 6000000) 
-                                {
-                                    if (user.NumberOFPostLeft == null)
-                                    {
-                                        user.NumberOFPostLeft = 0;
-                                    }
-
-                                    user.NumberOFPostLeft += 10;
-                                }
-                                else if (amount == 10000000) 
-                                {
-                                    if (user.NumberOFPostLeft == null)
-                                    {
-                                        user.NumberOFPostLeft = 0;
-                                    }
-
-                                    user.NumberOFPostLeft += 20;
-                                }
-                                else
+                                var service = await _unitOfWork.Services.GetAsync(s => s.Price == amount);
+                                if (service == null)
                                 {
                                     return apiResponse.SetBadRequest("Invalid payment amount.");
                                 }
+                                var existingUserService = await _unitOfWork.UserAccountServices.GetAsync(uas => uas.UserId == userId && uas.ServiceId == service.Id);
+                                if (existingUserService != null)
+                                {
+                                    
+                                    existingUserService.NumberOfPostLeft += service.NumberOfPost;
+                                    await _unitOfWork.SaveChangeAsync();
+                                }
+                                else
+                                {
+                                    var userAccountService = new UserAccountService
+                                    {
+                                        UserId = userId,
+                                        ServiceId = service.Id,
+                                        NumberOfPostLeft = service.NumberOfPost
+                                    };
 
+                                    await _unitOfWork.UserAccountServices.AddAsync(userAccountService);
+                                }
                                 var sub = new Subscription
                                 {
                                     UserId = userId,
                                     PaymentAmount = amount,
                                     SubscriptionDate = DateTime.Now,
+                                    ServiceId = service.Id,
                                     //ExpiredDate = amount == 0 ? null : user.PremiumExpireDate,
                                 };
 

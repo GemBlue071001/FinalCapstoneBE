@@ -11,6 +11,7 @@ namespace Application.Response.JobPost
         public string JobTitle { get; set; }
         public string JobDescription { get; set; }
         public decimal Salary { get; set; }
+        public decimal Minsalary { get; set; }
         public DateTime PostingDate { get; set; }
         public DateTime ExpiryDate { get; set; }
         public int ExperienceRequired { get; set; }
@@ -18,6 +19,7 @@ namespace Application.Response.JobPost
         public string Benefits { get; set; }
         public string? ImageURL { get; set; }
         public bool IsActive { get; set; }
+        public bool IsHot { get; set; }
         public Vector? Embedding { get; set; }
         //public UserResponse User { get; set; }
         public int CompanyId { get; set; }

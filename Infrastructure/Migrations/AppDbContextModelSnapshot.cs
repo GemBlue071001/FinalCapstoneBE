@@ -95,7 +95,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             BusinessStreamName = "Tech",
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 374, DateTimeKind.Utc).AddTicks(9220),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 663, DateTimeKind.Utc).AddTicks(6425),
                             Description = "Tech Industry",
                             IsDeleted = false
                         });
@@ -214,7 +214,7 @@ namespace Infrastructure.Migrations
                             CompanyDescription = "Tech Company",
                             CompanyName = "Fpt Software",
                             Country = "VietNam",
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 375, DateTimeKind.Utc).AddTicks(3992),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 664, DateTimeKind.Utc).AddTicks(4845),
                             EstablishedYear = 2008,
                             IsDeleted = false,
                             NumberOfEmployees = 1000,
@@ -229,7 +229,7 @@ namespace Infrastructure.Migrations
                             CompanyDescription = "Tech Company",
                             CompanyName = "High Tech",
                             Country = "VietNam",
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 375, DateTimeKind.Utc).AddTicks(3998),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 664, DateTimeKind.Utc).AddTicks(4856),
                             EstablishedYear = 2008,
                             IsDeleted = false,
                             NumberOfEmployees = 50,
@@ -1090,6 +1090,9 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<bool?>("isHot")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.ToTable("Services");
@@ -1136,7 +1139,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9459),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5123),
                             Description = "Business Analyst",
                             IsDeleted = false,
                             Name = "Business Analyst",
@@ -1145,7 +1148,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9464),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5129),
                             Description = "C#",
                             IsDeleted = false,
                             Name = "C#",
@@ -1154,7 +1157,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9466),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5131),
                             Description = "Java Script",
                             IsDeleted = false,
                             Name = "Java Script",
@@ -1163,168 +1166,168 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 200,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9467),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5133),
                             IsDeleted = false,
                             Name = "Angular"
                         },
                         new
                         {
                             Id = 201,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9468),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5134),
                             IsDeleted = false,
                             Name = "AWS"
                         },
                         new
                         {
                             Id = 202,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9469),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5135),
                             IsDeleted = false,
                             Name = "Bridge Engineer"
                         },
                         new
                         {
                             Id = 203,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9520),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5136),
                             IsDeleted = false,
                             Name = "C++"
                         },
                         new
                         {
                             Id = 204,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9521),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5137),
                             IsDeleted = false,
                             Name = "CSS"
                         },
                         new
                         {
                             Id = 205,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9522),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5139),
                             IsDeleted = false,
                             Name = "Kotlin"
                         },
                         new
                         {
                             Id = 206,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9523),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5140),
                             IsDeleted = false,
                             Name = "Magento"
                         },
                         new
                         {
                             Id = 207,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9524),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5141),
                             IsDeleted = false,
                             Name = "MySQL"
                         },
                         new
                         {
                             Id = 208,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9525),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5142),
                             IsDeleted = false,
                             Name = "NextJS"
                         },
                         new
                         {
                             Id = 209,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9526),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5143),
                             IsDeleted = false,
                             Name = "OOP"
                         },
                         new
                         {
                             Id = 210,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9526),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5144),
                             IsDeleted = false,
                             Name = "PQA"
                         },
                         new
                         {
                             Id = 211,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9527),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5145),
                             IsDeleted = false,
                             Name = "ReactJS"
                         },
                         new
                         {
                             Id = 212,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9528),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5147),
                             IsDeleted = false,
                             Name = "Solution Architect"
                         },
                         new
                         {
                             Id = 213,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9529),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5148),
                             IsDeleted = false,
                             Name = "Security"
                         },
                         new
                         {
                             Id = 214,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9530),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5149),
                             IsDeleted = false,
                             Name = "TypeScript"
                         },
                         new
                         {
                             Id = 215,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9531),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5151),
                             IsDeleted = false,
                             Name = "Agile"
                         },
                         new
                         {
                             Id = 216,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9532),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5152),
                             IsDeleted = false,
                             Name = "ASP.NET"
                         },
                         new
                         {
                             Id = 217,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9532),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5153),
                             IsDeleted = false,
                             Name = "Big Data"
                         },
                         new
                         {
                             Id = 218,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9534),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5154),
                             IsDeleted = false,
                             Name = "Cloud"
                         },
                         new
                         {
                             Id = 219,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9534),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5163),
                             IsDeleted = false,
                             Name = "Data Analyst"
                         },
                         new
                         {
                             Id = 220,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9535),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5169),
                             IsDeleted = false,
                             Name = "DevSecOps"
                         },
                         new
                         {
                             Id = 221,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9536),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5170),
                             IsDeleted = false,
                             Name = "HTML5"
                         },
                         new
                         {
                             Id = 222,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9537),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5172),
                             IsDeleted = false,
                             Name = "JQuery"
                         },
                         new
                         {
                             Id = 223,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 377, DateTimeKind.Utc).AddTicks(9538),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 668, DateTimeKind.Utc).AddTicks(5173),
                             IsDeleted = false,
                             Name = "SQL"
                         });
@@ -1344,9 +1347,6 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("ExpiredDate")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -1359,6 +1359,9 @@ namespace Infrastructure.Migrations
                     b.Property<double>("PaymentAmount")
                         .HasColumnType("double precision");
 
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("SubscriptionDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -1366,6 +1369,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
 
                     b.HasIndex("UserId");
 
@@ -1452,57 +1457,57 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 374, DateTimeKind.Utc).AddTicks(7750),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 663, DateTimeKind.Utc).AddTicks(3561),
                             Email = "User1@gmail.com",
                             IsDeleted = false,
                             IsEmailVerified = false,
                             IsLookingForJob = false,
                             IsPremium = false,
                             LastName = "User1",
-                            PasswordHash = new byte[] { 147, 138, 36, 231, 199, 184, 208, 62, 255, 74, 231, 255, 228, 56, 255, 173, 112, 68, 166, 9, 171, 77, 114, 200, 167, 50, 229, 250, 63, 17, 33, 128, 10, 126, 48, 248, 191, 130, 15, 55, 38, 109, 120, 155, 56, 187, 197, 116, 39, 250, 210, 78, 232, 35, 220, 29, 155, 71, 206, 4, 168, 205, 18, 86 },
-                            PasswordSalt = new byte[] { 46, 117, 51, 82, 113, 56, 143, 2, 253, 20, 198, 197, 21, 219, 222, 145, 159, 194, 190, 212, 61, 86, 175, 1, 73, 102, 125, 194, 67, 237, 242, 149, 118, 3, 151, 108, 149, 121, 185, 66, 174, 62, 165, 112, 145, 71, 190, 26, 102, 88, 169, 221, 17, 61, 249, 49, 27, 22, 9, 124, 45, 218, 238, 185, 215, 72, 162, 198, 1, 159, 136, 43, 218, 58, 23, 30, 192, 205, 246, 221, 119, 10, 55, 162, 189, 158, 195, 59, 144, 222, 170, 118, 108, 206, 31, 75, 147, 10, 148, 45, 228, 42, 41, 6, 177, 134, 80, 182, 189, 53, 177, 148, 140, 229, 57, 173, 41, 255, 25, 31, 84, 88, 246, 106, 246, 113, 76, 120 },
+                            PasswordHash = new byte[] { 42, 33, 183, 182, 194, 154, 68, 135, 189, 96, 230, 187, 59, 186, 115, 249, 30, 114, 132, 152, 128, 70, 255, 30, 134, 64, 120, 23, 235, 213, 239, 77, 219, 252, 134, 23, 12, 76, 226, 32, 148, 46, 173, 160, 73, 156, 226, 27, 70, 211, 174, 164, 19, 198, 19, 206, 46, 252, 8, 89, 151, 136, 184, 105 },
+                            PasswordSalt = new byte[] { 96, 22, 102, 253, 28, 124, 103, 129, 103, 11, 217, 56, 91, 169, 224, 184, 147, 76, 44, 188, 46, 45, 203, 47, 208, 115, 176, 177, 69, 135, 43, 39, 176, 238, 22, 50, 16, 214, 194, 215, 114, 179, 16, 66, 63, 105, 216, 161, 197, 178, 215, 250, 225, 197, 255, 227, 210, 241, 245, 180, 102, 77, 108, 32, 204, 205, 152, 61, 84, 1, 21, 87, 163, 134, 2, 67, 120, 38, 98, 197, 195, 214, 168, 130, 204, 254, 23, 254, 239, 229, 38, 66, 252, 168, 89, 179, 226, 242, 8, 225, 32, 83, 132, 74, 182, 196, 169, 226, 45, 72, 90, 26, 222, 201, 49, 139, 16, 145, 153, 174, 165, 132, 214, 255, 231, 237, 79, 175 },
                             Role = 0
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 374, DateTimeKind.Utc).AddTicks(7757),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 663, DateTimeKind.Utc).AddTicks(3577),
                             Email = "User2@gmail.com",
                             IsDeleted = false,
                             IsEmailVerified = false,
                             IsLookingForJob = false,
                             IsPremium = false,
                             LastName = "User2",
-                            PasswordHash = new byte[] { 156, 166, 190, 81, 146, 197, 226, 43, 65, 67, 134, 105, 27, 220, 195, 154, 168, 248, 250, 88, 122, 176, 166, 96, 182, 97, 33, 1, 50, 10, 23, 114, 199, 94, 166, 51, 56, 233, 92, 233, 101, 99, 244, 168, 242, 245, 255, 35, 20, 61, 33, 172, 130, 7, 108, 137, 132, 124, 63, 76, 168, 23, 58, 251 },
-                            PasswordSalt = new byte[] { 223, 253, 53, 197, 4, 2, 197, 176, 1, 200, 27, 24, 173, 246, 155, 147, 248, 192, 103, 55, 202, 183, 39, 119, 184, 32, 46, 247, 4, 155, 245, 235, 41, 21, 192, 51, 180, 67, 193, 233, 244, 221, 172, 189, 48, 57, 212, 58, 98, 191, 48, 61, 123, 96, 140, 20, 95, 30, 188, 109, 75, 179, 179, 157, 248, 111, 227, 7, 50, 216, 73, 9, 123, 184, 54, 41, 90, 47, 39, 188, 4, 37, 73, 4, 104, 76, 175, 128, 80, 93, 0, 133, 182, 216, 200, 15, 250, 39, 111, 170, 245, 14, 187, 30, 22, 220, 5, 204, 75, 93, 130, 169, 203, 90, 206, 169, 58, 125, 7, 141, 138, 217, 58, 20, 175, 40, 7, 190 },
+                            PasswordHash = new byte[] { 236, 147, 216, 55, 91, 48, 126, 197, 183, 167, 57, 135, 238, 192, 63, 56, 180, 209, 64, 82, 129, 71, 229, 176, 184, 15, 95, 79, 233, 47, 147, 237, 159, 45, 45, 0, 157, 56, 218, 61, 74, 133, 237, 40, 113, 232, 217, 127, 68, 219, 71, 46, 122, 97, 57, 75, 20, 67, 157, 207, 73, 137, 115, 178 },
+                            PasswordSalt = new byte[] { 240, 78, 45, 0, 236, 230, 96, 127, 133, 4, 144, 81, 56, 81, 34, 19, 174, 108, 20, 209, 126, 118, 64, 125, 49, 21, 150, 6, 227, 71, 22, 17, 215, 199, 247, 186, 67, 70, 109, 14, 117, 202, 132, 253, 252, 25, 215, 69, 35, 198, 21, 70, 245, 220, 176, 123, 227, 126, 216, 245, 104, 209, 33, 51, 8, 239, 183, 35, 133, 94, 21, 209, 198, 246, 52, 205, 41, 12, 77, 238, 145, 49, 209, 93, 24, 207, 194, 22, 242, 49, 182, 31, 17, 233, 214, 228, 128, 215, 104, 195, 66, 213, 172, 167, 14, 143, 218, 237, 156, 92, 151, 119, 164, 70, 62, 198, 128, 238, 127, 49, 7, 66, 127, 56, 56, 86, 166, 75 },
                             Role = 0
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 374, DateTimeKind.Utc).AddTicks(7759),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 663, DateTimeKind.Utc).AddTicks(3580),
                             Email = "Employer@gmail.com",
                             IsDeleted = false,
                             IsEmailVerified = false,
                             IsLookingForJob = false,
                             IsPremium = false,
                             LastName = "Employer",
-                            PasswordHash = new byte[] { 124, 125, 33, 53, 168, 111, 49, 161, 131, 66, 135, 47, 28, 253, 198, 63, 230, 125, 221, 222, 83, 15, 208, 86, 252, 10, 94, 48, 191, 3, 41, 95, 68, 133, 23, 70, 73, 4, 95, 114, 106, 87, 154, 218, 74, 192, 219, 183, 122, 45, 40, 81, 169, 205, 107, 23, 128, 207, 155, 243, 82, 49, 253, 159 },
-                            PasswordSalt = new byte[] { 15, 156, 24, 62, 30, 254, 158, 15, 72, 106, 253, 241, 158, 143, 203, 203, 218, 96, 234, 225, 20, 82, 73, 83, 24, 194, 199, 100, 20, 202, 179, 151, 187, 96, 253, 216, 255, 2, 140, 203, 186, 94, 72, 138, 220, 173, 16, 97, 150, 73, 107, 183, 173, 90, 208, 208, 243, 131, 215, 54, 107, 224, 132, 217, 18, 14, 251, 86, 204, 33, 122, 167, 168, 255, 209, 58, 207, 253, 104, 131, 121, 166, 49, 3, 181, 124, 200, 106, 98, 215, 155, 112, 108, 210, 204, 19, 133, 89, 56, 207, 101, 255, 18, 195, 150, 33, 171, 63, 63, 201, 185, 28, 160, 138, 140, 224, 70, 169, 151, 211, 201, 31, 201, 211, 63, 37, 84, 38 },
+                            PasswordHash = new byte[] { 106, 25, 192, 177, 51, 206, 197, 158, 61, 87, 195, 15, 140, 121, 91, 145, 33, 195, 233, 34, 102, 222, 200, 163, 238, 47, 197, 35, 68, 120, 214, 40, 1, 29, 255, 133, 80, 152, 228, 116, 200, 229, 56, 236, 126, 85, 153, 30, 121, 44, 94, 242, 147, 79, 90, 97, 15, 244, 23, 185, 104, 136, 39, 122 },
+                            PasswordSalt = new byte[] { 5, 214, 176, 138, 123, 25, 215, 158, 233, 118, 68, 59, 24, 77, 180, 188, 55, 83, 158, 180, 160, 251, 173, 134, 77, 55, 60, 192, 148, 228, 133, 74, 153, 64, 3, 115, 242, 91, 62, 248, 144, 181, 27, 189, 91, 123, 152, 20, 204, 84, 203, 222, 24, 214, 109, 28, 44, 125, 64, 199, 66, 11, 138, 86, 134, 156, 236, 1, 76, 146, 180, 119, 94, 34, 9, 10, 93, 150, 160, 162, 246, 173, 66, 255, 199, 5, 82, 46, 52, 192, 122, 68, 46, 197, 52, 29, 85, 51, 90, 165, 215, 142, 111, 33, 73, 168, 134, 106, 249, 106, 74, 37, 173, 182, 135, 70, 32, 197, 182, 241, 65, 106, 175, 199, 5, 253, 223, 74 },
                             Role = 1
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 12, 25, 8, 20, 56, 374, DateTimeKind.Utc).AddTicks(7761),
+                            CreatedDate = new DateTime(2024, 12, 26, 8, 35, 24, 663, DateTimeKind.Utc).AddTicks(3582),
                             Email = "Admin@gmail.com",
                             IsDeleted = false,
                             IsEmailVerified = false,
                             IsLookingForJob = false,
                             IsPremium = false,
                             LastName = "Admin",
-                            PasswordHash = new byte[] { 28, 107, 90, 95, 99, 246, 178, 98, 105, 220, 253, 141, 59, 47, 160, 252, 59, 164, 118, 129, 210, 141, 2, 88, 217, 185, 29, 250, 57, 26, 224, 187, 222, 43, 153, 75, 150, 117, 209, 41, 23, 49, 40, 201, 254, 67, 86, 172, 189, 22, 168, 115, 243, 115, 130, 132, 114, 159, 145, 103, 110, 99, 70, 223 },
-                            PasswordSalt = new byte[] { 126, 18, 216, 31, 50, 83, 217, 99, 208, 17, 39, 229, 142, 0, 36, 18, 136, 17, 161, 92, 28, 187, 94, 94, 78, 98, 95, 107, 28, 116, 148, 97, 144, 117, 227, 171, 61, 102, 221, 12, 222, 170, 249, 231, 4, 38, 15, 25, 217, 48, 213, 13, 28, 215, 200, 135, 25, 50, 50, 235, 83, 251, 6, 178, 39, 174, 196, 75, 201, 122, 194, 7, 96, 128, 57, 126, 38, 166, 207, 46, 132, 38, 46, 248, 128, 205, 7, 107, 224, 21, 0, 106, 95, 115, 115, 165, 142, 194, 110, 240, 95, 231, 82, 20, 208, 50, 106, 171, 151, 202, 119, 111, 47, 249, 27, 93, 253, 171, 229, 227, 143, 82, 93, 4, 65, 166, 210, 222 },
+                            PasswordHash = new byte[] { 165, 33, 53, 186, 28, 53, 132, 232, 115, 143, 226, 190, 71, 173, 65, 105, 247, 121, 200, 14, 88, 15, 205, 25, 132, 242, 185, 251, 202, 104, 74, 237, 223, 101, 59, 154, 179, 248, 252, 167, 35, 115, 88, 92, 192, 117, 35, 186, 222, 25, 229, 54, 179, 77, 154, 42, 113, 82, 77, 99, 24, 84, 5, 229 },
+                            PasswordSalt = new byte[] { 4, 24, 161, 87, 175, 196, 0, 249, 150, 15, 69, 144, 37, 223, 10, 194, 235, 48, 241, 250, 78, 231, 120, 121, 104, 98, 20, 226, 182, 94, 41, 64, 184, 233, 188, 162, 189, 122, 235, 139, 183, 107, 193, 114, 124, 108, 68, 179, 196, 210, 21, 225, 4, 194, 204, 10, 74, 204, 32, 171, 209, 10, 132, 6, 44, 25, 226, 156, 183, 53, 169, 99, 177, 126, 91, 91, 251, 18, 69, 196, 204, 203, 177, 227, 210, 14, 70, 56, 171, 26, 39, 118, 233, 176, 213, 217, 124, 116, 39, 66, 216, 25, 159, 89, 165, 185, 80, 227, 90, 248, 169, 73, 41, 0, 255, 229, 147, 246, 237, 221, 14, 147, 7, 120, 68, 27, 163, 215 },
                             Role = 2
                         });
                 });
@@ -1529,6 +1534,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("NumberOfPostLeft")
+                        .HasColumnType("integer");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("integer");
@@ -1841,11 +1849,17 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Subscription", b =>
                 {
+                    b.HasOne("Domain.Entities.Service", "Service")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("ServiceId");
+
                     b.HasOne("Domain.Entities.UserAccount", "UserAccount")
                         .WithMany("Subscriptions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Service");
 
                     b.Navigation("UserAccount");
                 });
@@ -1971,6 +1985,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Service", b =>
                 {
+                    b.Navigation("Subscriptions");
+
                     b.Navigation("UserServices");
                 });
 

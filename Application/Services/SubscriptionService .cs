@@ -29,7 +29,8 @@ namespace Application.Services
             try
             {   
                 var subscriptions = await _unitOfWork.Subscriptions.GetAllAsync(x => x.UserId == UserId);
-                var subscriptionSetResponse = _mapper.Map<List<SubscriptionResponse>>(subscriptions);
+                var sortedSubscriptions = subscriptions.OrderByDescending(x => x.SubscriptionDate).ToList();
+                var subscriptionSetResponse = _mapper.Map<List<SubscriptionResponse>>(sortedSubscriptions);
                 return new ApiResponse().SetOk(subscriptionSetResponse);
             }
             catch (Exception ex)

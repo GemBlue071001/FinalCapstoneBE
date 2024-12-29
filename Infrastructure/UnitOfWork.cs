@@ -35,7 +35,7 @@ namespace Infrastructure
         public IBenefitRepository Benefits { get; }
         public ISeekerBenefitRepository SeekerBenefits { get; }
         public IJobPostBenefitRepository JobPostBenefits { get; }
-        public IUserAccountServiceRepository UserServices { get; }
+        public IUserAccountServiceRepository UserAccountServices { get; }
 
         //public IFeedBackRepository FeedBacks { get; }
         public IServiceRepository Services { get; }
@@ -70,7 +70,7 @@ namespace Infrastructure
             JobPostBenefits = new JobPostBenefitRepository(context);
             //FeedBacks = new FeedBackRepository(context);
             Services = new ServiceRepository(context);
-            UserServices = new UserAccountServiceRepository(context);
+            UserAccountServices = new UserAccountServiceRepository(context);
         }
 
         public async Task SaveChangeAsync()

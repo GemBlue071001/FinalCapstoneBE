@@ -38,6 +38,7 @@ using Application.Response.Service;
 using Application.Response.SkillSet;
 using Application.Response.Subscription;
 using Application.Response.User;
+using Application.Response.UserAccountService;
 using Application.Response.UserJobAlertCriteria;
 using AutoMapper;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
@@ -69,10 +70,30 @@ namespace Application.MyMapper
                               }).ToList() : new List<SkillSetResponse>())
                             )
                             .ForMember(
-                                    dest => dest.Benefits,
-                                    opt => opt.MapFrom(src => src.SeekerBenefits
-                                   .Select(x => x.Benefit)
-                                   .ToList()));
+                                        dest => dest.Benefits,
+                                        opt => opt.MapFrom(src => src.SeekerBenefits
+                                        .Select(x => x.Benefit)
+                                        .ToList())
+                             )
+                            .ForMember(
+                                         dest => dest.UserAccountServices,
+                                         opt => opt.MapFrom(src => src.UserServices != null
+                                         ? src.UserServices
+                                         .Select(uas => new UserAccountServiceResponse
+                                             {
+                                                Id = uas.Id,
+                                                 NumberOfPostLeft = uas.NumberOfPostLeft,
+                                                 ServiceResponse = new ServiceResponse
+                                                {
+                                                        Id = uas.Service.Id,
+                                                        Name = uas.Service.Name,
+                                                        Description = uas.Service.Description,
+                                                        NumberOfPost = uas.Service.NumberOfPost,
+                                                        Price = uas.Service.Price
+                                                 }
+                                         }).ToList()
+                                    : new List<UserAccountServiceResponse>())
+                             );
 
             //JobPost
             CreateMap<JobPostRequest, JobPost>();
@@ -124,6 +145,7 @@ namespace Application.MyMapper
             //Company
             CreateMap<CompanyRequest, Company>();
             CreateMap<UpdateCompanyRequest, Company>();
+            CreateMap<UpdateCompanyRejectRequest, Company>();
             CreateMap<Company, CompanyResponse>();
 
             //Education Detail

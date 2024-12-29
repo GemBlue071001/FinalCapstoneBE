@@ -277,6 +277,31 @@ namespace Application.Services
                 return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
             }
         }
+        public async Task<ApiResponse> UpdateCompanyRejectAsync(UpdateCompanyRejectRequest request)
+        {
+            try
+            {
+                ApiResponse response = new ApiResponse();
+                var claim = _claimService.GetUserClaim();
+                var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == claim.Id);
+                if (user == null)
+                    return response.SetNotFound("User not found");
+
+                if (user.CompanyId != request.Id)
+                    return response.SetNotFound("User do not own this company !!");
+
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == user.CompanyId);
+                company.CompanyStatus = CompanyStatus.Pending;
+                _mapper.Map(request, company);
+                await _unitOfWork.SaveChangeAsync();
+
+                return response.SetOk("Update Success");
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
+            }
+        }
 
 
 

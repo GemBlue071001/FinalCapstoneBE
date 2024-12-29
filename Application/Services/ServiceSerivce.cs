@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Application.Response.Service;
+using DocumentFormat.OpenXml.ExtendedProperties;
 
 namespace Application.Services
 {
@@ -98,7 +99,7 @@ namespace Application.Services
             }
         }
 
-        public async Task<ApiResponse> UpdateServiceAsync(int Id, ServiceRequest? request)
+        public async Task<ApiResponse> UpdateServiceAsync(int Id, ServiceRequest request)
         {
             ApiResponse response = new ApiResponse();
             var service = await _unitOfWork.Services.GetAsync(s => s.Id == Id);
@@ -106,7 +107,7 @@ namespace Application.Services
             {
                 return response.SetNotFound($"Service Id: {Id} not found");
             }
-            var changeService = _mapper.Map<Service>(request);
+            _mapper.Map(request, service);
             await _unitOfWork.SaveChangeAsync();
 
             return response.SetOk("Updated successfully");
