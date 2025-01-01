@@ -19,6 +19,7 @@
         public int ServiceId { get; set; }
         public List<int?> SkillSetIds { get; set; }
         public List<int?> BenefitIds { get; set; }
+        public List<int?> LocationIds { get; set; }
 
     }
 }

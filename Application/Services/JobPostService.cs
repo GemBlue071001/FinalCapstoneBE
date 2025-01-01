@@ -140,8 +140,24 @@ namespace Application.Services
                         JobPost = jobPost
                     });
                 }
+
+                var locations = await _unitOfWork.Locations.GetAllAsync(u => jobPostRequest.LocationIds.Contains(u.Id));
+                if (jobPostRequest.LocationIds.Count != locations.Count)
+                {
+                    return new ApiResponse().SetBadRequest("Location Id is invalid!");
+                }
+                var listJobLocations = new List<JobLocation>();
+                foreach (var location in locations)
+                {
+                    listJobLocations.Add(new JobLocation
+                    {
+                        LocationId = location.Id,
+                        JobPost = jobPost
+                    });
+                }
                 jobPost.JobPostBenefits = listJobPostBenefit;
                 jobPost.JobSkillSets = listJobPostSkillSet;
+                jobPost.JobLocations = listJobLocations;
                 jobPost.Company = company;
                 jobPost.JobType = jobType;
                 jobPost.UserAccount = user;
@@ -488,7 +504,8 @@ namespace Application.Services
             }
 
             var jobPost = await _unitOfWork.JobPosts.GetAsync(post => post.Id == id, x => x.Include(p => p.JobSkillSets)
-                                                                                            .Include(x => x.JobPostBenefits));
+                                                                                            .Include(x => x.JobPostBenefits)
+                                                                                            .Include(x=> x.JobLocations));
 
             if (jobPost == null)
             {
@@ -498,6 +515,7 @@ namespace Application.Services
             jobPost.JobTitle = request.JobTitle;
             jobPost.JobDescription = request.JobDescription;
             jobPost.Salary = request.Salary;
+            jobPost.Minsalary = request.Minsalary;
             jobPost.ExpiryDate = request.ExpiryDate;
             jobPost.ExperienceRequired = request.ExperienceRequired;
             jobPost.QualificationRequired = request.QualificationRequired;
@@ -550,6 +568,29 @@ namespace Application.Services
                     IsDeleted = false,
                     JobPostId = id,
                     BenefitId = benefitId,
+                }).ToList());
+            }
+
+            var validLocationIds = new List<int>();
+
+            foreach (var newId in request.LocationIds)
+            {
+                var location = await _unitOfWork.Locations.GetAsync(s => s.Id == newId);
+                if (location != null)
+                {
+                    validLocationIds.Add(location.Id);
+                }
+            }
+            if (validLocationIds.Count >= 0)
+            {
+                jobPost.JobLocations?.Clear();
+
+                jobPost.JobLocations?.AddRange(validLocationIds.Select(locationId => new JobLocation
+                {
+                    CreatedDate = DateTime.Now,
+                    IsDeleted = false,
+                    JobPostId = id,
+                    LocationId = locationId,
                 }).ToList());
             }
 
