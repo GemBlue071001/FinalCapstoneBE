@@ -111,7 +111,10 @@ namespace Application.Services
             try
             {
                 var companies = await _unitOfWork.Companys.GetAllAsync(x=> x.CompanyStatus == companyStatus,
-                                                                            x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
+                                                                            x => x.Include(c => c.JobPosts!)
+                                                                            .Include(x => x.BusinessStream)
+                                                                            .Include(x=>x!.CompanyLocations!)
+                                                                            .ThenInclude(x=>x.Location!));
                 //var companies = await _unitOfWork.Companys.GetCompany();
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(companies);
 
@@ -134,7 +137,11 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts).ThenInclude(x => x.JobSkillSets).ThenInclude(x => x.SkillSet));
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts)
+                                                                                                    .ThenInclude(x => x.JobSkillSets)
+                                                                                                        .ThenInclude(x => x.SkillSet)
+                                                                                                .Include(x => x!.CompanyLocations!)
+                                                                                                    .ThenInclude(x => x.Location!));
                 //var company = await _unitOfWork.Companys.GetCompanyByIdAsync(companyId);
                 if(company is null)
                 {
@@ -238,8 +245,12 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                //var companies = await _unitOfWork.Companys.GetAllAsync(null, x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));
-                var companies = await _unitOfWork.Companys.GetAllCompanyPending();
+                var companies = await _unitOfWork.Companys.GetAllAsync(x => x.CompanyStatus == CompanyStatus.Pending,
+                                                                            x => x.Include(c => c.JobPosts!)
+                                                                            .Include(x => x.BusinessStream)
+                                                                            .Include(x => x!.CompanyLocations!)
+                                                                            .ThenInclude(x => x.Location!));
+                //var companies = await _unitOfWork.Companys.GetAllCompanyPending();
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(companies);
 
                 return new ApiResponse().SetOk(companyResponse);

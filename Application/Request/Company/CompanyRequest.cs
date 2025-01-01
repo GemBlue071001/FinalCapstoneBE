@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Application.Request.CompanyLocation;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +23,8 @@ namespace Application.Request.Company
         public string? Evidence { get; set; }
         public string? TaxCode { get; set; }
         //public List<int> JobPostsId { get; set; }
+        public List<CompanyLocationRequest> CompanyLocations { get; set; }
     }
+
+   
 }

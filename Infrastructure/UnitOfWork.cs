@@ -41,6 +41,8 @@ namespace Infrastructure
         //public IFeedBackRepository FeedBacks { get; }
         public IServiceRepository Services { get; }
 
+        public ICompanyLocationRepository CompanyLocations { get; }
+
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -73,6 +75,8 @@ namespace Infrastructure
             Services = new ServiceRepository(context);
             UserAccountServices = new UserAccountServiceRepository(context);
             Locations = new LocationRepository(context);
+            CompanyLocations = new CompanyLocationRepository(context);
+
         }
 
         public async Task SaveChangeAsync()

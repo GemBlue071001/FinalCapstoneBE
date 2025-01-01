@@ -1,8 +1,8 @@
-﻿using Application.Request;
-using Application.Request.Benefit;
+﻿using Application.Request.Benefit;
 using Application.Request.BusinessStream;
 
 using Application.Request.Company;
+using Application.Request.CompanyLocation;
 using Application.Request.CV;
 using Application.Request.EducationDetail;
 using Application.Request.ExperienceDetail;
@@ -23,6 +23,7 @@ using Application.Response;
 using Application.Response.Benefit;
 using Application.Response.BusinessStream;
 using Application.Response.Company;
+using Application.Response.CompanyLocation;
 using Application.Response.CV;
 using Application.Response.Feedback;
 using Application.Response.FollowCompany;
@@ -80,17 +81,17 @@ namespace Application.MyMapper
                                          opt => opt.MapFrom(src => src.UserServices != null
                                          ? src.UserServices
                                          .Select(uas => new UserAccountServiceResponse
+                                         {
+                                             Id = uas.Id,
+                                             NumberOfPostLeft = uas.NumberOfPostLeft,
+                                             ServiceResponse = new ServiceResponse
                                              {
-                                                Id = uas.Id,
-                                                 NumberOfPostLeft = uas.NumberOfPostLeft,
-                                                 ServiceResponse = new ServiceResponse
-                                                {
-                                                        Id = uas.Service.Id,
-                                                        Name = uas.Service.Name,
-                                                        Description = uas.Service.Description,
-                                                        NumberOfPost = uas.Service.NumberOfPost,
-                                                        Price = uas.Service.Price
-                                                 }
+                                                 Id = uas.Service.Id,
+                                                 Name = uas.Service.Name,
+                                                 Description = uas.Service.Description,
+                                                 NumberOfPost = uas.Service.NumberOfPost,
+                                                 Price = uas.Service.Price
+                                             }
                                          }).ToList()
                                     : new List<UserAccountServiceResponse>())
                              );
@@ -144,9 +145,15 @@ namespace Application.MyMapper
 
             //Company
             CreateMap<CompanyRequest, Company>();
+            CreateMap<CompanyLocationRequest, CompanyLocation>();
+            CreateMap<CompanyLocation, CompanyLocationResponse>();
             CreateMap<UpdateCompanyRequest, Company>();
             CreateMap<UpdateCompanyRejectRequest, Company>();
+
             CreateMap<Company, CompanyResponse>();
+            CreateMap<CompanyLocation, CompanyLocationResponse>()
+                    .ForMember(dest => dest.City, opt =>
+                     opt.MapFrom(src => src.Location != null ? src.Location.City : string.Empty));
 
             //Education Detail
             CreateMap<EducationDetailRequest, EducationDetail>();
@@ -214,7 +221,7 @@ namespace Application.MyMapper
             //Service
             CreateMap<ServiceRequest, Service>();
             CreateMap<Service, ServiceResponse>();
-            
+
         }
     }
 }

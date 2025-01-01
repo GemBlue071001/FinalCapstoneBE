@@ -35,6 +35,7 @@ namespace Application
         public IServiceRepository Services { get; }
         public IUserAccountServiceRepository UserAccountServices { get; }
         public ILocationRepository Locations { get; }
+        public ICompanyLocationRepository CompanyLocations { get; }
 
 
         public Task SaveChangeAsync();

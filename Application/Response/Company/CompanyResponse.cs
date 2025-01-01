@@ -1,4 +1,5 @@
 ﻿using Application.Response.BusinessStream;
+using Application.Response.CompanyLocation;
 using Application.Response.JobPost;
 using Domain.Entities;
 using System;
@@ -26,5 +27,6 @@ namespace Application.Response.Company
         public string? TaxCode { get; set; }
         public BusinessStreamResponse BusinessStream { get; set; }
         public List <JobPostResponse> JobPosts { get; set; }
+        public List <CompanyLocationResponse> CompanyLocations { get; set; }
     }
 }
