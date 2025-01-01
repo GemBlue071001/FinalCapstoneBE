@@ -305,7 +305,8 @@ namespace Application.Services
                                                                                   .Include(x => x.JobSkillSets)
                                                                                         .ThenInclude(x => x.SkillSet)
                                                                                    .Include(x => x.JobPostBenefits)
-                                                                                        .ThenInclude(x => x.Benefit));
+                                                                                        .ThenInclude(x => x.Benefit)
+                                                                                   .Include(x=> x.JobLocations));
 
                 //var jobPosts = await _unitOfWork.JobPosts.GetJobPostsAsync();
 
@@ -441,7 +442,8 @@ namespace Application.Services
                                                                                   .Include(x => x.JobSkillSets)
                                                                                         .ThenInclude(x => x.SkillSet)
                                                                                    .Include(x => x.JobPostBenefits)
-                                                                                        .ThenInclude(x => x.Benefit));
+                                                                                        .ThenInclude(x => x.Benefit)
+                                                                                   .Include(x => x.JobLocations));
                 //var jobPost = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPostId);
                 if (jobPost == null)
                 {

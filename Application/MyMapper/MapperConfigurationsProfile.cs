@@ -125,6 +125,11 @@ namespace Application.MyMapper
                                    dest => dest.BenefitObjects,
                                     opt => opt.MapFrom(src => src.JobPostBenefits
                                    .Select(x => x.Benefit)
+                                   .ToList()))
+                        .ForMember(
+                                   dest => dest.LocationObjects,
+                                    opt => opt.MapFrom(src => src.JobLocations
+                                   .Select(x => x.Location)
                                    .ToList()));
 
             //CreateMap<UserAccount, CandidateResponse>()
