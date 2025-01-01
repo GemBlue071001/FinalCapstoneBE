@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Request.CompanyLocation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,6 @@ namespace Application.Request.Company
         public string City { get; set; }
         public string Address { get; set; }
         public int NumberOfEmployees { get; set; }
+        public List<CompanyLocationRequest> CompanyLocations { get; set; }
     }
 }

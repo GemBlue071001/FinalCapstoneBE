@@ -106,6 +106,12 @@ namespace API.Controllers
             var response = await _service.UpdateCompanyRejectAsync(companyRequest);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+        [HttpGet("/Location/{id}")]
+        public async Task<IActionResult> GetCompanyLocationByCompanyIdAsync(int id)
+        {
+            var response = await _service.GetCompanyLocationByCompanyIdAsync(id);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
 
     }
 }

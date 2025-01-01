@@ -14,7 +14,7 @@ namespace Infrastructure.Configuration
 
             builder.HasOne(o => o.Location)
                  .WithMany(o => o.CompanyLocations)
-                 .HasForeignKey(o => o.CompanyId);
+                 .HasForeignKey(o => o.LocationId);
         }
     }
 }

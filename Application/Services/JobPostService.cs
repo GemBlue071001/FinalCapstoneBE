@@ -443,7 +443,7 @@ namespace Application.Services
                                                                                         .ThenInclude(x => x.SkillSet)
                                                                                    .Include(x => x.JobPostBenefits)
                                                                                         .ThenInclude(x => x.Benefit)
-                                                                                   .Include(x => x.JobLocations));
+                                                                                    .Include(x => x.JobLocations));
                 //var jobPost = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPostId);
                 if (jobPost == null)
                 {

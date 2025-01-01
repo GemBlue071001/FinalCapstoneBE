@@ -22,5 +22,6 @@ namespace Application.Interface
         Task<ApiResponse> GetAllPendingCompanyAsync();
         Task<ApiResponse> UpdateCompanyStatus(UpdateCompanyStatusRequest request);
         Task<ApiResponse> UpdateCompanyRejectAsync(UpdateCompanyRejectRequest request);
+        Task <ApiResponse> GetCompanyLocationByCompanyIdAsync(int companyId);
     }
 }

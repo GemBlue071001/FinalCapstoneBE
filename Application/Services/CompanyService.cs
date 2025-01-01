@@ -7,6 +7,8 @@ using AutoMapper;
 using Domain.Entities;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
+using Application.Response.CompanyLocation;
 
 namespace Application.Services
 {
@@ -91,7 +93,8 @@ namespace Application.Services
                 if (user.CompanyId != request.Id)
                     return response.SetNotFound("User do not own this company !!");
 
-                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == user.CompanyId);
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == user.CompanyId, x=> x.Include(x=> x.CompanyLocations)
+                                                                                                       .ThenInclude(x=>x.Location));
 
                 _mapper.Map(request, company);
                 await _unitOfWork.SaveChangeAsync();
@@ -110,11 +113,11 @@ namespace Application.Services
             ApiResponse apiResponse = new ApiResponse();
             try
             {
-                var companies = await _unitOfWork.Companys.GetAllAsync(x=> x.CompanyStatus == companyStatus,
+                var companies = await _unitOfWork.Companys.GetAllAsync(x => x.CompanyStatus == companyStatus,
                                                                             x => x.Include(c => c.JobPosts!)
                                                                             .Include(x => x.BusinessStream)
-                                                                            .Include(x=>x!.CompanyLocations!)
-                                                                            .ThenInclude(x=>x.Location!));
+                                                                            .Include(x => x!.CompanyLocations!)
+                                                                            .ThenInclude(x => x.Location!));
                 //var companies = await _unitOfWork.Companys.GetCompany();
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(companies);
 
@@ -143,7 +146,7 @@ namespace Application.Services
                                                                                                 .Include(x => x!.CompanyLocations!)
                                                                                                     .ThenInclude(x => x.Location!));
                 //var company = await _unitOfWork.Companys.GetCompanyByIdAsync(companyId);
-                if(company is null)
+                if (company is null)
                 {
                     return new ApiResponse().SetBadRequest("Can not found company Id " + companyId);
                 }
@@ -167,7 +170,7 @@ namespace Application.Services
             try
             {
                 //var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(c => c.JobPosts).ThenInclude(x => x.JobSkillSets).ThenInclude(x => x.SkillSet));
-                var company = await _unitOfWork.Companys.GetAsync(x=>x.CompanyName.ToLower().Equals(companyName.ToLower()));
+                var company = await _unitOfWork.Companys.GetAsync(x => x.CompanyName.ToLower().Equals(companyName.ToLower()));
                 if (company is null)
                 {
                     return new ApiResponse().SetBadRequest("Can not found company Id " + companyName);
@@ -207,7 +210,7 @@ namespace Application.Services
         }
 
 
-        public async Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize , CompanyStatus companyStatus)
+        public async Task<ApiResponse> GetCompanyByNameAsync(string companyName, int pageIndex, int pageSize, CompanyStatus companyStatus)
         {
             ApiResponse apiResponse = new ApiResponse();
             try
@@ -217,10 +220,10 @@ namespace Application.Services
                                                                  , x => x.Include(c => c.JobPosts).Include(x => x.BusinessStream));*/
                 var company = await _unitOfWork.Companys.GetCompanyByNameAsync(companyName, pageIndex, pageSize, companyStatus);
                 var totalCount = await _unitOfWork.Companys.CountTotalPaging(companyName, companyStatus);
-               /* if (company == null)
-                {
-                    return apiResponse.SetBadRequest("Can not found companyName: " + companyName);
-                }*/
+                /* if (company == null)
+                 {
+                     return apiResponse.SetBadRequest("Can not found companyName: " + companyName);
+                 }*/
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(company);
                 var result = companyResponse.ToPaginationResponse(pageIndex, pageSize, false);
                 result.TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
@@ -271,14 +274,14 @@ namespace Application.Services
             try
             {
                 ApiResponse response = new ApiResponse();
-                var company = await _unitOfWork.Companys.GetAsync(x=> x.Id == request.CompanyId);
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == request.CompanyId);
                 if (company is null)
                 {
                     return new ApiResponse().SetBadRequest("Can not found company Id " + request.CompanyId);
                 }
                 company.CompanyStatus = request.CompanyStatus;
-                
-               
+
+
                 await _unitOfWork.SaveChangeAsync();
 
                 return response.SetOk("Update Success");
@@ -301,7 +304,8 @@ namespace Application.Services
                 if (user.CompanyId != request.Id)
                     return response.SetNotFound("User do not own this company !!");
 
-                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == user.CompanyId);
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == user.CompanyId, x => x.Include(x => x.CompanyLocations)
+                                                                                                       .ThenInclude(x => x.Location));
                 company.CompanyStatus = CompanyStatus.Pending;
                 _mapper.Map(request, company);
                 await _unitOfWork.SaveChangeAsync();
@@ -314,7 +318,27 @@ namespace Application.Services
             }
         }
 
+        public async Task<ApiResponse> GetCompanyLocationByCompanyIdAsync(int companyId)
+        {
+            ApiResponse response = new ApiResponse();
+            try
+            {
+                var company = await _unitOfWork.Companys.GetAsync(x => x.Id == companyId, x => x.Include(x => x.CompanyLocations)
+                                                                                              .ThenInclude(x => x.Location));
+                if (company is null)
+                {
+                    return new ApiResponse().SetBadRequest("Can not found company Id " + companyId);
+                }
+                var companyLocations = await _unitOfWork.CompanyLocations.GetAllAsync(x => x.CompanyId == company.Id);
 
+                var companyLocationResponse = _mapper.Map<List<CompanyLocationResponse>>(companyLocations);
 
+                return new ApiResponse().SetOk(companyLocationResponse);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
+            }
+        }
     }
 }
