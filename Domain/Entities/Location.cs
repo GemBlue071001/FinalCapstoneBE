@@ -14,6 +14,7 @@ namespace Domain.Entities
         public string? PostCode { get; set; }
 
         public List<JobLocation> JobLocations { get; set; } = new List<JobLocation>();
+        public List<CompanyLocation> CompanyLocations { get; set; } = new List<CompanyLocation>();
         public List<UserJobAlertCriteria> UserJobAlertCriterias { get; set; } = new List<UserJobAlertCriteria>();
     }
 }

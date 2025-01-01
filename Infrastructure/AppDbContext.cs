@@ -48,6 +48,7 @@ namespace Infrastructure
         //public DbSet<FeedBack> FeedBacks { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<UserAccountService> UserServices { get; set; }
+        public DbSet<CompanyLocation> CompanyLocations { get; set; }
 
 
 
@@ -90,6 +91,7 @@ namespace Infrastructure
             //modelBuilder.ApplyConfiguration(new FeedBackConfig());
             modelBuilder.ApplyConfiguration(new ServiceConfig());
             modelBuilder.ApplyConfiguration(new UserServiceConfig());
+            modelBuilder.ApplyConfiguration(new CompanyLocationConfig());
         }
 
     }
