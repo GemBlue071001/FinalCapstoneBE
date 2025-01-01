@@ -141,8 +141,13 @@ namespace Application.Services
                     });
                 }
 
-                var locations = await _unitOfWork.Locations.GetAllAsync(u => jobPostRequest.LocationIds.Contains(u.Id));
-                if (jobPostRequest.LocationIds.Count != locations.Count)
+                var companyLocation = await _unitOfWork.CompanyLocations.GetAsync(x=> x.Id == jobPostRequest.CompanyId);
+                if (companyLocation == null)
+                {
+                    return new ApiResponse().SetBadRequest("CompanyLocation not found");
+                }
+
+                /*if (jobPostRequest.LocationIds.Count != locations.Count)
                 {
                     return new ApiResponse().SetBadRequest("Location Id is invalid!");
                 }
@@ -154,10 +159,10 @@ namespace Application.Services
                         LocationId = location.Id,
                         JobPost = jobPost
                     });
-                }
+                }*/
                 jobPost.JobPostBenefits = listJobPostBenefit;
                 jobPost.JobSkillSets = listJobPostSkillSet;
-                jobPost.JobLocations = listJobLocations;
+                //jobPost.JobLocations = listJobLocations;
                 jobPost.Company = company;
                 jobPost.JobType = jobType;
                 jobPost.UserAccount = user;
@@ -443,7 +448,7 @@ namespace Application.Services
                                                                                         .ThenInclude(x => x.SkillSet)
                                                                                    .Include(x => x.JobPostBenefits)
                                                                                         .ThenInclude(x => x.Benefit)
-                                                                                    .Include(x => x.JobLocations));
+                                                                                   .Include(x => x.JobLocations));
                 //var jobPost = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPostId);
                 if (jobPost == null)
                 {
