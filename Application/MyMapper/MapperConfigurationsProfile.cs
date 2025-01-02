@@ -14,6 +14,7 @@ using Application.Request.JobPost;
 using Application.Request.JobPostActivity;
 using Application.Request.JobPostActivityComment;
 using Application.Request.JobType;
+using Application.Request.Location;
 using Application.Request.SeekerProfile;
 using Application.Request.Service;
 using Application.Request.SkillSet;
@@ -210,7 +211,7 @@ namespace Application.MyMapper
             CreateMap<UserJobAlertCriteria, UserJobAlertCriteriaResponse>();
 
 
-            CreateMap<Location, LocationResponse>();
+            
             CreateMap<UserJobAlertCriteria, UserJobAlertCriteriaResponse>();
             //
             CreateMap<BenefitRequest, Benefit>();
@@ -226,6 +227,10 @@ namespace Application.MyMapper
             //Service
             CreateMap<ServiceRequest, Service>();
             CreateMap<Service, ServiceResponse>();
+
+            //Location
+            CreateMap<Location, LocationResponse>();
+            CreateMap<LocationRequest, Location>();
 
         }
     }
