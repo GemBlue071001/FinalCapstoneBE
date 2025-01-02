@@ -3,6 +3,7 @@ using Application.Request.JobPost;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace API.Controllers
 {
@@ -79,6 +80,13 @@ namespace API.Controllers
         [HttpPost("search")]
         public async Task<IActionResult> SearchJobPost([FromBody] SearchJobPostRequest request)
         {
+            if (request == null)
+            {
+                //_logger.LogError("Request is null.");
+                return BadRequest("Request cannot be null.");
+            }
+
+           // _logger.LogInformation("Received request: {Request}", JsonConvert.SerializeObject(request));
             var response = await _service.SearchJobs(request);
             return Ok(response);
         }

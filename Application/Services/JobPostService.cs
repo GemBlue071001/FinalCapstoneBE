@@ -23,6 +23,7 @@ using Application.Request.CV;
 using Application.Queues;
 using Hangfire.Storage.Monitoring;
 using System.Linq;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Application.Services
 {
@@ -141,12 +142,12 @@ namespace Application.Services
                     });
                 }
 
-                var companyLocation = await _unitOfWork.CompanyLocations.GetAsync(x=> x.Id == jobPostRequest.CompanyId);
+                var companyLocation = await _unitOfWork.CompanyLocations.GetAsync(x=> x.Id == jobPostRequest.CompanyLocation);
                 if (companyLocation == null)
                 {
                     return new ApiResponse().SetBadRequest("CompanyLocation not found");
                 }
-
+                
                 /*if (jobPostRequest.LocationIds.Count != locations.Count)
                 {
                     return new ApiResponse().SetBadRequest("Location Id is invalid!");
@@ -175,6 +176,14 @@ namespace Application.Services
                 await _unitOfWork.JobPosts.AddAsync(jobPost);
 
                 userService.NumberOfPostLeft -= 1;
+                await _unitOfWork.SaveChangeAsync();
+                var jobLocation = new JobLocation
+                {
+                    StressAddressDetail = companyLocation.StressAddressDetail,
+                    LocationId = companyLocation.LocationId,
+                    JobPostId = jobPost.Id,
+                };
+                await _unitOfWork.JobLocations.AddAsync(jobLocation);
                 await _unitOfWork.SaveChangeAsync();
 
                 var jobPostToEmbed = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPost.Id);
@@ -500,128 +509,153 @@ namespace Application.Services
 
         public async Task<ApiResponse> UpdateJobPost(int id, JobPostRequest request)
         {
-            if (request.Salary < 0)
+            try
             {
-                return new ApiResponse().SetBadRequest("Invalid Salary input !");
-            }
-
-            if (request.ExpiryDate < DateTime.Now)
-            {
-                return new ApiResponse().SetBadRequest("Invalid date !");
-            }
-
-            var jobPost = await _unitOfWork.JobPosts.GetAsync(post => post.Id == id, x => x.Include(p => p.JobSkillSets)
-                                                                                            .Include(x => x.JobPostBenefits)
-                                                                                            .Include(x=> x.JobLocations));
-
-            if (jobPost == null)
-            {
-                return new ApiResponse().SetNotFound();
-            }
-
-            jobPost.JobTitle = request.JobTitle;
-            jobPost.JobDescription = request.JobDescription;
-            jobPost.Salary = request.Salary;
-            jobPost.Minsalary = request.Minsalary;
-            jobPost.ExpiryDate = request.ExpiryDate;
-            jobPost.ExperienceRequired = request.ExperienceRequired;
-            jobPost.QualificationRequired = request.QualificationRequired;
-            jobPost.Benefits = request.Benefits;
-            jobPost.JobTypeId = request.JobTypeId;
-            jobPost.ImageURL = request.ImageURL;
-
-            //replace all skill set
-            var validSkillIds = new List<int>();
-
-            foreach (var newId in request.SkillSetIds)
-            {
-                var skillSet = await _unitOfWork.SkillSets.GetAsync(s => s.Id == newId);
-                if (skillSet != null)
+                if (request.Salary < 0)
                 {
-                    validSkillIds.Add(skillSet.Id);
+                    return new ApiResponse().SetBadRequest("Invalid Salary input !");
                 }
-            }
 
-            if (validSkillIds.Count >= 0)
-            {
-                jobPost.JobSkillSets?.Clear();
-
-                jobPost.JobSkillSets?.AddRange(validSkillIds.Select(skillId => new JobSkillSet
+                if (request.ExpiryDate < DateTime.Now)
                 {
-                    CreatedDate = DateTime.Now,
-                    IsDeleted = false,
-                    JobPostId = id,
-                    SkillSetId = skillId,
-                }).ToList());
-            }
-
-            var validBenefitIds = new List<int>();
-
-            foreach (var newId in request.BenefitIds)
-            {
-                var benefit = await _unitOfWork.Benefits.GetAsync(s => s.Id == newId);
-                if (benefit != null)
-                {
-                    validBenefitIds.Add(benefit.Id);
+                    return new ApiResponse().SetBadRequest("Invalid date !");
                 }
-            }
-            if (validBenefitIds.Count >= 0)
-            {
-                jobPost.JobPostBenefits?.Clear();
 
-                jobPost.JobPostBenefits?.AddRange(validBenefitIds.Select(benefitId => new JobPostBenefit
+                var jobPost = await _unitOfWork.JobPosts.GetAsync(post => post.Id == id, x => x.Include(p => p.JobSkillSets)
+                                                                                                .Include(x => x.JobPostBenefits)
+                                                                                                .Include(x => x.JobLocations));
+
+                if (jobPost == null)
                 {
-                    CreatedDate = DateTime.Now,
-                    IsDeleted = false,
-                    JobPostId = id,
-                    BenefitId = benefitId,
-                }).ToList());
-            }
-
-            var validLocationIds = new List<int>();
-
-            foreach (var newId in request.LocationIds)
-            {
-                var location = await _unitOfWork.Locations.GetAsync(s => s.Id == newId);
-                if (location != null)
-                {
-                    validLocationIds.Add(location.Id);
+                    return new ApiResponse().SetNotFound();
                 }
-            }
-            if (validLocationIds.Count >= 0)
-            {
-                jobPost.JobLocations?.Clear();
 
-                jobPost.JobLocations?.AddRange(validLocationIds.Select(locationId => new JobLocation
+                jobPost.JobTitle = request.JobTitle;
+                jobPost.JobDescription = request.JobDescription;
+                jobPost.Salary = request.Salary;
+                jobPost.Minsalary = request.Minsalary;
+                jobPost.ExpiryDate = request.ExpiryDate;
+                jobPost.ExperienceRequired = request.ExperienceRequired;
+                jobPost.QualificationRequired = request.QualificationRequired;
+                jobPost.Benefits = request.Benefits;
+                jobPost.JobTypeId = request.JobTypeId;
+                jobPost.ImageURL = request.ImageURL;
+
+                //replace all skill set
+                var validSkillIds = new List<int>();
+
+                foreach (var newId in request.SkillSetIds)
                 {
-                    CreatedDate = DateTime.Now,
-                    IsDeleted = false,
-                    JobPostId = id,
-                    LocationId = locationId,
-                }).ToList());
-            }
+                    var skillSet = await _unitOfWork.SkillSets.GetAsync(s => s.Id == newId);
+                    if (skillSet != null)
+                    {
+                        validSkillIds.Add(skillSet.Id);
+                    }
+                }
 
-            //re-submit rejected post
-            if (jobPost.JobPostReviewStatus == JobPostReviewStatus.Rejected)
+                if (validSkillIds.Count >= 0)
+                {
+                    jobPost.JobSkillSets?.Clear();
+
+                    jobPost.JobSkillSets?.AddRange(validSkillIds.Select(skillId => new JobSkillSet
+                    {
+                        CreatedDate = DateTime.Now,
+                        IsDeleted = false,
+                        JobPostId = id,
+                        SkillSetId = skillId,
+                    }).ToList());
+                }
+
+                var validBenefitIds = new List<int>();
+
+                foreach (var newId in request.BenefitIds)
+                {
+                    var benefit = await _unitOfWork.Benefits.GetAsync(s => s.Id == newId);
+                    if (benefit != null)
+                    {
+                        validBenefitIds.Add(benefit.Id);
+                    }
+                }
+                if (validBenefitIds.Count >= 0)
+                {
+                    jobPost.JobPostBenefits?.Clear();
+
+                    jobPost.JobPostBenefits?.AddRange(validBenefitIds.Select(benefitId => new JobPostBenefit
+                    {
+                        CreatedDate = DateTime.Now,
+                        IsDeleted = false,
+                        JobPostId = id,
+                        BenefitId = benefitId,
+                    }).ToList());
+                }
+                var companyLocation = await _unitOfWork.CompanyLocations.GetAsync(cl => cl.Id == request.CompanyLocation);
+                if (companyLocation == null)
+                {
+                    return new ApiResponse().SetBadRequest("CompanyLocation not found");
+                }
+
+                jobPost.JobLocations = new List<JobLocation>
+        {
+            new JobLocation
             {
-                jobPost.JobPostReviewStatus = JobPostReviewStatus.Pending;
+                StressAddressDetail = companyLocation.StressAddressDetail,
+                LocationId = companyLocation.LocationId,
+                JobPostId = id,
+                CreatedDate = DateTime.UtcNow,
+                IsDeleted = false
             }
+        };
+                /*var validLocationIds = new List<int>();
 
-            await _unitOfWork.SaveChangeAsync();
-            var jobPostToEmbed = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPost.Id);
+                foreach (var newId in request.LocationIds)
+                {
+                    var location = await _unitOfWork.Locations.GetAsync(s => s.Id == newId);
+                    if (location != null)
+                    {
+                        validLocationIds.Add(location.Id);
+                    }
+                }
+                if (validLocationIds.Count >= 0)
+                {
+                    jobPost.JobLocations?.Clear();
 
-            var jobPostResponse = _mapper.Map<JobPostResponse>(jobPostToEmbed);
-            var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
-            var jobPostAfterUpdate = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(id);
+                    jobPost.JobLocations?.AddRange(validLocationIds.Select(locationId => new JobLocation
+                    {
+                        CreatedDate = DateTime.Now,
+                        IsDeleted = false,
+                        JobPostId = id,
+                        LocationId = locationId,
+                    }).ToList());
+                }
+    */
+                //re-submit rejected post
+                if (jobPost.JobPostReviewStatus == JobPostReviewStatus.Rejected)
+                {
+                    jobPost.JobPostReviewStatus = JobPostReviewStatus.Pending;
+                }
+
+                await _unitOfWork.SaveChangeAsync();
+                var jobPostToEmbed = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPost.Id);
+
+                var jobPostResponse = _mapper.Map<JobPostResponse>(jobPostToEmbed);
+                var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
+                var jobPostAfterUpdate = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(id);
 
 
-            EmailJobQueue.Enqueue(async (emailService, unitOfWork) =>
+                EmailJobQueue.Enqueue(async (emailService, unitOfWork) =>
+                {
+                    var service = new JobPostService(unitOfWork, emailService); // Use appropriate constructor
+                    await service.SendEmailsToMatchingUsersAsync(jobPostAfterUpdate);
+                });
+
+                return new ApiResponse().SetOk("Update Success");
+            }
+            catch (Exception ex)
             {
-                var service = new JobPostService(unitOfWork, emailService); // Use appropriate constructor
-                await service.SendEmailsToMatchingUsersAsync(jobPostAfterUpdate);
-            });
 
-            return new ApiResponse().SetOk();
+                return new ApiResponse().SetBadRequest($"Error: {ex.Message}. Inner: {ex.InnerException?.Message}");
+            }
+            
         }
         public async Task<ApiResponse> GetAllJobPostPending()
         {

@@ -112,7 +112,9 @@ namespace Infrastructure.Repositories
         {
             IQueryable<Company> query = _context.Companys
                 .Include(x => x.BusinessStream) // Include the BusinessStream
-                .Include(x => x.JobPosts) // Include related JobPosts
+                .Include(x => x.JobPosts)
+                .Include(x=> x.CompanyLocations)
+                .ThenInclude(x=> x.Location)// Include related JobPosts
                 .Where(c => string.IsNullOrEmpty(companyName) ||
                             (!string.IsNullOrEmpty(c.CompanyName) && c.CompanyName.ToLower().Contains(companyName.ToLower())));
 
