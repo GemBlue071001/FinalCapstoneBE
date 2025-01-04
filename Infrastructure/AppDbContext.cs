@@ -49,6 +49,7 @@ namespace Infrastructure
         public DbSet<Service> Services { get; set; }
         public DbSet<UserAccountService> UserServices { get; set; }
         public DbSet<CompanyLocation> CompanyLocations { get; set; }
+        public DbSet<Award> Awards { get; set; }
 
 
 
@@ -92,6 +93,7 @@ namespace Infrastructure
             modelBuilder.ApplyConfiguration(new ServiceConfig());
             modelBuilder.ApplyConfiguration(new UserServiceConfig());
             modelBuilder.ApplyConfiguration(new CompanyLocationConfig());
+            modelBuilder.ApplyConfiguration(new AwardConfiguration());
         }
 
     }
