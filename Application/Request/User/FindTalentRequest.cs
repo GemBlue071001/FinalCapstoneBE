@@ -9,9 +9,9 @@ namespace Application.Request.User
     public class FindTalentRequest
     {
         public string? Keyword { get; set; }
-        public string? SkillSet { get; set; }
+        //public string? SkillSet { get; set; }
         public string? Degree { get; set; }
-        public string[]? SkillSets { get; set; }
+        //public string[]? SkillSets { get; set; }
         public List<SkillSetFilter>? SkillSetFilters { get; set; }
         public int PageIndex { get; set; } = 1;
         public int PageSize { get; set; } = 5;

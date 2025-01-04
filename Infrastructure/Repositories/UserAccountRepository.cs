@@ -35,10 +35,10 @@ namespace Infrastructure.Repositories
                     );
                 }*/
 
-                if (request.SkillSets != null && request.SkillSets.Any())
+               /* if (request.SkillSets != null && request.SkillSets.Any())
                 {
                     query = query.Where(x => x.SeekerSkillSets.Any(skill => request.SkillSets.Any(set => skill.SkillSet.Name.ToLower().Contains(set.ToLower()))));
-                }
+                }*/
                 if (!string.IsNullOrEmpty(request.Degree))
                 {
                     string degree = request.Degree.ToLower();
@@ -104,10 +104,10 @@ namespace Infrastructure.Repositories
                     );
                 }*/
 
-                if (request.SkillSets != null && request.SkillSets.Any())
+               /* if (request.SkillSets != null && request.SkillSets.Any())
                 {
                     query = query.Where(x => x.SeekerSkillSets.Any(skill => request.SkillSets.Any(set => skill.SkillSet.Name.ToLower().Contains(set.ToLower()))));
-                }
+                }*/
                 if (!string.IsNullOrEmpty(request.Degree))
                 {
                     string degree = request.Degree.ToLower();
