@@ -261,5 +261,23 @@ namespace Application.Services
                 return new ApiResponse().SetBadRequest($"{ex.Message} - InnerException:  {ex.InnerException?.Message}");
             }
         }
+        public async Task<ApiResponse> FindTalentAsync(FindTalentRequest findTalentRequest) 
+        {
+            var users = await _unitOfWork.UserAccounts.FindTalent(findTalentRequest);
+            var total = await _unitOfWork.UserAccounts.CountTotalPaging(findTalentRequest);
+            int totalPages = (int)Math.Ceiling(total / (double)findTalentRequest.PageSize);
+            var result = _mapper.Map<List<UserProfileResponse>>(users ?? []);
+
+            var paging = new PaginationResponse<UserProfileResponse>
+            {
+                PageIndex = findTalentRequest.PageIndex,
+                PageSize = findTalentRequest.PageSize,
+                TotalCount = total,
+                TotalPages = totalPages,
+                Items = result
+            };
+
+            return new ApiResponse().SetOk(paging);
+        }
     }
 }

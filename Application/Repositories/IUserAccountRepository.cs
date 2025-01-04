@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Request.User;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace Application.Repository
 {
     public interface IUserAccountRepository : IGenericRepository<UserAccount>
     {
+        Task<List<UserAccount>> FindTalent(FindTalentRequest request);
+        Task<int> CountTotalPaging(FindTalentRequest request);
     }
 }

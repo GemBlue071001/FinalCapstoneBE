@@ -1,4 +1,5 @@
 ﻿using Application.Interface;
+using Application.Request.JobPost;
 using Application.Request.User;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Authorization;
@@ -87,6 +88,19 @@ namespace API.Controllers
         {
             var result = await _service.RemoveBenefitToUser(request);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [HttpPost("search")]
+        public async Task<IActionResult> SearchJobPost([FromBody] FindTalentRequest request)
+        {
+            if (request == null)
+            {
+                //_logger.LogError("Request is null.");
+                return BadRequest("Request cannot be null.");
+            }
+
+            // _logger.LogInformation("Received request: {Request}", JsonConvert.SerializeObject(request));
+            var response = await _service.FindTalentAsync(request);
+            return Ok(response);
         }
 
     }

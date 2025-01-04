@@ -14,5 +14,6 @@ namespace Application.Interface
         Task<ApiResponse> GetAllJobSeekerRoleAsync(int pageIndex, int pageSize, int jobPostId);
         Task<ApiResponse> AddBenefitToUser(SeekerBenefitRequest request);
         Task<ApiResponse> RemoveBenefitToUser(SeekerBenefitRequest request);
+        Task<ApiResponse> FindTalentAsync(FindTalentRequest findTalentRequest);
     }
 }
