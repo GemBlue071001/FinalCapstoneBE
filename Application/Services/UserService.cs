@@ -37,6 +37,7 @@ namespace Application.Services
             var claim = _claimService.GetUserClaim();
             var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id, x => x.Include(x => x.EducationDetails!)
                                                                                      .Include(x => x.ExperienceDetails!)
+                                                                                     .Include(x => x.Awards!)
                                                                                      .Include(x => x.SeekerSkillSets!)
                                                                                         .ThenInclude(x => x.SkillSet)
                                                                                      .Include(x => x.SeekerBenefits)

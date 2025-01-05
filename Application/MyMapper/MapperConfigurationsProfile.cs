@@ -21,6 +21,7 @@ using Application.Request.SkillSet;
 using Application.Request.User;
 using Application.Request.UserJobAlertCriteria;
 using Application.Response;
+using Application.Response.Award;
 using Application.Response.Benefit;
 using Application.Response.BusinessStream;
 using Application.Response.Company;
@@ -144,6 +145,8 @@ namespace Application.MyMapper
             //JobLocation
             CreateMap<JobLocationRequest, JobLocation>();
             CreateMap<JobLocation, JobLocationResponse>();
+
+            CreateMap<Award, AwardResponse>();
 
             //JobType
             CreateMap<JobTypeRequest, JobType>();
