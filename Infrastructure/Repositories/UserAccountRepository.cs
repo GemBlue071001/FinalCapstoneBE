@@ -21,7 +21,7 @@ namespace Infrastructure.Repositories
                 Include(x => x.SeekerSkillSets)
                .ThenInclude(x => x.SkillSet)
                .Include(x => x.Certificates)
-               .Include(x => x.EducationDetails);
+               .Include(x => x.EducationDetails)
               
                .Where(x => x.Role == Role.JobSeeker); 
 
