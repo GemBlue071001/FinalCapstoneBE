@@ -28,5 +28,6 @@ namespace Application.Response.Company
         public BusinessStreamResponse BusinessStream { get; set; }
         public List <JobPostResponse> JobPosts { get; set; }
         public List <CompanyLocationResponse> CompanyLocations { get; set; }
+        public List<string> CompanyEmails { get; set; }
     }
 }

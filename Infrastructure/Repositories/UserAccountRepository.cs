@@ -22,6 +22,7 @@ namespace Infrastructure.Repositories
                .ThenInclude(x => x.SkillSet)
                .Include(x => x.Certificates)
                .Include(x => x.EducationDetails)
+               .Include(x => x.Awards)
               
                .Where(x => x.Role == Role.JobSeeker); 
 
@@ -69,6 +70,23 @@ namespace Infrastructure.Repositories
                         );
                     }
                 }
+                if (request.CertificateFilters != null && request.CertificateFilters.Any())
+                {
+                    foreach (var certFilter in request.CertificateFilters)
+                    {
+                        string certName = certFilter.CertificateName.ToLower();
+                        string certOrganization = certFilter.CertificateOrganization.ToLower();
+
+                        query = query.Where(x =>
+                            x.Certificates.Any(cert =>
+                                cert.CertificateName.ToLower().Contains(certName) &&
+                                cert.CertificateOrganization.ToLower().Contains(certOrganization) &&
+                                cert.IssueDate.Date == certFilter.IssueDate.Date 
+                            )
+                        );
+                    }
+                }
+
                 var result = await query
                    .Skip((request.PageIndex - 1) * request.PageSize)
                    .Take(request.PageSize)
@@ -93,6 +111,7 @@ namespace Infrastructure.Repositories
                 Include(x => x.SeekerSkillSets)
                .ThenInclude(x => x.SkillSet)
                .Include(x => x.EducationDetails)
+               .Include(x => x.Certificates)
                .Where(x => x.Role == Role.JobSeeker); ;
 
                 if (!string.IsNullOrEmpty(request.Keyword))
@@ -139,6 +158,23 @@ namespace Infrastructure.Repositories
                         );
                     }
                 }
+                if (request.CertificateFilters != null && request.CertificateFilters.Any())
+                {
+                    foreach (var certFilter in request.CertificateFilters)
+                    {
+                        string certName = certFilter.CertificateName.ToLower();
+                        string certOrganization = certFilter.CertificateOrganization.ToLower();
+
+                        query = query.Where(x =>
+                            x.Certificates.Any(cert =>
+                                cert.CertificateName.ToLower().Contains(certName) &&
+                                cert.CertificateOrganization.ToLower().Contains(certOrganization) &&
+                                cert.IssueDate.Date == certFilter.IssueDate.Date // Compare by date
+                            )
+                        );
+                    }
+                }
+
                 var result = await query
                                         .CountAsync();
 

@@ -12,6 +12,7 @@ namespace Application.Request.User
         //public string? SkillSet { get; set; }
         public string? Degree { get; set; }
         //public string[]? SkillSets { get; set; }
+        public List<CertificateFilter> CertificateFilters { get; set; }
         public List<SkillSetFilter>? SkillSetFilters { get; set; }
         public int PageIndex { get; set; } = 1;
         public int PageSize { get; set; } = 5;
@@ -21,5 +22,12 @@ namespace Application.Request.User
     {
         public string? SkillSet { get; set; }
         public string? ProficiencyLevel { get; set; }
+    }
+    public class CertificateFilter
+    {
+        public string CertificateName { get; set; }
+        public string CertificateOrganization { get; set; }
+        public DateTime IssueDate { get; set; }
+
     }
 }
