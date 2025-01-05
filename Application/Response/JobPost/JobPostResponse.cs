@@ -9,6 +9,7 @@ namespace Application.Response.JobPost
     public class JobPostResponse
     {
         public int Id { get; set; }
+        public string Link => $"https://jobsearch-zeta-nine.vercel.app/jobs/detail/{Id}";
         public string JobTitle { get; set; }
         public string JobDescription { get; set; }
         public decimal Salary { get; set; }

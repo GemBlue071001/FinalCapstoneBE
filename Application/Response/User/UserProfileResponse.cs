@@ -1,4 +1,5 @@
 ﻿using Application.Request.SkillSet;
+using Application.Response.Award;
 using Application.Response.Benefit;
 using Application.Response.CV;
 using Application.Response.SkillSet;
@@ -20,6 +21,7 @@ namespace Application.Response.User
 
         public string? CoverLetter { get; set; }
         public List<EducationDetailResponse> EducationDetails { get; set; } = new List<EducationDetailResponse>();
+        public List<AwardResponse> Awards { get; set; } = new List<AwardResponse>();
         public List<ExperienceDetailResponse> ExperienceDetails { get; set; } = new List<ExperienceDetailResponse>();
         public List<CVResponse> Cvs { get; set; } = new List<CVResponse>();
         public List<SkillSetResponse> SkillSets { get; set; } = new List<SkillSetResponse>();
