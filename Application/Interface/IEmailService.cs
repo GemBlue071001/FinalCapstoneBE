@@ -8,5 +8,6 @@ namespace Application.Interface
         Task<ApiResponse> SendValidationEmail(string recievedUser, string emailContent);
         Task<ApiResponse> CustomSendEmail(string recievedUser, string emailContent, string companyName);
         Task<ApiResponse> SendMatchingJobEmail(string recievedUser, string emailContent);
+        Task<ApiResponse> SendEmailRejectCompany(string companyMail, string emailContent, string companyName);
     }
 }
