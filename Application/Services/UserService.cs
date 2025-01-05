@@ -38,6 +38,7 @@ namespace Application.Services
             var user = await _unitOfWork.UserAccounts.GetAsync(u => u.Id == id, x => x.Include(x => x.EducationDetails!)
                                                                                      .Include(x => x.ExperienceDetails!)
                                                                                      .Include(x => x.Awards!)
+                                                                                     .Include(x => x.Certificates!)
                                                                                      .Include(x => x.SeekerSkillSets!)
                                                                                         .ThenInclude(x => x.SkillSet)
                                                                                      .Include(x => x.SeekerBenefits)

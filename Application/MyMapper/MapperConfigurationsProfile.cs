@@ -1,7 +1,7 @@
 ﻿using Application.Request.Award;
 using Application.Request.Benefit;
 using Application.Request.BusinessStream;
-
+using Application.Request.Certificate;
 using Application.Request.Company;
 using Application.Request.CompanyLocation;
 using Application.Request.CV;
@@ -173,6 +173,11 @@ namespace Application.MyMapper
             CreateMap<AddAwardRequest, Award>();
             CreateMap<Award, AwardResponse>();
             CreateMap<UpdateAwardRequest, Award>();
+
+            //Certificate
+            CreateMap<AddCertificateRequest, Certificate>();
+            CreateMap<UpdateCertificateRequest, Certificate>();
+            CreateMap<Certificate, CertificateResponse>();
 
             //ExperienceDetail
             CreateMap<ExperienceDetailRequest, ExperienceDetail>();

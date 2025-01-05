@@ -37,6 +37,7 @@ namespace Application
         public ILocationRepository Locations { get; }
         public ICompanyLocationRepository CompanyLocations { get; }
         public IAwardRepository Awards { get; }
+        public ICertificateRepository Certificates { get; }
 
 
         public Task SaveChangeAsync();

@@ -44,6 +44,7 @@ namespace Infrastructure
         public ICompanyLocationRepository CompanyLocations { get; }
 
         public IAwardRepository Awards { get; }
+        public ICertificateRepository Certificates { get; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -79,6 +80,7 @@ namespace Infrastructure
             Locations = new LocationRepository(context);
             CompanyLocations = new CompanyLocationRepository(context);
             Awards= new AwardRepository(context);
+            Certificates = new CertificateRepository(context);
         }
 
         public async Task SaveChangeAsync()

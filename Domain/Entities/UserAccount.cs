@@ -32,6 +32,7 @@ namespace Domain.Entities
         //public List<SeekerProfile> SeekerProfiles { get; set; }
         public List<EducationDetail>? EducationDetails { get; set; }
         public List<Award>? Awards { get; set; }
+        public List<Certificate>? Certificates { get; set; }
         public List<ExperienceDetail>? ExperienceDetails { get; set; }
         public List<SeekerSkillSet>? SeekerSkillSets { get; set; }
         public List<CV>? CVs { get; set; }
