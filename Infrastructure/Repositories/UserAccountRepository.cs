@@ -22,6 +22,8 @@ namespace Infrastructure.Repositories
                .ThenInclude(x => x.SkillSet)
                .Include(x => x.Certificates)
                .Include(x => x.EducationDetails);
+              
+               .Where(x => x.Role == Role.JobSeeker); 
 
                 if (!string.IsNullOrEmpty(request.Keyword))
                 {
@@ -90,7 +92,8 @@ namespace Infrastructure.Repositories
                 IQueryable<UserAccount> query = _context.Users.
                 Include(x => x.SeekerSkillSets)
                .ThenInclude(x => x.SkillSet)
-               .Include(x => x.EducationDetails);
+               .Include(x => x.EducationDetails)
+               .Where(x => x.Role == Role.JobSeeker); ;
 
                 if (!string.IsNullOrEmpty(request.Keyword))
                 {
