@@ -1,4 +1,5 @@
-﻿using Application.Request.Benefit;
+﻿using Application.Request.Award;
+using Application.Request.Benefit;
 using Application.Request.BusinessStream;
 
 using Application.Request.Company;
@@ -164,6 +165,10 @@ namespace Application.MyMapper
             //Education Detail
             CreateMap<EducationDetailRequest, EducationDetail>();
             CreateMap<EducationDetail, EducationDetailResponse>();
+
+
+            //Award
+            CreateMap<AddAwardRequest, Award>();
 
             //ExperienceDetail
             CreateMap<ExperienceDetailRequest, ExperienceDetail>();

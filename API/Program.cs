@@ -137,6 +137,7 @@ builder.Services.AddScoped<IBenefitService, BenefitService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IServiceService, ServiceSerivce>();
 builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IAwardService, AwardService>();
 //builder.Services.AddHostedService<JobAlertWorker>();\
 builder.Services.AddHostedService<EmailWorker>();
 
