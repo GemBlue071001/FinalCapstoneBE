@@ -147,7 +147,6 @@ namespace Application.MyMapper
             CreateMap<JobLocationRequest, JobLocation>();
             CreateMap<JobLocation, JobLocationResponse>();
 
-            CreateMap<Award, AwardResponse>();
 
             //JobType
             CreateMap<JobTypeRequest, JobType>();
@@ -172,6 +171,8 @@ namespace Application.MyMapper
 
             //Award
             CreateMap<AddAwardRequest, Award>();
+            CreateMap<Award, AwardResponse>();
+            CreateMap<UpdateAwardRequest, Award>();
 
             //ExperienceDetail
             CreateMap<ExperienceDetailRequest, ExperienceDetail>();
