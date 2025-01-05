@@ -20,6 +20,7 @@ namespace Infrastructure.Repositories
                 IQueryable<UserAccount> query = _context.Users.
                 Include(x => x.SeekerSkillSets)
                .ThenInclude(x => x.SkillSet)
+               .Include(x => x.Certificates)
                .Include(x => x.EducationDetails);
 
                 if (!string.IsNullOrEmpty(request.Keyword))
