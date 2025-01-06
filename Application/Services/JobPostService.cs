@@ -693,6 +693,8 @@ namespace Application.Services
                     await service.SendEmailsToMatchingUsersAsync(jobPostAfterUpdate);
                 });
 
+                await UpdateJobPostDataAsync();
+
                 return new ApiResponse().SetOk("Update Success");
             }
             catch (Exception ex)
