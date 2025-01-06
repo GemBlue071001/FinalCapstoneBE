@@ -150,7 +150,7 @@ namespace Application.Services
 
             if(account.Role == Role.Employer)
             {
-                receiverId = account.CompanyId ?? 0;
+                receiverId = account.Id;
             }
 
             var notifications = await _unitOfWork.Notifcations.GetAllAsync(x => x.ReceiverId == receiverId);
