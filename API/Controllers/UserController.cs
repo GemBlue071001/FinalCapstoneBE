@@ -90,7 +90,7 @@ namespace API.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
         [HttpPost("search")]
-        public async Task<IActionResult> SearchJobPost([FromBody] FindTalentRequest request)
+        public async Task<IActionResult> FindTalentAsync([FromBody] FindTalentRequest request)
         {
             if (request == null)
             {

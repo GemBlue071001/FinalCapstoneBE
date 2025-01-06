@@ -117,7 +117,8 @@ namespace Application.Services
                                                                             x => x.Include(c => c.JobPosts!)
                                                                             .Include(x => x.BusinessStream)
                                                                             .Include(x => x!.CompanyLocations!)
-                                                                            .ThenInclude(x => x.Location!));
+                                                                            .ThenInclude(x => x.Location!)
+                                                                            .Include(x => x.UserAccounts!));
                 //var companies = await _unitOfWork.Companys.GetCompany();
                 var companyResponse = _mapper.Map<List<CompanyResponse>>(companies);
 
@@ -144,7 +145,8 @@ namespace Application.Services
                                                                                                     .ThenInclude(x => x.JobSkillSets)
                                                                                                         .ThenInclude(x => x.SkillSet)
                                                                                                 .Include(x => x!.CompanyLocations!)
-                                                                                                    .ThenInclude(x => x.Location!));
+                                                                                                    .ThenInclude(x => x.Location!)
+                                                                                                   .Include(x => x.UserAccounts!));
                 //var company = await _unitOfWork.Companys.GetCompanyByIdAsync(companyId);
                 if (company is null)
                 {

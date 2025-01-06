@@ -197,7 +197,9 @@ namespace Application.Services
                                                                                         .ThenInclude(x => x.SkillSet)
                                                                                      .Include(x => x.SeekerBenefits!)
                                                                                         .ThenInclude(x => x.Benefit)
-                                                                                     .Include(x => x.CVs!));
+                                                                                     .Include(x => x.CVs!)
+                                                                                     .Include(x=>x.Awards!)
+                                                                                     .Include(x=>x.Certificates!));
 
             var totalCount = users.Count();
             var userPaging = users.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();

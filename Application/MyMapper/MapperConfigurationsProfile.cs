@@ -159,7 +159,12 @@ namespace Application.MyMapper
             CreateMap<UpdateCompanyRequest, Company>();
             CreateMap<UpdateCompanyRejectRequest, Company>();
 
-            CreateMap<Company, CompanyResponse>();
+            CreateMap<Company, CompanyResponse>()
+                     .ForMember(
+                                   dest => dest.CompanyEmails,
+                                    opt => opt.MapFrom(src => src.UserAccounts
+                                   .Select(x => x.Email)
+                                   .ToList()));
             CreateMap<CompanyLocation, CompanyLocationResponse>()
                     .ForMember(dest => dest.City, opt =>
                      opt.MapFrom(src => src.Location != null ? src.Location.City : string.Empty));

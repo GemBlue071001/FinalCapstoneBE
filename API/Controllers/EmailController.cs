@@ -24,5 +24,11 @@ namespace API.Controllers
             var response = await _service.CustomSendEmail(request.ReciveUser,request.Content , request.CompanyName);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+        [HttpPost("SendEmailRejectCompany")]
+        public async Task<IActionResult> SendEmailRejectCompany(SendEmailRejectCompanyRequest request)
+        {
+            var response = await _service.SendEmailRejectCompany(request.CompanyEmail, request.EmailContent, request.CompanyName);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
     }
 }
