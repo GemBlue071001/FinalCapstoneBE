@@ -86,7 +86,7 @@ namespace Application.Services
                 Title = "New Application Created",
                 Description = "Status: " + jobPostActivity.Status.ToString(),
                 CreatedDate = DateTime.UtcNow,
-                ReceiverId = jobPost.CompanyId ?? 0,
+                ReceiverId = claim.Id ,
             };
 
             await _unitOfWork.Notifcations.AddAsync(notification);
