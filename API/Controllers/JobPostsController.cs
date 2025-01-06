@@ -18,12 +18,11 @@ namespace API.Controllers
             _service = service;
         }
 
-        [Authorize(Roles = "Employer")]
-        [HttpPost]
-        public async Task<IActionResult> AddNewJobPostAsync(JobPostRequest request)
+        [HttpPost("testing")]
+        public async Task<IActionResult> CallPython()
         {
-            var resposne = await _service.AddNewJobPostAsync(request);
-            return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
+            var resposne = await _service.UpdateJobPostDataAsync();
+            return resposne.Equals("update-jobpost Success") ? Ok(resposne) : BadRequest(resposne);
         }
 
         [Authorize(Roles = "Employer, Manager, Admin")]
