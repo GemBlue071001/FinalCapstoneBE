@@ -23,6 +23,7 @@ namespace Infrastructure.Repositories
                .Include(x => x.Certificates)
                .Include(x => x.EducationDetails)
                .Include(x => x.Awards)
+               .Include(x=> x.CVs)
               
                .Where(x => x.Role == Role.JobSeeker); 
 
