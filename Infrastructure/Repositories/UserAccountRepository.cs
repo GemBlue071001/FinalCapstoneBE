@@ -113,7 +113,8 @@ namespace Infrastructure.Repositories
                .ThenInclude(x => x.SkillSet)
                .Include(x => x.EducationDetails)
                .Include(x => x.Certificates)
-               .Where(x => x.Role == Role.JobSeeker); ;
+               .Where(x => x.Role == Role.JobSeeker)
+               .Include(x => x.CVs); 
 
                 if (!string.IsNullOrEmpty(request.Keyword))
                 {
