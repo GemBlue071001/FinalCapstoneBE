@@ -24,6 +24,7 @@ using Application.Queues;
 using Hangfire.Storage.Monitoring;
 using System.Linq;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Net.NetworkInformation;
 
 namespace Application.Services
 {
@@ -840,7 +841,37 @@ namespace Application.Services
             return _mapper.Map<List<JobPostResponse>>(jobPosts);
         }
 
+        public async Task<ApiResponse> SoftDeleteJobPost(int id)
+        {
+            var jobPost = await _unitOfWork.JobPosts.GetAsync(x=>x.Id== id);
 
+            if (jobPost == null)
+            {
+                return new ApiResponse().SetBadRequest("Job Post Not Found");
+            }
+
+            jobPost.IsDeleted = true;
+
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ApiResponse().SetOk("Job Post Have Been soft delete !");
+        }
+
+        public async Task<ApiResponse> ActiveJobPost(int id)
+        {
+            var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == id);
+
+            if (jobPost == null)
+            {
+                return new ApiResponse().SetBadRequest("Job Post Not Found");
+            }
+
+            jobPost.IsDeleted = false;
+
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ApiResponse().SetOk("Job Post Have Been Activate again !");
+        }
 
 
 

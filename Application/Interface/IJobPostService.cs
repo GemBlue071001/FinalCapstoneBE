@@ -20,6 +20,8 @@ namespace Application.Interface
         Task ResetJobPostIdSequenceAsync();
         Task<ApiResponse> SearchJobIdsAsync(string query);
         Task<List<JobPostResponse>> FetchJobPostsByIdsAsync(List<int> ids);
+        Task<ApiResponse> SoftDeleteJobPost(int id);
+        Task<ApiResponse> ActiveJobPost(int id);
         Task<string> UpdateJobPostDataAsync();
 
 

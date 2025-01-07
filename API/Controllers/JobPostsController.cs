@@ -108,5 +108,20 @@ namespace API.Controllers
             var response = await _service.SearchJobIdsAsync(searchJobIdsQueryRequest.Query);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+
+
+        [HttpDelete("Soft")]
+        public async Task<IActionResult> SoftDeleteJobIdsAsync(int id)
+        {
+            var response = await _service.SoftDeleteJobPost(id);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpPut("Activate")]
+        public async Task<IActionResult> Activate(int id)
+        {
+            var response = await _service.ActiveJobPost(id);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
     }
 }
