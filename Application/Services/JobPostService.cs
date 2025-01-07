@@ -357,16 +357,35 @@ namespace Application.Services
         {
             try
             {
+                var jobPosts = new List<JobPost>();
 
-                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x=>x.IsDeleted == isDelete, x => x.Include(x => x.Company)
-                                                                                  .Include(x => x.JobLocations)
-                                                                                        .ThenInclude(x => x.Location)
-                                                                                  .Include(x => x.JobType)
-                                                                                  .Include(x => x.JobSkillSets)
-                                                                                        .ThenInclude(x => x.SkillSet)
-                                                                                   .Include(x => x.JobPostBenefits)
-                                                                                        .ThenInclude(x => x.Benefit)
-                                                                                   .Include(x => x.JobLocations));
+
+                if (isDelete)
+                {
+                    jobPosts = jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null, x => x.Include(x => x.Company)
+                                                                                 .Include(x => x.JobLocations)
+                                                                                       .ThenInclude(x => x.Location)
+                                                                                 .Include(x => x.JobType)
+                                                                                 .Include(x => x.JobSkillSets)
+                                                                                       .ThenInclude(x => x.SkillSet)
+                                                                                  .Include(x => x.JobPostBenefits)
+                                                                                       .ThenInclude(x => x.Benefit)
+                                                                                  .Include(x => x.JobLocations));
+                }
+                else
+                {
+                    jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x => x.IsDeleted == isDelete, x => x.Include(x => x.Company)
+                                                                                 .Include(x => x.JobLocations)
+                                                                                       .ThenInclude(x => x.Location)
+                                                                                 .Include(x => x.JobType)
+                                                                                 .Include(x => x.JobSkillSets)
+                                                                                       .ThenInclude(x => x.SkillSet)
+                                                                                  .Include(x => x.JobPostBenefits)
+                                                                                       .ThenInclude(x => x.Benefit)
+                                                                                  .Include(x => x.JobLocations));
+                }
+
+               
 
                 //var jobPosts = await _unitOfWork.JobPosts.GetJobPostsAsync();
 

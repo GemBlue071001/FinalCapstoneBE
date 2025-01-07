@@ -160,12 +160,17 @@ namespace Infrastructure.Repositories
                     query = query.Where(x => x.JobPostBenefits.Any(benefit => request.Benefits.Any(b => benefit.Benefit.Name.ToLower().Contains(b.ToLower()))));
                 }
 
+                if (request.IsDelete == false)
+                {
+                    query = query.Where(x => x.IsDeleted == false);
+                }
+
                 // Apply pagination
                 var result = await query
                     .Skip((request.PageIndex - 1) * request.PageSize)
                     .Take(request.PageSize)
                     .OrderByDescending(x => x.ExpiryDate)
-                    .Where(x => x.ExpiryDate > DateTime.Now && request.IsDelete == x.IsDeleted)
+                    .Where(x => x.ExpiryDate > DateTime.Now)
                     .ToListAsync();
 
                 return result;
@@ -275,8 +280,13 @@ namespace Infrastructure.Repositories
                     query = query.Where(x => request.Experience >= x.ExperienceRequired);
                 }
 
+                if (request.IsDelete == false)
+                {
+                    query = query.Where(x => x.IsDeleted == false);
+                }
+
                 var result = await query.OrderByDescending(x => x.ExpiryDate)
-                                        .Where(x => x.ExpiryDate > DateTime.Now && request.IsDelete == x.IsDeleted)
+                                        .Where(x => x.ExpiryDate > DateTime.Now)
                                         .CountAsync();
 
                 return result;
