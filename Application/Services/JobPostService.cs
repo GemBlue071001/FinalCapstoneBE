@@ -142,12 +142,12 @@ namespace Application.Services
                     });
                 }
 
-                var companyLocation = await _unitOfWork.CompanyLocations.GetAsync(x=> x.Id == jobPostRequest.CompanyLocation);
+                var companyLocation = await _unitOfWork.CompanyLocations.GetAsync(x => x.Id == jobPostRequest.CompanyLocation);
                 if (companyLocation == null)
                 {
                     return new ApiResponse().SetBadRequest("CompanyLocation not found");
                 }
-                
+
                 /*if (jobPostRequest.LocationIds.Count != locations.Count)
                 {
                     return new ApiResponse().SetBadRequest("Location Id is invalid!");
@@ -186,10 +186,10 @@ namespace Application.Services
                 await _unitOfWork.JobLocations.AddAsync(jobLocation);
                 await _unitOfWork.SaveChangeAsync();
 
-                var jobPostToEmbed = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPost.Id);
+                //var jobPostToEmbed = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPost.Id);
 
-                var jobPostResponse = _mapper.Map<JobPostResponse>(jobPostToEmbed);
-                var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
+                //var jobPostResponse = _mapper.Map<JobPostResponse>(jobPostToEmbed);
+                //var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
 
                 // Call Hangfire to send emails after job post creation
                 //BackgroundJob.Enqueue<EmailJob>(emailJob => emailJob.SendEmailsToFollowers(jobPostRequest.CompanyId, jobPost.JobTitle));
@@ -199,10 +199,14 @@ namespace Application.Services
                     await service.SendEmailsToMatchingUsersAsync(jobPost);
                 });
 
+
+                await UpdateJobPostDataAsync();
+
+
                 return new ApiResponse().SetOk(new
                 {
                     JobPost = jobPost.Id,
-                    EmbeddingResponse = embeddingResponse
+                    //EmbeddingResponse = embeddingResponse
                 });
             }
             catch (Exception ex)
@@ -286,6 +290,48 @@ namespace Application.Services
             }
         }
 
+
+
+        public async Task<string> UpdateJobPostDataAsync()
+        {
+            // Prepare the data for embedding based on the jobPost object
+
+            // Call the embedding API (assuming it's an HTTP endpoint)
+
+            var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x => x.ExpiryDate > DateTime.Now, x => x.Include(x => x.Company)
+                                                                                  .Include(x => x.JobLocations)
+                                                                                        .ThenInclude(x => x.Location)
+                                                                                  .Include(x => x.JobType)
+                                                                                  .Include(x => x.JobSkillSets)
+                                                                                        .ThenInclude(x => x.SkillSet)
+                                                                                   .Include(x => x.JobPostBenefits)
+                                                                                        .ThenInclude(x => x.Benefit)
+                                                                                   .Include(x => x.JobLocations));
+
+            //var jobPosts = await _unitOfWork.JobPosts.GetJobPostsAsync();
+
+            var jobPostsResponse = _mapper.Map<List<JobPostResponse>>(jobPosts);
+            var payload = new
+            {
+                result = jobPostsResponse
+            };
+
+            // Serialize the payload to JSON
+            var jsonPayload = JsonConvert.SerializeObject(payload, Formatting.Indented);
+            using (var client = new HttpClient())
+            {
+                var response = await client.PostAsJsonAsync($"{_apiSettings.RootServerUrl}/update-jobpost", payload);
+                if (response.IsSuccessStatusCode)
+                {
+                    return "update-jobpost Success"; // Return the embedding result
+                }
+                else
+                {
+                    return "update-jobpost failed"; // Handle the error accordingly
+                }
+            }
+        }
+
         private async Task<string> GetJobPostEmbeddingAsync(JobPostResponse jobPostResponse)
         {
             // Prepare the data for embedding based on the jobPost object
@@ -320,7 +366,7 @@ namespace Application.Services
                                                                                         .ThenInclude(x => x.SkillSet)
                                                                                    .Include(x => x.JobPostBenefits)
                                                                                         .ThenInclude(x => x.Benefit)
-                                                                                   .Include(x=> x.JobLocations));
+                                                                                   .Include(x => x.JobLocations));
 
                 //var jobPosts = await _unitOfWork.JobPosts.GetJobPostsAsync();
 
@@ -449,7 +495,7 @@ namespace Application.Services
             ApiResponse response = new ApiResponse();
             try
             {
-                var jobPost = await _unitOfWork.JobPosts.GetAsync(x=> x.Id == jobPostId , x => x.Include(x => x.Company)
+                var jobPost = await _unitOfWork.JobPosts.GetAsync(x => x.Id == jobPostId, x => x.Include(x => x.Company)
                                                                                   .Include(x => x.JobLocations)
                                                                                         .ThenInclude(x => x.Location)
                                                                                   .Include(x => x.JobType)
@@ -635,10 +681,10 @@ namespace Application.Services
                 }
 
                 await _unitOfWork.SaveChangeAsync();
-                var jobPostToEmbed = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPost.Id);
+                //var jobPostToEmbed = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(jobPost.Id);
 
-                var jobPostResponse = _mapper.Map<JobPostResponse>(jobPostToEmbed);
-                var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
+                //var jobPostResponse = _mapper.Map<JobPostResponse>(jobPostToEmbed);
+                //var embeddingResponse = await GetJobPostEmbeddingAsync(jobPostResponse);
                 var jobPostAfterUpdate = await _unitOfWork.JobPosts.GetJobPostsByIdAsync(id);
 
 
@@ -648,6 +694,8 @@ namespace Application.Services
                     await service.SendEmailsToMatchingUsersAsync(jobPostAfterUpdate);
                 });
 
+                await UpdateJobPostDataAsync();
+
                 return new ApiResponse().SetOk("Update Success");
             }
             catch (Exception ex)
@@ -655,7 +703,7 @@ namespace Application.Services
 
                 return new ApiResponse().SetBadRequest($"Error: {ex.Message}. Inner: {ex.InnerException?.Message}");
             }
-            
+
         }
         public async Task<ApiResponse> GetAllJobPostPending()
         {
