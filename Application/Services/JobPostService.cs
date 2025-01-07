@@ -307,12 +307,12 @@ namespace Application.Services
         }
 
 
-        public async Task<ApiResponse> GetJobPostAsync()
+        public async Task<ApiResponse> GetJobPostAsync(bool isDelete)
         {
             try
             {
 
-                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(null, x => x.Include(x => x.Company)
+                var jobPosts = await _unitOfWork.JobPosts.GetAllAsync(x=>x.IsDeleted == isDelete, x => x.Include(x => x.Company)
                                                                                   .Include(x => x.JobLocations)
                                                                                         .ThenInclude(x => x.Location)
                                                                                   .Include(x => x.JobType)

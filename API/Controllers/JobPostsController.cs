@@ -51,9 +51,9 @@ namespace API.Controllers
         }
 
         [HttpGet("accept")]
-        public async Task<IActionResult> GetJobPostAsync()
+        public async Task<IActionResult> GetJobPostAsync(bool isDelete = false)
         {
-            var resposne = await _service.GetJobPostAsync();
+            var resposne = await _service.GetJobPostAsync(isDelete);
             return resposne.IsSuccess ? Ok(resposne) : BadRequest(resposne);
         }
 

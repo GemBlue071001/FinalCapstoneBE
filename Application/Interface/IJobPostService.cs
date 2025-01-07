@@ -8,7 +8,7 @@ namespace Application.Interface
     public interface IJobPostService
     {
         Task<ApiResponse> AddNewJobPostAsync(JobPostRequest jobPostRequest);
-        Task<ApiResponse> GetJobPostAsync();
+        Task<ApiResponse> GetJobPostAsync(bool isDelete);
         Task<ApiResponse> AddSkillSetToJobPost(JobPostSkillSetRequest jobPostSkillSetRequest);
         Task<ApiResponse> GetJobSeekerByJobPost(int jobPostId);
         Task<ApiResponse> GetJobPostById(int jobPostId);

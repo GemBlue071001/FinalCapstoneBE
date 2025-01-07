@@ -165,7 +165,7 @@ namespace Infrastructure.Repositories
                     .Skip((request.PageIndex - 1) * request.PageSize)
                     .Take(request.PageSize)
                     .OrderByDescending(x => x.ExpiryDate)
-                    .Where(x => x.ExpiryDate > DateTime.Now)
+                    .Where(x => x.ExpiryDate > DateTime.Now && request.IsDelete == x.IsDeleted)
                     .ToListAsync();
 
                 return result;
@@ -276,7 +276,7 @@ namespace Infrastructure.Repositories
                 }
 
                 var result = await query.OrderByDescending(x => x.ExpiryDate)
-                                        .Where(x => x.ExpiryDate > DateTime.Now)
+                                        .Where(x => x.ExpiryDate > DateTime.Now && request.IsDelete == x.IsDeleted)
                                         .CountAsync();
 
                 return result;

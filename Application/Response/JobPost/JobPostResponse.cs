@@ -22,6 +22,7 @@ namespace Application.Response.JobPost
         public string? ImageURL { get; set; }
         public bool IsActive { get; set; }
         public bool IsHot { get; set; }
+        public bool IsDeleted { get; set; }
         public Vector? Embedding { get; set; }
         //public UserResponse User { get; set; }
         public int CompanyId { get; set; }
