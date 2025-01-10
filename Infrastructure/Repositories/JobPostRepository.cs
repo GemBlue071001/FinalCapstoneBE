@@ -79,32 +79,6 @@ namespace Infrastructure.Repositories
                                              x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Keyword!.ToLower())));
                 }
 
-                //if (!string.IsNullOrEmpty(request.JobTitle))
-                //{
-                //    query = query.Where(x => x.JobTitle.ToLower().Contains(request.JobTitle.ToLower()));
-                //}
-
-                //if (!string.IsNullOrEmpty(request.Location))
-                //{
-                //    query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
-                //}
-
-                //if (!string.IsNullOrEmpty(request.City))
-                //{
-                //    query = query.Where(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.City.ToLower())));
-                //}
-
-                //if (!string.IsNullOrEmpty(request.CompanyName))
-                //{
-                //    query = query.Where(x => x.Company.CompanyName.ToLower().Contains(request.CompanyName.ToLower()));
-                //}
-
-                //if (!string.IsNullOrEmpty(request.SkillSet))
-                //{
-                //    query = query.Where(x => x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.SkillSet.ToLower())));
-                //}
-
-                // New array property checks
                 if (request.JobTypes != null && request.JobTypes.Any())
                 {
                     query = query.Where(x => request.JobTypes.Any(type => x.JobType.Name.ToLower().Contains(type.ToLower())));
@@ -167,10 +141,10 @@ namespace Infrastructure.Repositories
 
                 // Apply pagination
                 var result = await query
-                    .Skip((request.PageIndex - 1) * request.PageSize)
-                    .Take(request.PageSize)
                     .OrderByDescending(x => x.ExpiryDate)
                     .Where(x => x.ExpiryDate > DateTime.Now)
+                    .Skip((request.PageIndex - 1) * request.PageSize)
+                    .Take(request.PageSize)
                     .ToListAsync();
 
                 return result;
@@ -191,7 +165,9 @@ namespace Infrastructure.Repositories
                         .ThenInclude(x => x.Location)
                     .Include(jp => jp.Company)
                     .Include(jp => jp.JobSkillSets)
-                        .ThenInclude(jssk => jssk.SkillSet);
+                        .ThenInclude(jssk => jssk.SkillSet)
+                    .Include(jp => jp.JobPostBenefits)
+                        .ThenInclude(jp => jp.Benefit);
 
                 if (!string.IsNullOrEmpty(request.Keyword))
                 {
@@ -203,37 +179,6 @@ namespace Infrastructure.Repositories
                                              x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Keyword!.ToLower())));
                 }
 
-                //if (!string.IsNullOrEmpty(request.JobType))
-                //{
-                //    query = query.Where(x => x.JobType.Name.ToLower().Contains(request.JobType.ToLower()));
-                //}
-
-                //if (!string.IsNullOrEmpty(request.JobTitle))
-                //{
-                //    query = query.Where(x => x.JobTitle.ToLower().Contains(request.JobTitle.ToLower()));
-                //}
-
-                //if (!string.IsNullOrEmpty(request.Location))
-                //{
-                //    query = query.Where(x => x.JobLocations.Any(location => location.StressAddressDetail.ToLower().Contains(request.Location.ToLower())));
-                //}
-
-                //if (!string.IsNullOrEmpty(request.City))
-                //{
-                //    query = query.Where(x => x.JobLocations.Any(jl => jl.Location.City.ToLower().Contains(request.City.ToLower())));
-                //}
-
-                //if (!string.IsNullOrEmpty(request.CompanyName))
-                //{
-                //    query = query.Where(x => x.Company.CompanyName.ToLower().Contains(request.CompanyName.ToLower()));
-                //}
-
-                //if (!string.IsNullOrEmpty(request.SkillSet))
-                //{
-                //    query = query.Where(x => x.JobSkillSets.Any(skill => skill.SkillSet.Name.ToLower().Contains(request.SkillSet.ToLower())));
-                //}
-
-                // New array property checks
                 if (request.JobTypes != null && request.JobTypes.Any())
                 {
                     query = query.Where(x => request.JobTypes.Any(type => x.JobType.Name.ToLower().Contains(type.ToLower())));
@@ -279,15 +224,26 @@ namespace Infrastructure.Repositories
                 {
                     query = query.Where(x => request.Experience >= x.ExperienceRequired);
                 }
+                if (!string.IsNullOrEmpty(request.Benefit))
+                {
+                    query = query.Where(x => x.JobPostBenefits.Any(benefit => benefit.Benefit.Name.ToLower().Contains(request.Benefit.ToLower())));
+                }
+
+                if (request.Benefits != null && request.Benefits.Any())
+                {
+                    query = query.Where(x => x.JobPostBenefits.Any(benefit => request.Benefits.Any(b => benefit.Benefit.Name.ToLower().Contains(b.ToLower()))));
+                }
 
                 if (request.IsDelete == false)
                 {
                     query = query.Where(x => x.IsDeleted == false);
                 }
 
-                var result = await query.OrderByDescending(x => x.ExpiryDate)
-                                        .Where(x => x.ExpiryDate > DateTime.Now)
-                                        .CountAsync();
+                // Apply pagination
+                var result = await query
+                    .OrderByDescending(x => x.ExpiryDate)
+                    .Where(x => x.ExpiryDate > DateTime.Now)
+                    .CountAsync();
 
                 return result;
             }
